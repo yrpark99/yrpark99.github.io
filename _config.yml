@@ -16,10 +16,10 @@ minimal_mistakes_skin    : "air" # "air", "aqua", "contrast", "dark", "default",
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "Youngrok"
+title                    : "Youngrok's blog"
 title_separator          : "-"
-subtitle                 : "coding blog"
-name                     : "Youngrok's coding blog"
+subtitle                 : #
+name                     : "Youngrok's blog"
 description              : "blog site"
 url                      : "https://yrpark99.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -108,8 +108,8 @@ analytics:
 # Site Author
 author:
   name             : "Youngrok"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Software Engineer"
+  avatar           : "/assets/images/bio-photo.jpg"
+  bio              : "S/W Engineer"
   location         : "South Korea"
   email            :
   links:
@@ -196,9 +196,9 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 5 # amount of posts to show
+paginate: 10 # amount of posts to show
 paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Asia/Seoul
 
 
 # Plugins (previously gems:)
@@ -267,4 +267,4 @@ defaults:
       read_time: false
       comments: # true
       share: true
-      related: true
+      related: false
