@@ -2,6 +2,7 @@
 title: "GitHub 프로젝트"
 permalink: /project/
 layout: single
+author_profile: true
 ---
 
 - [Doxygen에서 PlantUML MindMap 지원](https://github.com/yrpark99/doxygen)

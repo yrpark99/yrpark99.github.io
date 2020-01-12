@@ -9,14 +9,14 @@ figure.highlight {
   background: $base00;
   color: $base05;
   font-family: $monospace;
-  font-size: $type-size-6;
-  line-height: 1.8;
+  font-size: $type-size-5;
+  line-height: 1.3;
   border-radius: $border-radius;
 
   > pre,
   pre.highlight {
-    margin: 0;
-    padding: 1em;
+    margin: 0.2em;
+    padding: 0.2em;
   }
 }
 

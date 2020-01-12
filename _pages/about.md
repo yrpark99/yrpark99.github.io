@@ -2,6 +2,7 @@
 title: "Youngrok's 블로그"
 permalink: /about/
 layout: single
+author_profile: true
 ---
 
 이 블로그는 개인용 코딩 관련 블로그입니다.  
