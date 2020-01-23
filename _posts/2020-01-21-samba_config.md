@@ -44,7 +44,7 @@ map archive = no
     force directory mode = 1775
     force group = group_name
 ```
-즉, 디렉토리 생성시 sticky bit를 세팅하고, 그룹에도 write 권한을 주는 것이 핵심이다.
+즉, 디렉토리 생성시 sticky bit를 세팅하고, 그룹에도 write 권한을 준다.
 
 ## 접속시 SMB 버전 제한하기
 SMBv2는 대용량 파일 복사시에 Linux 서버의 응답이 느려질 수 있다. 반면에 SMBv3는 (Windows10에서 지원) SMB direct 기능을 지원하여 이런 문제가 없으므로, 필요하면 SMBv3로만 접속을 제한할 수 있다.  
