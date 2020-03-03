@@ -9,8 +9,9 @@ Linux 커널 default config 관련
 
 ## Kernel config
 Kernel 소스 트리에서 arch/XXX/configs/ 디렉토리에 (XXX는 chip 아키텍쳐) xxx_defconfig 파일들이 있다.  
-이 default config 파일들은 최소한의 config 세팅으로, conf 실행 파일에 의해 이 파일과 Kconfig 정책에 따라 최종 사용될 .config 파일이 생성된다.  
-최종 사용되는 .config 파일은 자동으로 생성되는 파일이고, 수동으로 편집하면 대신에 menu config 등에 의해서 관리되어야 한다.
+이 default config 파일들은 최소한의 config 세팅으로, conf 실행 파일에 의해 이 파일과 Kconfig 정책에 따라 최종으로 사용될 .config 파일이 생성된다.  
+최종 사용되는 .config 파일은 자동으로 생성되는 파일이고, 수동으로 편집하는 대신에 menu config 등에 의해서 관리되어야 한다.  
+Default config 파일은 .config 파일에 비하여 소스 저장소로 관리하여 변경 이력을 보기에 더 낫고, Kernel 버전 변경 등에 따른 변화에도 변경 사항이 적다.
 
 ## Default config 이용하기
 아래 예와 같이 실행하면 arch/mips/configs/XXX_defconfig 파일을 base로 하여 .config 파일을 생성한다. (아래 예들은 MIPS 아키텍쳐로 하였으며, ARM64 아키텍쳐인 경우에는 `mips` 대신에 `arm64`로 대체하면 됨)
@@ -51,3 +52,17 @@ savedefconfig: $(obj)/conf
 scripts/kconfig/conf --savedefconfig=defconfig Kconfig
 ```
 결과로 scripts/kconfig/conf 실행 파일이 Kernel base 디렉토리에 `defconfig` 파일을 생성한다. 생성된 defconfig 파일을 원본 default config 파일에 overwrite 하거나 별도의 이름으로 (단, XXX_defconfig 형식이라야 함) 변경하여 arch/XXX/configs/ 경로에 저장하여 사용할 수 있다.
+
+## Makefile 예제
+Kernel 상위 경로에서 아래 예와 같이 Makefile을 작성하여 이용할 수 있겠다.
+```make
+# Default config 파일로 .config 파일을 생성한 후 빌드
+all:
+    $(MAKE) -C $(KERNEL_DIR) arch=mips my_defconfig
+    $(MAKE) -C $(KERNEL_DIR)
+
+# 현재 .config 파일로 default config 파일 업데이트
+update_config:
+    $(MAKE) -C $(KERNEL_DIR) arch=mips savedefconfig
+    $(CP) $(KERNEL_DIR)/defconfig $(KERNEL_DIR)/arch/mips/configs/my_defconfig
+```
