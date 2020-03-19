@@ -141,7 +141,7 @@
   border-style: solid;
   cursor: text;
   border-width: 0.5em;
-  font-family: Consolas, Menlo, 'Bitstream Vera Sans Mono', monospace, 'Powerline Symbols';
+  font-family: 'D2 Coding', Consolas, Menlo, 'Bitstream Vera Sans Mono', monospace, 'Powerline Symbols';
   line-height: 1.3333333333em;
 }
 .asciinema-terminal .line {
@@ -171,10 +171,10 @@
   font-size: 12px;
 }
 .asciinema-terminal.font-medium {
-  font-size: 18px;
+  font-size: 16px;
 }
 .asciinema-terminal.font-big {
-  font-size: 24px;
+  font-size: 20px;
 }
 .asciinema-player .control-bar {
   width: 100%;
