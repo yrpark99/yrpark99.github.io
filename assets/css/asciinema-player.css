@@ -1,3 +1,4 @@
+@import url('http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css?family=D2 coding');
 .asciinema-player-wrapper {
   position: relative;
   text-align: center;
@@ -141,7 +142,7 @@
   border-style: solid;
   cursor: text;
   border-width: 0.5em;
-  font-family: 'D2 Coding', Consolas, Menlo, 'Bitstream Vera Sans Mono', monospace, 'Powerline Symbols';
+  font-family: D2Coding, 'D2 coding', Consolas, Menlo, 'Bitstream Vera Sans Mono', monospace, 'Powerline Symbols';
   line-height: 1.3333333333em;
 }
 .asciinema-terminal .line {
