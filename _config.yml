@@ -219,6 +219,10 @@ whitelist:
   - jekyll-include-cache
   - jekyll-remote-plantuml
 
+plantuml:
+  url:	 'http://www.plantuml.com/plantuml/png/{code}'
+  assets:  'images/plantuml/'
+
 
 # Archives
 #  Type
