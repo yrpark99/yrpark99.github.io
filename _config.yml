@@ -208,7 +208,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
-  - jekyll-remote-plantuml
+  # - jekyll-remote-plantuml
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -217,11 +217,11 @@ whitelist:
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
-  - jekyll-remote-plantuml
+  # - jekyll-remote-plantuml
 
-plantuml:
-  url:	 'http://www.plantuml.com/plantuml/png/{code}'
-  assets:  'images/plantuml/'
+# plantuml:
+#   url:	 'http://www.plantuml.com/plantuml/png/{code}'
+#   assets:  'images/plantuml/'
 
 
 # Archives
