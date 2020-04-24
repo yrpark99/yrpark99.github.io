@@ -5,14 +5,16 @@ toc: true
 toc_label: "이 페이지 목차"
 ---
 
-Linux Kernel에서 initrd와 initramfs 이미지 사용법을 정리한다.  
+Linux Kernel에서 initrd와 initramfs 이미지 사용법을 정리한다.
 
 ## rootfs
-Linux Kernel 자체는 monolitic 구조로 되어 있고, 부팅과 동작을 위해서는 rootfs(root 파일 시스템)가 필요하다. 이를 위해서 Kernel에서는 과거부터 initrd를 지원했고, v2.6부터는 향상된 initramfs를 지원한다.  
+Linux Kernel 자체는 monolitic 구조로 되어 있고, 부팅과 동작을 위해서는 rootfs(root 파일 시스템)가 필요하다. 이를 위해서 Kernel에서는 과거부터 initrd를 지원했고, v2.6부터는 향상된 initramfs를 지원한다.
+
 initrd는 disk가 아닌 RAM을 이용하여 disk drive를 구현한 것으로, 완전히 구색을 갖춘 블록 장치이며 고정 크기를 지니고 있다. 따라서 작은 inintrd를 사용하면 모든 필요한 rootfs를 넣을 수 없고 너무 크게 잡으면, 메모리를 쓸데없이 많이 사용하게 되는 단점이 있다.  
 initrd는 나중에 실제 사용될 파일 시스템을 부팅시키기 위하여 일시적으로 사용될 수 있지만, 스토리지가 없는 임베디드 시스템에서는 영구적인 rootfs가 될 수도 있다.
 
-initramfs는 간단히 말하면 initrd의 고정 크기, 메모리 점유의 단점을 해소한 것이다. (즉, 크기가 자동으로 관리되고 메모리가 해제됨)  
+initramfs는 간단히 말하면 initrd의 고정 크기, 메모리 점유의 단점을 해소한 것이다. (즉, 크기가 자동으로 관리되고 메모리가 해제됨)
+
 Embedded 제품들에서는 대부분 initrd를 사용하고 initramfs는 잘 사용되지 않고 있어서, initramfs 사용법에 대해서 간단히 정리해 보았다.
 
 ## initrd
@@ -38,6 +40,8 @@ initrd rootfs은 별도의 고정된 영역에 위치해야 하고, 부트로더
 
 ## initramfs
 initramfs는 rootfs 이미지가 initrd의 경우에는 별도의 영역을 사용하는 것과는 달리 Kernel 이미지에 통합되어 있으므로, downloader나 updater와 같이 주 파티션과 분리된 Linux Kernel을 기반으로 하는 간단한 애플리케이션을 구현하기에 편리하다.
+
+즉, initrd는 부트로더에서 rootfs를 램에 로딩하는 과정이 필요하지만, initramfs는 부트로더에서 이런 과정이 필요없이 바로 커널로 점프하면 된다.
 
 initramfs를 지원하기 위해서는 Kernel config에서 아래와 같이 세팅되어야 한다. (아래에서 `CONFIG_INITRAMFS_SOURCE`에 실제로 사용할 rootfs cpio 이미지 경로 또는 rootfs 디렉토리 경로를 절대 경로 또는 현재 Kernel 경로 대비한 상대 경로를 적어야 함, 통상 rootfs 디렉토리 경로를 상대 경로로 세팅하는 것이 편리하고, rootfs 디렉토리 구성은 initrd에서 사용하는 rootfs 디렉토리와 동일함)
 ```make
