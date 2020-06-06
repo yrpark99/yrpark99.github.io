@@ -67,3 +67,57 @@ $ make
 ```bash
 $ java -jar test.jar
 ```
+
+## 추가: SWT 프로젝트 예
+회사에서 사용하는 툴 중에서 소스 트리가 여러 하위 디렉트리로 구성되어 있고 소스 파일도 많은 SWT를 사용하는 툴이 있는데, 이것도 Eclipse에서의 빌드가 번거로워서 Makefile로 구성해 보았다. (실제로 소스를 수정할 일이 있어서 VSCode에서 소스 수정 및 디버깅/실행을 하였고, 최종 jar 파일을 생성하기 위해서 구성해 보았음)
+
+처음에는 각각의 java 파일을 빌드하는 것으로 접근하였는데 이것이 쉽지 않아서 (사실은 java 파일 빌드시 호출하는 패키지의 java 파일들도 빌드되는 바람에 전체 빌드 시간이 너무 오래 걸려서), 그냥 간단히 main 자바 파일을 이용하여 전체를 빌드하도록 구성하였다.  
+Makefile 내용은 아래와 같이 구성하였다. (실제로 자바 소스 파일들은 각 디렉토리 밑에 여러 다단계 하위 디렉토리로 구성되어 있는데, 아래와 같이 top 경로만 지정해주면 됨) 
+```makefile
+JAVAC = javac
+JAR = jar
+MKDIR = mkdir
+RM = rm -rf
+
+SRC_TOP = src
+OUT_TOP = bin
+LIB_DIR = lib
+
+TARGET = MyTool.jar
+MAIN_SRC = AppMain.java
+
+SRC_DIRS = \
+	src_dir1 \
+	src_dir2 \
+	src_dir3 \
+	src_dir4 \
+	org
+
+SRC_DIRS_PATH = $(addprefix $(SRC_TOP)/,$(SRC_DIRS))
+OUT_DIRS_PATH = $(addprefix $(OUT_TOP)/,$(SRC_DIRS))
+
+vpath %.java $(SRC_DIRS_PATH)
+vpath %.class $(OUT_DIRS_PATH)
+
+BUILD_FLAGS = $(addprefix -C $(OUT_TOP) ,$(SRC_DIRS)) $(OUT_TOP)/*.dll
+
+MAIN_CLASS = $(MAIN_SRC:.java=.class)
+
+all: $(MAIN_CLASS)
+	cd $(OUT_TOP) && $(JAR) xf ../$(LIB_DIR)/swt.jar
+	$(JAR) -cmf Manifest.mf $(TARGET) $(BUILD_FLAGS)
+	@echo "Build is done. Output file is $(TARGET)"
+
+clean:
+	@$(RM) $(OUT_TOP)/* $(TARGET)
+	@echo "Clean is done"
+
+%.class: %.java
+	$(JAVAC) -d $(OUT_TOP) -sourcepath $(SRC_TOP) -classpath $(LIB_DIR)/* $<
+```
+
+SWT를 사용하기 위하여 `swt.jar` 파일을 포함해야 하는데, jar 파일에서 다른 jar 파일을 포함시킬 수 없어서 swt.jar 파일을 압축을 푼 후, 이것을 포함시키도록 하였다(SWT DLL 파일들 포함).
+
+Manifest.mf 파일은 위의 예와 마찬가지로 Main-Class 항목에 `패키지명.메인클래스`와 같이 세팅하여 구성하였다.
+
+Make로 빌드하면 jar 파일이 만들어지고, 내용을 분석해보면 Eclipse에서 만든 것과 동일하게 구성되어 있었고, 실제로 실행을 해 보면 정상적으로 잘 실행이 되었다.

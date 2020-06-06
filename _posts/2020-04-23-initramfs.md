@@ -29,14 +29,19 @@ Kernel에서 할당하는 ram disk 크기는 아래 예와 같이 boot 아규먼
 ```make
 CONFIG_CMDLINE="root=/dev/ram0 rd_start=0x81000000 rd_size=0x2000000 console=ttyS0,115200"
 ```
-위 예에서는 `rd_start` 옵션으로 RAM offset을 0x81000000, `rd_size` 옵션으로 RAM disk 크기를 0x2000000(32MiB)로 설정하였다.
+위 예에서는 `rd_start` 옵션으로 RAM 시작 offset을 0x81000000, `rd_size` 옵션으로 RAM disk 크기를 0x2000000(32MiB)로 설정하였다.
+
+또는 Kernel 버전에 따라서, 아래 예와 같이 `initrd` 옵션으로 시작 RAM offset과 RAM disk 크기를, ramdisk_size 옵션으로 KiB 단위로 RAM disk 최대 크기를 설정할 수도 있다.
+```make
+CONFIG_CMDLINE="root=/dev/ram0 initrd=0x81000000,0x2000000 ramdisk_size=131072 console=ttyS0,115200"
+```
 
 결과로 arch/XXX/kernel/setup.c 파일의 init_initrd(), finalize_initrd() 함수에서 initrd_start, initrd_end 값이 세팅된다.
 > ramdisk_size 옵션은 KiB 단위로 RAM disk 크기를 세팅하는 옵션인데, rd_size 옵션이 있으므로 사실상 이건 세팅이 불필요함
 
 > 옵션으로 "rootfstype=squashfs ro" 예와 같이 rootfs 타입을 추가할 수 있으나, Kernel이 자동 디텍트하므로 사실상 불필요함
 
-initrd rootfs는 저장 장치의 고정된 영역에 위치해야 하고, 부트로더에서는 initrd rootfs 이미지를 위의 rd_start 값으로 정해진 주소에 로딩해 놓고, Kernel로 점프하면 정상적으로 부팅이 된다. (만약 rootfs 이미지가 압축이 되어 있다면 압축을 풀어서 메모리에 로딩해야 함)
+initrd rootfs는 저장 장치의 고정된 영역에 위치해야 하고, 부트로더에서는 initrd rootfs 이미지를 위의 rd_start 값으로 정해진 주소에 로딩해 놓고, Kernel로 점프하면 정상적으로 부팅이 된다. (만약 rootfs 이미지가 압축이 되어 있다면 압축을 풀어서 메모리에 로딩해야 함, 즉 Kernel이 인지하는 rootfs 포맷이라야 함, 예를 들어 squashfs 이미지는 "hsqs" signature로 시작되어야 함)
 
 ## initramfs
 initramfs는 rootfs 이미지가 initrd의 경우에는 별도의 영역을 사용하는 것과는 달리 Kernel 이미지에 통합되어 있으므로, downloader나 updater와 같이 주 파티션과 분리된 Linux Kernel을 기반으로 하는 간단한 애플리케이션을 구현하기에 편리하다.
