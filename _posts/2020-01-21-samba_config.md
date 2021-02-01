@@ -32,7 +32,7 @@ map archive = no
 ## 공유 디렉토리 환경 설정하기
 자신이 생성한 파일/디렉토리는 자신만이 삭제할 수 있는 환경 구성이 (다른 사용자가 생성한 디렉토리 안에서도 추가로 파일/디렉토리 생성은 가능) 목표이다.  
 디렉토리 생성시 sticky bit가 세팅되도록 samba 설정 파일(/etc/samba/smb.conf)에 아래 예와 같이 구성할 수 있다. (아래 예에서 그룹 이름은 group_name, base 디렉토리는 /home/public 임)
-```sh
+```ini
 [public]
     comment = public (for data share)
     path = /home/public
@@ -46,9 +46,23 @@ map archive = no
 ```
 즉, 디렉토리 생성시 sticky bit를 세팅하고, 그룹에도 write 권한을 준다.
 
+만약에 위 설정에서 로그인하지 않은 사용자는 읽기만 가능하고 write는 할 수 없게 하려면, 아래 예와 같이 **temp** 공유 디렉토리를 생성할 수 있다.
+```ini
+[temp]
+    comment = temporary (for temporary data share)
+    path = /home/temp
+    writeable = yes
+    browseable = yes
+    guest ok = yes
+    write list = @group_name
+    create mask = 644
+    force directory mode = 1775
+    force group = group_name
+```
+
 ## 접속시 SMB 버전 제한하기
 SMBv2는 대용량 파일 복사시에 Linux 서버의 응답이 느려질 수 있다. 반면에 SMBv3는 (Windows10에서 지원) SMB direct 기능을 지원하여 이런 문제가 없으므로, 필요하면 SMBv3로만 접속을 제한할 수 있다.  
 Samba 설정 파일(/etc/samba/smb.conf)의 `[global]` 섹션에 아래와 같이 추가하면 SMBv3 이상만 접속이 허가된다.
-```sh
+```ini
 client min protocol = SMB3
 ```

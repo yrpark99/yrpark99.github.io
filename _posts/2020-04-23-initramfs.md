@@ -19,20 +19,20 @@ Embedded 제품들에서는 대부분 initrd를 사용하고 initramfs는 잘 �
 
 ## initrd
 initrd를 지원하기 위해서는 Kernel config에서 아래와 같이 세팅되어야 한다.
-```make
+```makefile
 CONFIG_BLK_DEV_INITRD=y
 CONFIG_INITRAMFS_SOURCE=""
 ```
 
 Kernel은 initrd 이미지를 ramdisk로 마운트 한 후 (ramdisk device인 /dev/ram으로 복사, init/do_mounts_rd.c 파일의 rd_load_image() 함수 참조), linuxrc 또는 init 스크립트를 실행한다.  
 Kernel에서 할당하는 ram disk 크기는 아래 예와 같이 boot 아규먼트 또는 CONFIG_CMDLINE 항목에서 아래 예와 같이 설정할 수 있다.
-```make
+```makefile
 CONFIG_CMDLINE="root=/dev/ram0 rd_start=0x81000000 rd_size=0x2000000 console=ttyS0,115200"
 ```
 위 예에서는 `rd_start` 옵션으로 RAM 시작 offset을 0x81000000, `rd_size` 옵션으로 RAM disk 크기를 0x2000000(32MiB)로 설정하였다.
 
 또는 Kernel 버전에 따라서, 아래 예와 같이 `initrd` 옵션으로 시작 RAM offset과 RAM disk 크기를, ramdisk_size 옵션으로 KiB 단위로 RAM disk 최대 크기를 설정할 수도 있다.
-```make
+```makefile
 CONFIG_CMDLINE="root=/dev/ram0 initrd=0x81000000,0x2000000 ramdisk_size=131072 console=ttyS0,115200"
 ```
 
@@ -48,13 +48,13 @@ initramfs는 rootfs 이미지가 initrd의 경우에는 별도의 영역을 사�
 즉, initrd는 부트로더에서 rootfs를 램에 로딩하는 과정이 필요하지만, initramfs는 부트로더에서 이런 과정이 필요없이 바로 커널로 점프하면 된다.
 
 initramfs를 지원하기 위해서는 Kernel config에서 아래와 같이 세팅되어야 한다. (아래에서 `CONFIG_INITRAMFS_SOURCE`에 실제로 사용할 rootfs cpio 이미지 경로 또는 rootfs 디렉토리 경로를 절대 경로 또는 현재 Kernel 경로 대비한 상대 경로를 적어야 함, 통상 rootfs 디렉토리 경로를 상대 경로로 세팅하는 것이 편리하고, rootfs 디렉토리 구성은 initrd에서 사용하는 rootfs 디렉토리와 동일함)
-```make
+```makefile
 CONFIG_BLK_DEV_INITRD=y
 CONFIG_INITRAMFS_SOURCE="your_rootfs_path"
 ```
 
 그리고 CONFIG_CMDLINE 내용은 아래 예와 같이 세팅하면 된다. (즉, initrd 시에 세팅했던 내용에서 initrd 관련인 rd_start, rd_size 옵션을 제거하면 됨)
-```make
+```makefile
 CONFIG_CMDLINE="root=/dev/ram0 console=ttyS0,115200"
 ```
 

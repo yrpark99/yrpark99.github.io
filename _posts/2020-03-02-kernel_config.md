@@ -19,7 +19,7 @@ Default config 파일은 .config 파일에 비하여 소스 저장소로 관리�
 $ make ARCH=mips XXX_defconfig
 ```
 결과로 scripts/kconfig/Makefile 파일의 아래 내용이 실행된다.
-```make
+```makefile
 %_defconfig: $(obj)/conf
     $(Q)$< --defconfig=arch/$(SRCARCH)/configs/$@ $(Kconfig)
 ```
@@ -43,7 +43,7 @@ $ make menuconfig
 $ make ARCH=mips savedefconfig
 ```
 결과로 scripts/kconfig/Makefile 파일의 아래 내용이 실행된다.
-```make
+```makefile
 savedefconfig: $(obj)/conf
     $< --$@=defconfig $(Kconfig)
 ```
@@ -55,7 +55,7 @@ scripts/kconfig/conf --savedefconfig=defconfig Kconfig
 
 ## Makefile 예제
 Kernel 상위 경로에서 아래 예와 같이 Makefile을 작성하여 이용할 수 있겠다.
-```make
+```makefile
 # Default config 파일로 .config 파일을 생성한 후 빌드
 all:
     $(MAKE) -C $(KERNEL_DIR) arch=mips my_defconfig
