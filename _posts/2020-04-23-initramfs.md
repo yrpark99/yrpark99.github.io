@@ -10,10 +10,10 @@ Linux Kernel에서 initrd와 initramfs 이미지 사용법을 정리한다.
 ## rootfs
 Linux Kernel 자체는 monolitic 구조로 되어 있고, 부팅과 동작을 위해서는 rootfs(root 파일 시스템)가 필요하다. 이를 위해서 Kernel에서는 과거부터 initrd를 지원했고, v2.6부터는 향상된 initramfs를 지원한다.
 
-initrd는 disk가 아닌 RAM을 이용하여 disk drive를 구현한 것으로, 완전히 구색을 갖춘 블록 장치이며 고정 크기를 지니고 있다. 따라서 작은 inintrd를 사용하면 모든 필요한 rootfs를 넣을 수 없고 너무 크게 잡으면, 메모리를 쓸데없이 많이 사용하게 되는 단점이 있다.  
+<span style="color:blue">**initrd**</span>는 disk가 아닌 RAM을 이용하여 disk drive를 구현한 것으로, 완전히 구색을 갖춘 블록 장치이며 고정 크기를 지니고 있다. 따라서 작은 inintrd를 사용하면 모든 필요한 rootfs를 넣을 수 없고 너무 크게 잡으면, 메모리를 쓸데없이 많이 사용하게 되는 단점이 있다.  
 initrd는 나중에 실제 사용될 파일 시스템을 부팅시키기 위하여 일시적으로 사용될 수 있지만, 스토리지가 없는 임베디드 시스템에서는 영구적인 rootfs가 될 수도 있다.
 
-initramfs는 간단히 말하면 initrd의 고정 크기, 메모리 점유의 단점을 해소한 것이다. (즉, 크기가 자동으로 관리되고 메모리가 해제됨)
+<span style="color:blue">**initramfs**</span>는 간단히 말하면 initrd의 고정 크기, 메모리 점유의 단점을 해소한 것이다. (즉, 크기가 자동으로 관리되고 메모리가 해제됨)
 
 Embedded 제품들에서는 대부분 initrd를 사용하고 initramfs는 잘 사용되지 않고 있어서, initramfs 사용법에 대해서 간단히 정리해 보았다.
 
@@ -25,7 +25,7 @@ CONFIG_INITRAMFS_SOURCE=""
 ```
 
 Kernel은 initrd 이미지를 ramdisk로 마운트 한 후 (ramdisk device인 /dev/ram으로 복사, init/do_mounts_rd.c 파일의 rd_load_image() 함수 참조), linuxrc 또는 init 스크립트를 실행한다.  
-Kernel에서 할당하는 ram disk 크기는 아래 예와 같이 boot 아규먼트 또는 CONFIG_CMDLINE 항목에서 아래 예와 같이 설정할 수 있다.
+Kernel에서 할당하는 ram disk 크기는 아래 예와 같이 boot 아규먼트 또는 `CONFIG_CMDLINE` 항목에서 아래 예와 같이 설정할 수 있다.
 ```makefile
 CONFIG_CMDLINE="root=/dev/ram0 rd_start=0x81000000 rd_size=0x2000000 console=ttyS0,115200"
 ```

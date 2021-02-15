@@ -32,7 +32,7 @@ if __name__ == "__main__":
 ```
 혼자서 이 코드로 개발 및 테스트하는 데에는 아무런 문제가 없다. UI를 변경하려면 QtDesigner에서 수정하고, 이 결과로 나오는 ui 파일을 직접 이용하고 있기 때문이다.  
 문제는 PyInstaller로 단일 실행 파일을 만들 때 발생한다.  
-기존 방법에서는 우선 아래와 같이 ui 파일들을 pyuic5 툴로 파이썬 소스로 변환한다. (아래 예에서는 `UI_file_name.ui` 파일로 `UI_file_name_generated.py` 파일을 생성)
+기존 방법에서는 우선 아래와 같이 ui 파일들을 <span style="color:blue">**pyuic5**</span> 툴로 파이썬 소스로 변환한다. (아래 예에서는 `UI_file_name.ui` 파일로 `UI_file_name_generated.py` 파일을 생성)
 ```bash
 pyuic5 -x <UI_file_name.ui> -o <UI_file_name_generated.py>
 ```
@@ -55,10 +55,10 @@ if __name__ == "__main__":
     myWindow.show()
     app.exec_()
 ```
-위에서 보듯이 form_class 내용이 바뀌었다. 즉, PyInstaller로 deploy 파일을 생성할 때는 직접 UI 파일을 로딩하여 사용하는 대신에, 해당 파일을 파이썬으로 변환한 후 이를 사용하도록 소스 코드를 수정해야 하는 문제점이 있었다.
+위에서 보듯이 <span style="color:blue">form_class</span> 내용이 바뀌었다. 즉, PyInstaller로 deploy 파일을 생성할 때는 직접 UI 파일을 로딩하여 사용하는 대신에, 해당 파일을 파이썬으로 변환한 후 이를 사용하도록 소스 코드를 수정해야 하는 문제점이 있었다.
 
 ## 개선한 방법
-개선한 방법은 pyuic5 툴을 사용하지 않고, PyInstaller로 단일 실행 파일 생성시에 ui 파일을 포함시키는 것이다. PyInstaller 실행시에 아래 예와 같이 옵션을 주면 ui 파일들이 단일 실행 파일에 포함된다.
+개선한 방법은 pyuic5 툴을 사용하지 않고, <span style="color:blue">**PyInstaller**</span>로 단일 실행 파일 생성시에 ui 파일을 포함시키는 것이다. PyInstaller 실행시에 아래 예와 같이 옵션을 주면 ui 파일들이 단일 실행 파일에 포함된다.
 ```bash
 pyinstaller -F -w --add-data="*.ui;." <파이썬 파일명>
 ```
@@ -91,8 +91,8 @@ if __name__ == "__main__":
     myWindow.show()
     app.exec_()
 ```
-즉, resource_path 함수를 이용하여 PyInstaller 단독 실행 파일을 실행시에는 사용하는 임시 폴더의 경로(`sys._MEIPASS`)를 얻도록 하여 항상 올바른 ui 파일의 경로를 얻을 수 있었다.  
-그런데 위 방법은 실행 파일 압축 툴인 UPX가 설치되어 있지 않거나, pyinstaller 실행시 `--noupx` 옵션을 붙이면 잘 되지만, UPX를 사용하는 환경에서는 "ImportError: DLL load failed:"와 같은 콘솔 에러나, "Failed to execute script"와 같은 GUI 에러가 발생하였다.🤔  
+즉, <span style="color:blue">resource_path</span> 함수를 이용하여 PyInstaller 단독 실행 파일을 실행시에는 사용하는 임시 폴더의 경로(`sys._MEIPASS`)를 얻도록 하여 항상 올바른 ui 파일의 경로를 얻을 수 있었다.  
+그런데 위 방법은 실행 파일 압축 툴인 **UPX**가 설치되어 있지 않거나, pyinstaller 실행시 `--noupx` 옵션을 붙이면 잘 되지만, UPX를 사용하는 환경에서는 "ImportError: DLL load failed:"와 같은 콘솔 에러나, "Failed to execute script"와 같은 GUI 에러가 발생하였다.🤔  
 
 ## UPX 사용하기
 나같은 경우에는 UPX 툴이 PATH에 잡혀 있어서 PyInstaller 실행시 (디폴트로 UPX가 on 되어 있음, 명시적으로 off 시키려면 `--noupx` 옵션을 붙이면 되나, 이 경우 실행 파일 크기가 아주 커짐) UPX가 작동 되었다.  

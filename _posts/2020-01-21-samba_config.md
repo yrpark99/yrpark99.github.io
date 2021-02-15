@@ -8,24 +8,24 @@ toc_label: "이 페이지 목차"
 Windows에서 Linux를 samba로 연결시 설정 관련 팁을 공유한다.
 
 ## Symbolic link 동작되게 하기
-Samba 기본 설정에서는 Windows에서 Linux에서의 symbolic link가 동작하지 않는다. 즉, 디렉토리 이동이 되지 않는다.  
-Symbolic link가 동작되게 하려면 samba 설정 파일(/etc/samba/smb.conf)의 `[global]` 섹션에 아래 내용을 추가하면 된다.
-```sh
+Samba 기본 설정에서는 Windows에서 Linux에서의 symbolic link가 동작하지 않는다. 즉,  symbolic link된 디렉토리로 이동이 되지 않는다.  
+Symbolic link가 동작되게 하려면 samba 설정 파일(`/etc/samba/smb.conf`)의 `[global]` 섹션에 아래 내용을 추가하면 된다.
+```ini
 wide links = yes
 unix extensions = no
 ```
 
 ## Windows에서 파일/디렉토리 생성시 모드값
 사용자별 섹션에 아래 예와 추가하면 Windows에서 파일/디렉토리 생성시 Linux에서의 모드값이 세팅한대로 결정된다. (아래 예에서는 파일 생성시 모드값은 644(-rw-r--r--), 디렉토리 생성시 모드값은 755(drwxr-xr-x)로 세팅하였음)
-```sh
+```ini
 create mask = 644
 directory mask = 755
 ```
 
 ## Windows에서 수정시 실행 권한 추가 문제
-Samba 기본 설정에서는 Windows에서 파일을 수정하면 Linux에서 해당 파일에 실행(x) 권한이 추가된다. 이는 파일 모드가 변경되는 것으로 원하지 않는 결과인데, 원인은 Windows에서의 파일 속성 중에 archive 속성 때문이다.  
+Samba 기본 설정에서는 Windows에서 파일을 수정하면 Linux에서 해당 파일에 실행(eXecution) 권한이 추가된다. 이는 파일 모드가 변경되는 것으로 원하지 않는 결과인데, 원인은 Windows에서의 파일 속성 중에 archive 속성 때문이다.  
 Windows에서 파일을 수정해도 Linux에서 파일 모드가 변경되지 않게 하려면 samba 설정 파일(/etc/samba/smb.conf)의 `[global]` 섹션에 아래 내용을 추가하면 archive 속성이 무시되어 Windows에서 파일을 수정하더라도 실행 권한이 변경되지 않게 된다.
-```sh
+```ini
 map archive = no
 ```
 
