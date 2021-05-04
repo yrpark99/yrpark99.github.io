@@ -105,3 +105,14 @@ pyinstaller -F -w --add-data="*.ui;." --upx-exclude=msvcp140.dll --upx-exclude=v
 
 ## 결론
 위 개선된 방법을 사용함으로써 pyuic5 툴로 UI 파일을 파이썬 소스로 변환시킬 필요가 없어졌고, 파이썬 소스 코드에서 개발용과 PyInstaller deploy 용으로 같은 소스 코드를 그대로 사용할 수 있게 되었다.🍺
+
+## 다른 app 배포 방법
+Python을 단독 실행 파일로 만들면 실행시 압축을 푼 후 실행되므로 로딩 속도가 느리다. 대안으로 NSIS 툴을 이용하여 압축 되기 전에 상태로 설치를 하고 실행시키는 방법을 찾았다.  
+[NSIS](https://nsis.sourceforge.io/Download) 툴을 다운받아서 설치하고, 스크립트 작성을 위해 [HM NIS Edit](https://sourceforge.net/projects/hmne/) 툴도 다운받아서 설치한다.  
+예제로 아래와 같이 test.py 파일을 빌드해 보았다.
+```sh
+D:\>pyinstaller -w --noupx test.py
+```
+결과로 `dist/test/` 경로 밑에 디렉토리와 실행 파일이 생성된다.  
+HM NIS Edit를 실행시켜서 dist/test/ 디렉토리를 추가하여 스크립트를 생성한 후, `NSIS` 툴에서 이 스크립트를 컴파일하면 인스톨 프로그램으로 **Setup.exe** 파일이 생성된다. 이 Setup.exe 파일로 설치를 진행하면, 압축이 풀린 상태로 해당 프로그램이 설치되고 실행 프로그램에 대한 링크도 생성된다.  
+테스트해 본 결과, 기대대로 압축을 푸는 시간이 없어져서 로딩 속도가 그만큼 빨라졌다. 🙂

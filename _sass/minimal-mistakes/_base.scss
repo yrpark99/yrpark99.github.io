@@ -355,3 +355,8 @@ input[type="submit"],
   -webkit-transition: $global-transition;
   transition: $global-transition;
 }
+
+/* Table border */
+th, td {
+  border: 1px solid black;
+}
