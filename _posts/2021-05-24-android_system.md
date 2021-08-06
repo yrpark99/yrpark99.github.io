@@ -1,6 +1,6 @@
 ---
 title: "안드로이드 시스템 앱 설치 및 삭제"
-category: android
+category: Android
 toc: true
 toc_label: "이 페이지 목차"
 ---

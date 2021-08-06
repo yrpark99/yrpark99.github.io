@@ -1,6 +1,6 @@
 ---
 title: "안드로이드 앱에서 pre-built 라이브러리 사용하기"
-category: android
+category: Android
 toc: true
 toc_label: "이 페이지 목차"
 ---

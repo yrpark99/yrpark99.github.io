@@ -1,6 +1,6 @@
 ---
 title: "PyInstaller로 PyQt ui 파일 포함 시키기"
-category: python
+category: Python
 toc: true
 toc_label: "이 페이지 목차"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "MSYS2 설치"
-category: msys2
+category: MSys2
 toc: true
 toc_label: "이 페이지 목차"
 ---

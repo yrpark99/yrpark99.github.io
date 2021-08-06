@@ -1,6 +1,6 @@
 ---
 title: "자바 코드를 make로 빌드하기"
-category: java
+category: [Java, Make]
 toc: true
 toc_label: "이 페이지 목차"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "VSCode Hex ascii converter"
-category: vscode
+category: VSCode
 toc: false
 toc_label: "이 페이지 목차"
 ---

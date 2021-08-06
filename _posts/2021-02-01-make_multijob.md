@@ -1,6 +1,6 @@
 ---
 title: "make -j 옵션으로 하위 디렉토리를 multi-job 빌드하기"
-category: make
+category: Make
 toc: true
 toc_label: "이 페이지 목차"
 ---
