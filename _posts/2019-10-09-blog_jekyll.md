@@ -51,3 +51,6 @@ title: "포스팅 제목"
 
 마크다운 파일을 작성하여 GitHub에 올리면 GitHub IO 페이지에 반영된다.
 이 글은 이에 따라 작성한 첫 번째 포스팅 글이다.
+
+## Git이 없는 환경에서도 online으로 포스팅하기
+Git이 없는 환경에서 기존 포스팅 내용을 간단히 수정하는 경우에는 [Prose](http://prose.io/)를 이용하면 편하다. Prose 사이트에 접속하여 GitHub ID로 로그인한 후, 본인의 github.io를 선택하면 online 상에서 바로 수정을 할 수 있다.

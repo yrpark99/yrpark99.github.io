@@ -116,3 +116,12 @@ D:\>pyinstaller -w --noupx test.py
 결과로 `dist/test/` 경로 밑에 디렉토리와 실행 파일이 생성된다.  
 HM NIS Edit를 실행시켜서 dist/test/ 디렉토리를 추가하여 스크립트를 생성한 후, `NSIS` 툴에서 이 스크립트를 컴파일하면 인스톨 프로그램으로 **Setup.exe** 파일이 생성된다. 이 Setup.exe 파일로 설치를 진행하면, 압축이 풀린 상태로 해당 프로그램이 설치되고 실행 프로그램에 대한 링크도 생성된다.  
 테스트해 본 결과, 기대대로 압축을 푸는 시간이 없어져서 로딩 속도가 그만큼 빨라졌다. 🙂
+
+## 참고
+Pyinstaller 이용시 CLI 대신에 GUI를 이용하는 방법도 있다.  
+아래와 같이 `auto-py-to-exe` 패키지를 이용하면 GUI 환경에서 실행할 수 있게 해 준다.
+```sh
+pip install auto-py-to-exe
+auto-py-to-exe
+```
+또 Pyinstaller를 CLI를 사용하는 경우의 옵션도 알려주므로 필요시 편리하게 이용할 수 있다.
