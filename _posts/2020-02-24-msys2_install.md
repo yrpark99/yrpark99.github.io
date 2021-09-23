@@ -16,7 +16,11 @@ MSYS2 + MinGW 설치를 정리한다.
 물론 MinGW 설치 패키지를 이용하여 다른 패키지를 설치할 수도 있고, 이후 추가로 MSYS2를 설치하여 pacman을 이용할 수도 있는데, 이 포스팅에서는 MSYS2를 먼저 설치한 후에 pacman을 이용하여 MinGW 등 다른 패키지를 설치하는 방법을 정리한다.
 
 ## MSYS2 설치
-[MSYS2 홈페이지](https://www.msys2.org/)에 접속하여 x86_64 용 설치 파일을(32bit/64bit 모두 포함되었음) 다운 받아서, 다운받은 설치 파일을 실행하면 설치가 진행된다. (설치 과정은 너무나 간단하므로 생략)
+[MSYS2 홈페이지](https://www.msys2.org/)에 접속하여 x86_64 용 설치 파일을(32bit/64bit 모두 포함되었음) 다운 받아서, 다운받은 설치 파일을 실행하면 설치가 진행된다. (설치 과정은 너무나 간단하므로 생략)  
+또는 Windows app installer인 `winget`을 이용하여 아래와 같이 설치할 수 있다.
+```shell
+C:\>winget install MSYS2
+```
 
 ## MSYS2 shell 실행
 설치가 완료되면 mintty 쉘을 열 수 있다. (32bit/64bit 쉘을 각각 열 수 있는데, 이제 32bit Windows는 사실상 거의 사용되지 않으므로, 32bit 쉘을 쓸 일은 별로 없을 것 같다)  

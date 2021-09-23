@@ -14,7 +14,7 @@ Kernel 소스 트리에서 arch/XXX/configs/ 디렉토리에 (XXX는 chip 아키
 Default config 파일은 .config 파일에 비하여 소스 저장소로 관리하여 변경 이력을 보기에 더 낫고, Kernel 버전 변경 등에 따른 변화에도 변경 사항이 적다.
 
 ## Default config 이용하기
-아래 예와 같이 실행하면 arch/mips/configs/XXX_defconfig 파일을 base로 하여 .config 파일을 생성한다. (아래 예들은 MIPS 아키텍쳐로 하였으며, ARM64 아키텍쳐인 경우에는 `mips` 대신에 `arm64`로 대체하면 됨)
+아래 예와 같이 실행하면 arch/mips/configs/XXX_defconfig 파일을 base로 하여 .config 파일을 생성한다. (아래 예들은 MIPS 아키텍쳐로 하였으며, ARM64 아키텍쳐인 경우에는 `mips` 대신에 `arm64`와 같이 변경하면 됨)
 ```bash
 $ make ARCH=mips XXX_defconfig
 ```
@@ -33,7 +33,7 @@ scripts/kconfig/conf 실행 파일의 소스는 scripts/kconfig/conf.c 파일이
 ## 현재 config 수정하기
  이후 config를 수정하고 싶으면 아래 예와 같이 실행하여 수정하고 저장하면 .config 파일이 업데이트 된다.
  ```bash
-$ make menuconfig
+$ make ARCH=mips menuconfig
 ```
 
 ## Default config 생성하기
