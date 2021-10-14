@@ -73,7 +73,7 @@ def unlock():
     adb_cmd("adb shell input keyevent 82") # KEYCODE_MENU
     time.sleep(0.2)
     screenshot(fileName)
-    x, y = get_image_position("images/pin_enter.png", f"{fileName}")
+    x, y = get_image_position("images/pin_input.png", f"{fileName}")
     os.remove(fileName)
     if (x > 500 and x < 600 and y > 700 and y < 800): # check if PIN code popup
         adb_cmd("adb shell input text 7878") # Enter my PIN code
@@ -98,9 +98,13 @@ request_food_ticket()
 ```
 > 참고로 위 소스는 최대한 간단히 하기 위하여, 내 환경에서만 테스트 하였고 예외 상황에 대한 고려도 하지 않았다. 또, ADB로 화면 스크롤도 가능하지만 나의 경우에는 스크롤이 필요하지 않아서 위의 소스에서는 뺐다.
 
+## PIN 입력 화면
+./images/pin_input.png 파일은 아래와 같이 PIN 입력을 캡쳐한 사진이다.
+<p><img src="/assets/images/pin_input.png"></p>
+
 ## Windows 스케줄러 생성
 식권대장 앱은 특정 시간대에만 식권 신청이 가능한데, 위 예제 코드는 시간 검사를 하는 코드가 없다.  
-이를 위해서 Windows에서 스케줄러를 만들어서 근무 요일(월 ~ 금)의 특정 시간대에 위 코드를 실행하도록 하니, 기대대로 앱 동작이 자동화되었다. 🍕  
+이를 위해서 Windows에서 스케줄러를 (`taskschd.msc` 실행) 만들어서 근무 요일(월 ~ 금)의 특정 시간대에 위 코드를 실행하도록 하니, 기대대로 앱 동작이 자동화되었다. 🍕  
 물론 년차로 쉬는 날에는 회사 컴퓨터에 폰이 연결되지 않은 상태이므로, 년차인 날에 식권이 자동으로 신청되는 불상사는 일어나지 않는다.
 
 ## 결론
