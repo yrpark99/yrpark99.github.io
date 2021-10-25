@@ -60,9 +60,9 @@ build_image   latest    0d04150164f9   14 seconds ago  493MB
 ```
 
 ## Docker 컨테이너 생성
-Docker 이미지가 생성되었으므로, 이제 아래 예와 같이 **build_container** 이름의 Docker 컨테이너를 생성할 수 있다. (아래 예에서는 빌드에 사용할 디렉토리로 **project**를 공유하였고, 호스트의 `/etc/hosts` 파일을 그대로 사용하기 위해서 호스트 네트워크를 사용하게 했음)
+이제 **build_image** 이름의 Docker 이미지가 생성되었으므로, 아래 예와 같이 **build_container** 이름의 Docker 컨테이너를 생성할 수 있다. (아래 예에서는 빌드에 사용할 디렉토리로 **project**를 공유하였고, 호스트의 `/etc/hosts` 파일을 그대로 사용하기 위해서 호스트 네트워크를 사용하게 했음. 물론 이 방법 대신에 `--add-host` 옵션을 이용하여 원하는 alias와 IP를 추가해도 됨)
 ```shell
-$ docker run --name build_container -it -v /home/$USER/project/:/project/ --net=host build_image
+$ docker run --name build_container -it -v /home/$USER/project/:/project/ -v /opt/nfs/:/opt/nfs/ --net=host build_image
 ```
 
 결과로 Docker 컨테이너가 생성된 후에 자동으로 실행되고, 컨테이너의 shell 프롬프트가 표시된다.  

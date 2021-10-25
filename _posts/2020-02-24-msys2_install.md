@@ -1,11 +1,11 @@
 ---
 title: "MSYS2 설치"
-category: MSys2
+category: Windows
 toc: true
 toc_label: "이 페이지 목차"
 ---
 
-MSYS2 + MinGW 설치를 정리한다.
+Windows에서 MSYS2 + MinGW 설치 및 간단한 사용법을 정리한다.
 
 ## MSYS2 소개
 **MSYS2**는 Windows에서 gcc 등으로 작성된 소스를 빌드하거나 Linux 배시 파일 등을 실행시킬 때 유용하다. 나는 오래 전에는 이를 위해 Cygwin을 주로 사용되었으나, MSYS가 더 편리하여 MSYS로 넘어온지 오래되었고, 주로 MinGW의 gcc를 사용하여 Windows 프로그램을 빌드하는데 사용하였다.  
