@@ -33,7 +33,7 @@ toc_label: "이 페이지 목차"
    ```ini
    eula=true
    ```
-   이제 다시 실행시켜 보면 정상적으로 실행되는 것을 확인할 수 있다. (실행하는 `java.exe`이 Windows Defender 방화벽에서 차단되었다는 팝업이 뜨면 액세스 허용을 해 준다)  
+   이제 다시 실행시켜 보면 정상적으로 실행되는 것을 확인할 수 있다. (실행하는 `java.exe` 파일이 Windows Defender 방화벽에서 차단되었다는 팝업이 뜨면 액세스 허용을 해 준다)  
    서버 프로그램이 실행된 디렉토리를 확인해 보면 많은 파일과 디렉토리가 생성되어 있는데, 이 중에서 **server.properties** 파일이 설정 파일이고, **plugins** 디렉토리가 플러그인을 위치시키는 곳이다.
 1. 더이상 console은 필요하지 않으므로 (GUI로도 동일한 작업을 할 수 있음) 편의상 서버를 구동시킬 server_start.bat 파일을 아래 내용과 같이 작성한다.
    ```shell
@@ -50,7 +50,7 @@ toc_label: "이 페이지 목차"
    ```
 1. 게임 모드에는 adventure, creative, spectator, survival이 있는데, 아래와 같이 `gamemode` 명령으로 설정할 수 있다.
    ```ini
-   gamemode [모드] [플레이어명]
+   gamemode [모드]
    ```
 1. 외부에서도 내 서버에 접속할 수 있게 하려면 마인크래프트가 사용하는 포트가 방화벽에서 허용되어야 한다. 포트 번호는 서버 프로그램의 `server.properties` 파일에서 **server-port** 값을 보면 되는데, 모든 마인크래프트 서버 프로그램들은 아래와 같이 디폴트로 <font color=green>25565</font> 포트를 사용하는 것 같다.
    ```ini
@@ -64,7 +64,14 @@ toc_label: "이 페이지 목차"
      ```
    - 또는 [You get signal](https://www.yougetsignal.com/tools/open-ports/) 웹페이지에 접속해서 확인할 수 있다.
 
-## 마인크래프트 플러그인 개발 방법
+## 마인크래프트 기본 key
+- 이동: **W, A, S, D**
+- 인벤토리 확인: **E**
+- 명령어창 열기: **/**
+- 디버그 정보 출력: **F3**
+- 도구 타입 출력: **F3 + H**
+
+## 플러그인 개발 방법
 1. 플러그인은 Java로 개발하고 Jar 파일로 만들어져야 하므로, JDK 설치가 필요하다.  
 플러그인 개발시에는 JDK 8, 11, 16 버전 등에서 아무거나 사용해도 되는데, 위에서 마인크래프트 서버 프로그램 실행을 위해 이미 JDK를 설치했으므로, 이것을 그대로 사용해도 된다.
 1. Java로 코딩해야 하므로 Java 개발 환경을 사용하면 편리한데, 주로 IntelliJ나 Eclipse가 많이 사용되는 것 같고, 원하면 VSCode를 사용해도 된다.  
@@ -77,7 +84,7 @@ toc_label: "이 페이지 목차"
 Optional Settings 항목은 적지 않아도 무방하다.
 1. Project name에 생성할 디렉토리 이름을 적으면 자동으로 해당 디렉토리가 생성되고, 여기에 자동으로 기본 소스 파일들이 생성된다.
 1. 마인크래프트 서버 프로그램마다 API가 다르므로, 설치한 서버 프로그램의 API를 참조해야 한다. 예를 들어 Spigot 서버를 사용하는 경우에는 [Spigot 플러그인 API](https://hub.spigotmc.org/javadocs/spigot/) 페이지에서 확인할 수 있다.
-1. 아래 예와 같이 플러그인 코드를 작성하였다. (한글 인코딩은 UTF-8 사용, 마인크래프트 도구 타입은 게임 내에서 F3 + H 키를 눌러서 얻을 수 있음)
+1. 아래 예와 같이 플러그인 코드를 작성하였다. (한글 인코딩은 UTF-8 사용)
    ```java
    package yrpark99.test;
    import org.bukkit.Material;
@@ -128,7 +135,9 @@ Name에는 생성될 Jar 파일의 이름을 적는다.
 우측 **Available Elements** 항목 중에서 main 밑에 있는 **XXX compile output** 항목을 더블 클릭하면, 좌측의 **Output Layout**에 옮겨진다.  
 또 플러그인으로 인식되려면 Jar 파일이 <font color=blue>plugin.yml</font> 파일도 포함해야 하므로, **Output Layout**에 있는 `+ (Add Copy of)` 버튼을 눌러서 **Directory Content** 항목을 눌러서, plugin.yml 파일이 있는 디렉토리를 선택한다.
 1. 이제부터는 Jar 파일을 빌드하려면 메뉴에서 Build -> Build Artifacts 항목을 누르기만 하면 된다.
-1. 빌드된 Jar 파일을 서버 프로그램의 `plugins` 디렉토리에 복사하면 된다. 서버 프로그램이 실행 중인 상태이면 파일을 overwrite 한 후에, `reload` 명령을 실행시키면 모든 플러그인들이 재로딩 된다.
+1. 빌드된 Jar 파일을 서버 프로그램의 `plugins` 디렉토리에 복사하면 된다. 서버 프로그램을 실행시키면 아래 캡쳐와 같이 활성화 로그를 확인할 수 있다.
+   <p><img src="/assets/images/minecraft_server.png"></p>
+1. 참고로 서버 프로그램이 실행 중인 상태에서도 플러그인 Jar 파일을 overwrite 한 후에, `reload` 명령을 실행시키면 모든 플러그인들이 재로딩 된다.
 
 ## 플러그인에 커맨드 추가 예
 1. 추가로 플러그인에 커맨드를 추가해 보았다. (예로 **test** 명령)  
@@ -171,6 +180,7 @@ Name에는 생성될 Jar 파일의 이름을 적는다.
           getCommand("test").setExecutor(new TestCommand());
       }
       ```
+1. 이제 마인크래프트에서 **test** 명령을 실행할 때마다 인벤토리에 위 아이템들이 추가되는 것을 확인할 수 있다. (위의 예에서는 명령어로 파라미터를 받지 않았는데, 원하면 onCommand() 함수에서 **args[]** 변수로 뽑아서 처리할 수 있음)
 
 ## 결론
 마인크래프트 플러그인을 이용하면 쉽고 강력하게 입맛에 맞게 마인크래프트 서버를 구축할 수 있다. 본 글에서는 Windows에서의 예를 들었지만, Linux에서도 동일하게 구현할 수 있고, GCP 등을 이용해 상시 마인크래프트 서버를 구축할 수도 있겠다.
