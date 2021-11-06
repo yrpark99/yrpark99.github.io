@@ -77,16 +77,17 @@ toc_label: "이 페이지 목차"
 1. Java로 코딩해야 하므로 Java 개발 환경을 사용하면 편리한데, 주로 IntelliJ나 Eclipse가 많이 사용되는 것 같고, 원하면 VSCode를 사용해도 된다.  
 나는 [IntelliJ IDEA community 에디션](https://www.jetbrains.com/ko-kr/idea/download/)을 사용하였는데, IntelliJ IDEA에는 `Minecraft Development` 플러그인이 있어서 좀 더 편리한 환경을 만들어 주기 때문이다. IntelliJ IDEA를 설치한 후에, `Minecraft Development` 플러그인을 설치한다.
 1. IntelliJ IDEA를 실행한 후, Projects에서 "New Project" 버튼을 누른다. **Minecraft**를 선택하고, Project SDK 항목에서 설치한 JDK를 선택하고, 사용할 플러그인 종류를 선택한다. (예: Spigot Plugin)
-1. GroupId에 회사나 본인 이름을 적고, ArtifactId에 작성할 플러그인 이름을 적는다. (아래 예에서는 각각 **yrpark99**, **test** 이름을 사용하였음)  
+1. GroupId에 회사나 본인 이름을 적고, ArtifactId에 작성할 플러그인 이름을 적는다. (아래 예에서는 각각 **my**, **test** 이름을 사용하였음)  
 빌드 시스템에는 Maven 대신에 <font color=blue>Gradle</font>을 선택한다.  
 자동으로 플러그인 이름과 main class 이름이 나온다.  
 이후 사용할 Minecraft Version을 선택한다. (예: latest인 1.17.1)  
 Optional Settings 항목은 적지 않아도 무방하다.
 1. Project name에 생성할 디렉토리 이름을 적으면 자동으로 해당 디렉토리가 생성되고, 여기에 자동으로 기본 소스 파일들이 생성된다.
 1. 마인크래프트 서버 프로그램마다 API가 다르므로, 설치한 서버 프로그램의 API를 참조해야 한다. 예를 들어 Spigot 서버를 사용하는 경우에는 [Spigot 플러그인 API](https://hub.spigotmc.org/javadocs/spigot/) 페이지에서 확인할 수 있다.
-1. 아래 예와 같이 플러그인 코드를 작성하였다. (한글 인코딩은 UTF-8 사용)
+1. Test.java 파일을 아래 예와 같이 작성하였다. (한글 인코딩은 UTF-8 사용)
    ```java
-   package yrpark99.test;
+   package my.test;
+
    import org.bukkit.Material;
    import org.bukkit.entity.Player;
    import org.bukkit.event.EventHandler;
@@ -133,27 +134,38 @@ Optional Settings 항목은 적지 않아도 무방하다.
 1. Jar 파일을 빌드하기 위해서, 프로젝트를 선택하고 **Open Module Settings**를 눌러서, **Artifacts** 항목을 선택한 후, `+ (Add)` 버튼을 눌러서 JAR -> Empty를 선택한다.  
 Name에는 생성될 Jar 파일의 이름을 적는다.  
 우측 **Available Elements** 항목 중에서 main 밑에 있는 **XXX compile output** 항목을 더블 클릭하면, 좌측의 **Output Layout**에 옮겨진다.  
-또 플러그인으로 인식되려면 Jar 파일이 <font color=blue>plugin.yml</font> 파일도 포함해야 하므로, **Output Layout**에 있는 `+ (Add Copy of)` 버튼을 눌러서 **Directory Content** 항목을 눌러서, plugin.yml 파일이 있는 디렉토리를 선택한다.
+또 플러그인으로 인식되려면 Jar 파일이 <font color=blue>plugin.yml</font> 파일도 포함해야 하므로, **Output Layout**에 있는 `+ (Add Copy of)` 버튼을 눌러서 **Directory Content** 항목을 눌러서, plugin.yml 파일이 있는 디렉토리를 선택한다. (아래 캡쳐 참조)
+   <p><img src="/assets/images/minecraft_build.png"></p>
 1. 이제부터는 Jar 파일을 빌드하려면 메뉴에서 Build -> Build Artifacts 항목을 누르기만 하면 된다.
-1. 빌드된 Jar 파일을 서버 프로그램의 `plugins` 디렉토리에 복사하면 된다. 서버 프로그램을 실행시키면 아래 캡쳐와 같이 활성화 로그를 확인할 수 있다.
+1. 빌드된 Jar 파일을 서버 프로그램의 `plugins` 디렉토리에 복사하면 된다. 서버 프로그램을 실행시키면 아래 캡쳐와 같이 작성한 플러그인의 활성화 로그를 확인할 수 있다.
    <p><img src="/assets/images/minecraft_server.png"></p>
 1. 참고로 서버 프로그램이 실행 중인 상태에서도 플러그인 Jar 파일을 overwrite 한 후에, `reload` 명령을 실행시키면 모든 플러그인들이 재로딩 된다.
 
 ## 플러그인에 커맨드 추가 예
 1. 추가로 플러그인에 커맨드를 추가해 보았다. (예로 **test** 명령)  
-`plugin.yml` 파일에 아래 형식으로 명령을 추가한다. (아래에서 `명렁어이름` 부분을 **test**로 대체하면 됨. description, usage, aliases는 생략 가능)
+`plugin.yml` 파일에 아래 형식으로 명령을 추가한다. (아래에서 description, usage, aliases는 생략 가능)
    ```yml
    commands:
-       명령어이름:
+       test:
        description: 명령어 설명
        usage: 명령어 사용법
        aliases: [다른이름1, 다른이름2]
    ```
-1. 아래 예와 같이 TestCommand 클래스를 작성한다. (아래 예는 **test** 명령을 실행하면 인벤토리에 iron, gold, diamond를 정해진 개수만큼 넣어줌)
+1. 아래 예와 같이 **TestCommand.java** 파일을 작성한다. (소스 관리 편의상 별도의 파일로 분리하였음)
    ```java
+   package my.test;
+   
+   import org.bukkit.Material;
+   import org.bukkit.command.Command;
+   import org.bukkit.command.CommandExecutor;
+   import org.bukkit.command.CommandSender;
+   import org.bukkit.command.ConsoleCommandSender;
+   import org.bukkit.entity.Player;
+   import org.bukkit.inventory.ItemStack;
+   
    public class TestCommand implements CommandExecutor {
        @Override
-       public boolean onCommand(CommandSender sender, Command command, String label, String[] args) 
+       public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
            if(sender instanceof Player) {
                Player player = (Player)sender;
                player.sendMessage("테스트 명령어를 실행했어요");
@@ -173,14 +185,15 @@ Name에는 생성될 Jar 파일의 이름을 적는다.
        }
    }
    ```
-1. Main 클래스의 onEnable() 함수에 아래 내용을 추가한다.
-      ```java
-      @Override
-      public void onEnable() {
-          getCommand("test").setExecutor(new TestCommand());
-      }
-      ```
-1. 이제 마인크래프트에서 **test** 명령을 실행할 때마다 인벤토리에 위 아이템들이 추가되는 것을 확인할 수 있다. (위의 예에서는 명령어로 파라미터를 받지 않았는데, 원하면 onCommand() 함수에서 **args[]** 변수로 뽑아서 처리할 수 있음)
+   즉, 플레이어가 **test** 명령을 실행하면 해당 플레이어의 인벤토리에 iron, gold, diamond를 각각 10개, 20개, 30개씩 넣어준다.
+1. Test.java 파일에 있는 Main 클래스의 onEnable() 함수에 아래 내용을 추가한다.
+   ```java
+   @Override
+   public void onEnable() {
+       getCommand("test").setExecutor(new TestCommand());
+   }
+   ```
+1. Jar 파일 빌드 후에 **plugin** 디렉토리로 복사 및 reload를 하면, 이제 마인크래프트에서 **test** 명령을 실행할 때마다 인벤토리에 위 아이템들이 추가되는 것을 확인할 수 있다. (위의 예에서는 명령어로 파라미터를 받지 않았는데, 원하면 onCommand() 함수에서 **args[]** 변수로 뽑아서 처리할 수 있음)
 
 ## 결론
 마인크래프트 플러그인을 이용하면 쉽고 강력하게 입맛에 맞게 마인크래프트 서버를 구축할 수 있다. 본 글에서는 Windows에서의 예를 들었지만, Linux에서도 동일하게 구현할 수 있고, GCP 등을 이용해 상시 마인크래프트 서버를 구축할 수도 있겠다.
