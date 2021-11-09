@@ -154,7 +154,7 @@ Name에는 생성될 Jar 파일의 이름을 적는다.
 1. 아래 예와 같이 **TestCommand.java** 파일을 작성한다. (소스 관리 편의상 별도의 파일로 분리하였음)
    ```java
    package my.test;
-   
+
    import org.bukkit.Material;
    import org.bukkit.command.Command;
    import org.bukkit.command.CommandExecutor;
@@ -162,7 +162,7 @@ Name에는 생성될 Jar 파일의 이름을 적는다.
    import org.bukkit.command.ConsoleCommandSender;
    import org.bukkit.entity.Player;
    import org.bukkit.inventory.ItemStack;
-   
+
    public class TestCommand implements CommandExecutor {
        @Override
        public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
