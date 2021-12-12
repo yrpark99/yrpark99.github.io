@@ -1,7 +1,7 @@
 ---
 title: "명사들의 명언"
 category: 명언
-toc: true
+toc: false
 toc_label: "이 페이지 목차"
 ---
 
