@@ -13,31 +13,31 @@ toc_label: "이 페이지 목차"
 ## tab to space 변환 방법들
 1. Source code 에디터를 이용한 방법: 편리하긴 하지만, 보통 여러 개의 파일들을 일괄적으로 변환하는 기능은 없다.
 1. `sed` 명령어를 이용한 방법 (아래 예에서 space는 4개)  
-아래 형식으로 입력 파일을 변환시킬 수 있다. (`-i` 옵션을 사용하여 원본 파일을 replace 하게 함)
-```shell
-$ sed -i 's/\t/    /g' <file_name>
-```
-현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
-```shell
-$ find -name "*.c*" -exec sed -i 's/\t/    /g' {} \;
-$ find -name "*.h" -exec sed -i 's/\t/    /g' {} \;
-```
-그런데 이 방법은 모든 tab을 기계적으로 space 4개로 변환시키므로, 이전 소스 코드에서 칼럼에 맞추어 tab을 사용했던 경우에는 칼럼이 맞지 않게 되는 문제가 발생한다. (따라서 이 방법보다는 아래 방법을 추천)
+   아래 형식으로 입력 파일을 변환시킬 수 있다. (`-i` 옵션을 사용하여 원본 파일을 replace 하게 함)
+   ```shell
+   $ sed -i 's/\t/    /g' <file_name>
+   ```
+   현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
+   ```shell
+   $ find -name "*.c*" -exec sed -i 's/\t/    /g' {} \;
+   $ find -name "*.h" -exec sed -i 's/\t/    /g' {} \;
+   ```
+   그런데 이 방법은 모든 tab을 기계적으로 space 4개로 변환시키므로, 이전 소스 코드에서 칼럼에 맞추어 tab을 사용했던 경우에는 칼럼이 맞지 않게 되는 문제가 발생한다. (따라서 이 방법보다는 아래 방법을 추천)
 1. `expand`, `sponge` 명령을 이용한 방법 (아래 예에서 space는 4개)  
-아래 형식으로 입력 파일을 변환시킬 수 있다. (`sponge` 툴을 이용하여 원본 파일을 replace 하게 함)
-```shell
-$ expand -t 4 <file_name> | sponge <file_name>
-```
-현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
-```shell
-$ find -name "*.c*" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;
-$ find -name "*.h" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;
-```
-이 방법을 사용하면 위의 sed를 사용했을 때의 칼럼이 맞지 않는 문제가 해결되므로, 나는 이 방법을 사용하여 소스 코드들을 일괄 변환시켰다.
-> 만약 sponge 툴이 설치되어 있지 않은 상태이면, 아래와 같이 설치할 수 있다.
-```shell
-$ sudo apt install moreutils
-```
+   아래 형식으로 입력 파일을 변환시킬 수 있다. (`sponge` 툴을 이용하여 원본 파일을 replace 하게 함)
+   ```shell
+   $ expand -t 4 <file_name> | sponge <file_name>
+   ```
+   현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
+   ```shell
+   $ find -name "*.c*" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;
+   $ find -name "*.h" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;
+   ```
+   이 방법을 사용하면 위의 sed를 사용했을 때의 칼럼이 맞지 않는 문제가 해결되므로, 나는 이 방법을 사용하여 소스 코드들을 일괄 변환시켰다.
+   > 만약 sponge 툴이 설치되어 있지 않은 상태이면, 아래와 같이 설치할 수 있다.
+   ```shell
+   $ sudo apt install moreutils
+   ```
 1. 기타: 그 외에 awk나 전용 툴을 이용하는 방법도 있다.
 
 ## EditorConfig 설정
