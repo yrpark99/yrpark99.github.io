@@ -58,3 +58,17 @@ crownpeak/alpine-glibc   latest              144cc4c44885        2 years ago    
 ```
 
 다시 이것을 base 이미지로 하여 내 이미지를 빌드했더니 크기도 상응하게 줄었고, app도 정상적으로 동작하였다. 물론 alpine base이므로 shell도 잘 실행이 되었다. 몇 시간의 삽질 끝에 배포 이미지 크기가 엄청나게 줄어서 만족한다.😛
+
+## DockerSlim 이용
+최근에 이 툴을 알게 되어 간단히 코멘트를 추가한다. [DockerSlim](https://github.com/docker-slim/docker-slim) 페이지를 참조하여 자신의 환경에 맞게 해당 툴을 설치한다.  
+나는 간단히 아래 방법으로 설치하였다.
+```bash
+$ curl -sL https://raw.githubusercontent.com/docker-slim/docker-slim/master/scripts/install-dockerslim.sh |sudo -E bash -
+```
+
+기존 Docker 이미지에 대하여 아래와 같이 실행하면 slim 이미지가 생성된다. (이름은 원래 이미지 이름에 `.slim`이 붙음)
+```bash
+$ docker-slim build <image_name>
+```
+
+GitHub 소스에 있는 examples로 간단히 테스트해 보니, 이미지 크기가 확연히 줄었고 컨테이너 실행도 정상적으로 되었다.
