@@ -72,8 +72,10 @@ insert_final_newline = false
     "files.autoGuessEncoding": true,
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
+    "editor.detectIndentation": false,
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
+    "editor.formatOnPaste": true,
     "[c]": {
         "files.trimTrailingWhitespace": true,
         "editor.insertSpaces": true,
