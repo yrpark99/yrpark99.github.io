@@ -66,7 +66,7 @@ toc_label: "이 페이지 목차"
    $ ssh -V
    ```
    Agent에 등록하는 방법은 `~/.ssh/config` 파일에 아래 내용을 추가하면 된다.
-   ```yaml
+   ```scala
    AddKeysToAgent yes
    ```
    이후부터는 다시 로그인해도 이제는 암호 입력없이 잘 됨을 확인할 수 있다. (사실 이 knowhow는 잘 알려져 있지 않아서, 보통은 위에서 언급한대로 키 생성시 암호를 입력하지 않는 방법을 많이 사용한다. 😛)
@@ -77,21 +77,16 @@ toc_label: "이 페이지 목차"
    $ ssh -i key_경로 user_id@host_addr
    ```
 1. 또는 `~/.ssh/config` 파일에 아래 예와 같이 세팅하면 된다. (아래 예에서는 `~/.ssh/` 디렉토리 밑에 호스트별로 디렉토리를 나누어서 키를 저장했음)
-   ```yaml
-   Host third_party_ssh
+   ```scala
+   Host third_party_server
        HostName third_party_ssh_addr
-       Port 29418
        User user_id
        IdentityFile ~/.ssh/third_party/id_rsa
    
-   Host github_personal
-       HostName github.com
-       User gituser1
-       IdentityFile ~/.ssh/github_personal/id_rsa
-
-   Host github_company
-       HostName github.com
-       User gituser2
-       IdentityFile ~/.ssh/github_company/id_rsa
+   Host project_server
+       HostName project_ssh_server_addr
+       User user_id
+       IdentityFile ~/.ssh/project_server/id_rsa
    ```
-   위와 같이 세팅한 후에는 위에서 세팅한 **Host** 이름으로 SSH 접속을 하면 지정된 키를 사용하게 접속하게 된다. 이부분 역시 모르는 개발자들이 많은데 공유와 이후 참조를 위하여 기록해 보았다.
+   위와 같이 세팅한 후에는 위에서 세팅한 **Host** 이름으로 SSH 접속을 하면 지정된 키를 사용하게 접속하게 된다. 위에서 지정되지 않은 나머지 서버들은 디폴트 SSH 키를 이용하여 접속한다.  
+   이부분 역시 모르는 개발자들이 많아서 공유와 이후 참조를 위하여 기록해 보았다.
