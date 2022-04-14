@@ -126,7 +126,7 @@ $ sudo rm /lib/ld.so.1 /lib/libc.so.6 /lib/libdl.so.2 /lib/libm.so.6 /lib/libpth
 <head>
   <link rel="stylesheet" type="text/css" href="/assets/css/asciinema-player.css"/>
 </head>
-<asciinema-player src="/assets/python_cross_build.cast" cols="134" rows="25" font-size="medium" poster="data:text/plain,\e[15;1H\e[1;33mPython cross-build 테스트 예"></asciinema-player>
+<asciinema-player src="/assets/cast/python_cross_build.cast" cols="134" rows="25" font-size="medium" poster="data:text/plain,\e[15;1H\e[1;33mPython cross-build 테스트 예"></asciinema-player>
 <script src="/assets/js/asciinema-player.js"></script>
 
 ## 타겟 시스템에 설치
