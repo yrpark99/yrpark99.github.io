@@ -1,6 +1,6 @@
 ---
 title: "GitHub 블로그 생성"
-category: Jekyll
+category: Markdown
 toc: true
 toc_label: "이 페이지 목차"
 ---
