@@ -82,11 +82,51 @@ toc_label: "이 페이지 목차"
        HostName third_party_ssh_addr
        User user_id
        IdentityFile ~/.ssh/third_party/id_rsa
-   
+
    Host project_server
        HostName project_ssh_server_addr
        User user_id
        IdentityFile ~/.ssh/project_server/id_rsa
    ```
    위와 같이 세팅한 후에는 위에서 세팅한 **Host** 이름으로 SSH 접속을 하면 지정된 user ID와 키를 사용하게 접속하게 된다. 위에서 지정되지 않은 나머지 서버들은 디폴트 SSH 키를 이용하여 접속한다.  
-   이부분 역시 모르는 개발자들이 많아서 공유와 이후 참조를 위하여 기록해 보았다.
+1. 참고로 SSH config 전체 도움말은 아래와 같이 실행하면 얻을 수 있다.
+   ```bash
+   $ man ssh_config
+   ```
+
+## 동일 서버에서 유저로 구분하기
+간혹 동일한 서버로 접속하지만 유저로 구분하여 다른 SSH key나 포트를 사용해야 하는 경우가 있다. 이 부분이 구글링했을 때 가장 찾기 힘들었는데 😓, 핵심은 `~/.ssh/config` 파일에서 <mark style='background-color: #dcffe4'>Match</mark> 키워드로 유저를 구분하는 것이다.
+1. 예를 들어 동일한 GitHub 서버이지만, 개인 ID로 사용하는 경우와 회사 ID로 사용하는 경우에 다른 key를 지정하려면 아래 예와 같이 할 수 있다. (아래 예에서는 개인 ID는 **personal_github_id**, 회사 ID는 **company_github_id**로 지정했음)
+   ```scala
+   # 개인 계정
+   Host github.com
+       HostName github.com
+       Match User personal_github_id
+       IdentityFile ~/.ssh/id_rsa_personal
+
+   # 회사 계정
+   Host github.com
+       HostName github.com
+       Match User company_github_id
+       IdentityFile ~/.ssh/id_rsa_company
+   ```
+1. 사내 방화벽에 의해 Git SSH 포트가 막혀 있어서, Git SSH 포트를 변경한 경우 (아래 예에서는 사내 Git 서버 주소를 **local.company.com**, 변경된 Git SSH 포트는 **2222**번 이라고 가정)
+   ```scala
+   Host local.company.com
+       HostName local.company.com
+       Match User git
+       Port 2222
+   ```
+   > 위에서 만약에 <mark style='background-color: #dcffe4'>Match</mark> 키워드를 사용하지 않으면, 물론 Git SSH 프로토콜은 정상 동작하지만, SSH 접속을 하는 경우에도 22번 대신에 2222번을 사용하게 되므로 이때는 실패하게 된다.
+
+   위와 같이 설정한 후에, 이제 아래 예와 같이 git clone을 해 보면 정상 동작한다.
+   ```shell
+   $ git clone git@local.company.com:your_git_url.git
+   ```
+   또, 아래 예와 같이 SSH 접속을 해 봐도 역시 정상적으로 동작한다.
+   ```shell
+   $ ssh local.company.com -l user_id
+   ```
+
+## 결론
+초기 개발 환경 셋업시 큰 비중을 차지하는 SSH 환경 셋업이지만, 잘 모르는 개발자들이 많아서 공유와 이후 참조를 위하여 기록해 보았다.
