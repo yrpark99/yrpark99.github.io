@@ -128,5 +128,15 @@ toc_label: "이 페이지 목차"
    $ ssh local.company.com -l user_id
    ```
 
+## Old SSH 버전의 서버 접속 이슈
+우분투 22.04는 OpenSSH v8.9가 설치되어 있는데, 여기에서 오래된 SSH 버전의 서버에 접속하니 "Unable to negotiate with XXX port 22: no matching host key type found. Their offer: ssh-rsa,ssh-dss"와 같은 에러 메시지가 발생하면서 실패하였다.  
+이는 SSH v8.8 이상에서는 디폴트로 RSA-SHA2 알고리즘을 사용하는데, 접속하려는 SSH 서버에서 이를 지원하지 않으면서 발생하는 문제이다.  
+물론 SSH 서버에서 OpenSSH 버전을 업데이트하면 쉽게 해결되지만, 내가 관리할 수 없는 서버라면 대안으로 클라이언트의 `~/.ssh/config` 파일에서 SSH 서버에 대하여 아래 예와 같이 설정하면 된다.
+```scala
+Host xxx.yyy.zzz
+    HostkeyAlgorithms +ssh-rsa
+    PubkeyAcceptedKeyTypes +ssh-rsa
+```
+
 ## 결론
 초기 개발 환경 셋업시 큰 비중을 차지하는 SSH 환경 셋업이지만, 잘 모르는 개발자들이 많아서 공유와 이후 참조를 위하여 기록해 보았다.

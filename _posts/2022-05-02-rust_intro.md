@@ -45,10 +45,8 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
    [Platinum Searcher](https://github.com/monochromegane/the_platinum_searcher)와 함께 내가 주로 사용하는 검색 툴이다.
 
 * [Tauri](https://github.com/tauri-apps/tauri)  
-   [Electron](https://github.com/electron/electron)과 같은 desktop Web application 프레임워크인데, Rust로 작성되어 Electron보다 크기는 작고 속도는 빠르다. 앞으로 이 프레임워크를 사용한 desktop application 들이 기대된다.
-
-* [Xplorer](https://xplorer.space/)  
-  Electron을 사용했었다가 Tauri로 변경되었다. 파일 탭과 preview 등의 기능을 지원하는 파일 탐색기이다.
+   [Electron](https://github.com/electron/electron)과 같은 desktop Web application 프레임워크인데, Rust로 작성되어 Electron보다 크기는 작고 속도는 빠르다.  
+   [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri) 페이지에 들어가 보면 Tauri를 사용한 앱 등을 확인할 수 있다. 예를 들어 [Xplorer](https://xplorer.space/) 앱은 처음에는 Electron을 사용했었다가 이후 Tauri로 변경되었는데, 파일 탭과 preview 등의 기능을 지원하는 파일 탐색기이다.  
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)
