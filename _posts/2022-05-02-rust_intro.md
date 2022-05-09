@@ -14,6 +14,7 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Rust 홈페이지](https://www.rust-lang.org/): 툴체인 설치, 문서, 툴, [Playground](https://play.rust-lang.org/) 등
 * [GitHub Rust](https://github.com/rust-lang/rust): Rust 개발 소스 저장소
 * [Rust awesome](https://github.com/awesome-rust-com/awesome-rust): Rust를 사용한 엄선된 프로그램들 목록
+* [crates.io](https://crates.io/): Rust 커뮤니티 패키지
 
 ## Rust로 개발된 툴 소개
 * [bat](https://github.com/sharkdp/bat)  
@@ -21,6 +22,9 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 
 * [bottom](https://github.com/ClementTsang/bottom)  
    [btop](https://github.com/aristocratos/btop)과 비슷하게 시스템 리소스 관련 정보를 모니터링하는 툴이다.
+
+* [delta](https://github.com/dandavison/delta)  
+   Git diff 등의 명령시에 side-by-side view, syntax-highlighting 등의 기능을 제공한다.
 
 * [exa](https://github.com/ogham/exa)  
    `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래와 같이 alias를 세팅하여 사용하면 편리하다. 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 주면 된다.

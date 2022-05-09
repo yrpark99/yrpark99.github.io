@@ -110,10 +110,10 @@ a:link {
 
 /* blockquote */
 blockquote {
-	margin: 0px;
-	padding: 0 5px 0 5px;
-	border-left: 5px solid;
-	background: rgba(127, 127, 127, 0.1);
+    margin: 0px;
+    padding: 0 5px 0 5px;
+    border-left: 5px solid;
+    background: rgba(127, 127, 127, 0.1);
     border-color: rgba(0, 122, 204, 0.5);
 }
 
@@ -145,8 +145,8 @@ pre {
     padding: 5px;
     text-align: left;
     overflow-x: auto;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 
 code {
