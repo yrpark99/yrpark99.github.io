@@ -8,7 +8,9 @@ toc_label: "이 페이지 목차"
 최근 몇 년 사이에 가장 hot 한 언어 중의 하나인 [Rust](https://www.rust-lang.org/)를 간략히 소개한다.
 
 <br>
-Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 2010년 처음으로 일반에 공개되었고, 2012년에 첫 번째 알파 버전인 0.1이 발표되었고, 오픈 소스로 개발되고 있다. C언어와 마찬가지로 저수준 프로그래밍이 가능하며 적은 크기와 빠른 속도가 강점이고, 빌드 시에 메모리 오류 등을 방지해서 보다 안정적인 프로그램을 작성할 수 있다.
+Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 2010년 처음으로 일반에 공개되었고, 2012년에 첫 번째 알파 버전인 0.1이 발표되었고, 오픈 소스로 개발되고 있다. C언어와 마찬가지로 저수준 프로그래밍이 가능하며 적은 크기와 빠른 속도가 강점이고 (Garbage Collector가 없음), 빌드 시에 메모리 오류 등을 방지해서 보다 안정적인 프로그램을 작성할 수 있다.  
+<br>
+그리고 꼭 Rust로 개발하지는 않는다고 하더라도, Rust의 secure 프로그래밍 개념을 익히면 다른 언어로 개발할 때에도 도움이 될 수 있으므로, low 레벨도 다루는 프로그래머라면 관심을 가져보는 것을 추천한다. 👍
 
 ## 관련 웹페이지
 * [Rust 홈페이지](https://www.rust-lang.org/): 툴체인 설치, 문서, 툴, [Playground](https://play.rust-lang.org/) 등
@@ -18,7 +20,8 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 
 ## Rust로 개발된 툴 소개
 * [bat](https://github.com/sharkdp/bat)  
-   `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.
+   `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.  
+   참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
 
 * [bottom](https://github.com/ClementTsang/bottom)  
    [btop](https://github.com/aristocratos/btop)과 비슷하게 시스템 리소스 관련 정보를 모니터링하는 툴이다.
@@ -26,20 +29,28 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [delta](https://github.com/dandavison/delta)  
    Git diff 등의 명령시에 side-by-side view, syntax-highlighting 등의 기능을 제공한다.
 
+* [dua](https://github.com/Byron/dua-cli)  
+   `du` 툴을 대체할 수 있는 Disk Usage Analyzer 툴이다. 크기 순으로 소팅되며 색깔이 표시된다. 만약 실행시 `i` 옵션을 주면 interactive 모드로 동작한다.  비슷한 툴에는 Go로 구현된 [gdu](https://github.com/dundee/gdu) 툴 등이 있는데, `dua`의 속도가 더 빠르다.
+
 * [exa](https://github.com/ogham/exa)  
-   `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래와 같이 alias를 세팅하여 사용하면 편리하다. 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 주면 된다.
+   `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래와 같이 alias를 세팅하여 사용하면 편리하다.
    ```shell
    alias l='exa'
    alias ll='exa -lg --group-directories-first --sort=name --time-style=long-iso'
    alias llb='exa -lgB --group-directories-first --sort=name --time-style=long-iso'
    ```
+   추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다.
 
 * [fd](https://github.com/sharkdp/fd)  
    `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다.
 
+* [GitUI](https://github.com/Extrawurst/gitui)  
+   터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit) 등이 있는데, 대부분의 경우에 이것들보다 속도가 빠른 편이다.
+
 * [Helix](https://github.com/helix-editor/helix)  
-   [Kakoune](https://kakoune.org/), [NeoVim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 현재까지는 플러그인을 지원하지 않고 있으나 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
-   내가 Linux에서 Vim 대체용으로 NeoVim과 함께 주목하고 있는 에디터 중의 하나이다.
+   [Kakoune](https://kakoune.org/), [NeoVim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 단, 시스템에 [How to install the default language servers](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers) 페이지를 참조하여 사전에 해당 language server를 설치해 놓아야 한다.  
+   단점으로는 현재까지는 플러그인을 지원하지 않고 있으나 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
+   나는 Windows 환경에서는 주로 VSCode, Linux 터미널에서는 Vim을 대체하여 NeoVim을 사용하고 있는데, Helix는 NeoVim보다 훨씬 빠른 속도를 자랑해서 내가 주목하고 있는 에디터 중의 하나이다.
 
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
    Rust로 작성된 운영 체제이다.
@@ -50,7 +61,7 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 
 * [Tauri](https://github.com/tauri-apps/tauri)  
    [Electron](https://github.com/electron/electron)과 같은 desktop Web application 프레임워크인데, Rust로 작성되어 Electron보다 크기는 작고 속도는 빠르다.  
-   [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri) 페이지에 들어가 보면 Tauri를 사용한 앱 등을 확인할 수 있다. 예를 들어 [Xplorer](https://xplorer.space/) 앱은 처음에는 Electron을 사용했었다가 이후 Tauri로 변경되었는데, 파일 탭과 preview 등의 기능을 지원하는 파일 탐색기이다.  
+   추가로 [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri) 페이지에 들어가 보면 Tauri를 사용한 앱 등을 확인할 수 있다. 예를 들어 [Xplorer](https://xplorer.space/) 앱은 멀티 플랫폼 용 파일 탭과 preview 등의 기능을 지원하는 파일 탐색기인데, 처음에는 Electron을 사용했었다가 이후 빠른 속도를 위하여 Tauri로 변경되었다.
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)
@@ -139,6 +150,10 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
    ```shell
    $ cargo update
    ```
+1. 소스 코드 포매팅
+   ```shell
+   $ cargo fmt
+   ```
 1. 문서화
    아래 명령을 수행하면 문서를 생성하고, 브라우저로 문서를 오픈하게 된다.
    ```shell
@@ -150,7 +165,7 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
    ```shell
    $ cargo install -f cross
    ```
-   참고로 cross 툴체인은 미리 만들어진 <font color=blue>Dockerfile</font>을 사용하는데, 전체 Dockerfile 목록은 [이 페이지](https://github.com/cross-rs/cross/tree/main/docker) 에서 확인할 수 있다.
+   참고로 이 cross 툴체인은 미리 만들어진 <font color=purple>Dockerfile</font>을 사용하는데, 전체 Dockerfile 목록은 [이 페이지](https://github.com/cross-rs/cross/tree/main/docker) 에서 확인할 수 있다.
 1. 이후 해당 디렉토리에서 아래 예와 같이 빌드할 수 있다. (아래 예는 ARM64로 cross 빌드하는 예제)
    ```shell
    $ cross build --target aarch64-unknown-linux-gnu
