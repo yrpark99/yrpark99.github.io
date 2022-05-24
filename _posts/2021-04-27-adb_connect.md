@@ -21,27 +21,27 @@ toc_label: "이 페이지 목차"
 ## Ethernet으로 ADB 연결 및 끊기
 1. 개발 서버는 여러 명이 공용으로 사용하기 때문에 이들을 구분하여 연결하기 위해서는 각자의 안드로이드 디바이스에서 서로 다른 ADB 포트 번호를 사용해야 한다. (만약 지정하지 않으면 디폴트 포트 번호는 `5555`)  
 이를 위해 안드로이드 디바이스에서 <span style="color:red">su</span> 명령으로 root에 로그인한 후에, 아래 예와 같이 사용할 ADB 포트를 지정한다. (가능 범위는 `5555 ~ 5585` 사이의 홀수값)
-   ```sh
+   ```xml
    setprop service.adb.tcp.port <port>
    ```
    참고로 현재 세팅된 ADB 포트 번호는 아래와 같이 확인할 수 있다.
-   ```sh
+   ```xml
    getprop service.adb.tcp.port
    ```
 1. 이후 안드로이드 디바이스에서 아래와 같이 ADB 데몬을 재시작시킨다.
-   ```sh   
+   ```xml
    stop adbd
    start adbd
    ```
    결과로 USB 디버깅을 allow 하겠냐는 팝업이 뜨면 allow 시킨다. (최초 한 번만 등록되면 이후에는 팝업이 뜨지 않음)
 1. 이제 개발 서버에서 아래와 같이 `-s` 옵션으로 안드로이드 디바이스의 IP와 포트 번호를 주어 연결시킬 수 있다.
    ```sh
-	$ adb connect <ipaddr:port>
+   $ adb connect <ipaddr:port>
    ```
    ADB 연결된 디바이스 리스트들은 아래와 같이 얻을 수 있다. (아래에서는 디바이스 상세 정보를 보기 위하여 `-l` 옵션을 추가했음)
    ```sh
-	$ adb devices -l
-	```
+   $ adb devices -l
+   ```
    ADB 연결을 끊으려면 아래와 같이 하면 된다.
    ```sh
    $ adb disconnect <ipaddr:port>
@@ -50,7 +50,7 @@ toc_label: "이 페이지 목차"
 ## 기타 ADB 명령 예
 1. ADB shell은 아래와 같이 얻을 수 있다.
    ```sh
-	$ adb -s <ipaddr:port> shell
+   $ adb -s <ipaddr:port> shell
    ```
    또는 아래 형식으로 커맨드를 실행시킬 수도 있다.
    ```sh

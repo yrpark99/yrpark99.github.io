@@ -74,7 +74,7 @@ toc_label: "이 페이지 목차"
 ## 플러그인 개발 방법
 1. 플러그인은 Java로 개발하고 Jar 파일로 만들어져야 하므로, JDK 설치가 필요하다.  
 플러그인 개발시에는 JDK 8, 11, 16 버전 등에서 아무거나 사용해도 되는데, 위에서 마인크래프트 서버 프로그램 실행을 위해 이미 JDK를 설치했으므로, 이것을 그대로 사용해도 된다.
-1. Java로 코딩해야 하므로 Java 개발 환경을 사용하면 편리한데, 주로 IntelliJ나 Eclipse가 많이 사용되는 것 같고, 원하면 VSCode를 사용해도 된다.  
+1. Java로 코딩해야 하므로 Java 개발 환경을 사용하면 편리한데, 주로 IntelliJ나 Eclipse가 많이 사용되는 것 같고, 원하면 VS Code를 사용해도 된다.  
 나는 [IntelliJ IDEA community 에디션](https://www.jetbrains.com/ko-kr/idea/download/)을 사용하였는데, IntelliJ IDEA에는 `Minecraft Development` 플러그인이 있어서 좀 더 편리한 환경을 만들어 주기 때문이다. IntelliJ IDEA를 설치한 후에, `Minecraft Development` 플러그인을 설치한다.
 1. IntelliJ IDEA를 실행한 후, Projects에서 "New Project" 버튼을 누른다. **Minecraft**를 선택하고, Project SDK 항목에서 설치한 JDK를 선택하고, 사용할 플러그인 종류를 선택한다. (예: Spigot Plugin)
 1. GroupId에 회사나 본인 이름을 적고, ArtifactId에 작성할 플러그인 이름을 적는다. (아래 예에서는 각각 **my**, **test** 이름을 사용하였음)  

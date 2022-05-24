@@ -8,7 +8,8 @@ toc_label: "이 페이지 목차"
 LSP를 지원하는 편집기에서 C/C++ 소스 코드의 navigation 등을 위한 방법을 기술한다.  
 <br>
 
-특정 컴퓨터 언어를 사용하여 코딩 시에, 편집기에서 해당 언어의 문법 강조, 자동 완성, symbol로 jump 또는 peek, hover 도움말, 구문 에러 검사, 포매팅, 리팩토링 등의 기능을 이용하면 빠르고 쉽게 코딩할 수 있다. 그런데, 의외로 이런 기능들을 이용하지 않고 코딩을 하는 사람들도 많이 있어서 (이런 환경 구축에도 어려운 점이 있으므로), 기록 및 공유 차원에서 정리해 본다.  
+특정 컴퓨터 언어를 사용하여 코딩 시에, 편집기에서 해당 언어의 문법 강조, 자동 완성, symbol로 이동, symbol 찾기, hover 도움말, 구문 에러 검사, 포매팅, 리팩토링 등의 기능을 이용하면 빠르고 쉽게 코딩할 수 있다. 그런데, 의외로 이런 기능들을 제대로 이용하지 않고 (또는 일부만 이용하면서) 코딩을 하는 사람들도 많이 있어서 (이런 환경 구축에도 어려운 점이 있으므로), 기록 및 공유 차원에서 정리해 본다.  
+<br>
 LSP(Language Server Protocol)를 지원하는 편집기인 경우에는 위의 모든 기능들은 LSP 환경만 구축하면 쉽게 이용할 수 있다.
 
 ## LSP 소개
@@ -23,7 +24,7 @@ LSP(Language Server Protocol)는 Microsoft 사에서 개발한 프레임워크�
 <br>
 상세 내용은 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 페이지에서 찾아볼 수 있다.  
 <br>
-실제로 Visual Studio를 비롯하여 VSCode, NeoVim, Sublime Text, Helix 등이 LSP를 지원하고 있다. 이 중에서 유료인 Visual Studio를 제외한 나머지 편집기들에서 아래 방법을 사용하여 모두 정상적으로 LSP가 동작함을 확인하였고, 아래에서 간단히 정리하였다.
+실제로 Visual Studio를 비롯하여 VS Code, Neovim, Sublime Text, Helix 등이 LSP를 지원하고 있다. 이 중에서 유료인 Visual Studio를 제외한 나머지 편집기들에서 아래 방법을 사용하여 모두 정상적으로 LSP가 동작함을 확인하였고, 아래에서 간단히 정리하였다.
 
 ## C/C++ 용 language server
 C/C++를 위한 LSP를 사용하기 위해서는 시스템에 C/C++를 위한 language server가 설치되어 있어야 하는데, 여기에는 대표적으로 `clangd`, `ccls` 등이 있다.  
@@ -44,10 +45,10 @@ C/C++를 위한 LSP를 사용하기 위해서는 시스템에 C/C++를 위한 la
    $ clangd --version
    ```
 
-> ✅ VSCode와 같은 편집기는 자체적으로 language server를 설치하므로, 이런 경우에는 위와 같이 시스템에 별도로 language server를 설치할 필요가 없고, 간단히 해당 플러그인([C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))을 설치하기만 하면 된다.
+> ✅ VS Code와 같은 편집기는 자체적으로 language server를 설치하므로, 이런 경우에는 위와 같이 시스템에 별도로 language server를 설치할 필요가 없고, 간단히 해당 플러그인([C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))을 설치하기만 하면 된다.
 
 그런데 매크로를 지원하지 않는 언어에서는 간단하게 소스 navigation 등이 잘 되지만 C/C++는 매크로를 지원하고, 이로 인해 Makefile에 의한 define이나 include 경로가 복잡해 지는데, 이로 인해 정상적인 코드 navigation이 안 된다. 😵  
-💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VSCode처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=violet>(compile_commands.json)</font> 파일을 사용하면 된다.
+💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VS Code처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=violet>(compile_commands.json)</font> 파일을 사용하면 된다.
 
 ## Compilation database 파일 생성 방법
 Compilation DB 파일의 생성 방법은 빌드 시스템에 따라서 다른데, 아래에 많이 사용되는 빌드 시스템의 경우를 예시하였다.
@@ -105,7 +106,7 @@ CFLAGS += --sysroot=$(abspath $(shell $(CC) -print-sysroot))
 ```
 
 ## Vim 류에서 LSP 사용하기
-Vim, NeoVim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기로 특히 쉬운 설치와 빠른 속도가 강점이다.
+Vim, Neovim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기로 특히 쉬운 설치와 빠른 속도가 강점이다.
 이들은 시스템에 해당 언어의 툴체인과 language server를 설치해야 하는데, 위에서도 언급했듯이 C/C++의 경우에는 language server로 `clangd`를 설치하면 된다.  
 그러면 `compile_commands.json` 파일의 내용에 따라서 코드 navigation도 잘 되고, 자동 완성, 구문 에러 검사, refactoring 등의 기능도 잘 동작한다.
 1. [Vim](https://github.com/vim/vim)  
@@ -118,18 +119,18 @@ Vim, NeoVim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기
    ```c
    :CocInstall coc-clangd
    ```
-1. [NeoVim](https://github.com/neovim/neovim)  
-   NeoVim은 자체적으로 LSP를 지원하는데, [lspconfig](https://github.com/neovim/nvim-lspconfig) 플러그인을 함께 사용하면 편리하다.  
-   NeoVim 자체적으로 C/C++ 용 language server를 설치하려면 아래와 같이 실행하면 된다.
+1. [Neovim](https://github.com/neovim/neovim)  
+   Neovim은 자체적으로 LSP를 지원하는데, [lspconfig](https://github.com/neovim/nvim-lspconfig) 플러그인을 함께 사용하면 편리하다.  
+   Neovim 자체적으로 C/C++ 용 language server를 설치하려면 아래와 같이 실행하면 된다.
    ```c
    :LspInstall clangd
    ```
    추가로 [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) 플러그인을 설치하면 신택스 하이라이트가 좀 더 개선되어 표시된다.
    <br>
-   > 참고로 나는 LunarVim을 포크하여 [내 설정을 추가한 LunarVim](https://github.com/yrpark99/LunarVim)을 사용하고 있다. 이것 덕분에 다른 시스템에도 아주 쉽게 NeoVim으로 내 입맛에 맞춘 IDE like한 환경 구축을 할 수 있게 되었다.
+   > 참고로 나는 LunarVim을 포크하여 [내 설정을 추가한 LunarVim](https://github.com/yrpark99/LunarVim)을 사용하고 있다. 이것 덕분에 다른 시스템에도 아주 쉽게 Neovim으로 내 입맛에 맞춘 IDE like한 환경 구축을 할 수 있게 되었다.
 1. [Helix](https://github.com/helix-editor/helix)  
    Helix는 자체적으로 LSP를 지원하므로, 시스템에 해당 언어의 language server만 설치되면 된다. 예를 들어 C/C++인 경우에는 시스템에 `clangd`를 설치하면 된다.  
-   이 편집기는 Rust로 구현되어 Vim이나 NeoVim보다 훨씬 빠른 속도를 자랑하므로, 추후에 플러그인을 지원하게 된다면 Helix로 넘어가는 것도 좋을 것 같다.
+   이 편집기는 Rust로 구현되어 Vim이나 Neovim보다 훨씬 빠른 속도를 자랑하므로, 추후에 플러그인을 지원하게 된다면 Helix로 넘어가는 것도 좋을 것 같다.
 
 ## Sublime Text에서 LSP 사용하기
 [Sublime Text](https://www.sublimetext.com/)는 멀티 플랫폼을 지원하는 편집기로 빠른 속도, 다양한 설정, 예쁜 테마, 다양한 플러그인 패키지 등이 장점이다. 리눅스에서의 개발은 리눅스에 Sublime Text를 설치한 후 이용하면 편리하다.  
@@ -150,8 +151,8 @@ LSP를 사용하기 위해서 Sublime Text도 Vim 류의 편집기와 마찬가�
 }
 ```
 
-## VSCode에서 LSP 사용하기
-[VSCode](https://code.visualstudio.com/)는 원하는 언어를 지원하는 익스텐션을 설치하면 해당 language server가 자동으로 설치되므로 아주 편리하다. C/C++의 경우에는 [C/C++ 익스텍션](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)을 설치하면 된다.  
+## VS Code에서 LSP 사용하기
+[VS Code](https://code.visualstudio.com/)는 원하는 언어를 지원하는 익스텐션을 설치하면 해당 language server가 자동으로 설치되므로 아주 편리하다. C/C++의 경우에는 [C/C++ 익스텍션](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)을 설치하면 된다.  
 이후 관련 세팅은 해당 프로젝트의 `.vscode/c_cpp_properties.json` 파일에서 설정하면 되는데, 자동으로 아래와 같은 형태로 만들어진다.
 ```json
 {
@@ -171,9 +172,9 @@ LSP를 사용하기 위해서 Sublime Text도 Vim 류의 편집기와 마찬가�
     "version": 4
 }
 ```
-Makefile에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로 지정되는 include path와 <mark style='background-color: #ffdce0'>-D</mark>로 지정되는 define 내용을 위 파일에서 `"includePath"`, `"defines"`에 추가하면 된다. 이 방법은 아주 편리하긴 하지만, VSCode의 경우 define 매크로에 의해 코드가 inactive 인 경우에는 백그라운드가 흐리게 표시되므로 (물론 이것도 설정 변경이 가능하지만 이 상태가 코딩시 훨씬 편리함) define 정보가 누락된 경우에는 active/inactive 코드가 잘못 표시될 수 있다.  
+Makefile에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로 지정되는 include path와 <mark style='background-color: #ffdce0'>-D</mark>로 지정되는 define 내용을 위 파일에서 `"includePath"`, `"defines"`에 추가하면 된다. 이 방법은 아주 편리하긴 하지만, VS Code의 경우 define 매크로에 의해 코드가 inactive 인 경우에는 백그라운드가 흐리게 표시되므로 (물론 이것도 설정 변경이 가능하지만 이 상태가 코딩시 훨씬 편리함) define 정보가 누락된 경우에는 active/inactive 코드가 잘못 표시될 수 있다.  
 <br>
-다행히 VSCode는 이 방법 외에도 compile DB (compile_commands.json) 파일도 지원하는데, 만약에 프로젝트 디렉토리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.
+다행히 VS Code는 이 방법 외에도 compile DB (compile_commands.json) 파일도 지원하는데, 만약에 프로젝트 디렉토리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.
 <p><img src="/assets/images/vscode_compiledb.png"></p>
 <br>
 
@@ -188,4 +189,4 @@ Makefile에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로
 그러면 결과로 `"intelliSenseMode"` 내용이 자동으로 **sysroot**에 지정된 내용을 참조하여 올바르게 세팅된다.
 > 참고로 소스 코드가 원격 서버에 있는 경우에는 [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), WSL에 있는 경우에는 [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) 익스텐션을 이용하여 해당 서버에 접속하면 된다.
 
-위에서도 언급했듯이 VSCode에서는 inactive 코드가 쉽게 분간이 되고, 사용법이 쉽고 편리하면서도 막강한 기능과 수많은 익스텐션으로 현재 내가 가장 선호하는 편집기이다. 물론 이것도 LSP를 제대로 활용해야 한결 편리한 프로그래밍이 환경이 될 것이기에 시간을 들여서 기록 및 공유한다.
+위에서도 언급했듯이 VS Code에서는 inactive 코드가 쉽게 분간이 되고, 사용법이 쉽고 편리하면서도 막강한 기능과 수많은 익스텐션으로 현재 내가 가장 선호하는 편집기이다. 물론 이것도 LSP를 제대로 활용해야 한결 편리한 프로그래밍이 환경이 될 것이기에 시간을 들여서 기록 및 공유한다.

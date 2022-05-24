@@ -29,7 +29,7 @@ scripts/kconfig/conf --defconfig=arch/mips/configs/XXX_defconfig Kconfig
 ```
 scripts/kconfig/conf 실행 파일의 소스는 scripts/kconfig/conf.c 파일이다. 이 conf 실행 파일은 Kconfig와 입력 default config를 참조하여 최종 .config 파일을 생성한다.  
 또한 conf 실행 파일은 최종 .config 파일의 내용으로 include/generated/autoconf.h 파일을 생성하고, 각 소스에서는 이 파일을 include하여 참조한다.
-	
+
 ## 현재 config 수정하기
  이후 config를 수정하고 싶으면 아래 예와 같이 실행하여 수정하고 저장하면 .config 파일이 업데이트 된다.
  ```bash

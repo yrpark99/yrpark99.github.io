@@ -64,8 +64,8 @@ trim_trailing_whitespace = false
 insert_final_newline = false
 ```
 
-## VSCode 설정
-또한 소스 코드 에디터는 주로 VSCode를 사용하므로, 프로젝트의 `.vscode/settings.json` 파일은 아래와 같이 업데이트하였다.
+## VS Code 설정
+또한 소스 코드 에디터는 주로 VS Code를 사용하므로, 프로젝트의 `.vscode/settings.json` 파일은 아래와 같이 업데이트하였다.
 ```jsx
 {
     "files.encoding": "utf8",

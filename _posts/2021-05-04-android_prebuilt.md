@@ -90,10 +90,10 @@ app/src/main/cpp/native-lib.cpp 파일에서 아래와 같이 testFunc() JNI를 
 extern "C" JNIEXPORT jint JNICALL
 Java_com_example_libtest_MainActivity_testFunc(
     JNIEnv *env,
-	  jobject /* this */,
-	  jint value1,
-	  jint value2) {
-	  return testFunc(value1, value2);
+    jobject /* this */,
+    jint value1,
+    jint value2) {
+    return testFunc(value1, value2);
 }
 ```
 > 마찬가지로 JNI 함수명은 규약에 따라 `Java_패키지명_클래스명_함수명` 이라야 한다.
