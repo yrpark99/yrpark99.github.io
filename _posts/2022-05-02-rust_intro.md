@@ -18,13 +18,16 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Rust awesome](https://github.com/awesome-rust-com/awesome-rust): Rust를 사용한 엄선된 프로그램들 목록
 * [crates.io](https://crates.io/): Rust 커뮤니티 패키지
 
-## Rust로 개발된 툴 소개
+## 내가 애용하는 Rust 프로그램
 * [bat](https://github.com/sharkdp/bat)  
    `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.  
    참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
 
 * [bottom](https://github.com/ClementTsang/bottom)  
    [btop](https://github.com/aristocratos/btop)과 비슷하게 시스템 리소스 관련 정보를 모니터링하는 툴이다.
+
+* [bore](https://github.com/ekzhang/bore)  
+   [ngrok](https://ngrok.com/), [localtunnel](https://github.com/localtunnel/localtunnel) 툴과 같은 http/https 터널링 툴이다.
 
 * [delta](https://github.com/dandavison/delta)  
    Git diff 등의 명령시에 side-by-side view, syntax-highlighting 등의 기능을 제공한다.
@@ -58,6 +61,9 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Ripgrep](https://github.com/BurntSushi/ripgrep)  
    `grep`과 `ack` 계열의 장점을 합친 파일 내용 검색 툴로 상당히 빠른 속도를 자랑한다. Git 저장소인 경우에 `.gitignore` 파일에 있는 파일 패턴들은 검색하지 않으므로 더 빠르고 편리하게 사용할 수 있다. (마찬가지로 `.ignore` 파일이나 `.rgignore` 파일에 있는 파일 패턴들도 검색하지 않음)  
    [Platinum Searcher](https://github.com/monochromegane/the_platinum_searcher)와 함께 내가 주로 사용하는 검색 툴이다.
+
+* [RustDesk](https://github.com/rustdesk/rustdesk)  
+   [TeamViewer](https://www.teamviewer.com), [AnyDesk](https://anydesk.com/) 등과 같은 원격 데스크톱 툴인데, 한국에도 서버가 있고 현재 무료이다.
 
 * [Tauri](https://github.com/tauri-apps/tauri)  
    [Electron](https://github.com/electron/electron)과 같은 desktop Web application 프레임워크인데, Rust로 작성되어 Electron보다 크기는 작고 속도는 빠르다.  
@@ -107,7 +113,7 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Cargo](https://github.com/rust-lang/cargo): Rust 패키지 매니저, 빌드 툴
 * [Clippy](https://github.com/rust-lang/rust-clippy): Rust lint 툴
 * [Miri](https://github.com/rust-lang/miri): Rust 소스 코드 검사 툴
-* [Rust-analyzer](https://github.com/rust-lang/rust-analyzer): IDE/Editor 용 Rust language server
+* [Rust-analyzer](https://github.com/rust-lang/rust-analyzer): IDE/Editor LSP 용 Rust language server
 * [rustfmt](https://github.com/rust-lang/rustfmt): Rust 소스 코드 포매팅 툴
 * [Rustup](https://github.com/rust-lang/rustup): Rust 툴체인 매니저
 

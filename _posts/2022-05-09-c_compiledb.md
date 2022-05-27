@@ -27,27 +27,31 @@ LSP(Language Server Protocol)는 Microsoft 사에서 개발한 프레임워크�
 실제로 Visual Studio를 비롯하여 VS Code, Neovim, Sublime Text, Helix 등이 LSP를 지원하고 있다. 이 중에서 유료인 Visual Studio를 제외한 나머지 편집기들에서 아래 방법을 사용하여 모두 정상적으로 LSP가 동작함을 확인하였고, 아래에서 간단히 정리하였다.
 
 ## C/C++ 용 language server
-C/C++를 위한 LSP를 사용하기 위해서는 시스템에 C/C++를 위한 language server가 설치되어 있어야 하는데, 여기에는 대표적으로 `clangd`, `ccls` 등이 있다.  
-가장 많이 사용되는 `clangd`는 아래와 같이 설치할 수 있다.
-1. 아래 예와 같이 clangd 패키지를 설치한다. (아래 예는 v10 설치)
-   ```shell
-   $ sudo apt install clangd-10
-   ```   
-2. 또는 아래 예와 같이 원하는 버전을 수동으로 다운받아서 설치할 수 있다. (아래 예는 v12.0.1 설치)
-   ```shell
-   $ wget https://github.com/clangd/clangd/releases/download/12.0.1/clangd-linux-12.0.1.zip
-   $ unzip clangd-linux-12.0.1.zip
-   $ sudo chown -R root:root clangd_12.0.1/
-   $ sudo cp -arf clangd_12.0.1/* /usr/
-   ```
-3. 설치가 되었으면 아래와 같이 버전을 확인할 수 있다.
-   ```shell
-   $ clangd --version
-   ```
+C/C++를 위한 LSP를 사용하기 위해서는 시스템에 C/C++를 위한 language server가 설치되어 있어야 하는데, 여기에는 대표적으로 `clangd`, `ccls` 등이 있다. 이 글에서는 가장 많이 사용되는 **clangd** 설치를 예로 든다.  
+아래와 같이 실행하면 우분투 APT 저장소에 있는 최신 clangd 패키지를 설치한다.
+```shell
+$ sudo apt install clangd
+```
+또는 아래와 같이 특정 버전을 명시하여 설치할 수도 있다. (아래 예는 v10 설치)
+```shell
+$ sudo apt install clangd-10
+```
+또는 아래 예와 같이 원하는 버전을 수동으로 다운받아서 설치할 수 있다. (아래 예는 v12.0.1 설치)
+```shell
+$ wget https://github.com/clangd/clangd/releases/download/12.0.1/clangd-linux-12.0.1.zip
+$ unzip clangd-linux-12.0.1.zip
+$ sudo chown -R root:root clangd_12.0.1/
+$ sudo cp -arf clangd_12.0.1/* /usr/
+```
+설치가 되었으면 아래와 같이 버전을 확인할 수 있다. (버전이 제대로 표시되면 설치는 완료된 것임)
+```shell
+$ clangd --version
+```
 
 > ✅ VS Code와 같은 편집기는 자체적으로 language server를 설치하므로, 이런 경우에는 위와 같이 시스템에 별도로 language server를 설치할 필요가 없고, 간단히 해당 플러그인([C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))을 설치하기만 하면 된다.
 
-그런데 매크로를 지원하지 않는 언어에서는 간단하게 소스 navigation 등이 잘 되지만 C/C++는 매크로를 지원하고, 이로 인해 Makefile에 의한 define이나 include 경로가 복잡해 지는데, 이로 인해 정상적인 코드 navigation이 안 된다. 😵  
+그런데 매크로를 지원하지 않는 언어에서는 간단하게 소스 navigation 등이 잘 되지만 C/C++는 매크로를 지원하고, 이로 인해 Makefile에 의한 define이나 include 경로가 복잡해 지는데 😵, 이로 인해 정상적인 코드 navigation이 안 된다.  
+<br>
 💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VS Code처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=violet>(compile_commands.json)</font> 파일을 사용하면 된다.
 
 ## Compilation database 파일 생성 방법
