@@ -18,7 +18,8 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Rust awesome](https://github.com/awesome-rust-com/awesome-rust): Rust를 사용한 엄선된 프로그램들 목록
 * [crates.io](https://crates.io/): Rust 커뮤니티 패키지
 
-## 내가 애용하는 Rust 프로그램
+## Rust로 작성된 프로그램들 소개
+아래는 내가 애용하는 Rust로 구현된 open source 프로그램들이다. 앞으로도 좋은 프로그램들이 많이 나오길 기대해 본다.
 * [bat](https://github.com/sharkdp/bat)  
    `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.  
    참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
@@ -36,13 +37,13 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
    `du` 툴을 대체할 수 있는 Disk Usage Analyzer 툴이다. 크기 순으로 소팅되며 색깔이 표시된다. 만약 실행시 `i` 옵션을 주면 interactive 모드로 동작한다.  비슷한 툴에는 Go로 구현된 [gdu](https://github.com/dundee/gdu) 툴 등이 있는데, `dua`의 속도가 더 빠르다.
 
 * [exa](https://github.com/ogham/exa)  
-   `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래와 같이 alias를 세팅하여 사용하면 편리하다.
-   ```shell
-   alias l='exa'
-   alias ll='exa -lg --group-directories-first --sort=name --time-style=long-iso'
-   alias llb='exa -lgB --group-directories-first --sort=name --time-style=long-iso'
-   ```
-   추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다.
+  `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래 예와 같이 alias를 세팅하여 사용하면 편리하다.
+  ```shell
+  alias l='exa'
+  alias ll='exa -lg --group-directories-first --sort=name --time-style=long-iso'
+  alias llb='exa -lgB --group-directories-first --sort=name --time-style=long-iso'
+  ```
+  추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다.
 
 * [fd](https://github.com/sharkdp/fd)  
    `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다.
@@ -135,7 +136,7 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
    $ cd <디렉토리명>
    ```
 1. 빌드
-   ```
+   ```shell
    $ cargo build
    ```
    릴리즈용 이미지 빌드시에는 아래와 같이 `--release` 아규먼트를 추가하면 **target/release/** 디렉토리에 최적화된 빌드파일이 생성된다.
@@ -148,7 +149,7 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
    ```
    만약 cargo run 사용시 프로그램의 아규먼트가 있는 경우는, `cargo run` 뒤에 아규먼트를 순서대로 입력하면 된다.
 1. 빌드 대신에 문법 검사만 하려면 아래와 같이 한다.
-   ```
+   ```shell
    $ cargo check
    ```
 1. 종속 패키지의 버전 업데이트
