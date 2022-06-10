@@ -136,6 +136,11 @@ Vim, Neovim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기
    Helix는 자체적으로 LSP를 지원하므로, 시스템에 해당 언어의 language server만 설치되면 된다. 예를 들어 C/C++인 경우에는 시스템에 `clangd`를 설치하면 된다.  
    이 편집기는 Rust로 구현되어 Vim이나 Neovim보다 훨씬 빠른 속도를 자랑하므로, 추후에 플러그인을 지원하게 된다면 Helix로 넘어가는 것도 좋을 것 같다.
 
+참고로 만약에 "Too many errors emitted, stopping now"와 같은 LSP 에러가 발생하면서 LSP가 정상 동작하지 않는 경우에는 아래 예와 같이 CFLAGS 옵션에 `-ferror-limit=0` 내용을 추가해 주면 LSP가 stop 되지 않게 할 수 있다.
+```shell
+$ compiledb -n -f --command-style make CFLAGS="-ferror-limit=0"
+```
+
 ## Sublime Text에서 LSP 사용하기
 [Sublime Text](https://www.sublimetext.com/)는 멀티 플랫폼을 지원하는 편집기로 빠른 속도, 다양한 설정, 예쁜 테마, 다양한 플러그인 패키지 등이 장점이다. 리눅스에서의 개발은 리눅스에 Sublime Text를 설치한 후 이용하면 편리하다.  
 > 참고로 Windows에서 WSL을 사용하는 경우에는 Windows10인 경우에는 [GWSL](https://apps.microsoft.com/store/detail/gwsl/9NL6KD1H33V3?hl=ko-kr&gl=KR), Windows11인 경우에는 [WSLg](https://github.com/microsoft/wslg)를 이용하면 Sublime Text와 같은 GUI 앱도 쉽게 사용할 수 있다.
@@ -186,9 +191,9 @@ Makefile에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로
 ```json
 "compileCommands": "${workspaceFolder}/compile_commands.json"
 ```
-만약에 cross-toolchain을 사용하는 경우에는 **.vscode/c_cpp_properties.json** 파일에서 아래 내용의 디폴트 `"compilerPath"` 줄을 삭제한다.
+만약에 cross-toolchain을 사용하는 경우에는 **.vscode/c_cpp_properties.json** 파일에서 아래 내용의 디폴트 `"compilerPath"` 줄을 삭제한다. (옵션 사항)
 ```json
-"compilerPath": "/usr/bin/gcc"
+"compilerPath": "/usr/bin/gcc",
 ```
 그러면 결과로 `"intelliSenseMode"` 내용이 자동으로 **sysroot**에 지정된 내용을 참조하여 올바르게 세팅된다.
 > 참고로 소스 코드가 원격 서버에 있는 경우에는 [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), WSL에 있는 경우에는 [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) 익스텐션을 이용하여 해당 서버에 접속하면 된다.
