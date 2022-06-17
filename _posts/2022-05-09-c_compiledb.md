@@ -157,8 +157,10 @@ LSP를 사용하기 위해서 Sublime Text도 Vim 류의 편집기와 마찬가�
          "enabled": true,
       },
    },
+   "semantic_highlighting": true
 }
 ```
+참고로 C/C++의 경우에 매크로에 의해 inactive 된 코드들은 흐리게 표시되도록 하기 위하여, 위에서 `"semantic_highlighting": true` 항목을 수동으로 추가하였다. 👍
 
 ## VS Code에서 LSP 사용하기
 [VS Code](https://code.visualstudio.com/)는 원하는 언어를 지원하는 익스텐션을 설치하면 해당 language server가 자동으로 설치되므로 아주 편리하다. C/C++의 경우에는 [C/C++ 익스텍션](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)을 설치하면 된다.  
