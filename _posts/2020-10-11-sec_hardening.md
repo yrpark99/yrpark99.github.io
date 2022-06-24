@@ -96,7 +96,7 @@ Linux에서 실행 파일이나 so 파일의 security hardening 검사는 readel
     Relocation Read-Only (RELRO): 결과
     Immediate Symbol Binding (NOW): 결과
   ```
-- [checksec](https://github.com/slimm609/checksec.sh ) 툴  
+- [checksec](https://github.com/slimm609/checksec.sh) 툴  
   아래와 같이 `checksec` 패키지를 설치하면 된다.
   ```shell
   $ sudo apt install checksec
