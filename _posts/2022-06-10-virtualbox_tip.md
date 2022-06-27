@@ -69,10 +69,10 @@ $ VBoxHeadless --startvm <VM 이름>
 ```
 이후 동일 망의 클라이언트에서 http://ip:8080/url/ 주소 형태로 연결하면 VM 웹 서버에 접속이 된다.
 
-## 가상 디스크 용량 늘리기
+## Linux VM의 용량 늘리기
 >편의상 아래에서는 Linux에서 실행하는 예인데, Windows에서도 동일하게 실행할 수 있다.
 
-1. 만약 VMDK 파일이면 아래 예와 같이 `VBoxManage`의 **clonehd** 기능으로 vmdk 파일을 vdi로 변경한다. (예: test.vmdk -> test.vdi)
+1. 만약에 VM 이미지가 VMDK 파일이면 아래 예와 같이 `VBoxManage`의 **clonehd** 기능으로 먼저 vmdk 파일을 vdi로 변경한다. (예: test.vmdk -> test.vdi)
    ```shell
    $ VBoxManage clonehd test.vmdk test.vdi --format vdi
    ```
@@ -82,7 +82,7 @@ $ VBoxHeadless --startvm <VM 이름>
    ```
    (참고로 modifyhd 옵션은 UUID를 변경하고, modifymedium 옵션은 UUID를 변경하지 않으므로 속도가 더 빠름)
 1. 만약에 VMDK로 사용 중이었다면, VirtualBox GUI 관리자에서 `설정 -> 저장소`를 선택 후 기존 vmdk 연결을 제거하고 새로운 vdi 파일을 추가해 준다.
-1. 이후 가상 머신을 기동시킨 후, guest OS에서 아래와 같이 디스크 볼륨을 확장하면 된다. (아래 커맨드 대신 `gparted` GUI 툴을 이용해도 됨)
+1. 이후 가상 머신을 기동시킨 후, Linux VM에서 아래와 같이 디스크 볼륨을 확장하면 된다. (아래 커맨드 대신 `gparted` GUI 툴을 이용해도 됨)
    ```shell
    # 파티션 layout확인, 디스크 디바이스 리스트를 확인한다.
    $ sudo fdisk -l
