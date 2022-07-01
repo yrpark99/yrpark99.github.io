@@ -109,6 +109,10 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
    ```shell
    $ rustup self uninstall
    ```
+   Rust 버전 업데이트는 아래와 같이 한다.
+   ```shell
+   $ rustup update stable
+   ```
 
 ## 기타 Rust 관련 툴
 * [Cargo](https://github.com/rust-lang/cargo): Rust 패키지 매니저, 빌드 툴
