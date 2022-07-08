@@ -16,8 +16,9 @@ Docker와 Podman 둘 다 `OCI(Open Container Initiative)` 표준을 따르므로
 즉, Podman은 daemon 없이 커맨드로 컨테이너 레지스트리로부터 이미지를 받아와 Podman 호스트의 로컬 이미지 저장소에 이미지를 저장하고, 해당 이미지를 이용하여 컨테이너를 실행한다. 이때 Podman 라이브러리를 통해서 바로 컨테이너를 실행하기 때문에 컨테이너 간에 서로 영향을 주지 않으며, 커맨드 명령어로 컨테이너를 제어하거나 이미지를 관리할 때도 서로 영향을 주지 않는다.
 
 ## Podman 장점
-Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker client로 docker daemon을 제어하지 못하도록 root 사용자만 docker client를 사용할 수 있도록 했다. 이에 반해 Podman은 fork/exec 방식을 사용하여 개별 컨테이너를 실행시킬 수 있으므로 1024 이하의 well known 포트를 사용하는 등의 root 권한으로 실행해야 하는 작업이 아니라면 일반 사용자로 실행할 수 있다.  
-즉, Docker는 root 권한을 가진 사용자만 수행 가능하고 일반 사용자는 수행할 수가 없는데 반해, Podman은 일반 사용자도 수행 가능하다.
+Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker client로 docker daemon을 제어하지 못하도록 root 사용자만 docker client를 사용할 수 있도록 했다.  
+이에 반해 Podman은 fork/exec 방식을 사용하여 개별 컨테이너를 실행시킬 수 있으므로 특별히 root 권한으로 실행해야 하는 작업이 아니라면 일반 사용자로도 실행할 수 있다.  
+즉, Docker는 root 권한을 가진 사용자만 수행 가능하고 일반 사용자는 수행할 수가 없는데 반해, Podman은 일반 사용자도 수행 가능하고, 이에 따라 사용자 별로 각각의 컨테이너 환경을 구성할 수 있다는 것이 큰 장점이다.
 
 ## 설치
 자세한 내용은 [Podman 설치](https://podman.io/getting-started/installation) 페이지를 참고한다.
@@ -35,12 +36,12 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
    ```
 1. CentOS 8에서는 기본 제공되므로 아래와 같이 설치할 수 있다.
    ```shell
-   $ sudo yum -y install podman
+   $ sudo yum install podman
    ```
 1. CentOS 7인 경우에는 아래와 같이 kubic project 저장소를 등록해서 설치할 수 있다.
    ```shell
    $ sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_7/devel:kubic:libcontainers:stable.repo
-   $ sudo yum -y install podman
+   $ sudo yum install podman
    ```
 1. 버전 확인
    ```shell
@@ -52,7 +53,8 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
    ```
 
 ## 간단 테스트
-대략적인 사용법은 docker와 상당히 유사하므로 본 블로그에는 생략한다. 아래 테스트와 같이 Docker와 사용법이 동일하므로 쉽게 적응되었다.
+대략적인 사용법은 docker와 상당히 유사하므로 본 블로그에는 생략한다.  
+아래 테스트와 같이 Docker와 사용법이 동일하므로 쉽게 적응되었다.
 1. 아래와 같이 Ubuntu 18.04 이미지를 다운로드 한다.
    ```shell
    $ podman pull ubuntu:18.04
@@ -108,7 +110,7 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
   $ podman container restore -i <파일.tar.gz>
   ```
 
-## Podman으로 개발 환경 구성 예
+## Podman으로 빌드 환경 구성 예
 1. 아래와 같이 `Dockerfile`을 작성하였다. (Docker 이미지 생성시에 사용한 내용과 동일함)
    ```Dockerfile
    # Use Ubuntu 18.04 as base image
@@ -169,9 +171,9 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
    $ podman attach build_container
    ```
 
->위에서 보듯이 Docker인 경우와 상당히 유사하다. (위의 예에서 유일한 차이점은 사용자 home 디렉토리를 볼륨으로 마운트시에 디폴트로 root 권한으로 설정된다는 것이었는데, 이것은 위의 예에서 보듯이 `--userns=keep-id --user=$(id -ur):$(id -gr)` 옵션을 추가로 주면 해결할 수 있었다)
+>위에서 보듯이 Podman CLI 명령은 Docker와 상당히 유사하다. (위의 예에서 유일한 차이점은 사용자 home 디렉토리를 볼륨으로 마운트시에 디폴트로 root 권한으로 설정된다는 것이었는데, 이것은 위의 예에서 보듯이 `--userns=keep-id --user=$(id -ur):$(id -gr)` 옵션을 추가로 주어서 해결할 수 있었다)
 
 ## 사용 후기
-Docker는 root나 docker 권한이 있어야지만 실행할 수 있어서 불편한 점이 많았다. 예를 들어 특정 사용자들에게 docker 그룹 권한을 주면 다른 사람이 만든 이미지나 컨테이너도 멈추거나 삭제할 수 있게 된다.  
+Docker는 root나 docker 권한이 있어야지만 실행할 수 있어서 불편한 점이 많았다. 예를 들어 특정 사용자들에게 docker 그룹 권한을 주면 다른 사람이 만든 이미지나 컨테이너도 멈추거나 삭제할 수 있게 되는 불편함이 있었다.  
 이에 반해 Podman은 사용자 권한으로도 모든 것을 할 수 있고, 각 사용자 별로 분리가 되므로 (다른 사람의 컨테이너를 조작 못함) 사용성이 아주 좋았다.  
-아직 Podman은 Docker에 비해 기능이나 툴, 안정성 등이 부족한 점이 있는 것 같긴 한데, 이런 점들도 점점 나아지고 있어서 점차 Docker를 대체할 수 있을 것 같다.
+아직 Podman은 Docker에 비해 기능이나 툴, 안정성 등이 부족한 점이 있긴 하지만 이런 점들도 점점 나아지고 있어서 점차 Docker를 대체할 수 있을 것 같다.
