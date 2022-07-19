@@ -18,8 +18,18 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Rust awesome](https://github.com/awesome-rust-com/awesome-rust): Rust를 사용한 엄선된 프로그램들 목록
 * [crates.io](https://crates.io/): Rust 커뮤니티 패키지
 
+## Modern
+Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
+* 빌드 툴 통합
+* 패키지 관리자
+* 오픈소스 패키지 저장소
+* 디폴트 테스트 프레임워크
+* 자동 문서화
+
 ## Rust로 작성된 프로그램들 소개
 아래는 내가 애용하는 Rust로 구현된 open source 프로그램들이다. 앞으로도 좋은 프로그램들이 많이 나오길 기대해 본다.
+* [AppFlowy](https://github.com/AppFlowy-IO/appflowy)  
+   [Notion](https://www.notion.so)을 대체할 수 있는 오픈 소스로 Rust와 Flutter로 구현되었다.
 * [bat](https://github.com/sharkdp/bat)  
    `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.  
    참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
