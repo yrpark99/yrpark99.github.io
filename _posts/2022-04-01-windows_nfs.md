@@ -17,11 +17,11 @@ Windows Server는 자체적으로 NFS 서버 기능을 제공하므로 별도의
 Windows 7/10/11에서는 OS 자체적으로는 NFS 서버 기능을 지원하지 않으므로, [WinNFSd](https://github.com/winnfsd/winnfsd) 툴을 이용하여 아래와 같이 할 수 있다.
 1. Windows에서 아래 예와 같이 NFS 서버 프로그램을 실행시킨다. (아래 예에서는 현재 디렉토리를 NFS 디렉토리로 사용, export 경로를 **/exports**로 지정)
    ```bat
-   D:\>WinNFSd.exe . /exports
+   C:\>WinNFSd.exe . /exports
    ```
    NFS 관련 로그 출력이 나오지 않게 하려면 아래 예와 같이 **-log off** 옵션을 추가하면 된다.
    ```bat
-   D:\>winnfsd -log off . /exports
+   C:\>winnfsd -log off . /exports
    ```
 1. 이후 Linux 클라이언트에서 아래 예와 같이 NFS 마운트시킬 수 있다.
    ```shell

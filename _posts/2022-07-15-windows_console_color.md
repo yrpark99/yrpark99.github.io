@@ -8,10 +8,11 @@ toc_label: "이 페이지 목차"
 Windows command console(`cmd.exe`)에서 색깔을 출력하는 방법이다.
 
 ## Windows 콘솔 종류
-Windows 콘솔 프로그램에는 디폴트인 `cmd.exe`가 있고, 그 외에 [Cmder](https://github.com/cmderdev/cmder), [ConEmu](https://github.com/Maximus5/ConEmu), [Mintty](https://mintty.github.io/), [Windows Terminal](https://github.com/microsoft/terminal) 등과 같은 프로그램들이 있다.  
-이 중에서는 Windows command console(`cmd.exe`)은 디폴트로 색깔 출력을 지원하지 않고 있고, 그 외의 프로그램들은 디폴트로 색깔 출력을 지원하고 있다.
+Windows 콘솔 프로그램에는 디폴트인 `cmd.exe`가 있고, 그 외에 [Cmder](https://github.com/cmderdev/cmder), [ConEmu](https://github.com/Maximus5/ConEmu), [Hyper](https://hyper.is/), [Mintty](https://mintty.github.io/), [Yori](http://www.malsmith.net/yori/), [Windows Terminal](https://github.com/microsoft/terminal) 등과 같은 프로그램들이 있다.  
+이 중에서는 Windows command console(`cmd.exe`)은 디폴트로 색깔 출력을 지원하지 않고 있고, 그 외의 프로그램들은 디폴트로 색깔 출력을 지원하고 있다.  
+다만 Windows command console도 디폴트 세팅으로는 색깔 출력이 되지 않지만 지원 자체는 하고 있으므로, 이를 위한 세팅 방법을 공유한다.
 
->나는 Windows Terminal이 출시된 이후로는 주로 이것만 사용하지만, **cmd.exe**는 별도의 설치가 필요없는 Windows 디폴트 콘솔 프로그램이므로, 이 프로그램에서도 내가 작성한 CLI(Command Line Interface) 프로그램에서 색깔이 정상적으로 출력이 되도록 지원해 줄 필요가 있었다.
+>나는 **Windows Terminal**💖이 출시된 이후로는 주로 이것만 사용하지만, **cmd.exe**는 별도의 설치가 필요없는 Windows 디폴트 콘솔 프로그램이므로, 이 프로그램에서도 내가 작성한 **CLI**(Command Line Interface) 프로그램에서 색깔이 정상적으로 출력이 되도록 지원해 줄 필요가 있었다.
 
 ## cmd.exe에서 색깔 지원하기
 Windows command console(**cmd.exe**)에서 색깔 출력을 하려면 Windows API인 <font color=blue>SetConsoleMode()</font> 함수로  <mark style='background-color: #ffdce0'>ENABLE_VIRTUAL_TERMINAL_PROCESSING</mark> 모드를 enable 시키면 된다. 관련 API의 상세 정보는 아래 Microsoft 문서 페이지를 참조한다.
@@ -92,7 +93,7 @@ func main() {
 }
 ```
 
-Windows 표준 출력 핸들을 얻는 부분이 약간 다른 것 외에는 C 예제와 동일하다.
+위 코드는 `windows` 패키지 사용과 Windows 표준 출력 핸들을 얻는 부분이 약간 다른 것 외에는 C 예제와 거의 동일하다.
 
 ## 결론
 Linux/macOS 터미널의 경우나 Windows Terminal 등의 경우에는 디폴트로 색깔 출력이 지원되어서 신경쓸 것이 없었지만, Windows 디폴트 콘솔 프로그램인 **cmd.exe**는 디폴트로는 색상 출력을 지원하지 않아서 CLI 프로그램 구현시에 불편한 점이 있는데, 이 경우에도 위와 같이 간단한 세팅을 통해 정상적으로 색깔이 출력되게 할 수 있다.

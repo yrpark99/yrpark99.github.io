@@ -15,41 +15,41 @@ toc_label: "이 페이지 목차"
 앱의 패키지 이름은 만약 사용하는 기기에서 해당 기능을 제공하지 않으면, PlayStore에서 `설치된 앱 분석기(Application Inspector)` 앱 등을 설치하여 이용하면 된다.
 1. 삭제할 앱의 패키지 이름을 얻는다. (보통 `com.xxx.yyy` 형태)
 1. 아래와 같이 ADB를 연결한다. (이하 모든 ADB 명령은 Windows의 경우도 마찬가지임)
-```sh
-$ adb shell
-```
+   ```sh
+   $ adb shell
+   ```
 1. 이제 아래와 같은 명령으로 시스템 앱을 삭제할 수 있다.
-```sh
-$ pm uninstall -k --user 0 <패키지 이름>
-```
-정상적이라면 "Success" 메시지가 출력되고 앱이 삭제된다.
+   ```sh
+   $ pm uninstall -k --user 0 <패키지 이름>
+   ```
+   정상적이라면 "Success" 메시지가 출력되고 앱이 삭제된다.
 
 ## 시스템 앱 삭제 예
 아래는 위와 같은 방식으로 내 안드로이드 폰에서 선탑재된 시스템 앱을 삭제한 예이다.
 - KT WiFi
-   ```sh
-   $ pm uninstall -k --user 0 com.kt.wificm
-   ```
+  ```sh
+  $ pm uninstall -k --user 0 com.kt.wificm
+  ```
 - 원스토어
-   ```sh
-   $ pm uninstall -k --user 0 com.kt.olleh.storefront
-   ```
+  ```sh
+  $ pm uninstall -k --user 0 com.kt.olleh.storefront
+  ```
 - Galaxy Store
-   ```sh
-   $ pm uninstall -k --user 0 com.sec.android.app.samsungapps
-   ```
+  ```sh
+  $ pm uninstall -k --user 0 com.sec.android.app.samsungapps
+  ```
 - 스마트 TV
-   ```sh
-   $ pm uninstall -k --user 0 com.omnitel.android.dmb
-   ```
+  ```sh
+  $ pm uninstall -k --user 0 com.omnitel.android.dmb
+  ```
 - OneDrive
-   ```sh
-   $ pm uninstall -k --user 0 com.microsoft.skydrive
-   ```
+  ```sh
+  $ pm uninstall -k --user 0 com.microsoft.skydrive
+  ```
 - 삼성 Pay
-   ```sh
-   $ pm uninstall -k --user 0 com.samsung.android.spay
-   ```
+  ```sh
+  $ pm uninstall -k --user 0 com.samsung.android.spay
+  ```
 
 ## 시스템 앱으로 설치하기
 일반적인 앱(즉, 시스템 앱이 아닌)은 ADB를 이용시 ADB <mark style='background-color: #ffdce0'>install</mark> 명령으로 설치하거나, 안드로이드 기기에서 APK 파일을 이용하여 직접 설치할 수 있으나, <font color=blue>시스템 앱</font>은 이렇게 설치하면 정상적으로 실행되지 않을 수 있다. (이것 때문에 삽질하였음. 😠)  

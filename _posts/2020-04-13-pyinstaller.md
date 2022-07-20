@@ -100,7 +100,7 @@ if __name__ == "__main__":
 이 부분에서 구글링을 해 보아도 해결이 잘 되질 않았는데, PyInstaller가 실행시 사용하는 디렉토리(`%APPDATA%\pyinstaller\` 경로 밑에 생성됨)를 조사해 보다가 문제점을 찾을 수 있었다.😜  
 문제를 일으킨 파일들은 msvcp140.dll, vcruntime140.dll, qwindows.dll 파일들이어서, pyinstaller 실행시 아래와 같이 `--upx-exclude` 옵션을 사용하여 제대로 풀리지 않는 파일들을 UPX에서 제외시켰더니, UPX가 적용되어도 정상적으로 실행이 되었다.
 ```bash
-pyinstaller -F -w --add-data="*.ui;." --upx-exclude=msvcp140.dll --upx-exclude=vcruntime140.dll --upx-exclude=qwindows.dll <파이썬 파일명>
+C:\>pyinstaller -F -w --add-data="*.ui;." --upx-exclude=msvcp140.dll --upx-exclude=vcruntime140.dll --upx-exclude=qwindows.dll <파이썬 파일명>
 ```
 
 ## 결론
@@ -111,7 +111,7 @@ Python을 단독 실행 파일로 만들면 실행시 압축을 푼 후 실행�
 [NSIS](https://nsis.sourceforge.io/Download) 툴을 다운받아서 설치하고, 스크립트 작성을 위해 [HM NIS Edit](https://sourceforge.net/projects/hmne/) 툴도 다운받아서 설치한다.  
 예제로 아래와 같이 test.py 파일을 빌드해 보았다.
 ```sh
-D:\>pyinstaller -w --noupx test.py
+C:\>pyinstaller -w --noupx test.py
 ```
 결과로 `dist/test/` 경로 밑에 디렉토리와 실행 파일이 생성된다.  
 HM NIS Edit를 실행시켜서 dist/test/ 디렉토리를 추가하여 스크립트를 생성한 후, `NSIS` 툴에서 이 스크립트를 컴파일하면 인스톨 프로그램으로 **Setup.exe** 파일이 생성된다. 이 Setup.exe 파일로 설치를 진행하면, 압축이 풀린 상태로 해당 프로그램이 설치되고 실행 프로그램에 대한 링크도 생성된다.  
@@ -121,7 +121,7 @@ HM NIS Edit를 실행시켜서 dist/test/ 디렉토리를 추가하여 스크립
 Pyinstaller 이용시 CLI 대신에 GUI를 이용하는 방법도 있다.  
 아래와 같이 `auto-py-to-exe` 패키지를 이용하면 GUI 환경에서 실행할 수 있게 해 준다.
 ```sh
-pip install auto-py-to-exe
-auto-py-to-exe
+C:\>pip install auto-py-to-exe
+C:\>auto-py-to-exe
 ```
 또 Pyinstaller를 CLI를 사용하는 경우의 옵션도 알려주므로 필요시 편리하게 이용할 수 있다.
