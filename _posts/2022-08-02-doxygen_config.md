@@ -1,11 +1,11 @@
 ---
-title: "Doxygen config 파일을 저장소에서 관리하는 방안"
+title: "Doxygen config 파일을 저장소에서 관리하는 방법"
 category: [Environment]
 toc: true
 toc_label: "이 페이지 목차"
 ---
 
-[Doxygen](https://doxygen.nl/) config 파일을 소스 저장소에서 쉽게 관리하는 방안을 제시한다.
+[Doxygen](https://doxygen.nl/) config 파일을 소스 저장소에서 쉽게 관리하는 방법을 정리한다.
 
 즉, 본 글에서는 최종 Doxygen config 파일을 소스 저장소에서 관리하는 대신에 업데이트 사항만 저장소에서 관리하는 방식을 사용할 것이다.
 
@@ -49,17 +49,19 @@ $ doxygen [configName]
 $ doxygen -u [configName]
 ```
 
-이제 이 기능을 이용하여 아래와 같은 스크립트 파일을 작성하였다. (물론 이 파일도 소스 저장소에 올려서, Doxygen 문서 생성시 간단히 이 파일만 실행하면 되게 하였다)
+이제 이 기능을 이용하여 아래와 같은 스크립트 파일을 작성하였다. (여기에서는 예제로 프로젝트용 Doxygen config 파일로 **project.doxyfile** 파일을 사용)  
+(따라서 소스 저장소에는 **project.doxyfile** 파일과 아래 스크립트 파일만 올리면 되고, Doxygen 문서를 생성하려면 간단히 이 스크립트만 실행하면 됨)
 ```bash
 rm -rf html/
 cp project.doxyfile Doxyfile && doxygen -u Doxyfile && rm -f Doxyfile.bak
 doxygen Doxyfile
 ```
+> 🚩 즉, 소스 저장소에는 `Doxyfile` 파일은 올리지 않음
 
 이 방법을 사용함으로써, 기존에 전체 config 파일을 관리하던 방식 대신에 프로젝트를 위해서 설정한 값들만 관리하는 방식을 사용할 수 있게 되었다.
 
 ## Doxygen config 예제
-참고로 아래는 내가 사용한 Doxygen config 파일의 일부이다. (이런 식으로 소스 저장소에서는 아주 간단하게 설정한 정보들로만 config 파일을 운영할 수 있게 된다. 🧐)
+참고로 아래는 내가 사용한 **project.doxyfile** 파일이다. (이런 식으로 소스 저장소에서는 아주 간단하게 설정한 정보들로만 config 파일을 운영할 수 있게 되고, 이로써 Doxygen 버전 관련 문제도 해결된다. 🧐)
 ```ini
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Project name"
