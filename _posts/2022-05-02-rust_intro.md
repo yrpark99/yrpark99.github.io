@@ -18,7 +18,7 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Rust awesome](https://github.com/awesome-rust-com/awesome-rust): Rust를 사용한 엄선된 프로그램들 목록
 * [crates.io](https://crates.io/): Rust 커뮤니티 패키지
 
-## Modern
+## Modern language
 Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
 * 빌드 툴 통합
 * 패키지 관리자
@@ -191,3 +191,6 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    ```shell
    $ cross build --target aarch64-unknown-linux-gnu
    ```
+
+## Android Rust
+안드로이드 네이티브 OS 구성 요소를 개발하기 위하여 Rust를 사용할 수도 있다. 자세한 내용은 [Android Rust](https://source.android.com/docs/setup/build/rust/building-rust-modules/overview) 페이지를 참고한다.
