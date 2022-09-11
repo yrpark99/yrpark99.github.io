@@ -32,10 +32,6 @@ C/C++를 위한 LSP를 사용하기 위해서는 시스템에 C/C++를 위한 la
 ```shell
 $ sudo apt install clangd
 ```
-또는 아래와 같이 특정 버전을 명시하여 설치할 수도 있다. (아래 예는 v10 설치)
-```shell
-$ sudo apt install clangd-10
-```
 또는 아래 예와 같이 원하는 버전을 수동으로 다운받아서 설치할 수 있다. (아래 예는 v12.0.1 설치)
 ```shell
 $ wget https://github.com/clangd/clangd/releases/download/12.0.1/clangd-linux-12.0.1.zip
