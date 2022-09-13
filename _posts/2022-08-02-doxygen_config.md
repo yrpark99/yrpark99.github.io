@@ -17,7 +17,7 @@ Doxygen은 [Doxygen download 페이지](https://doxygen.nl/download.html)에서 
 ```shell
 C:\>winget install doxygen
 ```
-설치가 되면 아래와 같이 doxygen과 Doxygen GUI front-end인 doxywizard가 설치되고, 해당 디렉토리에서 아래와 같이 실행할 수 있다.
+설치가 되면 아래와 같이 doxygen과 Doxygen GUI front-end인 doxywizard가 설치되고, 해당 디렉터리에서 아래와 같이 실행할 수 있다.
 ```shell
 C:\>doxygen
 C:\>doxywizard.exe

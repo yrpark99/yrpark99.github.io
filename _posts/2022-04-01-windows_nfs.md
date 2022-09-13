@@ -15,7 +15,7 @@ Windows Server는 자체적으로 NFS 서버 기능을 제공하므로 별도의
 
 ## Windows 7/10/11에서 NFS 서버 설치
 Windows 7/10/11에서는 OS 자체적으로는 NFS 서버 기능을 지원하지 않으므로, [WinNFSd](https://github.com/winnfsd/winnfsd) 툴을 이용하여 아래와 같이 할 수 있다.
-1. Windows에서 아래 예와 같이 NFS 서버 프로그램을 실행시킨다. (아래 예에서는 현재 디렉토리를 NFS 디렉토리로 사용, export 경로를 **/exports**로 지정)
+1. Windows에서 아래 예와 같이 NFS 서버 프로그램을 실행시킨다. (아래 예에서는 현재 디렉터리를 NFS 디렉터리로 사용, export 경로를 **/exports**로 지정)
    ```bat
    C:\>WinNFSd.exe . /exports
    ```
@@ -35,7 +35,7 @@ WSL에서 NFS 서버를 세팅하고 외부 디바이스에서 NFS로 접속하�
    ```shell
    $ sudo apt install nfs-kernel-server
    ```
-   NFS 디렉토리로 /opt/nfs/ 디렉토리를 생성한 후, /etc/exports 파일에서 아래 예와 같이 추가한다.
+   NFS 디렉터리로 /opt/nfs/ 디렉터리를 생성한 후, /etc/exports 파일에서 아래 예와 같이 추가한다.
    ```shell
    /opt/nfs *(rw,no_root_squash,sync,no_subtree_check)
    ```
@@ -106,11 +106,11 @@ Windows에서 NFS 클라이언트를 사용하여 다른 NFS 서버에 접속할
 1. `Windows 기능 켜기/끄기`를 실행한 후 (또는 콘솔에서 `OptionalFeatures.exe` 실행), `NFS용 서비스` 항목의 체크를 켠다.  
    결과로 <font color=blue>mount</font>, <font color=blue>umount</font> 명령이 활성화된다.
 1. 이후 탐색기에서 `네트워크 드라이브 연결`을 실행하여 NFS 마운트하려는 호스트 주소와 NFS 경로를 입력하면 NFS로 마운트된다.  
-   또는 콘솔에서 아래 예와 같이 마운트시킬 수 있다. (아래에서는 예를 들어 위의 WSL NFS 디렉토리를 **N** 드라이브에 마운트 함)
+   또는 콘솔에서 아래 예와 같이 마운트시킬 수 있다. (아래에서는 예를 들어 위의 WSL NFS 디렉터리를 **N** 드라이브에 마운트 함)
    ```bat
    C:\>mount \\192.168.0.180\opt\nfs N:
    ```
-   콘솔에서 아래와 같이 실행하면 마운트된 디렉토리와 속성을 확인할 수 있다.
+   콘솔에서 아래와 같이 실행하면 마운트된 디렉터리와 속성을 확인할 수 있다.
    ```bat
    C:\>mount
    ```

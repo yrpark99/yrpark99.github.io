@@ -17,7 +17,7 @@ GitHub IO는 Jekyll 테마를 사용할 수 있다고 하여, 이 중에서 가�
 $ git clone https://github.com/mmistakes/minimal-mistakes.git
 ```
 
-이후 아래와 같이 Minimal Mistakes 개발용으로만 사용되므로 필요없는 디렉토리와 파일들을 삭제하였다.  
+이후 아래와 같이 Minimal Mistakes 개발용으로만 사용되므로 필요없는 디렉터리와 파일들을 삭제하였다.  
 ```sh
 $ cd minimal-mistakes/
 $ rm -rf .editorconfig .git/ .gitattributes .github/ docs/ test/ CHANGELOG.md README.md screenshot-layouts.png screenshot.png
@@ -41,7 +41,7 @@ $ git push -u origin master
 글자의 폰트나 크기, 색깔, margin 등을 변경하려면 해당 **scss** 파일을 찾아서 수정하면 된다.
 
 ## 포스팅 하기
-포스팅은 **_posts** 디렉토리에 **YYYY-MM-DD-title.md** 파일 이름 형식으로 UTF-8 인코딩으로 아래 예와 같이 작성하면 된다고 한다.
+포스팅은 **_posts** 디렉터리에 **YYYY-MM-DD-title.md** 파일 이름 형식으로 UTF-8 인코딩으로 아래 예와 같이 작성하면 된다고 한다.
 ```markdown
 ---
 title: "포스팅 제목"

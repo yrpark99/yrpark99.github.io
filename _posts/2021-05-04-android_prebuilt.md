@@ -14,10 +14,10 @@ toc_label: "이 페이지 목차"
 안드로이드 앱에서 Native C/C++ 라이브러리 호출은 JNI를 통해서 할 수 있다.  
 여기서는 전체 코드를 나열하지 않고 필요한 부분만 설명하기 위하여 안드로이드 스튜디오에서 제공하는 템플릿을 이용하기로 한다.  
 안드로이드 스튜디오에서 "Create New Project" -> "Phone and Table" 탭 -> "Native C++" 템플릿을 선택한다. 여기서는 프로젝트 이름을 `LibTest`로 하였고, 패키지 이름은 자동으로 생성되는 `com.example.libtest`를 그대로 사용하였다.  
-결과로 `app/src/main/cpp/` 디렉토리 밑에 `CMakeLists.txt` 파일과 `native-lib.cpp` 파일이 생성된다.
+결과로 `app/src/main/cpp/` 디렉터리 밑에 `CMakeLists.txt` 파일과 `native-lib.cpp` 파일이 생성된다.
 
 ## ADB 연결
-안드로이드 기기에서 실행시키려면 platform-tools 디렉토리에서 아래 예와 같이 ADB를 연결시킨다. (예로 안드로이드 기기의 IP는 **192.168.0.103**이라고 가정)
+안드로이드 기기에서 실행시키려면 platform-tools 디렉터리에서 아래 예와 같이 ADB를 연결시킨다. (예로 안드로이드 기기의 IP는 **192.168.0.103**이라고 가정)
 ```sh
 adb connect 192.168.0.103
 ```
@@ -33,7 +33,7 @@ adb connect 192.168.0.103
 
 ## Pre-built 라이브러리 준비
 여기서는 사전에 정적 라이브러리를 빌드해 놓고, 이것을 안드로이드 앱에서 사용하는 경우를 예로 들었다. (동적 라이브러리인 경우도 거의 유사하므로 생략)  
-이 pre-built 라이브러리는 안드로이드 앱과는 무관하므로 별도의 디렉토리를 생성하고, 여기에서 testlib.c 파일을 아래 예와 같이 minus 기능의 함수를 작성한다.
+이 pre-built 라이브러리는 안드로이드 앱과는 무관하므로 별도의 디렉터리를 생성하고, 여기에서 testlib.c 파일을 아래 예와 같이 minus 기능의 함수를 작성한다.
 ```c
 #include "testlib.h"
 
@@ -80,7 +80,7 @@ $ llvm-ar rscv libmytest.a testlib.o
 |32-bit Intel|x86|x86|i686-linux-android|
 |64-bit Intel|x86_64|x86_64|x86_64-linux-android|
 
-빌드의 결과물인 libmytest.a 파일과 헤더 파일인 testlib.h 파일을 앱의 `app/libs/` 디렉토리에 복사한다.
+빌드의 결과물인 libmytest.a 파일과 헤더 파일인 testlib.h 파일을 앱의 `app/libs/` 디렉터리에 복사한다.
 
 ## JNI 준비
 app/src/main/cpp/native-lib.cpp 파일에서 아래와 같이 testFunc() JNI를 작성한다. (즉, libmytest.a 라이브러리가 제공하는 testFunc() 함수를 호출함)

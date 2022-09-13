@@ -64,7 +64,7 @@ build_image   latest    0d04150164f9   14 seconds ago  493MB
 ```shell
 $ docker run --name build_container -it -v /home/$USER/project/:/project/ -v /opt/nfs/$USER/:/opt/nfs/$USER/ -v /home/$USER/.ssh/:/home/$USER/.ssh/ --net=host build_image
 ```
-> 위 예에서는 빌드에 사용할 디렉토리로 **project**를 공유하였고, 호스트 유저의 NFS 디렉토리와 .ssh 디렉토리를 공유하였다.  
+> 위 예에서는 빌드에 사용할 디렉터리로 **project**를 공유하였고, 호스트 유저의 NFS 디렉터리와 .ssh 디렉터리를 공유하였다.  
 또, 호스트의 `/etc/hosts` 파일을 그대로 사용하기 위해서 `--net=host` 아규먼트를 주어서 호스트 네트워크를 사용하게 했다. (또는 이 방법 대신에 `--add-host` 아규먼트를 이용하여 원하는 alias와 IP를 추가해도 됨)
 
 결과로 Docker 컨테이너가 생성된 후에 자동으로 실행되고, 컨테이너의 shell 프롬프트가 표시된다. (우분투 PS1 기본 설정에 따라서 유저 이름과 호스트 이름 후에 현재 경로가 표시됨)  

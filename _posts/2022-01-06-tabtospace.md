@@ -17,7 +17,7 @@ toc_label: "이 페이지 목차"
    ```shell
    $ sed -i 's/\t/    /g' <file_name>
    ```
-   현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
+   현재 디렉터리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
    ```shell
    $ find -name "*.c*" -exec sed -i 's/\t/    /g' {} \;
    $ find -name "*.h" -exec sed -i 's/\t/    /g' {} \;
@@ -28,7 +28,7 @@ toc_label: "이 페이지 목차"
    ```shell
    $ expand -t 4 <file_name> | sponge <file_name>
    ```
-   현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
+   현재 디렉터리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
    ```shell
    $ find -name "*.c*" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;
    $ find -name "*.h" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;

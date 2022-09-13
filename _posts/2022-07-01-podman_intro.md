@@ -155,7 +155,7 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
    ```shell
    $ podman build --tag build_image --build-arg user=$USER --build-arg uid=$(id -u) --build-arg gid=$(id -g) .
    ```
-1. 아래와 같이 컨테이너를 생성한다. (컨테이너 이름은 **build_container**로 함, 빌드시에 사용되는 시스템 디렉토리와 사용자 home 디렉토리를 볼륨으로 마운트함)
+1. 아래와 같이 컨테이너를 생성한다. (컨테이너 이름은 **build_container**로 함, 빌드시에 사용되는 시스템 디렉터리와 사용자 home 디렉터리를 볼륨으로 마운트함)
    ```shell
    $ podman run --name build_container -it \
        -v /opt/crosstools/:/opt/crosstools/ \
@@ -171,7 +171,7 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
    $ podman attach build_container
    ```
 
->위에서 보듯이 Podman CLI 명령은 Docker와 상당히 유사하다. (위의 예에서 유일한 차이점은 사용자 home 디렉토리를 볼륨으로 마운트시에 디폴트로 root 권한으로 설정된다는 것이었는데, 이것은 위의 예에서 보듯이 `--userns=keep-id --user=$(id -ur):$(id -gr)` 옵션을 추가로 주어서 해결할 수 있었다)
+>위에서 보듯이 Podman CLI 명령은 Docker와 상당히 유사하다. (위의 예에서 유일한 차이점은 사용자 home 디렉터리를 볼륨으로 마운트시에 디폴트로 root 권한으로 설정된다는 것이었는데, 이것은 위의 예에서 보듯이 `--userns=keep-id --user=$(id -ur):$(id -gr)` 옵션을 추가로 주어서 해결할 수 있었다)
 
 ## 사용 후기
 Docker는 root나 docker 권한이 있어야지만 실행할 수 있어서 불편한 점이 많았다. 예를 들어 특정 사용자들에게 docker 그룹 권한을 주면 다른 사람이 만든 이미지나 컨테이너도 멈추거나 삭제할 수 있게 되는 불편함이 있었다.  

@@ -107,7 +107,7 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    ```shell
    $ sudo snap install rustup --classic
    ```
-   실행 파일들은 `~/.cargo/bin/` 디렉토리에 설치되는데, 해당 경로가 PATH에 추가되도록 자동으로 ~/.bashrc 파일에서 아래 내용이 추가된다.
+   실행 파일들은 `~/.cargo/bin/` 디렉터리에 설치되는데, 해당 경로가 PATH에 추가되도록 자동으로 ~/.bashrc 파일에서 아래 내용이 추가된다.
    ```shell
    . "$HOME/.cargo/env"
    ```
@@ -133,7 +133,7 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
 * [Rustup](https://github.com/rust-lang/rustup): Rust 툴체인 매니저
 
 ## 프로젝트 소스 setup
-1. 아래와 같이 실행하면 자동으로 `git init` 명령과 **src/main.rs**, **.gitignore**, **Cargo.toml** 파일을 생성해 준다. (프로젝트명은 디폴트로 현재 디렉토리 이름으로 세팅됨)
+1. 아래와 같이 실행하면 자동으로 `git init` 명령과 **src/main.rs**, **.gitignore**, **Cargo.toml** 파일을 생성해 준다. (프로젝트명은 디폴트로 현재 디렉터리 이름으로 세팅됨)
    ```shell
    $ cargo init
    ```
@@ -141,21 +141,26 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    ```shell
    $ cargo build
    ```
-   결과로 `target/debug/` 디렉토리에 빌드 파일이 생성된다.
+   결과로 `target/debug/` 디렉터리에 빌드 파일이 생성된다.
 
 ## Cargo 사용 예
 1. 새 프로젝트 생성
    ```shell
-   $ cargo new <디렉토리명>
-   $ cd <디렉토리명>
+   $ cargo new <디렉터리명>
+   $ cd <디렉터리명>
    ```
 1. 빌드
    ```shell
    $ cargo build
    ```
-   릴리즈용 이미지 빌드시에는 아래와 같이 `--release` 아규먼트를 추가하면 **target/release/** 디렉토리에 최적화된 빌드파일이 생성된다.
+   릴리즈용 이미지 빌드시에는 아래와 같이 `--release` 아규먼트를 추가하면 **target/release/** 디렉터리에 최적화된 빌드파일이 생성된다.
    ```shell
    $ cargo build --release
+   ```
+   참고로 만약에 release 파일은 디버그 정보를 strip 하고 싶으면 빌드 후에 `strip` 명령으로 해당 실행 파일을 strip 하거나, `Cargo.toml` 파일에 아래 내용을 추가하면 빌드시 자동으로 strip 된다.
+   ```toml
+   [profile.release]
+   strip = true
    ```
 1. 빌드된 파일을 바로 실행하기
    ```shell
@@ -187,7 +192,7 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    $ cargo install -f cross
    ```
    참고로 이 cross 툴체인은 미리 만들어진 <font color=purple>Dockerfile</font>을 사용하는데, 전체 Dockerfile 목록은 [이 페이지](https://github.com/cross-rs/cross/tree/main/docker) 에서 확인할 수 있다.
-1. 이후 해당 디렉토리에서 아래 예와 같이 빌드할 수 있다. (아래 예는 ARM64로 cross 빌드하는 예제)
+1. 이후 해당 디렉터리에서 아래 예와 같이 빌드할 수 있다. (아래 예는 ARM64로 cross 빌드하는 예제)
    ```shell
    $ cross build --target aarch64-unknown-linux-gnu
    ```

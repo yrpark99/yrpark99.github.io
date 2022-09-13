@@ -57,7 +57,7 @@ Compilation DB 파일의 생성 방법은 빌드 시스템에 따라서 다른�
 ```shell
 $ pip3 install compiledb
 ```
-이제 프로젝트 디렉토리에서 아래 예와 같이 실행하면 compile_commands.json 파일이 생성된다.
+이제 프로젝트 디렉터리에서 아래 예와 같이 실행하면 compile_commands.json 파일이 생성된다.
 ```shell
 $ compiledb -n -f --command-style make -j
 ```
@@ -182,7 +182,7 @@ LSP를 사용하기 위해서 Sublime Text도 Vim 류의 편집기와 마찬가�
 ```
 Makefile에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로 지정되는 include path와 <mark style='background-color: #ffdce0'>-D</mark>로 지정되는 define 내용을 위 파일에서 `"includePath"`, `"defines"`에 추가하면 된다. 이 방법은 아주 편리하긴 하지만, VS Code의 경우 define 매크로에 의해 코드가 inactive 인 경우에는 백그라운드가 흐리게 표시되므로 (물론 이것도 설정 변경이 가능하지만 이 상태가 코딩시 훨씬 편리함) define 정보가 누락된 경우에는 active/inactive 코드가 잘못 표시될 수 있다.  
 <br>
-다행히 VS Code는 이 방법 외에도 compile DB (compile_commands.json) 파일도 지원하는데, 만약에 프로젝트 디렉토리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.
+다행히 VS Code는 이 방법 외에도 compile DB (compile_commands.json) 파일도 지원하는데, 만약에 프로젝트 디렉터리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.
 <p><img src="/assets/images/vscode_compiledb.png"></p>
 <br>
 
