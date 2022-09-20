@@ -66,6 +66,10 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    단점으로는 현재까지는 플러그인을 지원하지 않고 있으나 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
    나는 Windows 환경에서는 주로 VS Code, Linux 터미널에서는 Vim을 대체하여 Neovim을 사용하고 있는데, Helix는 Neovim보다 훨씬 빠른 속도를 자랑해서 내가 주목하고 있는 에디터 중의 하나이다.
 
+* [Lapce](https://github.com/lapce/lapce)  
+  Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP, 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
+  현재는 아직 개발 초기 단계라서 C, Go, Python, Rust 정도의 언어만 지원하고 있고, VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 오픈 소스로써 VS Code에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
+
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
    Rust로 작성된 운영 체제이다.
 

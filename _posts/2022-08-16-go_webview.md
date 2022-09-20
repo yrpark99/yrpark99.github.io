@@ -16,11 +16,14 @@ Go 언어를 사용하여 Windows용 WebApp 프로그램을 구현하는 방법�
 
 ## go-webview2 사용
 위에서 `Walk`는 WebView2를 지원하지 않아서 사용이 사실상 사용이 곤란하였고, `Lorca`는 자체적으로 시스템에 설치된 Chrome browser를 사용하므로 내가 원하는 방향이 아니었다.  
-따라서 위의 프레임워크 중에서 남은 솔루션은 WebView2를 사용하는 프레임워크인데, [webview](https://github.com/webview/webview)는 CGo로 바인딩을 하는 것이라서 사용이 번거로웠고, [go-webview2](https://github.com/jchv/go-webview2) 패키지는 순수하게 Go로 구현되어 있어서 아주 간단하게 WebView2를 사용할 수 있었다.
-<br>
+따라서 위의 프레임워크 중에서 남은 솔루션은 WebView2를 사용하는 프레임워크인데, [webview](https://github.com/webview/webview)는 CGo로 바인딩을 하는 것이라서 사용이 번거로웠다.
 
+> [webview](https://github.com/webview/webview) 페이지에는 C, C++, Go를 사용하는 예제가 있었고, 모두 빌드 및 정상 확인하였지만, Go를 사용할 때는 CGo를 사용해야 해서 번거로웠다.
+
+그러다 [go-webview2](https://github.com/jchv/go-webview2) 패키지를 찾았는데 이것은 순수하게 Go로 구현되어 있어서 아주 간단하게 WebView2를 사용할 수 있었다.  
 [GitHub go-webview2 페이지](https://github.com/jchv/go-webview2)에 아주 간단히 웹 페이지를 띄우는 데모 코드가 있고, 실제로 빌드해서 테스트해보니 JavaScript 코드도 잘 실행되었고 팝업 윈도우도 잘 떴다. 😋  
-> 그런데 이 패키지는 Windows에서 설치된 WebView2 엔진을 사용한다. WebView2는 Windows10 이상에서는 기본적으로 설치가 되어 있는 상태이지만, 미설치 되었거나 Windows7과 같이 WebView2가 디폴트로 미설치된 시스템의 경우에는 [Microsoft WebView2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)을 수동으로 설치해 주어야 한다.
+
+> WebView2를 사용하려면 Windows에 WebView2 엔진이 설치되어 있어야 한다. WebView2는 Windows10 이상에서는 기본적으로 설치가 되어 있는 상태이지만, 미설치 되었거나 Windows7과 같이 WebView2가 디폴트로 미설치된 시스템의 경우에는 [Microsoft WebView2 runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)을 수동으로 설치해 주면 된다.
 
 ## 내 go-webview2 테스트 예
 아래는 내가 테스트로 작성한 네이버 로그인 페이지을 열고 ID/PW를 세팅하는 코드이다.
@@ -70,6 +73,24 @@ func onPageLoaded(url string) {
     w.Eval("document.querySelector('#pw').value = 'your_password'")
 }
 ```
+
+참고로 위에서 webview2.NewWithOptions() 호출 부분은 원하면 아래와 같이 풀어서 쓸 수도 있다.
+```go
+windowOptions := webview2.WindowOptions{
+    Title:  "GoWebView2 Example",
+    Width:  1024,
+    Height: 768,
+    IconId: 2,
+    Center: true,
+}
+options := webview2.WebViewOptions{
+    Debug:         false,
+    AutoFocus:     true,
+    WindowOptions: windowOptions,
+}
+w = webview2.NewWithOptions(options)
+```
+
 위 코드에서 보듯이 JavaScript 코드 실행과 바인딩이 잘 된다.
 > 참고로 브라우저 디버그가 필요한 경우에는 위의 **NewWithOptions** 함수 파라미터에서 `Debug` 값을 `true`로 변경하여 빌드하고 실행한 후, F12 키를 누르면 브라우저 디버그 창이 열린다.
 
