@@ -1,7 +1,7 @@
 ---
 title: "C로 2GiB 이상 크기의 파일 다루기"
 category: C
-toc: false
+toc: true
 toc_label: "이 페이지 목차"
 ---
 
