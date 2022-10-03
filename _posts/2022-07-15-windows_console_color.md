@@ -12,7 +12,7 @@ Windows 콘솔 프로그램에는 디폴트인 `cmd.exe`가 있고, 그 외에 [
 이 중에서는 Windows command console(`cmd.exe`)은 디폴트로 색깔 출력을 지원하지 않고 있고, 그 외의 프로그램들은 디폴트로 색깔 출력을 지원하고 있다.  
 다만 Windows command console도 디폴트 세팅으로는 색깔 출력이 되지 않지만 지원 자체는 하고 있으므로, 이를 위한 세팅 방법을 공유한다.
 
->나는 **Windows Terminal**💖이 출시된 이후로는 주로 이것만 사용하지만, **cmd.exe**는 별도의 설치가 필요없는 Windows 디폴트 콘솔 프로그램이므로, 이 프로그램에서도 내가 작성한 **CLI**(Command Line Interface) 프로그램에서 색깔이 정상적으로 출력이 되도록 지원해 줄 필요가 있었다.
+>나는 **Windows Terminal**🧡이 출시된 이후로는 주로 이것만 사용하지만, **cmd.exe**는 별도의 설치가 필요없는 Windows 디폴트 콘솔 프로그램이므로, 이 프로그램에서도 내가 작성한 **CLI**(Command Line Interface) 프로그램에서 색깔이 정상적으로 출력이 되도록 지원해 줄 필요가 있었다.
 
 ## cmd.exe에서 색깔 지원하기
 Windows command console(**cmd.exe**)에서 색깔 출력을 하려면 Windows API인 <font color=blue>SetConsoleMode()</font> 함수로  <mark style='background-color: #ffdce0'>ENABLE_VIRTUAL_TERMINAL_PROCESSING</mark> 모드를 enable 시키면 된다. 관련 API의 상세 정보는 아래 Microsoft 문서 페이지를 참조한다.

@@ -66,11 +66,11 @@ def click(tap_x, tap_y):
     adb_cmd(f"adb shell input tap {tap_x} {tap_y}")
 
 def wakeup():
-    adb_cmd("adb shell input keyevent 224") # KEYCODE_WAKEUP
+    adb_cmd("adb shell input keyevent KEYCODE_WAKEUP")
 
 def unlock():
     fileName = "screen.png"
-    adb_cmd("adb shell input keyevent 82") # KEYCODE_MENU
+    adb_cmd("adb shell input keyevent KEYCODE_MENU")
     time.sleep(0.2)
     screenshot(fileName)
     x, y = get_image_position("images/pin_input.png", f"{fileName}")
