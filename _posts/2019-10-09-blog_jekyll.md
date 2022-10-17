@@ -53,7 +53,7 @@ title: "포스팅 제목"
 이 글은 이에 따라 작성한 첫 번째 포스팅 글이다.
 
 ## 새로운 Linux에서 구성하기
-1. 아래와 같이 내 블로그 저장소를 clone 한 후, 해당 디렉토리로 이동한다.
+1. 아래와 같이 내 블로그 저장소를 clone 한 후, 해당 디렉터리로 이동한다.
    ```sh
    $ git clone https://github.com/yrpark99/yrpark99.github.io.git
    $ cd yrpark99.github.io/
@@ -77,7 +77,7 @@ title: "포스팅 제목"
    $ bundle exec jekyll serve
    ```
 	(나는 편의상 위의 내용으로 **start_local_server.sh** 파일을 만들어서 GitHub에 올려두고 이것을 사용함)  
-  결과로 **_posts** 디렉토리에 만든 **md** 파일들이 static html 파일로 빌드되고, 마지막 부분에 `Server address: http://127.0.0.1:4000//` 메시지가 출력된다.
+  결과로 **_posts** 디렉터리에 만든 **md** 파일들이 static html 파일로 빌드되고, 마지막 부분에 `Server address: http://127.0.0.1:4000//` 메시지가 출력된다.
 1. 이제 브라우저에서 [http://127.0.0.1:4000](http://127.0.0.1:4000) 주소로 접속하면 로컬 환경에서 블로그 내용을 확인해 볼 수 있다.
 1. 이후 **md** 파일이나 **scss** 파일 등이 추가되거나 수정되면 자동으로 html 빌드가 수행되어서, 바로 로컬 환경에서 확인할 수 있다.
 1. 로컬 환경에서 웹브라우저로 확인을 마친 후에 변경 사항을 GitHub에 push하면, 자동으로 포스팅이 된다.

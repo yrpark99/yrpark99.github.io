@@ -8,8 +8,8 @@ toc_label: "이 페이지 목차"
 AOSP에서 HIDL 소개 및 예제 코드를 작성/빌드/테스트하여 성공한 방법이다.  
 <br>
 
-회사 프로젝트에서 안드로이드 HAL(Hardware Abstraction Layer) 서비스를 구현할 일이 있어서 관련 예제를 구글링해 보았는데, 의외로 자료를 찾기가 쉽지가 않았다. 또 겨우 찾은 자료들도 기존 Android10 이하에서 **hardware/interfaces/** 디렉토리에 소스를 구성하는 예였다. 😓  
-그런데 Android12 부터는 hardware/interfaces/ 디렉토리에 소스를 구성하는 것 보다는 **vendor/** 디렉토리에 구성하는 것이 좋아서, 직접 HIDL로 이렇게 구성해서 빌드 및 안드로이드 에뮬레이터로 테스트 해 보았고, 추후 참조 및 자료 공유 차원에서 자세히 기록을 남긴다.
+회사 프로젝트에서 안드로이드 HAL(Hardware Abstraction Layer) 서비스를 구현할 일이 있어서 관련 예제를 구글링해 보았는데, 의외로 자료를 찾기가 쉽지가 않았다. 또 겨우 찾은 자료들도 기존 Android10 이하에서 **hardware/interfaces/** 디렉터리에 소스를 구성하는 예였다. 😓  
+그런데 Android12 부터는 hardware/interfaces/ 디렉터리에 소스를 구성하는 것 보다는 **vendor/** 디렉터리에 구성하는 것이 좋아서, 직접 HIDL로 이렇게 구성해서 빌드 및 안드로이드 에뮬레이터로 테스트 해 보았고, 추후 참조 및 자료 공유 차원에서 자세히 기록을 남긴다.
 
 ## 안드로이드 HAL 참고 자료
 - [HIDL](https://source.android.com/docs/core/architecture/hidl), [HIDL C++](https://source.android.com/docs/core/architecture/hidl-cpp)
@@ -127,7 +127,7 @@ $ emulator -shell
 따라서 나는 **vendor/my/** 디렉터리 밑에 구성하였다. (이렇게 하니 Android 11, 12 모두 잘 되었음)  
 구체적인 전체 작업 순서는 아래와 같다.
 
-1. AOSP 소스의 base 디렉토리에서 아래와 같이 작업용 디렉터리를 생성한다. (버전은 **1.0**으로 하였음)
+1. AOSP 소스의 base 디렉터리에서 아래와 같이 작업용 디렉터리를 생성한다. (버전은 **1.0**으로 하였음)
    ```shell
    $ mkdir -p vendor/my/echo/1.0/default
    ```
@@ -255,7 +255,7 @@ $ emulator -shell
        ],
    }
    ```
-   참고로 위에서 `init_rc` 항목으로 설정한 파일은 빌드시 vendor/etc/init/ 디렉토리 밑에 복사된다. (Android.mk 파일에서는 `LOCAL_INIT_RC` 항목에 해당함)  
+   참고로 위에서 `init_rc` 항목으로 설정한 파일은 빌드시 vendor/etc/init/ 디렉터리 밑에 복사된다. (Android.mk 파일에서는 `LOCAL_INIT_RC` 항목에 해당함)  
    빌드 후에, 아래와 같이 확인할 수 있다.
    ```shell
    $ ls $OUT/vendor/etc/init/my.hardware.echo@1.0-service.rc
