@@ -61,7 +61,7 @@ WSL에서 NFS 서버를 세팅하고 외부 디바이스에서 NFS로 접속하�
 1. 바로 `Hyper-V 관리자`로 들어가면 "WSL" 항목이 보이지 않으므로, WSL을 실행시켰다가 다시 shutdown 시킨다.
 1. `Hyper-V 관리자`를 관리자 권한으로 실행시킨 후, 해당 가상 컴퓨터에서 `가상 스위치 관리자` 항목을 클릭한다.  
    가상 스위치 항목 중에서 "WSL" 항목을 선택한 후, 아래 캡쳐와 같이 **연결 형식**을 디폴트 <font color=purple>내부 네트워크</font>에서 <font color=purple>외부 네트워크</font>로 변경하고 사용할 이더넷 장치를 선택한다.
-   <p><img src="/assets/images/hyperv_switch_setting.png"></p>
+   ![](/assets/images/hyperv_switch_setting.png)
    **확인** 버튼을 눌러서 변경 사항을 적용한다.
 1. 변경 내용이 적용되었으면 다시 WSL에 로그인 후, 아래와 같이 실행한다.
    ```shell

@@ -9,7 +9,7 @@ toc_label: "이 페이지 목차"
 
 ## 개발 Network 환경
 현재 내 Android 개발 환경은 사내망에 아래와 같이 연결되어 있다.
-<p><img src="/assets/images/android_ethernet_diagram.svg"></p>
+![](/assets/images/android_ethernet_diagram.svg)
 
 > 개발 서버는 팀원들이 공용으로 사용하는 서버로, 동시에 여러 명의 사용자가 각자의 안드로이드 디바이스에 연결할 수 있다.
 
@@ -78,9 +78,9 @@ toc_label: "이 페이지 목차"
 ## alias 이용
 1. 나는 편리하기 ADB 관련 명령어를 사용하기 위하여 ~/.bashrc 파일에 아래와 같이 추가하였다. (각자 자신의 사내망 IP와 서로 다른 ADB 포트 번호를 세팅하면 됨)
    ```sh
-   ADB_IP=172.16.7.65
+   ADB_IP=172.16.x.yy
    ADB_PORT=5577
-   
+
    alias adblist='adb devices -l'
    alias adbcon='adb connect $ADB_IP:$ADB_PORT'
    alias adbdis='adb disconnect $ADB_IP:$ADB_PORT'
@@ -90,7 +90,8 @@ toc_label: "이 페이지 목차"
    alias adbpush='adb -s $ADB_IP:$ADB_PORT push $1 $2'
    alias adbapkinstall='adb -s $ADB_IP:$ADB_PORT install $1'
    ```
-   위와 같은 alias 덕분에 이제 복잡한 ADB 명령은 못 외워도 된다. 😅 간단히 `adb`를 타이핑 한 후에 `Tab` 키를 누르면 위 alias 명령을 모두 보여주므로 쉽게 선택할 수 있다. 👍🏻
+   위와 같은 alias 덕분에 이제 복잡한 ADB 명령은 못 외워도 된다. 😅  
+   간단히 `adb`를 타이핑 한 후에 `Tab` 키를 누르면 위 alias 명령을 모두 보여주므로 쉽게 선택할 수 있다. 👍🏻
 1. 참고로 설정된 alias 확인은 아래 예와 같이 하면 된다.
    ```sh
    $ alias adbpush

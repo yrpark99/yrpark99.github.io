@@ -15,13 +15,13 @@ toc_label: "이 페이지 목차"
 시스템에 아직 ADB가 설치되지 않은 상태라면 [안드로이드 platform-tools](https://developer.android.com/studio/releases/platform-tools) 페이지에서 플랫폼에 맞는 platform tools를 다운받아서 설치하고, 설치 경로를 PATH에 추가한다.  
 이후 안드로이드 폰에서 USB 디버깅을 허용한 후, USB로 연결한다. 이 때 안드로이드 폰에서 USB 디버깅을 허용하겠냐는 팝업이 뜨면 허용한다(매번 이렇게 하면 자동화가 안되므로 영구적으로 허용시킨다).  
 이후 Windows 콘솔에서 아래와 같이 명령을 실행해서 디바이스가 리스트에 보이면 성공적으로 연결된 상태이다.
-```shell
+```batch
 C:\>adb devices
 ```
 
 ## 필요한 패키지 설치
 간단히 파이썬과 `OpenCV`를 이용하여 프로그램을 작성할 것이므로, 아래와 같이 OpenCV 파이썬 패키지를 설치한다.
-```shell
+```batch
 C:\>pip install opencv-python
 ```
 
@@ -101,13 +101,18 @@ request_food_ticket()
 > 추가로 만약에 여러 개의 안드로이드 device가 연결된 경우에는 (예로 실제 핸드폰이 USB로 연결되었고, 안드로이드 에뮬레이터도 있는 상태) adb 명령시 타겟이 설정되지 않았으므로 실패하게 되는데, 이런 경우까지 대비하려면 adb 명령시에 `-d` 옵션을 추가하면 연결된 USB device를 대상으로 하므로 정상적으로 동작한다.
 
 ## PIN 입력 화면
-./images/pin_input.png 파일은 아래와 같이 PIN 입력을 캡쳐한 사진이다.
-<p><img src="/assets/images/pin_input.png"></p>
+images/pin_input.png 파일은 아래와 같이 PIN 입력을 캡쳐한 사진이다.  
+![](/assets/images/pin_input.png)
 
 ## Windows 스케줄러 생성
-식권 신청 앱은 특정 시간대에만 식권 신청이 가능한데, 위 예제 코드는 시간 검사를 하는 코드가 없다.  
-이를 위해서 Windows에서 스케줄러를 (`taskschd.msc` 실행) 만들어서 근무 요일(월 ~ 금)의 특정 시간대에 위 코드를 실행하도록 하니, 기대대로 앱 동작이 자동화되었다. 🍕  
+식권 신청 앱은 특정 시간대에만 식권 신청이 가능한데, 위 예제 코드는 시간 검사를 구현하는 않았다.  
+이를 위해서 Windows에서 스케줄러를 (`taskschd.msc` 실행) 만들어서 근무 요일(월 ~ 금)의 특정 시간대에만 위 코드를 실행하도록 하면 된다. 또는 Windows 콘솔을 관리자 권한으로 연 후, 아래 예와 같이 실행하면 Windows 작업 스케줄러에 추가된다. (아래 예는 매일 오후 5시 58분에 수행)
+```batch
+C:\>schtasks /CREATE /TN "식권 자동신청" /SC DAILY /ST 17:58 /TR "cmd /C 'cd /D D:\dailyFoodTicket\ && python ticketRequest.py'"
+```
+
+결과로 기대대로 월 ~ 금요일에 세팅한 시각에 앱 동작이 자동화되었다. 🍕  
 물론 년차로 쉬는 날에는 회사 컴퓨터에 폰이 연결되지 않은 상태이므로, 년차인 날에 식권이 자동으로 신청되는 불상사는 일어나지 않는다.
 
 ## 결론
-이와 같이 파이썬과 OpenCV를 조합하여 안드로이드 폰에서의 반복적인 작업을 간단히 자동화할 수 있었다.
+이와 같이 파이썬과 OpenCV를 조합하여 안드로이드 폰에서의 반복적인 작업을 필요에 의해 간단히 자동화할 수 있었다.

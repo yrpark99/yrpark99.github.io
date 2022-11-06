@@ -27,10 +27,12 @@ jre
 ## Launch4j에서 JRE 설정
 Launch4j를 실행한 후에, `JRE` 탭에서 관련 설정을 한다.  
 Launch4j로 빌드한 실행 파일 실행시 JRE를 하위 지정한 디렉터리에서 찾게 하려면 **Bundled JRE paths** 입력에 준비한 `jre` 디렉터리 이름을 세팅하고, `Fallback option`에 체크를 한다. 즉, 시스템에서 JRE 찾기가 실패한 경우에는 하위 **jre**라는 디렉터리에서 JRE를 찾도록 한 것이다. 또 JDK preference로는 **Only use private JDK runtimes**를 선택한다.  
-이에 따라 나의 경우는 아래 캡쳐와 같이 설정하였다.
-<p><img src="/assets/images/launch4j_jre_my.png"></p>
+<br>
+이에 따라 나의 경우는 아래 캡쳐와 같이 설정하였다.  
+![](/assets/images/launch4j_jre_my.png)
 
 <br>
+
 참고로 launch4j 설정을 저장한 후, 설정 xml 파일에서 `jre` 부분을 확인해 보면 아래와 같았다. (나의 경우 버전은 1.8로 했으나, 아래 예에서는 지웠음)
 ```xml
 <jre>

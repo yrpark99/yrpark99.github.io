@@ -134,11 +134,11 @@ Optional Settings 항목은 적지 않아도 무방하다.
 1. Jar 파일을 빌드하기 위해서, 프로젝트를 선택하고 **Open Module Settings**를 눌러서, **Artifacts** 항목을 선택한 후, `+ (Add)` 버튼을 눌러서 JAR -> Empty를 선택한다.  
 Name에는 생성될 Jar 파일의 이름을 적는다.  
 우측 **Available Elements** 항목 중에서 main 밑에 있는 **XXX compile output** 항목을 더블 클릭하면, 좌측의 **Output Layout**에 옮겨진다.  
-또 플러그인으로 인식되려면 Jar 파일이 <font color=blue>plugin.yml</font> 파일도 포함해야 하므로, **Output Layout**에 있는 `+ (Add Copy of)` 버튼을 눌러서 **Directory Content** 항목을 눌러서, plugin.yml 파일이 있는 디렉터리를 선택한다. (아래 캡쳐 참조)
-   <p><img src="/assets/images/minecraft_build.png"></p>
+또 플러그인으로 인식되려면 Jar 파일이 <font color=blue>plugin.yml</font> 파일도 포함해야 하므로, **Output Layout**에 있는 `+ (Add Copy of)` 버튼을 눌러서 **Directory Content** 항목을 눌러서, plugin.yml 파일이 있는 디렉터리를 선택한다. (아래 캡쳐 참조)  
+![](/assets/images/minecraft_build.png)
 1. 이제부터는 Jar 파일을 빌드하려면 메뉴에서 Build -> Build Artifacts 항목을 누르기만 하면 된다.
-1. 빌드된 Jar 파일을 서버 프로그램의 `plugins` 디렉터리에 복사하면 된다. 서버 프로그램을 실행시키면 아래 캡쳐와 같이 작성한 플러그인의 활성화 로그를 확인할 수 있다.
-   <p><img src="/assets/images/minecraft_server.png"></p>
+1. 빌드된 Jar 파일을 서버 프로그램의 `plugins` 디렉터리에 복사하면 된다. 서버 프로그램을 실행시키면 아래 캡쳐와 같이 작성한 플러그인의 활성화 로그를 확인할 수 있다.  
+![](/assets/images/minecraft_server.png)
 1. 참고로 서버 프로그램이 실행 중인 상태에서도 플러그인 Jar 파일을 overwrite 한 후에, `reload` 명령을 실행시키면 모든 플러그인들이 재로딩 된다.
 
 ## 플러그인에 커맨드 추가 예
