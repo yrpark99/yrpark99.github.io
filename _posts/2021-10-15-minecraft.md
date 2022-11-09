@@ -26,7 +26,7 @@ toc_label: "이 페이지 목차"
    C:\>java -jar <서버_프로그램.jar>
    ```
    > Jar 프로그램을 실행시키는 것이므로 당연히 필요한 JRE가 설치되어 있어야 하는데, 만약 설치되어 있지 않은 상태라면 관련 에러가 출력된다. 나의 경우 Java 16이 필요하다고 에러가 출력되어, JDK 16을 설치한 후 다시 실행시켰다.  
-   JDK는 Oracle을 비롯하여 여러 곳에서 다운받을 수 있는데, Oracle은 계정 로그인(무료이긴 하지만)이 필요한 귀찮음이 있다. 대안으로 [Microsft OpenJDK](https://docs.microsoft.com/ko-kr/java/openjdk/download) 사이트에서도 간단히 다운받을 수 있다.
+   JDK는 Oracle을 비롯하여 여러 곳에서 다운받을 수 있는데, Oracle은 계정 로그인(무료이긴 하지만)이 필요한 귀찮음이 있다. 대안으로 [Microsoft OpenJDK](https://docs.microsoft.com/ko-kr/java/openjdk/download) 사이트에서도 간단히 다운받을 수 있다.
 
    실행 결과로 "You need to agree to the EULA in order to run the server. Go to eula.txt for more info."와 같은 에러 메시지가 출력되면서 중단된다. (정상적인 상황임)  
    이때 현재 디렉터리에 `eula.txt` 라는 파일이 생기는데, 이 파일에서 아래와 같이 `eula` 값을 <font color=blue>true</font>로 변경시킨 후 (라이선스 동의 의미임) 저장한다.
