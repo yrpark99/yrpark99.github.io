@@ -1,11 +1,11 @@
 ---
-title: "Go 언어로 crawling 테스트"
-category: Go
+title: "Go 언어로 크롤링 테스트"
+category: [Web, Go]
 toc: true
 toc_label: "이 페이지 목차"
 ---
 
-파이썬과 유사하게 Go 언어로 crawling 테스트를 해 보았다.
+파이썬과 유사하게 Go 언어로 크롤링(crawling) 테스트를 해 보았다.
 
 ## 크롤링
 보통 **크롤링**은 <span style="color:blue">**Python**</span>을 이용하여 쉽게 할 수 있는데, 이것의 단점이라면 실행 파일로 만들었을 때 실행 파일의 크기가 크고, 실행 속도가 느리다는 것이다.  

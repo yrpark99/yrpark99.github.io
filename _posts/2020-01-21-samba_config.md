@@ -1,6 +1,6 @@
 ---
 title: "Samba 서버 설정 팁"
-category: Linux
+category: Server
 toc: true
 toc_label: "이 페이지 목차"
 ---

@@ -1,5 +1,5 @@
 ---
-title: "VS Code Hex ascii converter 익스텐션"
+title: "VS Code 용 자작 hex ascii converter 익스텐션"
 category: VSCode
 toc: false
 toc_label: "이 페이지 목차"

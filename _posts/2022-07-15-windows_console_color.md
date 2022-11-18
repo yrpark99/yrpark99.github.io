@@ -1,6 +1,6 @@
 ---
 title: "Windows 콘솔에서 색깔 출력하기"
-category: [C, Go]
+category: [Windows]
 toc: true
 toc_label: "이 페이지 목차"
 ---

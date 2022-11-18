@@ -5,7 +5,7 @@ toc: true
 toc_label: "이 페이지 목차"
 ---
 
-MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 내가 애용하는 TSDuck 소개와 기본적인 사용법이다.
+MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본적인 사용법이다.
 
 ## TS tools
 많은 무료 TS(Transport Stream) 툴이 있는데, 내가 주로 이용하는 툴은 다음과 같다.

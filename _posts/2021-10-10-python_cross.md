@@ -1,5 +1,5 @@
 ---
-title: "Python cross build"
+title: "Python cross build 실험"
 category: Python
 toc: true
 toc_label: "이 페이지 목차"

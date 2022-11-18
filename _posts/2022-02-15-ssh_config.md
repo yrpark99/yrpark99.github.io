@@ -1,5 +1,5 @@
 ---
-title: "SSH 설치/접속/설정"
+title: "SSH 설치/접속/설정 정리"
 category: Environment
 toc: true
 toc_label: "이 페이지 목차"

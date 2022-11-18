@@ -1,6 +1,6 @@
 ---
 title: "서버 시작시 프로그램 자동 시작 설정하기"
-category: Linux
+category: Server
 toc: true
 toc_label: "이 페이지 목차"
 ---

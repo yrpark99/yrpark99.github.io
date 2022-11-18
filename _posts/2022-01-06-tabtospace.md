@@ -41,7 +41,8 @@ toc_label: "이 페이지 목차"
 1. 기타: 그 외에 awk나 전용 툴을 이용하는 방법도 있다.
 
 ## EditorConfig 설정
-일단 전체 소스를 변경하였으므로 이제 [EditorConfig](https://editorconfig.org/) 설정을 해주면, 대부분의 소스 코드 에디터에서 자동으로 space를 넣어준다. 기존에는 tab을 사용하였으나 이제 space로 바꾸었으므로, 업데이트된 `.editorconfig` 파일의 내용은 아래와 같다.
+일단 전체 소스를 변경하였으므로 이제 [EditorConfig](https://editorconfig.org/) 설정을 해주면, 대부분의 소스 코드 에디터에서 자동으로 space를 넣어준다. (EditorConfig는 대부분의 편집기를 지원하므로 필수 툴처럼 설치하는 것을 권장함)  
+기존에는 tab을 사용하였으나 이제 space로 바꾸었으므로, 업데이트된 `.editorconfig` 파일의 내용은 아래와 같다.
 ```ini
 root = true
 
@@ -95,4 +96,4 @@ insert_final_newline = false
 ```
 
 ## 결론
-간단히 모든 소스 코드들을 tab에서 space로 변환시켜서 indent를 통일하였고, Subversion이나 Git으로 관리되는 `.editorconfig` 파일과 `.vscode/settings.json` 파일도 업데이트하여, 에디터에서 작업시 자동으로 지정된 indent를 사용하도록 하여 앞으로도 indent가 통일되도록 하였다.
+간단히 모든 소스 코드들을 tab에서 space로 변환시켜서 indent를 통일하였고, Subversion이나 Git으로 관리되는 `.editorconfig` 파일과 `.vscode/settings.json` 파일도 업데이트하여, 에디터에서 작업시 자동으로 지정된 indent를 사용하도록 하여 앞으로도 indent가 통일되도록 하였고, 추가로 줄 끝의 white space도 자동으로 삭제되게 하였다. 😊
