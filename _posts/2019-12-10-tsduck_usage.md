@@ -127,12 +127,20 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```sh
    $ tsp -I file {입력 TS 파일} -P sdt --create --ts-id {TSID 값} --original-network-id {ONID 값} --service-id {service_id} --provider {provider name} --name {service name} -O file {출력 TS 파일}
    ```
-1. 입력 파일을 UDP로 multicast 전송하기 예 (아래 예에서는 multicast IP 주소는 224.10.11.12, 포트 번호는 9999 사용)
+1. 서비스 제거 예
+   ```sh
+   $ tsp -I file {입력 TS 파일} -P svremove {제거할 service_id} -O file {출력 TS 파일}
+   ```
+1. 스트림 합치기 예
+   ```sh
+   $ tsp -I file {입력 TS1 파일} -P merge 'tsp -I file {입력 TS2 파일}' -O file {출력 TS 파일}
+   ```
+1. 입력 파일을 UDP로 multicast 전송하기 예 (아래 예에서는 multicast IP 주소는 **224.10.11.12**, 포트 번호는 **9999** 사용)
    ```sh
    $ tsp -I file {TS 파일} -P regulate -P zap {service_id} -O ip 224.10.11.12:9999
    ```
    이것을 VLC media player에서 재생하려면 메뉴에서 `미디어` -> `네트워크 스트림 열기` -> `네트워크` 탭에서 네트워크 주소에 `"udp://@224.10.11.12:9999"`와 같이 입력한 후에 재생 버튼을 누르면 된다.
-1. UDP multicast 수신하여 VLC media player로 play 하기 예 (아래 예에서는 192.168.0.2 local interface를 listen, multicast IP 주소는 224.10.11.12, 포트 번호는 9999 사용)
+1. UDP multicast 수신하여 VLC media player로 play 하기 예 (아래 예에서는 **192.168.0.2** local 인터페이스를 listen, multicast IP 주소는 **224.10.11.12**, 포트 번호는 **9999** 사용)
    ```sh
    $ tsp -I ip -l 192.168.0.2 224.10.11.12:9999 -O play
    ```
@@ -143,4 +151,4 @@ TS 파일을 파싱하거나 조작하기에 아주 막강한 TSDuck을 간단�
 * PMT에 scrambling_descriptor를 추가하기
 * NIT의 original_network_id 값 변경하기
 
-물론 나도 TSDuck을 사용하지 않고, 내가 직접 툴을 만들어서 사용하는 경우도 있는데, 추가로 좋은 툴을 사용할 줄 아는 것은 큰 의미가 있을 것이다. 혹시 TS를 조작할 일이 있는 경우에는 TSDuck을 사용해 보기를 적극 권장한다. 👍
+물론 나도 TSDuck을 사용하지 않고, 내가 직접 툴을 만들어서 사용하는 경우도 있는데, 추가로 필요할 때 이런 툴을 사용하면 한층 더 편리하였다. 혹시 TS를 조작할 일이 있는 경우에는 TSDuck을 사용해 보기를 적극 권장한다. 👍
