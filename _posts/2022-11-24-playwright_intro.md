@@ -104,7 +104,9 @@ def get_start_work_time(page: Page) -> int:
     page.goto(HR_ATTENDANCE)
     page.wait_for_url(HR_ATTENDANCE)
     now = time.localtime()
-    today_str = str(now.tm_year) + "-" + str(now.tm_mon) + "-" + str(now.tm_mday)
+    month_str = "%02d" % now.tm_mon
+    day_str = "%02d" % now.tm_mday
+    today_str = str(now.tm_year) + "-" + month_str + "-" + day_str
     try:
         ten_days_attendance = page.locator("xpath=/html/body/div[2]/div[2]/div/div[2]/div[3]/table/tbody").element_handle(timeout=500).inner_text()
     except:
