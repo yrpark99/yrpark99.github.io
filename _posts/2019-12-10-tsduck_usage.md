@@ -112,12 +112,16 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    참고로 디폴트로 [VLC media player](https://www.videolan.org/index.ko.html)로 play 된다. (다른 운영 체제에서도 마찬가지임, 따라서 사전에 VLC media player를 설치해야 함)
    ```sh
    $ sudo apt install vlc
-   $ tsp -I file {TS 파일} -P zap {service_id} -O play
+   $ tsp -I file {TS 파일} -P zap {play 할 service_id} -O play
    ```
    만약에 VLC media player 대신에 [MPlayer](http://www.mplayerhq.hu/design7/news.html)로 play 하려면 아래와 같이 `-m` 옵션을 추가하면 된다.
    ```sh
    $ sudo apt install mplayer
-   $ tsp -I file {TS 파일} -P zap {service_id} -O play -m
+   $ tsp -I file {TS 파일} -P zap {play 할 service_id} -O play -m
+   ```
+1. 특정 서비스만 뽑아내기 예
+   ```sh
+   $ tsp -I file {입력 TS 파일} -P zap  {뽑아낼 service_id} -O file {출력 TS 파일}
    ```
 1. PMT에서 Video PID 변경하기 예
    ```sh
@@ -127,7 +131,7 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```sh
    $ tsp -I file {입력 TS 파일} -P sdt --create --ts-id {TSID 값} --original-network-id {ONID 값} --service-id {service_id} --provider {provider name} --name {service name} -O file {출력 TS 파일}
    ```
-1. 서비스 제거 예
+1. 특정 서비스만 제거 예
    ```sh
    $ tsp -I file {입력 TS 파일} -P svremove {제거할 service_id} -O file {출력 TS 파일}
    ```

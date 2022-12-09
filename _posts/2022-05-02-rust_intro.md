@@ -202,4 +202,7 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    ```
 
 ## Android Rust
-안드로이드 네이티브 OS 구성 요소를 개발하기 위하여 Rust를 사용할 수도 있다. 자세한 내용은 [Android Rust](https://source.android.com/docs/setup/build/rust/building-rust-modules/overview) 페이지를 참고한다.
+안드로이드 11부터는 네이티브 OS 구성 요소를 개발하기 위하여 Rust를 사용할 수 있다. 자세한 내용은 [Android Rust](https://source.android.com/docs/setup/build/rust/building-rust-modules/overview) 페이지를 참고한다.
+
+> 구글 Security Blog [Memory Safe Languages in Android 13](https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html) 페이지를 보면, 안드로이드에서의 Rust 코드 비중이 점점 늘어나고 있고 (Android 13의 경우 새로 작성된 Rust 코드의 비중은 C 언어와 비슷), 이 결과로 메모리 취약점은 2019년 223개에서 2022년 85개로 감소되었다고 한다.  
+더구나 현재까지 Rust로 작성된 코드에서 발생한 메모리 취약점은 없었다고 한다. 😲

@@ -20,7 +20,9 @@ toc_label: "이 페이지 목차"
 - 세상에 가장 흐린 먹물도 가장 좋은 기억력보다 낫다.
 
 나의 경우 PKM(Personal Knowledge Management)을 위한 노트로 주로 Onenote와 GitHub 블로그, 위키 등을 이용하고 있는데, Obisidian은 무료로 로컬 및 클라우드에서 Markdown 베이스로 강력한 지식 관리 시스템을 구축할 수 있어서, 앞으로 종종 이용해 보려고 한다.
->물론 비슷한 용도로 [Notion](https://www.notion.so/ko-kr)도 있지만, Notion의 경우 지나치게 복잡하면서 기능이 많고, 나중에는 이 플랫폼에 종속될 것 같아서 내가 원하는 바와는 조금 맞지 않는 것 같다.
+> 물론 비슷한 용도로 [Notion](https://www.notion.so/ko-kr)도 있지만, Notion의 경우 지나치게 복잡하면서 기능이 많고, 나중에는 이 플랫폼에 종속될 것 같아서 내가 원하는 바와는 조금 맞지 않는 것 같다.
+
+> 또 [Silver Bullet](https://silverbullet.md/)라는 마크다운 기반의 개인 지식 관리 시스템도 있다. 이건 GitHub IO처럼 호스팅 방식인데, 자체적으로 호스팅하고 싶은 경우에는 이용할 수 있겠다. 일단 웹호스팅을 하면 대부분의 웹브라우저에서 해당 URL로 접속하기만 하면 내용을 볼 수 있다. 오픈 소스이므로 [Silver Bullet 소스 저장소](https://github.com/silverbulletmd/silverbullet)에서 소스를 확인할 수도 있다.
 
 ## Obisidian
 [Obisidian](https://obsidian.md/)은 흑요석이란 뜻으로 마인크래프트에도 나오는 광물 중의 하나이다. (로고가 흑요석을 형상화한 모양임)  
@@ -42,8 +44,8 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 Windows의 경우에는 디폴트로 `%USERPROFILE%\Documents\` 디렉터리 밑에 구성되는데, Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 사용자가 원하는 다른 경로의 파일 저장고를 열 수 있다.  
 Obisidian에서 디렉터리와 노트를 생성하면 로컬 디렉터리에도 해당 디렉터리와 md 파일이 생성되고, 반대로 로컬 디렉터리에 디렉터리와 md 파일을 복사하면 Obisidian에도 반영되어 나타난다.
 
->Obsidian은 파일 저장고를 workspace 개념으로 처리하며, 각각의 파일 저장고마다 설정을 따로 저장하는데, 이 위치는 파일 저장고의 최상위 디렉터리에서 **.obsidian** 디렉터리이다.  
->참고로 열린 Obsidian을 모두 닫은 후 다시 실행시키면, 자동으로 마지막 파일 저장고를 다시 로딩한다.
+> Obsidian은 파일 저장고를 workspace 개념으로 처리하며, 각각의 파일 저장고마다 설정을 따로 저장하는데, 이 위치는 파일 저장고의 최상위 디렉터리에서 **.obsidian** 디렉터리이다.  
+> 참고로 열린 Obsidian을 모두 닫은 후 다시 실행시키면, 자동으로 마지막 파일 저장고를 다시 로딩한다.
 
 ## 클라우드에 저장하기
 여러 디바이스의 Obisidian에서 동일 저장소를 sync를 맞추어서 사용하려면 Obsidian 파일들을 클라우드에 저장한 후 sync 매커니즘을 이용하면 한다.  
@@ -58,7 +60,7 @@ Google drive와 같이 desktop client 프로그램을 제공해서 클라이드 
 이후 Google 드라이브 밑에 Obsidian을 위한 디렉터리를 생성하고 (예: **Obsidian Notes**), 이 밑에 Obsidian 디렉터리와 md 파일들을 구성한다.
 이제 Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 저장소 관련 팝업이 뜨는데, 여기에서 **저장소로 폴더 열기**의 **열기** 버튼을 눌러서 Google Drive의 Obisidian 디렉터리를 세팅하면 된다.
 
->다만 이 방법은 다수의 컴퓨터끼리는 정상 동작하나, Android에서는 Google drive가 마운트 되지 않아서 Android Obsidian 앱에서는 이용할 수 없었다. (물론 Android에서도 로컬 저장소 경로는 잘 됨)
+> 다만 이 방법은 다수의 컴퓨터끼리는 정상 동작하나, Android에서는 Google drive가 마운트 되지 않아서 Android Obsidian 앱에서는 이용할 수 없었다. (물론 Android에서도 로컬 저장소 경로는 잘 됨)
 
 Obisidian 노트가 클라우드에 있으므로, 변경 사항은 다른 디바이스에서도 자동으로 반영된다. 또, 원하면 노트 자체를 Git과 같은 SCM을 사용하여 운용할 수도 있다.
 
