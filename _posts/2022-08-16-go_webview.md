@@ -126,5 +126,86 @@ C:\>rsrc -manifest app.manifest -ico app.ico -o rsrc.syso
 
 위와 같이 실행하여 **rsrc.syso** 파일이 생성되었으면 (사실상 파일 이름은 관계없음), 다시 `go build`를 실행하면 실행 파일에 app.ico 아이콘이 표시된다.
 
+## 기존 윈도우에 웹뷰 띄우기
+그런데 [go-webview2](https://github.com/jchv/go-webview2) 패키지는 웹뷰를 새로운 윈도우로 띄우는 것은 잘 되었지만, 기존 윈도우(예: app 내에 레이아웃으로 나눈 윈도우)로 띄우는 것은 되지 않았다.  
+이상해서 [webview](https://github.com/webview/webview)를 확인해 보니 이건 잘 되었지만, CGo로 빌드해야 하고 **WebView2Loader.dll** 파일도 함께 배포해야 하므로, 이건 내키지가 않았다.  
+아무리 구글링을 해봐도 관련 자료가 없어서, 결국 go-webview2 패키지 소스를 살펴보니, 관련 코드가 구현되어 있지 않아서 발생한 문제였다. 즉, go-webview2 패키지의 `webview.go` 파일에서 NewWithOptions() 함수는 아래와 같이 되어 있었다. (**options.Window** 값이 **nil**이 아닌 경우를 처리하지 않고 있음)
+```go
+func NewWithOptions(options WebViewOptions) WebView {
+    ...
+
+    w.browser = chromium
+    w.mainthread, _, _ = w32.Kernel32GetCurrentThreadID.Call()
+    if !w.CreateWithOptions(options.WindowOptions) {
+        return nil
+    }
+
+    ...
+}
+```
+
+그래서 아래와 같이 수정하니, 기존 윈도우에 웹뷰를 띄울 수 있었다.
+```go
+func NewWithOptions(options WebViewOptions) WebView {
+    ...
+
+    w.browser = chromium
+    w.mainthread, _, _ = w32.Kernel32GetCurrentThreadID.Call()
+    if options.Window != nil {
+        w.hwnd = uintptr(options.Window)
+        if !w.browser.Embed(w.hwnd) {
+            return nil
+        }
+        w.browser.Resize()
+    } else if !w.CreateWithOptions(options.WindowOptions) {
+        return nil
+    }
+
+    ...
+}
+```
+<br>
+
+위 수정 사항으로 끝인 줄 알았는데, 테스트 하다 보니 메인 윈도우의 위치를 움직인 후에는 웹뷰에서 드랍 다운 메뉴의 위치가 옮기기 전의 위치로 잘못 나오는 이슈를 발견하였다. 다시 구글링 삽질을 하였으나 역시나 관련 자료를 찾을 수는 없었고, 패키지 소스를 보다가 이 경우에는 웹뷰 브라우저로 <font color=purple>NotifyParentWindowPositionChanged</font> 함수를 호출해주어야 한다는 것을 깨달았다.  
+역시 원래 패키지 소스에는 구현이 되어 있지 않은 관계로, go-webview2 패키지의 `common.go` 파일에서 아래 내용을 추가하였고,
+```go
+type WebView interface {
+    ...
+
+    NotifyWinowPosChanged()
+}
+```
+`webview.go` 파일에서 아래와 같이 구현하였다.
+```go
+func (w *webview) NotifyWinowPosChanged() {
+    w.browser.NotifyParentWindowPositionChanged()
+}
+```
+<br>
+
+이제 메인 윈도우 쪽에서 <font color=blue>WM_WINDOWPOSCHANGED</font> 메시지를 받으면 웹뷰의 <font color=purple>NotifyWinowPosChanged</font> 함수를 호출해 주면 된다.  
+나의 경우에는 [walk](https://github.com/lxn/walk) 패키지로 Windows GUI 프로그램을 구현하고 있었으므로, 아래와 같이 웹뷰를 생성하였다. (아래에서 **mw.webviewWindow**가 walk.TextEdit로 생성한 기존 윈도우이고, 이것의 윈도우 핸들을 얻어서 웹뷰 생성시 **Window** 파라미터로 넘겨주었음)
+```go
+hWnd := mw.webviewWindow.Handle()
+options := webview2.WebViewOptions{Window: unsafe.Pointer(hWnd), Debug: false, AutoFocus: true}
+mw.webView = webview2.NewWithOptions(options)
+walk.InitWrapperWindow(mw)
+```
+위와 같이 <font color=purple>InitWrapperWindow</font> 함수를 호출하여 내 윈도우 프로시저가 호출되게 하였다. 여기서는 <font color=blue>WM_WINDOWPOSCHANGED</font>, <font color=blue>WM_CLOSE</font> 메시지 처리만 하면 되므로 아래와 같이 작성하였다.
+```go
+func (mw *MyMainWindow) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) uintptr {
+    switch msg {
+    case win.WM_WINDOWPOSCHANGED:
+        if mw.webView != nil {
+            mw.webView.NotifyWinowPosChanged()
+        }
+    case win.WM_CLOSE:
+        mw.Close()
+    }
+
+    return mw.AsContainerBase().WndProc(hwnd, msg, wParam, lParam)
+}
+```
+
 ## 결론
-Windows WebApp이 필요하여 여러 방법들을 찾아보다가, go-webview2 패키지를 이용하여 방법이 괜찮아 보여서 간단히 기록하였다.
+Windows WebApp이 필요하여 여러 방법들을 찾아보다가, go-webview2 패키지를 이용하는 방법이 괜찮아 보여서 간단히 기록하였다. Go로 웹브라우저가 필요한 Windows GUI 앱 작성시 도움이 되길 기대한다.
