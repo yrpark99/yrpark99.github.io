@@ -83,7 +83,9 @@ VS Code에서 Markdown 파일을 작성한 후 (물론 preview를 보면서), PD
 "markdown-pdf.margin.bottom": "1.5cm",
 "markdown-pdf.plantumlCloseMarker": "```",
 "markdown-pdf.plantumlOpenMarker": "```plantuml",
-"markdown-pdf.scale": 0.85,
+"markdown-pdf.scale": 0.84,
+"markdown-pdf.footerTemplate": "<div style=\"font-size: 10px; margin: 0 auto;\">- <span class='pageNumber'></span> -</div>",
+"markdown-pdf.headerTemplate": "<div></div>",
 "markdown-pdf.styles": [
     "doc/markdown-pdf.css"
 ],
@@ -110,8 +112,8 @@ a:link {
 
 /* blockquote */
 blockquote {
-    margin: 0px;
-    padding: 0 5px 0 5px;
+    margin: 0 0 1.5em 0;
+    padding: 3px 5px 0px 5px;
     border-left: 5px solid;
     background: rgba(127, 127, 127, 0.1);
     border-color: rgba(0, 122, 204, 0.5);
@@ -172,6 +174,22 @@ hr {
     white-space: pre-wrap;
 }
 
+/* kbd tag */
+kbd {
+    background-color: #eee;
+    border: 1px solid #b4b4b4;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .2), 0px 0px 0px rgba(255, 255, 255, .7) inset;
+    color: #333;
+    display: inline-block;
+    font-family: 'malgun-gothic', Arial, serif;
+    font-size: inherit;
+    line-height: 1;
+    margin: 0 2px 0 0;
+    padding: 0 0.1em;
+    white-space: nowrap;
+}
+
 /* headers */
 
 h1,
@@ -186,8 +204,8 @@ h6 {
 }
 
 h1 {
-    margin-top: 1em;
-    margin-bottom: 20px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
     font-weight: bold;
     font-size: 28px;
     border-bottom: 0;
@@ -207,34 +225,34 @@ h1 {
 }
 
 h2 {
-    margin-top: 1.6em;
-    margin-bottom: 15px;
+    margin-top: 1.4em;
+    margin-bottom: 0.5em;
     font-size: 24px;
-    padding-bottom: 2px;
+    padding: 2px;
     border-bottom: 1px solid #efeaea;
 }
 
 h3 {
-    margin-top: 1.5em;
+    margin-top: 1.4em;
     margin-bottom: 0.5em;
     font-size: 20px;
 }
 
 h4 {
-    margin-top: 1.5em;
+    margin-top: 1.4em;
     margin-bottom: 0.5em;
     font-size: 16px;
 }
 
 h5 {
-    margin-top: 20px;
+    margin-top: 1.4em;
     margin-bottom: 0.5em;
     padding: 0;
     font-size: 12px;
 }
 
 h6 {
-    margin-top: 20px;
+    margin-top: 1.4em;
     margin-bottom: 0.5em;
     padding: 0;
     font-size: 10px;
