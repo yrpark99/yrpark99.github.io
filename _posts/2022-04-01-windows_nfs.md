@@ -128,7 +128,7 @@ Windows에서 NFS 클라이언트를 사용하여 다른 NFS 서버에 접속할
 ## WSL NFS 서버 혼합 방법
 위의 Hyper-V 관리자를 이용한 방법의 단점은 Windows를 재부팅하면 가상 스위치 연결 형식이 다시 디폴트로 돌아와 버려서 매번 재설정해야 한다는 것이다.  
 그래서 나는 현재 이 방법 대신에 아래와 같은 WinNFSd 툴을 이용한 방식을 사용하고 있다.
-1. [WSL2에서 삼바(Samba) 서버 사용하기](https://yrpark99.github.io/windows/wsl2_samba/) 페이지에서 설명한 방식으로 WSL에 **192.168** 대역의 IP를 할당한다.
+1. [WSL2에서 삼바(Samba) 서버 사용하기](https://yrpark99.github.io/wsl/wsl2_samba/) 페이지에서 설명한 방식으로 WSL에 **192.168** 대역의 IP를 할당한다.
 1. WSL의 내 유저 디렉터리에서 NFS 디렉터리를 symbolic link로 만들어서 삼바 경로로 NFS 디렉터리가 access 되게 만든다. (예로 **nfs** 이름으로 생성)  
 참고로 삼바의 symbolic link가 동작되게 하려면 samba 설정 파일(`/etc/samba/smb.conf`)의 `[global]` 섹션에 아래 내용을 추가해야 한다.
    ```ini
