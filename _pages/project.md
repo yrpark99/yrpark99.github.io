@@ -7,6 +7,7 @@ author_profile: true
 
 - [CRC32 (normal, MPEG2) 계산](https://github.com/yrpark99/crc32)
 - [Doxygen에서 PlantUML MindMap 지원](https://github.com/yrpark99/doxygen)
+- [Go-WebView2에서 기존 윈도우에도 WebView를 띄울 수 있도록 구현](https://github.com/yrpark99/go-webview2)
 - [LunarVim (내 Neovim 환경)](https://github.com/yrpark99/LunarVim)
 - [PGP Decrypt Web Server 구현](https://github.com/yrpark99/PgpDecryptServer)
 - [Platinum에서 EUC-KR 인코딩 지원](https://github.com/yrpark99/the_platinum_searcher)

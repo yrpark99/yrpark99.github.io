@@ -206,3 +206,5 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
 
 > 구글 Security Blog [Memory Safe Languages in Android 13](https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html) 페이지를 보면, 안드로이드에서의 Rust 코드 비중이 점점 늘어나고 있고 (Android 13의 경우 새로 작성된 Rust 코드의 비중은 C 언어와 비슷), 이 결과로 메모리 취약점은 2019년 223개에서 2022년 85개로 감소되었다고 한다.  
 더구나 현재까지 Rust로 작성된 코드에서 발생한 메모리 취약점은 없었다고 한다. 😲
+
+> 한글판은 [구글이 안드로이드OS를 러스트로 짜는 이유](https://zdnet.co.kr/view/?no=20230102112009#_enliple) 기사 참조
