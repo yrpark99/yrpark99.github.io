@@ -121,7 +121,7 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```
 1. 특정 서비스만 뽑아내기 예
    ```sh
-   $ tsp -I file {입력 TS 파일} -P zap  {뽑아낼 service_id} -O file {출력 TS 파일}
+   $ tsp -I file {입력 TS 파일} -P zap {뽑아낼 service_id} -O file {출력 TS 파일}
    ```
 1. PMT에서 Video PID 변경하기 예
    ```sh
