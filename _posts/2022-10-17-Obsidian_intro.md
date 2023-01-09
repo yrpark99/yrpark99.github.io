@@ -20,7 +20,7 @@ toc_label: "이 페이지 목차"
 - 세상에 가장 흐린 먹물도 가장 좋은 기억력보다 낫다.
 
 나의 경우 PKM(Personal Knowledge Management)을 위한 노트로 주로 Onenote와 GitHub 블로그, 위키 등을 이용하고 있는데, Obisidian은 무료로 로컬 및 클라우드에서 Markdown 베이스로 강력한 지식 관리 시스템을 구축할 수 있어서, 앞으로 종종 이용해 보려고 한다.
-> 물론 비슷한 용도로 [Notion](https://www.notion.so/ko-kr)도 있지만, Notion의 경우 지나치게 복잡하면서 기능이 많고, 나중에는 이 플랫폼에 종속될 것 같아서 내가 원하는 바와는 조금 맞지 않는 것 같다.
+> 물론 비슷한 용도로 [Notion](https://www.notion.so/ko-kr)이 있는데, Notion은 협업 툴로 아주 강력하지만, 무료로는 사용에 제한이 있고 지나치게 복잡하면서 기능이 많고 플랫폼에 종속될 우려가 있어서, 여기서 내가 원하는 개인 지식 관리 의도와는 조금 맞지 않는 것 같다.
 
 > 또 [Silver Bullet](https://silverbullet.md/)라는 마크다운 기반의 개인 지식 관리 시스템도 있다. 이건 GitHub IO처럼 호스팅 방식인데, 자체적으로 호스팅하고 싶은 경우에는 이용할 수 있겠다. 일단 웹호스팅을 하면 대부분의 웹브라우저에서 해당 URL로 접속하기만 하면 내용을 볼 수 있다. 오픈 소스이므로 [Silver Bullet 소스 저장소](https://github.com/silverbulletmd/silverbullet)에서 소스를 확인할 수도 있다.
 

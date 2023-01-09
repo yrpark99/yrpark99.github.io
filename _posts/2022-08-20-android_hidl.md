@@ -1,5 +1,5 @@
 ---
-title: "안드로이드 11에서 HIDL 작성 및 빌드"
+title: "안드로이드에서 HIDL 작성, 빌드 및 테스트"
 category: Android
 toc: true
 toc_label: "이 페이지 목차"
@@ -43,8 +43,9 @@ AOSP에서 HIDL 소개 및 예제 코드를 작성/빌드/테스트하여 성공
    $ curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
    $ chmod a+x ~/bin/repo
    ```
+1. 작업용 디렉터리를 만든 후에 이 디렉터리로 이동한다.
 1. 아래와 같이 `repo init` 명령을 실행한다.  
-(`-b` 옵션으로 태그를 지정할 수 있음, 전체 태그 목록은 ["안드로이드 Codenames, Tags, and Build Numbers"](https://source.android.com/source/build-numbers.html#source-code-tags-and-builds) 페이지에서 확인할 수 있음)
+(`-b` 옵션으로 태그를 지정할 수 있음, 전체 태그 목록은 [안드로이드 Codenames, Tags, and Build Numbers](https://source.android.com/source/build-numbers.html#source-code-tags-and-builds) 페이지에서 확인할 수 있음)
    - Android 11 버전의 태그 예
      ```shell
      $ repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r33

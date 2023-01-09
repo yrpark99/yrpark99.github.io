@@ -5,7 +5,7 @@ toc: true
 toc_label: "이 페이지 목차"
 ---
 
-최근 몇 년 사이에 가장 hot 한 언어 중의 하나인 [Rust](https://www.rust-lang.org/)를 간략히 소개한다.
+2016년 이후로 줄곧 개발자가 가장 사랑하는 언어 1위로 뽑히고 있는 [Rust](https://www.rust-lang.org/) 언어를 간략히 소개한다.
 
 <br>
 Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 2010년 처음으로 일반에 공개되었고, 2012년에 첫 번째 알파 버전인 0.1이 발표되었고, 오픈 소스로 개발되고 있다. C언어와 마찬가지로 저수준 프로그래밍이 가능하며 적은 크기와 빠른 속도가 강점이고 (Garbage Collector가 없음), 빌드 시에 메모리 오류 등을 방지해서 보다 안정적인 프로그램을 작성할 수 있다.  
@@ -175,6 +175,10 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    ```shell
    $ cargo check
    ```
+1. Unit 테스트 하기
+   ```shell
+   $ cargo test
+   ```
 1. 종속 패키지의 버전 업데이트
    `Cargo.toml` 파일에는 프로젝트가 사용하는 종속 패키지들을 지정할 수 있는데, 여기서 패키지명과 버전을 함께 지정한 후, 아래와 같이 실행하면 된다.
    ```shell
@@ -206,5 +210,3 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
 
 > 구글 Security Blog [Memory Safe Languages in Android 13](https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html) 페이지를 보면, 안드로이드에서의 Rust 코드 비중이 점점 늘어나고 있고 (Android 13의 경우 새로 작성된 Rust 코드의 비중은 C 언어와 비슷), 이 결과로 메모리 취약점은 2019년 223개에서 2022년 85개로 감소되었다고 한다.  
 더구나 현재까지 Rust로 작성된 코드에서 발생한 메모리 취약점은 없었다고 한다. 😲
-
-> 한글판은 [구글이 안드로이드OS를 러스트로 짜는 이유](https://zdnet.co.kr/view/?no=20230102112009#_enliple) 기사 참조
