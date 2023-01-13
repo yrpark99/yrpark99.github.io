@@ -50,4 +50,5 @@ toc_label: "이 페이지 목차"
    ```
 
 ## Docker 컨테이너인 경우
-만약 시스템 부팅시 자동으로 Docker 컨테이너를 시작시키고 싶으면 docker run 명령시에 `--restart=always` 옵션을 추가하면 된다.  또는 Docker compose 이용시에는 `restart: always` 설정을 추가하면 된다.
+만약 시스템 부팅시 자동으로 Docker 컨테이너를 시작시키고 싶으면 docker run 명령시에 `--restart=always` 옵션을 추가하면 된다.  
+또는 Docker compose 이용시에는 **docker-compose.yml** 파일에서 `restart: always` 설정을 추가하면 된다.

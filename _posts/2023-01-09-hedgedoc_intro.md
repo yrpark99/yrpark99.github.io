@@ -92,7 +92,12 @@ tags: 태그명
 <br>
 
 마크다운 에디터에서는 **Sublime**, **Emacs**, **Vim** 3가지 에디터 모드를 지원하고 디폴트는 Sublime이다. 에디터 창의 맨 아래 상태바에서 tab과 space를 선택할 수 있고, 크기도 선택할 수 있다. (보통은 space 2를 선택하는 것이 편할 것임)  
-> 참고로 Sublime 에디터 모드에서는 멀티 커서도 지원한다. 예를 들어 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Up</kbd>/<kbd>Down</kbd> 키를 누르면 멀티 커서로 선택된다.
+참고로 Sublime 에디터 모드에서는 아래 예와 같은 Sublime Text 기능을 지원하므로 편리하게 이용할 수 있다.
+- 멀티 커서 선택: <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Up</kbd>/<kbd>Down</kbd>
+- 현재 줄 복사하기: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> (또는 <kbd>Ctrl</kbd> + <kbd>C</kbd>, <kbd>Ctrl</kbd> + <kbd>V</kbd>)
+- 현재 줄 삭제하기: <kbd>Shift</kbd> + <kbd>Del</kbd>
+- 줄 이동: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Up</kbd>/<kbd>Down</kbd>
+- Sort/Unsort 리스트를 indent, outdent: <kbd>Tab</kbd>, <kbd>Shift</kbd> + <kbd>Tab</kbd>
 
 ## 문서 공동 작업
 해당 문서를 원하는 사람들에게 공유하려면 해당 문서의 URL을 전달하면 된다. 문서에서 **공개하기** 버튼을 누르면 read only URL이 표시되는데 이 주소를 전달해도 되고, 수정/미리보기 URL 주소를 전달해도 된다.  

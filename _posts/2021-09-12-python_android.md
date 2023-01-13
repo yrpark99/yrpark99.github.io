@@ -65,8 +65,15 @@ def get_image_position(small_image, big_image):
 def click(tap_x, tap_y):
     adb_cmd(f"adb shell input tap {tap_x} {tap_y}")
 
+def scroll(start_x, start_y, end_x, end_y):
+    adb_cmd(f"adb shell input swipe {start_x} {start_y} {end_x} {end_y}")
+
+def roll(dx, dy):
+    adb_cmd(f"adb shell input roll {dx} {dy}")
+
 def wakeup():
     adb_cmd("adb shell input keyevent KEYCODE_WAKEUP")
+    adb_cmd("adb shell input keyevent KEYCODE_HOME")
 
 def unlock():
     fileName = "screen.png"
@@ -85,18 +92,20 @@ def open_food_app():
 def request_food_ticket():
     click(60, 140)
     time.sleep(1)
-    click(150, 1900)
+    scroll(100, 800, 100, 200)
+    time.sleep(1)
+    click(200, 1600)
     time.sleep(0.5)
     click(170, 400)
     time.sleep(0.5)
-    click(500, 1895)
+    click(500, 1750)
 
 wakeup()
 unlock()
 open_food_app()
 request_food_ticket()
 ```
-> 참고로 위 소스는 최대한 간단히 하기 위하여, 내 환경에서만 테스트 하였고 예외 상황에 대한 고려도 하지 않았다. 또, ADB로 화면 스크롤도 가능하지만 나의 경우에는 스크롤이 필요하지 않아서 위의 소스에서는 뺐다.
+> 참고로 위 소스는 최대한 간단히 하기 위하여, 내 환경에서만 테스트 하였고 예외 상황에 대한 고려도 하지 않았다.
 
 > 추가로 만약에 여러 개의 안드로이드 device가 연결된 경우에는 (예로 실제 핸드폰이 USB로 연결되었고, 안드로이드 에뮬레이터도 있는 상태) adb 명령시 타겟이 설정되지 않았으므로 실패하게 되는데, 이런 경우까지 대비하려면 adb 명령시에 `-d` 옵션을 추가하면 연결된 USB device를 대상으로 하므로 정상적으로 동작한다.
 

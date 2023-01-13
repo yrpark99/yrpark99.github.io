@@ -44,12 +44,13 @@ RUN groupadd -g ${gid} ${user} && useradd -m -u ${uid} -g ${gid} ${user}
 
 # Run with user privilege
 USER ${user}
+WORKDIR /home/${user}
 ```
 
 ## Docker 이미지 생성
-Dockerfile을 만들었으므로, 이제 Dockerfile이 있는 경로에서 아래와 같이 실행하면 **build_image** 이름의 Docker 이미지가 생성된다. (호스트에서의 유저의 user id, group id 정보를 그대로 빌드 아규먼트로 넘김. 단, 호스트와 컨테이너를 구분하기 위하여 의도적으로 `user=$USER` 대신에 `user=appuser`로 세팅하여 유저 이름만 변경하였음)
+Dockerfile을 만들었으므로, 이제 Dockerfile이 있는 경로에서 아래와 같이 실행하면 **build_image** 이름의 Docker 이미지가 생성된다. (호스트에서의 유저의 user 이름, user id, group id 정보를 그대로 빌드 아규먼트로 넘김)
 ```shell
-$ docker build --tag build_image --build-arg user=appuser --build-arg uid=$(id -u) --build-arg gid=$(id -g) .
+$ docker build --tag build_image --build-arg user=$USER --build-arg uid=$(id -u) --build-arg gid=$(id -g) .
 ```
 
 실행이 끝나면 아래와 같이 확인해 볼 수 있다.
@@ -62,31 +63,32 @@ build_image   latest    0d04150164f9   14 seconds ago  493MB
 ## Docker 컨테이너 생성
 이제 **build_image** 이름의 Docker 이미지가 생성되었으므로, 아래 예와 같이 **build_container** 이름의 Docker 컨테이너를 생성할 수 있다.
 ```shell
-$ docker run --name build_container -it -v /home/$USER/project/:/project/ -v /opt/nfs/$USER/:/opt/nfs/$USER/ -v /home/$USER/.ssh/:/home/$USER/.ssh/ --net=host build_image
+$ docker run --name build_container -it -v /home/$USER/:/home/$USER/ -v /opt/nfs/$USER/:/opt/nfs/$USER/ --net=host build_image
 ```
-> 위 예에서는 빌드에 사용할 디렉터리로 **project**를 공유하였고, 호스트 유저의 NFS 디렉터리와 .ssh 디렉터리를 공유하였다.  
-또, 호스트의 `/etc/hosts` 파일을 그대로 사용하기 위해서 `--net=host` 아규먼트를 주어서 호스트 네트워크를 사용하게 했다. (또는 이 방법 대신에 `--add-host` 아규먼트를 이용하여 원하는 alias와 IP를 추가해도 됨)
+> 위 예에서는 사용자 디렉토리 전체를 컨테이너에서 동일 경로로 공유하였고, 호스트 유저의 NFS 디렉터리를 추가로 공유하였다.  
+> 또, 호스트의 `/etc/hosts` 파일을 그대로 사용하기 위해서 `--net=host` 아규먼트를 주어서 호스트 네트워크를 사용하게 했다. (또는 이 방법 대신에 `--add-host` 아규먼트를 이용하여 원하는 alias와 IP를 추가해도 됨)
 
-결과로 Docker 컨테이너가 생성된 후에 자동으로 실행되고, 컨테이너의 shell 프롬프트가 표시된다. (우분투 PS1 기본 설정에 따라서 유저 이름과 호스트 이름 후에 현재 경로가 표시됨)  
-여기에서 `id` 명령으로 유저 정보를 확인해 보면, 호스트에서의 유저 정보와 동일하게 유저가 생성되었음을 확인할 수 있다. 심지어 유저 이름까지 똑같이 하면 내가 호스트 시스템에 있는지, 컨테이너 내에 있는지조차 헷갈릴 수 있다.  
-(물론 이것은 Docker의 강력함 때문이지만) 이 글에서는 혼돈을 막기 위하여 의도적으로 컨테이너 상의 유저 이름을 **appuser**라는 이름으로 변경시켰고, 호스트 이름은 **Hostname**으로 세팅하였다.
+결과로 Docker 컨테이너가 생성된 후에 자동으로 실행되고, 컨테이너의 shell 프롬프트가 표시된다.  
+여기에서 `id` 명령으로 유저 정보를 확인해 보면, 호스트에서의 유저 정보와 동일하게 유저가 생성되었음을 확인할 수 있다.  
+심지어 유저 이름까지 똑같으므로 내가 호스트 시스템에 있는지, 컨테이너 내에 있는지조차 헷갈릴 수 있다. 😵  
+이제 컨테이너에서 해당 프로젝트 디렉토리로 이동하여 빌드를 하면 된다.
 
-## Docker 컨테이너에서 빌드
-이제 컨테이너에서 아래 예와 같이 원하는대로 빌드를 하면 된다.
-```shell
-appuser@Hostname:~$ cd /project/
-appuser@Hostname:/project$ make
-```
+> Docker의 강력함으로 인해, 간혹 컨테이너에서 실행 중인지조차 인지하지 못할 때가 있다. 이런 경우에 혼돈을 막으려면 아래 예와 같이 Docker 이미지를 생성할 때, `user` 세팅값으로 컨테이너 상의 유저 이름을 다른 이름으로 (아래 예에서는 **container** 사용) 세팅할 수 있다.
+> ```shell
+> $ docker build --tag build_image --build-arg user=container --build-arg uid=$(id -u) --build-arg gid=$(id -g) .
+> ```
+> 물론 표시되는 이름만 다르고 실제 uid, gid는 동일하므로, 컨테이너 밖에서는 원래 사용자로 올바르게 보인다.
 
 ## Docker 컨테이너 종료
 컨테이너에서 빌드 작업이 완료되었으면 아래와 같이 `exit` 명령을 실행하면 컨테이너가 종료된다.
 ```shell
-appuser@Hostname:~$ exit
+$ exit
 ```
 
 빌드된 결과 파일들을 확인해 보면, 기대대로 호스트에서의 내 uid, gid와 동일한 유저로 생성되므로, Docker를 사용하지 않았을 때와 동일하게 본인 유저 권한으로 빌드되었음을 알 수 있다. 😋
 
 <br>
+
 참고로 이때 Docker 컨테이너 상태를 확인해 보면, 아래 예와 같이 나온다. (즉, 컨테이너가 중단된 상태)
 ```shell
 $ docker ps -a
@@ -107,13 +109,12 @@ CONTAINER ID   IMAGE         COMMAND   CREATED             STATUS         PORTS 
 e96029e37ddb   build_image   "bash"    About an hour ago   Up 5 seconds             build_container
 ```
 
-그런데 빌드를 하기 위해서는 커맨드 프롬프트를 얻어야 하므로, 이후 아래와 같이 컨테이너에 attach 시킨다.
+그런데 빌드를 하기 위해서는 커맨드 프롬프트를 얻어야 하므로, 이후 아래와 같이 컨테이너에 attach 시키면 컨테이너의 프롬프트를 얻을 수 있다.
 ```shell
 $ docker attach build_container
-appuser@Hostname:/$
 ```
 
-이제 커맨드 프롬프트를 얻었으므로, 다시 빌드를 수행할 수 있다. 빌드를 마쳤으면 다시 `exit` 명령으로 컨테이너를 빠져 나올 수 있다.
+이제 컨테이너의 커맨드 프롬프트를 얻었으므로, 다시 빌드를 수행할 수 있다. 빌드를 마쳤으면 다시 `exit` 명령으로 컨테이너를 빠져 나올 수 있다.
 
 ## Docker 컨테이너 삭제
 Docker 컨테이너가 더 이상 필요하지 않으면, 아래와 같이 삭제할 수 있다.
