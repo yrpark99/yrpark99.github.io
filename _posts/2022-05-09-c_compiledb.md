@@ -10,10 +10,10 @@ LSP를 지원하는 편집기에서 C/C++ 소스 코드의 navigation 등을 위
 
 특정 컴퓨터 언어를 사용하여 코딩 시에, 편집기에서 해당 언어의 문법 강조, 자동 완성, symbol로 이동, symbol 찾기, hover 도움말, 구문 에러 검사, 포매팅, 리팩토링 등의 기능을 이용하면 빠르고 쉽게 코딩할 수 있다. 그런데, 의외로 이런 기능들을 제대로 이용하지 않고 (또는 일부만 이용하면서) 코딩을 하는 사람들도 많이 있어서 (이런 환경 구축에도 어려운 점이 있으므로), 기록 및 공유 차원에서 정리해 본다.  
 <br>
-LSP(Language Server Protocol)를 지원하는 편집기인 경우에는 위의 모든 기능들은 LSP 환경만 구축하면 쉽게 이용할 수 있다.
+LSP(Language Server Protocol)를 지원하는 편집기인 경우에는 위의 모든 기능들은 LSP 환경만 구축하면 쉽게 이용할 수 있다. (Modern 편집기들은 이제 대부분 LSP를 지원함)
 
 ## LSP 소개
-LSP(Language Server Protocol)는 Microsoft 사에서 개발한 프레임워크로, JSON-RPC를 이용하여 M 개의 에디터에서 N 개의 언어를 지원하는 효율적인 프로토콜을 제공한다.  
+`LSP(Language Server Protocol)`는 Microsoft 사에서 개발한 프레임워크로, JSON-RPC를 이용하여 M 개의 에디터에서 N 개의 언어를 지원하는 효율적인 프로토콜을 제공한다.  
 즉, 예전에는 각 에디터에서 해당 언어마다 native나 플러그인으로 구현하였지만 이 방법은 많은 리소스가 들어가고 이것을 다른 에디터에서는 전혀 사용하지 못했는데, LSP를 이용하면 서로 다른 에디터에서도 동일한 language server를 이용하여 쉽게 다른 언어를 지원할 수 있게 되었다. 이로 인해 편집기에서는 해당 언어를 지원하기 위하여 LSP 프로토콜에 맞추어 클라이언트를 구현하기만 하면 된다.  
 참고로 현재 구현된 language server는 [Language server 목록](https://microsoft.github.io/language-server-protocol/implementors/servers/) 페이지에서 확인해 볼 수 있다.  
 <br>
@@ -25,7 +25,7 @@ LSP(Language Server Protocol)는 Microsoft 사에서 개발한 프레임워크�
 <br>
 상세 내용은 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 페이지에서 찾아볼 수 있다.  
 <br>
-실제로 Visual Studio를 비롯하여 VS Code, Neovim, Sublime Text, Helix 등이 LSP를 지원하고 있다. 이 중에서 유료인 Visual Studio를 제외한 나머지 편집기들에서 아래 방법을 사용하여 모두 정상적으로 LSP가 동작함을 확인하였고, 아래에서 간단히 정리하였다.
+실제로 Visual Studio를 비롯하여 VS Code, Neovim, Sublime Text, Helix, Lapse 등이 LSP를 지원하고 있다. 이 중에서 유료인 Visual Studio를 제외한 나머지 편집기들에서 아래 방법을 사용하여 모두 정상적으로 LSP가 동작함을 확인하였고, 아래에서 간단히 정리하였다.
 
 ## C/C++ 용 language server
 C/C++를 위한 LSP를 사용하기 위해서는 시스템에 C/C++를 위한 language server가 설치되어 있어야 하는데, 여기에는 대표적으로 `clangd`, `ccls` 등이 있다. 이 글에서는 가장 많이 사용되는 **clangd** 설치를 예로 든다.  
@@ -70,6 +70,10 @@ $ compiledb -n -f --command-style make -j
 또는 아래 예와 같이 빌드시 생성한 로그 파일을 이용할 수도 있다.
 ```shell
 $ compiledb < build-log.txt
+```
+물론 이때 위에서와 마찬가지로 옵션을 지정할 수도 있다.
+```shell
+$ compiledb -n -f --command-style < build-log.txt
 ```
 
 예를 들어 Linux Kernel의 경우라면 아래와 같은 방법들로 생성할 수 있다.
@@ -131,15 +135,15 @@ Vim, Neovim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기
    > 참고로 나는 LunarVim을 포크하여 [내 설정을 추가한 LunarVim](https://github.com/yrpark99/LunarVim)을 사용하고 있다. 이것 덕분에 다른 시스템에도 아주 쉽게 Neovim으로 내 입맛에 맞춘 IDE like한 환경 구축을 할 수 있게 되었다.
 1. [Helix](https://github.com/helix-editor/helix)  
    Helix는 자체적으로 LSP를 지원하므로, 시스템에 해당 언어의 language server만 설치되면 된다. 예를 들어 C/C++인 경우에는 시스템에 `clangd`를 설치하면 된다.  
-   이 편집기는 Rust로 구현되어 Vim이나 Neovim보다 훨씬 빠른 속도를 자랑하므로, 추후에 플러그인을 지원하게 된다면 Helix로 넘어가는 것도 좋을 것 같다.
+   이 편집기는 Rust로 구현되어 Vim이나 Neovim보다 훨씬 빠른 속도를 자랑하고, 웬만한 기능들이 모두 편집기에 내장되어 있으므로, 추후에 플러그인도 지원하게 된다면 Vim/Neovim 사용자는 Helix도 사용해 볼 만하다.
 
-참고로 만약에 "Too many errors emitted, stopping now"와 같은 LSP 에러가 발생하면서 LSP가 정상 동작하지 않는 경우에는 아래 예와 같이 CFLAGS 옵션에 `-ferror-limit=0` 내용을 추가해 주면 LSP가 stop 되지 않게 할 수 있다.
+참고로 만약에 "Too many errors emitted, stopping now"와 같은 LSP 에러가 발생하면서 LSP가 정상 동작하지 않는 경우에는, 아래 예와 같이 CFLAGS 옵션에 `-ferror-limit=0` 내용을 추가해 주면 LSP가 stop 되지 않게 할 수 있다.
 ```shell
 $ compiledb -n -f --command-style make CFLAGS="-ferror-limit=0"
 ```
 
 ## Sublime Text에서 LSP 사용하기
-[Sublime Text](https://www.sublimetext.com/)는 멀티 플랫폼을 지원하는 편집기로 빠른 속도, 다양한 설정, 예쁜 테마, 다양한 플러그인 패키지 등이 장점이다. 리눅스에서의 개발은 리눅스에 Sublime Text를 설치한 후 이용하면 편리하다.  
+[Sublime Text](https://www.sublimetext.com/)는 멀티 플랫폼을 지원하는 편집기로 빠른 속도, 다양한 설정, 예쁜 테마, 다양한 플러그인 패키지 등이 장점이다.
 > 참고로 Windows에서 WSL을 사용하는 경우에는 Windows10인 경우에는 [GWSL](https://apps.microsoft.com/store/detail/gwsl/9NL6KD1H33V3?hl=ko-kr&gl=KR), Windows11인 경우에는 [WSLg](https://github.com/microsoft/wslg)를 이용하면 Sublime Text와 같은 GUI 앱도 쉽게 사용할 수 있다.
 
 LSP를 사용하기 위해서 Sublime Text도 Vim 류의 편집기와 마찬가지로 시스템에 language server를 설치해야 하는데, C/C++의 경우에는 마찬가지로 `clangd`를 설치하면 된다.  
@@ -159,6 +163,14 @@ LSP를 사용하기 위해서 Sublime Text도 Vim 류의 편집기와 마찬가�
 ```
 참고로 Sublime Text는 C/C++의 경우에 매크로에 의해서 inactive 된 코드들이 디폴트 설정으로는 흐리게 표시되지 않았는데, 찾아보니 **semantic_highlighting** 설정이 디폴트로 false 상태이기 때문이었다.  
 그래서 LSP 설정 파일에 위와 같이 `"semantic_highlighting": true` 항목을 수동으로 추가하였고, 결과로 inactive 된 코드들이 정상적으로 흐리게 표시되었다. 👍
+
+## Lapce에서 LSP 사용하기
+[Lapce](https://lapce.dev/)는 멀티 플랫폼을 지원하는 편집기로 Rust로 구현된 오픈 소스이다 (소스는 [lapce](https://github.com/lapce/lapce)에서 받을 수 있음). VS Code와 유사한 UI 구성에 빠른 속도가 강점이다.  
+C/C++ LSP를 사용하기 위해서는 `clangd`를 설치한 후, 설정에서 Plugin Settings -> C/C++ (clangd) -> Path to clangd 항목에서 clangd가 설치된 전체 경로를 세팅하면 된다. 또는 **~/.config/lapce-stable/settings.toml** 파일에서 아래 예와 같이 세팅해도 된다.
+```toml
+[lapce-cpp-clangd]
+"volt.serverPath" = "/usr/bin/clangd"
+```
 
 ## VS Code에서 LSP 사용하기
 [VS Code](https://code.visualstudio.com/)는 원하는 언어를 지원하는 익스텐션을 설치하면 해당 language server가 자동으로 설치되므로 아주 편리하다. C/C++의 경우에는 [C/C++ 익스텍션](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)을 설치하면 된다.  

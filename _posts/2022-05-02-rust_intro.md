@@ -68,7 +68,7 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
 
 * [Lapce](https://github.com/lapce/lapce)  
   Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP, 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
-  현재는 아직 개발 초기 단계라서 C, Go, Python, Rust 정도의 언어만 지원하고 있고, VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 오픈 소스로써 VS Code에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
+  현재는 아직 개발 초기 단계라서 C/C++, Go, Java, JavaScript, Python, Rust, TypeScript 등의 언어만 지원하고 있고, VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 VS Code에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
 
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
    Rust로 작성된 운영 체제이다.
