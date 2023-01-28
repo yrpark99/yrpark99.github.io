@@ -107,11 +107,8 @@ abbr[data-original-title] {
 /* blockquotes */
 
 blockquote {
-  margin: 0.5em 0 1em 0;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.8em;
-  padding-bottom: 0.8em;
+  margin: 0.8em 0 0.8em 0;
+  padding: 0.4em 0.5em 0.4em 0.5em;
   font-style: normal;
   border-left: 0.25em solid $primary-color;
   background: #dae5e7;
@@ -163,12 +160,13 @@ kbd {
   background-color: #eee;
   border-radius: 3px;
   border: 1px solid #b4b4b4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
   color: #333;
   display: inline-block;
   font-size: 1.0em;
   line-height: 1;
-  padding: 3px;
+  margin: 0 2px 0 2px;
+  padding: 3px 3px 1px 3px;
   white-space: nowrap;
 }
 
@@ -207,12 +205,12 @@ hr {
 
 ul li,
 ol li {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.3em;
 }
 
 li ul,
 li ol {
-  margin-top: 0.5em;
+  margin-top: 0.3em;
 }
 
 /*

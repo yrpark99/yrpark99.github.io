@@ -153,6 +153,23 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    $ cargo new <디렉터리명>
    $ cd <디렉터리명>
    ```
+1. 패키지 찾기
+   ```shell
+   $ cargo search "찾을 이름"
+   ```
+1. 특정 패키지 설치하기
+   ```shell  
+   $ cargo add <패키지명>
+   ```
+   결과로 `Cargo.toml` 파일에서 **[dependencies]** 섹션에 추가된다.  
+   추가된 특정 패키지를 다시 제거하려면 아래와 같이 실행하면 된다.
+   ```shell
+   $ cargo remove <패키지명>
+   ```
+1. 패키지를 최신 버전으로 업그레이드하기
+   ```shell  
+   $ cargo upgrade
+   ```
 1. 빌드
    ```shell
    $ cargo build

@@ -49,7 +49,7 @@ $ clangd --version
 
 그런데 매크로를 지원하지 않는 언어에서는 간단하게 소스 navigation 등이 잘 되지만 C/C++는 매크로를 지원하고, 이로 인해 Makefile에 의한 define이나 include 경로가 복잡해 지는데 😵, 이로 인해 정상적인 코드 navigation이 안 된다.  
 <br>
-💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VS Code처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=violet>(compile_commands.json)</font> 파일을 사용하면 된다.
+💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VS Code처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=purple>(compile_commands.json)</font> 파일을 사용하면 된다.
 
 ## Compilation database 파일 생성 방법
 Compilation DB 파일의 생성 방법은 빌드 시스템에 따라서 다른데, 아래에 많이 사용되는 빌드 시스템의 경우를 예시하였다.
@@ -88,6 +88,16 @@ $ compiledb -n -f --command-style < build-log.txt
    $ scripts/clang-tools/gen_compile_commands.py
    ```
 
+> 또는 Linux Kernel인 경우에는 VS Code를 위하여 Linux Kernel 프로젝트를 셋업 해주는 [vscode-linux-kernel
+](https://github.com/amezin/vscode-linux-kernel)와 같은 툴을 사용하면 편리하다. 아래와 같이 실행하면 된다.
+> 1. Linux Kernel을 빌드 한다. (결과로 ***.cmd** 파일이 생성되어 있어야 함)
+> 1. Linux 소스 base 경로에서 아래와 같이 `.vscode` 디렉터리로 clone 받은 후, **generate_compdb.py**를 실행하면 **compile_commands.json** 파일이 생성된다.
+>    ```shell
+>    $ git clone https://github.com/amezin/vscode-linux-kernel.git .vscode
+>    $ python .vscode/generate_compdb.py
+>    ```
+> 1. 이제 VS Code로 열어서 소스 브라우징을 해보면, 정상적으로 LSP가 동작함을 확인할 수 있다.
+
 ### Clang 빌드 시스템인 경우
 빌드시에 -MJ 옵션을 주면 된다.
 
@@ -105,7 +115,7 @@ $ ninja -t compdb > compile_commands.json
 
 ## C/C++ cross-toolchain인 경우
 C/C++ 빌드시 시스템 툴체인을 사용하는 경우에는 디폴트 시스템 경로에서 표준 헤더 파일을 찾으므로 문제가 없지만, cross-toolchain을 사용하는 경우에는 표준 헤더 파일을 cross-toolchain 경로에서 찾아야 한다.  
-Cross-toolchain을 사용하는 경우에 표준 헤더 파일을 cross-toolchain 경로에서 찾게 하려면, **Makefile** 파일에서 아래 예와 같이 CFLAGS에 <font color=violet>--sysroot</font> 옵션으로 해당 경로를 지정해 주면 된다. (아래 예에서 `$(CC)`는 cross-toolchain의 C compiler 이름으로 세팅되어 있어야 함)
+Cross-toolchain을 사용하는 경우에 표준 헤더 파일을 cross-toolchain 경로에서 찾게 하려면, **Makefile** 파일에서 아래 예와 같이 CFLAGS에 <font color=purple>--sysroot</font> 옵션으로 해당 경로를 지정해 주면 된다. (아래 예에서 `$(CC)`는 cross-toolchain의 C compiler 이름으로 세팅되어 있어야 함)
 ```make
 CFLAGS += --sysroot=$(abspath $(shell $(CC) -print-sysroot))
 ```
@@ -171,6 +181,7 @@ C/C++ LSP를 사용하기 위해서는 `clangd`를 설치한 후, 설정에서 P
 [lapce-cpp-clangd]
 "volt.serverPath" = "/usr/bin/clangd"
 ```
+이후부터는 해당 프로젝트에서 `compile_commands.json` 파일을 생성하면 LSP를 사용할 수 있다.
 
 ## VS Code에서 LSP 사용하기
 [VS Code](https://code.visualstudio.com/)는 원하는 언어를 지원하는 익스텐션을 설치하면 해당 language server가 자동으로 설치되므로 아주 편리하다. C/C++의 경우에는 [C/C++ 익스텍션](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)을 설치하면 된다.  
@@ -195,20 +206,133 @@ C/C++ LSP를 사용하기 위해서는 `clangd`를 설치한 후, 설정에서 P
 ```
 Makefile에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로 지정되는 include path와 <mark style='background-color: #ffdce0'>-D</mark>로 지정되는 define 내용을 위 파일에서 `"includePath"`, `"defines"`에 추가하면 된다. 이 방법은 아주 편리하긴 하지만, VS Code의 경우 define 매크로에 의해 코드가 inactive 인 경우에는 백그라운드가 흐리게 표시되므로 (물론 이것도 설정 변경이 가능하지만 이 상태가 코딩시 훨씬 편리함) define 정보가 누락된 경우에는 active/inactive 코드가 잘못 표시될 수 있다.  
 <br>
-다행히 VS Code는 이 방법 외에도 compile DB (compile_commands.json) 파일도 지원하는데, 만약에 프로젝트 디렉터리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.  
-![](/assets/images/vscode_compiledb.png)
-
-<br>
-
+또, VS Code는 이 방법 외에도 compile DB (**compile_commands.json**) 파일도 지원하는데, 만약에 프로젝트 디렉터리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.  
+![](/assets/images/vscode_compiledb.png)  
 위에서 **Yes** 버튼을 누르면 `.vscode/c_cpp_properties.json` 파일에 자동으로 아래 내용이 추가된다. (물론 위의 팝업을 이용하는 대신에 그냥 JSON 파일에 수동으로 아래 내용을 추가해도 됨)
 ```json
 "compileCommands": "${workspaceFolder}/compile_commands.json"
 ```
-만약에 cross-toolchain을 사용하는 경우에는 **.vscode/c_cpp_properties.json** 파일에서 아래 내용의 디폴트 `"compilerPath"` 줄을 삭제한다. (옵션 사항)
-```json
-"compilerPath": "/usr/bin/gcc",
-```
-그러면 결과로 `"intelliSenseMode"` 내용이 자동으로 **sysroot**에 지정된 내용을 참조하여 올바르게 세팅된다.
+만약에 cross-toolchain을 사용하는 경우에는 컴파일러가 gcc가 아니므로, **c_cpp_properties.json** 파일에서 `"compilerPath"` 내용을 사용되는 cross 컴파일러의 경로로 수정한다. 그러면 `"intelliSenseMode"` 내용은 자동으로 올바르게 세팅된다.
 > 참고로 소스 코드가 원격 서버에 있는 경우에는 [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), WSL에 있는 경우에는 [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) 익스텐션을 이용하여 해당 서버에 접속하면 된다.
 
-위에서도 언급했듯이 VS Code에서는 inactive 코드가 쉽게 분간이 되고, 사용법이 쉽고 편리하면서도 막강한 기능과 수많은 익스텐션으로 현재 내가 가장 선호하는 편집기이다. 물론 이것도 LSP를 제대로 활용해야 한결 편리한 프로그래밍이 환경이 될 것이기에 시간을 들여서 기록 및 공유한다.
+위에서도 언급했듯이 VS Code에서는 inactive 코드가 쉽게 분간이 되고, 사용법이 쉽고 편리하면서도 막강한 기능과 수많은 익스텐션으로 수년 전부터 내가 가장 선호하는 편집기이다. 물론 이것도 LSP를 제대로 활용해야 한결 편리한 프로그래밍이 환경이 될 것이기에 시간을 들여서 기록 및 공유한다.
+
+## VS Code 용 c_cpp_properties.json 자동화
+VS Code에서 **compile_commands.json** 대신에 **c_cpp_properties.json** 파일을 사용하는 경우에는 빌드시 사용되는 <mark style='background-color: #ffdce0'>-I</mark>, <mark style='background-color: #ffdce0'>-D</mark> 내용을 모두 **c_cpp_properties.json** 파일에 추가해 주어야 하는데, 여러 모델에서 빌드 시스템이 복잡하고 다른 경우에는 각 모델마다 수동으로 설정하는 작업이 귀찮았다.  
+그래서 자동으로 **c_cpp_properties.json** 파일을 완성해 주는 코드를 아래와 같이 작성해 보았다. (아래에서는 의도적으로 주석은 모두 제거하였음, 코드 자체는 복잡하지 않으므로 별도의 코드 설명은 생략함)
+```python
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+import json
+import os
+import re
+import subprocess
+import sys
+
+includePath = set()
+defines = set()
+browsePath = set()
+gccPath = ""
+
+def getBuildOutput(buildOptions):
+    args = ["make", "-n"]
+    for arg in buildOptions:
+        args.append(arg)
+    print(' '.join(args))
+    proc = subprocess.Popen(args, stdout = subprocess.PIPE)
+    outString, _ = proc.communicate()
+    if proc.returncode != 0:
+        print("Fail to build.")
+        return ""
+    outputLines = outString.decode('utf-8').splitlines()
+    return outputLines
+
+def addOneIncludePathOrDefines(lineSliced, dict):
+    if lineSliced[2] == " ":
+        lineSliced = lineSliced[3:]
+        endIndex = lineSliced.find(" ")
+    elif lineSliced[2] == "'":
+        lineSliced = lineSliced[3:]
+        endIndex = lineSliced.find("'")
+    elif lineSliced[2] == '"':
+        lineSliced = lineSliced[3:]
+        endIndex = lineSliced.find('"')
+    else:
+        lineSliced = lineSliced[2:]
+        endIndex = lineSliced.find(" ")
+
+    if endIndex == -1:
+        dict.add(lineSliced[:])
+        return ""
+
+    dict.add(lineSliced[:endIndex])
+    return lineSliced[endIndex:]
+
+def extractIncludeDefine(line):
+    global gccPath
+    lineSliced = ""
+
+    startIndex = line.find("-gcc")
+    if startIndex != -1:
+        lineSliced = line[startIndex+4:]
+        if gccPath == "":
+            gccPath = line[:startIndex+4]
+
+    startIndex = line.find("-g++")
+    if startIndex != -1:
+        lineSliced = line[startIndex+4:]
+
+    while lineSliced != "":
+        lineSliced = lineSliced.strip()
+        if lineSliced[0:2] == "-I":
+            lineSliced = addOneIncludePathOrDefines(lineSliced, includePath)
+        elif lineSliced[0:2] == "-D":
+            lineSliced = addOneIncludePathOrDefines(lineSliced, defines)
+        else:
+            startIndex = lineSliced.find(" ")
+            if startIndex == -1:
+                break
+            lineSliced = lineSliced[startIndex:]
+
+def parseBuildOutput(lines):
+    builtFileNum = 0
+    for line in lines:
+        pattern = re.compile(r'^.*-(gcc|g\+\+)\s+').search(line)
+        if pattern:
+            builtFileNum += 1
+            extractIncludeDefine(line)
+    if builtFileNum == 0:
+        print("No files are dry-run build done. At least 1 file need to be built to get include path and defines.")
+    else:
+        print(f"{builtFileNum} files are dry-run build done.")
+
+def writeJsonFile(jsonFileName):
+    outputJson = dict()
+    outputJson["configurations"] = []
+    outputJson["version"] = 4
+
+    configDict = {"name" : "Linux"}
+    configDict["includePath"] = list(sorted(includePath))
+    configDict["defines"] = list(sorted(defines))
+    configDict["browse"] = dict()
+    configDict["browse"]["path"] = list(sorted(browsePath))
+    configDict["compilerPath"] = gccPath
+    configDict["cStandard"]= "c11"
+    configDict["cppStandard"] = "c++11"
+    outputJson["configurations"].append(configDict)
+
+    jsonMsg = json.dumps(outputJson, indent=4)
+
+    outFile = open(jsonFileName, "w")
+    outFile.write(jsonMsg)
+    outFile.close()
+
+if __name__ == '__main__':
+    makeOutputLines = getBuildOutput(sys.argv[1:])
+    if makeOutputLines == "":
+        sys.exit(1)
+    parseBuildOutput(makeOutputLines)
+    writeJsonFile(".vscode/c_cpp_properties.json")
+```
+위와 같은 자동화 툴을 소스 저장소에 올려놓고, 각 모델마다 사용해 보니 너무나 간단히 VS Code를 위한 LSP 환경을 구축할 수 있어 좋았다. 😛
