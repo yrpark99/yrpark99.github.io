@@ -219,7 +219,7 @@ Makefile에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로
 
 ## VS Code 용 c_cpp_properties.json 자동화
 VS Code에서 **compile_commands.json** 대신에 **c_cpp_properties.json** 파일을 사용하는 경우에는 빌드시 사용되는 <mark style='background-color: #ffdce0'>-I</mark>, <mark style='background-color: #ffdce0'>-D</mark> 내용을 모두 **c_cpp_properties.json** 파일에 추가해 주어야 하는데, 여러 모델에서 빌드 시스템이 복잡하고 다른 경우에는 각 모델마다 수동으로 설정하는 작업이 귀찮았다.  
-그래서 자동으로 **c_cpp_properties.json** 파일을 완성해 주는 코드를 아래와 같이 작성해 보았다. (아래에서는 의도적으로 주석은 모두 제거하였음, 코드 자체는 복잡하지 않으므로 별도의 코드 설명은 생략함)
+그래서 자동으로 **c_cpp_properties.json** 파일을 완성해 주는 파이썬 코드를 아래와 같이 작성해 보았다. (단, 아래는 make 빌드 시스템을 사용하는 경우임)
 ```python
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
@@ -235,12 +235,9 @@ defines = set()
 browsePath = set()
 gccPath = ""
 
-def getBuildOutput(buildOptions):
-    args = ["make", "-n"]
-    for arg in buildOptions:
-        args.append(arg)
-    print(' '.join(args))
-    proc = subprocess.Popen(args, stdout = subprocess.PIPE)
+def getBuildOutput(command):
+    """입력 명령을 실행시키고, 출력 결과를 줄 단위로 얻어서 리턴한다."""
+    proc = subprocess.Popen(command, stdout = subprocess.PIPE)
     outString, _ = proc.communicate()
     if proc.returncode != 0:
         print("Fail to build.")
@@ -249,6 +246,11 @@ def getBuildOutput(buildOptions):
     return outputLines
 
 def addOneIncludePathOrDefines(lineSliced, dict):
+    """
+    입력 줄은 -I 또는 -D로 시작한다. 맨 앞의 1개 내용을 추출하여 입력 dictionary에 추가한 후, 나머지 줄 내용을 리턴한다.
+    다음 예와 같이 4가지 경우를 모두 지원한다. (-D DEBUG, -D'DEBUG', -D"DEBUG", -DDEBUG)
+    """
+    # 각 경우에 대한 내용의 종료 위치를 얻는다.
     if lineSliced[2] == " ":
         lineSliced = lineSliced[3:]
         endIndex = lineSliced.find(" ")
@@ -262,27 +264,38 @@ def addOneIncludePathOrDefines(lineSliced, dict):
         lineSliced = lineSliced[2:]
         endIndex = lineSliced.find(" ")
 
+    # 종료 위치를 찾지 못했으면 문자열 끝까지의 내용을 입력 dictionary에 추가한 후, 나머지 줄의 내용은 없음으로 리턴한다.
     if endIndex == -1:
         dict.add(lineSliced[:])
         return ""
 
+    # 종료 위치 전까지의 내용을 입력 dictionary에 추가한 후, 나머지 줄의 내용을 리턴한다.
     dict.add(lineSliced[:endIndex])
     return lineSliced[endIndex:]
 
 def extractIncludeDefine(line):
+    """입력 줄에서 gcc 실행 경로를 얻어서 gccPath에 저장하고, include와 define 값을 추출해서 해당 dictionary에 추가한다."""
     global gccPath
     lineSliced = ""
 
-    startIndex = line.find("-gcc")
+    # gcc 빌드인 경우 (gccPath 설정)
+    startIndex = line.find("gcc")
     if startIndex != -1:
         lineSliced = line[startIndex+4:]
         if gccPath == "":
-            gccPath = line[:startIndex+4]
+            gccCmd = line[:startIndex+4]
+            if gccCmd[0] == '/':
+                gccPath = gccCmd
+            else:
+                absGccPath = os.popen("which " + gccCmd).read().strip('\n')
+                gccPath = absGccPath
 
-    startIndex = line.find("-g++")
+    # g++ 빌드인 경우
+    startIndex = line.find("g++")
     if startIndex != -1:
         lineSliced = line[startIndex+4:]
 
+    # 입력 줄 내용에서 모든 -I 내용은 includePath dictionary에 추가하고, -D 내용은 defines dictionary에 추가한다.
     while lineSliced != "":
         lineSliced = lineSliced.strip()
         if lineSliced[0:2] == "-I":
@@ -296,9 +309,11 @@ def extractIncludeDefine(line):
             lineSliced = lineSliced[startIndex:]
 
 def parseBuildOutput(lines):
+    """입력으로 받은 make 실행 결과 전체를 (여러 줄의 빌드 결과 문자열임) 파싱해서 global 변수에 저장한다."""
+    # 각 줄에서 gcc 또는 g++로 빌드하는 줄이면 include, define을 찾아서 처리한다.
     builtFileNum = 0
     for line in lines:
-        pattern = re.compile(r'^.*-(gcc|g\+\+)\s+').search(line)
+        pattern = re.compile(r'^.*(gcc|g\+\+)\s+').search(line)
         if pattern:
             builtFileNum += 1
             extractIncludeDefine(line)
@@ -308,10 +323,13 @@ def parseBuildOutput(lines):
         print(f"{builtFileNum} files are dry-run build done.")
 
 def writeJsonFile(jsonFileName):
+    """VS Code 용 c_cpp_properties.json 파일을 위한 JSON 데이터를 생성하여, 입력으로 받은 이름으로 저장한다."""
+    # JSON을 생성한다.
     outputJson = dict()
     outputJson["configurations"] = []
     outputJson["version"] = 4
 
+    # JSON에서 "configurations" 항목을 구성한다.
     configDict = {"name" : "Linux"}
     configDict["includePath"] = list(sorted(includePath))
     configDict["defines"] = list(sorted(defines))
@@ -322,17 +340,48 @@ def writeJsonFile(jsonFileName):
     configDict["cppStandard"] = "c++11"
     outputJson["configurations"].append(configDict)
 
+    # Dictionary를 JSON 문자열로 변환한다.
     jsonMsg = json.dumps(outputJson, indent=4)
 
-    outFile = open(jsonFileName, "w")
+    # JSON 데이터를 입력 이름으로 저장한다.
+    try:
+        outFile = open(jsonFileName, "w")
+    except:
+        print("Failed to open " + jsonFileName)
+        sys.exit(1)
     outFile.write(jsonMsg)
     outFile.close()
 
+# VS Code를 위한 c_cpp_properties.json 파일을 생성한다.
 if __name__ == '__main__':
-    makeOutputLines = getBuildOutput(sys.argv[1:])
+    # 빌드 명령을 준비한다. (dry-run 모드로 make 실행)
+    commands = ["make", "-n"]
+
+    # 현재 경로와 프로젝트 경로가 다른 경우(다른 경로에서 이 파일을 실행시키는 경우)를 처리한다.
+    curPath = os.getcwd()
+    projectPath = os.path.dirname(os.path.abspath(__file__))
+    if curPath == projectPath:
+        jsonFileName = ".vscode/c_cpp_properties.json"
+    else:
+        jsonFileName = projectPath + "/" + ".vscode/c_cpp_properties.json"
+        commands.append("-C")
+        commands.append(projectPath)
+
+    # 입력 아규먼트에 make 빌드 옵션이 있으면 빌드 명령에 추가한다.
+    for arg in sys.argv[1:]:
+        commands.append(arg)
+
+    # 빌드 명령을 실행시키고, 출력 결과를 줄 단위로 얻는다.
+    print(' '.join(commands))
+    makeOutputLines = getBuildOutput(commands)
     if makeOutputLines == "":
         sys.exit(1)
+
+    # 얻은 빌드 출력 결과를 파싱한다.
     parseBuildOutput(makeOutputLines)
-    writeJsonFile(".vscode/c_cpp_properties.json")
+
+    # 파싱한 데이터를 JSON 파일로 저장한다.
+    writeJsonFile(jsonFileName)
 ```
+
 위와 같은 자동화 툴을 소스 저장소에 올려놓고, 각 모델마다 사용해 보니 너무나 간단히 VS Code를 위한 LSP 환경을 구축할 수 있어 좋았다. 😛
