@@ -281,9 +281,9 @@ def extractIncludeDefine(line):
     # gcc 빌드인 경우 (gccPath 설정)
     startIndex = line.find("gcc")
     if startIndex != -1:
-        lineSliced = line[startIndex+4:]
+        lineSliced = line[startIndex+3:]
         if gccPath == "":
-            gccCmd = line[:startIndex+4]
+            gccCmd = line[:startIndex+3]
             if gccCmd[0] == '/':
                 gccPath = gccCmd
             else:
@@ -293,7 +293,7 @@ def extractIncludeDefine(line):
     # g++ 빌드인 경우
     startIndex = line.find("g++")
     if startIndex != -1:
-        lineSliced = line[startIndex+4:]
+        lineSliced = line[startIndex+3:]
 
     # 입력 줄 내용에서 모든 -I 내용은 includePath dictionary에 추가하고, -D 내용은 defines dictionary에 추가한다.
     while lineSliced != "":

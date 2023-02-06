@@ -10,10 +10,18 @@ toc_label: "이 페이지 목차"
 <br>
 오랜만에 안드로이드에서 시스템 앱을 교체할 일이 생겼는데, 일반적인 방법으로는 문제가 있어서 삽집을 하였고, 이에 간략히 정리해 본다.
 
+## Windows의 경우
+아래 사용 예시에는 Linux 시스템인 경우를 예로 들었는데, Windows의 경우도 마찬가지이다.  
+만약 Windows에 아직 ADB를 설치하지 않은 상태라면 [안드로이드 platform-tools](https://developer.android.com/studio/releases/platform-tools) 페이지에서 플랫폼에 맞는 platform tools를 다운받아서 설치하고, 설치 경로를 PATH에 추가한다.  
+이후 안드로이드 폰에서 USB 디버깅을 허용한 후, USB로 연결한다. 이 때 안드로이드 폰에서 USB 디버깅을 허용하겠냐는 팝업이 뜨면 허용 한다. 이후 Windows 콘솔에서 아래와 같이 명령을 실행해서 디바이스가 리스트에 보이면 성공이다.
+```batch
+C:\>adb devices
+```
+
 ## 안드로이드 시스템 앱 삭제
-먼저 안드로이드 기기에 설치된 <font color=blue>시스템 앱</font>의 삭제는, 일반적인 앱과는 다르게 삭제가 되질 않지만, ADB와 삭제할 앱의 패키지 이름을 알면 쉽게 삭제할 수 있다.  
-앱의 패키지 이름은 만약 사용하는 기기에서 해당 기능을 제공하지 않으면, PlayStore에서 `설치된 앱 분석기(Application Inspector)` 앱 등을 설치하여 이용하면 된다.
-1. 삭제할 앱의 패키지 이름을 얻는다. (보통 `com.xxx.yyy` 형태)
+먼저 안드로이드 기기에 설치된 <font color=blue>시스템 앱</font>의 삭제는, 일반적인 앱과는 다르게 폰에서 직접 삭제가 되지 않지만, ADB와 삭제할 앱의 패키지 이름을 알면 쉽게 삭제할 수 있다.  
+앱의 패키지 이름은 만약 사용하는 기기에서 해당 기능을 제공하지 않으면, PlayStore에서 [설치된 앱 분석기(Application Inspector)](https://apkcombo.com/ko/app-inspector/com.ubqsoft.sec01/) 앱 등을 설치하여 이용하면 된다.
+1. `설치된 앱 분석기` 앱을 통해 삭제할 앱의 패키지 이름을 얻는다. (보통 `com.xxx.yyy` 형태)
 1. 아래와 같이 ADB를 연결한다. (이하 모든 ADB 명령은 Windows의 경우도 마찬가지임)
    ```sh
    $ adb shell
@@ -22,34 +30,72 @@ toc_label: "이 페이지 목차"
    ```sh
    $ pm uninstall -k --user 0 <패키지 이름>
    ```
-   정상적이라면 "Success" 메시지가 출력되고 앱이 삭제된다.
+   정상적이라면 "**Success**" 메시지가 출력되고 해당 앱이 삭제된다.
 
 ## 시스템 앱 삭제 예
-아래는 위와 같은 방식으로 내 안드로이드 폰에서 선탑재된 시스템 앱을 삭제한 예이다.
-- KT WiFi
+다음은 위와 같은 방식으로 내 안드로이드 폰에서 선탑재된 시스템 앱을 삭제한 예이다.
+- Briefing
   ```sh
-  $ pm uninstall -k --user 0 com.kt.wificm
-  ```
-- 원스토어
-  ```sh
-  $ pm uninstall -k --user 0 com.kt.olleh.storefront
+  $ pm uninstall -k --user 0 flipboard.boxer.app
   ```
 - Galaxy Store
   ```sh
   $ pm uninstall -k --user 0 com.sec.android.app.samsungapps
   ```
-- 스마트 TV
+- Google Play 무비
   ```sh
-  $ pm uninstall -k --user 0 com.omnitel.android.dmb
+  $ pm uninstall -k --user 0 com.google.android.videos
+  ```
+- Google Play 뮤직
+  ```sh
+  $ pm uninstall -k --user 0 com.google.android.music
+  ```
+- Google 드라이브
+  ```sh
+  $ pm uninstall -k --user 0 com.google.android.apps.docs
+  ```
+- KT WiFi
+  ```sh
+  $ pm uninstall -k --user 0 com.kt.wificm
   ```
 - OneDrive
   ```sh
   $ pm uninstall -k --user 0 com.microsoft.skydrive
   ```
+- 삼성 클라우드
+  ```sh
+  $ adb shell pm uninstall -k --user 0 com.samsung.android.scloud
+  ```
 - 삼성 Pay
   ```sh
   $ pm uninstall -k --user 0 com.samsung.android.spay
   ```
+- 삼성 TTS 엔진
+  ```sh
+  $ pm uninstall -k --user 0 com.samsung.SMT
+  ```
+- 삼성 인터넷
+  ```sh
+  $ pm uninstall -k --user 0 com.sec.android.app.sbrowser
+  ```
+- 스마트 TV
+  ```sh
+  $ pm uninstall -k --user 0 com.omnitel.android.dmb
+  ```
+- 원스토어
+  ```sh
+  $ pm uninstall -k --user 0 com.skt.skaf.A000Z00040
+  ```
+- 원스토어 서비스
+  ```sh
+  $ pm uninstall -k --user 0 com.skt.skaf.OA00412131
+  ```
+- 행아웃
+   ```sh
+  $ pm uninstall -k --user 0 com.google.android.talk
+  ```
+
+> 실제로 나는 이 방법으로 내 안드로이드 폰에 설치된 각종 통신사 앱, 제조사 앱, 구글 앱 등에서 내가 사용하지 않는 앱들은 모두 지우고 사용하고 있다.
 
 ## 시스템 앱으로 설치하기
 일반적인 앱(즉, 시스템 앱이 아닌)은 ADB를 이용시 ADB <mark style='background-color: #ffdce0'>install</mark> 명령으로 설치하거나, 안드로이드 기기에서 APK 파일을 이용하여 직접 설치할 수 있으나, <font color=blue>시스템 앱</font>은 이렇게 설치하면 정상적으로 실행되지 않을 수 있다. (이것 때문에 삽질하였음. 😠)  

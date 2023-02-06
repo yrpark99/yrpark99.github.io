@@ -19,12 +19,12 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [crates.io](https://crates.io/): Rust 커뮤니티 패키지
 
 ## Modern language
-Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
+Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원하고 있다.
 * 빌드 툴 통합
 * 패키지 관리자
 * 오픈소스 패키지 저장소
 * 디폴트 테스트 프레임워크
-* 자동 문서화
+* 문서 자동화
 
 ## Rust로 작성된 프로그램들 소개
 아래는 내가 애용하는 Rust로 구현된 open source 프로그램들이다. 앞으로도 좋은 프로그램들이 많이 나오길 기대해 본다.
@@ -183,6 +183,11 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    [profile.release]
    strip = true
    ```
+1. 빌드 Clean 하기
+   ```
+   $ cargo clean
+   ```
+   결과로 **target** 디렉터리가 삭제된다.
 1. 빌드된 파일을 바로 실행하기
    ```shell
    $ cargo run
@@ -221,6 +226,16 @@ Rust는 아래와 같은 modern language 기능들을 지원하고 있다.
    ```shell
    $ cross build --target aarch64-unknown-linux-gnu
    ```
+
+## Windows용 빌드 문제
+참고로 Windows에서 Rust로 빌드한 실행 프로그램을 Microsoft VC(이하 `MSVC`) runtime 라이브러리가 설치되지 않은 Windows 환경에서 실행시키면 `VCRUNTIME140.dll`이 없다고 나오면서 실행이 안 되었다.  
+이는 빌드된 실행 프로그램이 MSVC runtime 라이브러리를 static으로 포함하고 있지 않아서인데, 해당 라이브러리를 static으로 포함시키려면 프로젝트에서 `.cargo/config.toml` 파일을 생성한 후, 아래와 같이 작성하면 된다.
+```toml
+[target.'cfg(all(windows, target_env = "msvc"))']
+rustflags = ["-C", "target-feature=+crt-static"]
+```
+이후 다시 빌드해 보면 MSVC 라이브러리들이 static으로 포함되어 정상적으로 실행됨을 확인할 수 있다.  
+> 또는 `%UserProfile%\.cargo\config` 파일에서 global하게 세팅할 수도 있지만, 이건 개인 설정이고 저장소에 반영할 수 없으므로, 필요시 위와 같이 프로젝트별로 설정하는 것이 더 좋겠다.
 
 ## Android Rust
 안드로이드 11부터는 네이티브 OS 구성 요소를 개발하기 위하여 Rust를 사용할 수 있다. 자세한 내용은 [Android Rust](https://source.android.com/docs/setup/build/rust/building-rust-modules/overview) 페이지를 참고한다.
