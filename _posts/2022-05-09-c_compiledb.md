@@ -226,7 +226,6 @@ VS Code에서 **compile_commands.json** 대신에 **c_cpp_properties.json** 파�
 
 import json
 import os
-import re
 import subprocess
 import sys
 
@@ -248,54 +247,62 @@ def getBuildOutput(command):
 def addOneIncludePathOrDefines(lineSliced, dict):
     """
     입력 줄은 -I 또는 -D로 시작한다. 맨 앞의 1개 내용을 추출하여 입력 dictionary에 추가한 후, 나머지 줄 내용을 리턴한다.
-    다음 예와 같이 4가지 경우를 모두 지원한다. (-D DEBUG, -D'DEBUG', -D"DEBUG", -DDEBUG)
+    -I, -D의 다음과 같은 사용 예들을 모두 지원한다. (-DDEBUG, -D'DEBUG', -D"DEBUG", -D DEBUG, -D 'DEBUG', -D "DEBUG")
     """
-    # 각 경우에 대한 내용의 종료 위치를 얻는다.
+    # -I, -D 바로 뒤에 공백이 있으면 제거한다.
     if lineSliced[2] == " ":
-        lineSliced = lineSliced[3:]
-        endIndex = lineSliced.find(" ")
-    elif lineSliced[2] == "'":
-        lineSliced = lineSliced[3:]
-        endIndex = lineSliced.find("'")
-    elif lineSliced[2] == '"':
-        lineSliced = lineSliced[3:]
-        endIndex = lineSliced.find('"')
+        lineStr = str.lstrip(lineSliced[2:])
     else:
-        lineSliced = lineSliced[2:]
-        endIndex = lineSliced.find(" ")
+        lineStr = lineSliced[2:]
 
-    # 종료 위치를 찾지 못했으면 문자열 끝까지의 내용을 입력 dictionary에 추가한 후, 나머지 줄의 내용은 없음으로 리턴한다.
-    if endIndex == -1:
-        dict.add(lineSliced[:])
-        return ""
+    # 각 경우에 대한 내용의 시작 위치와 종료 위치를 얻는다.
+    if str.startswith(lineStr, "'"):
+        startIndex = 1
+        endIndex = startIndex + lineStr[startIndex:].find("'")
+        if endIndex == 0:
+            return ""
+    elif lineStr[0] == '"':
+        startIndex = 1
+        endIndex = startIndex + lineStr[startIndex:].find('"')
+        if endIndex == 0:
+            return ""
+    else:
+        startIndex = 0
+        endIndex = lineStr[startIndex:].find(" ")
+        if endIndex == -1:
+            endIndex = len(lineStr[startIndex:])
 
-    # 종료 위치 전까지의 내용을 입력 dictionary에 추가한 후, 나머지 줄의 내용을 리턴한다.
-    dict.add(lineSliced[:endIndex])
-    return lineSliced[endIndex:]
+    if lineSliced[0:2] == "-I":
+        # Include 경로이면 절대 경로로 변환한다.
+        command = ["readlink", "-e", "-n", lineStr[startIndex:endIndex]]
+        proc = subprocess.Popen(command, stdout = subprocess.PIPE)
+        outString, _ = proc.communicate()
+        if proc.returncode == 0:
+            out = outString.decode('utf-8')
+            dict.add(out)
+    else:
+        # 종료 위치 전까지의 내용을 입력 dictionary에 추가한 후, 나머지 줄의 내용을 리턴한다.
+        dict.add(lineStr[startIndex:endIndex])
+
+    # 이번에 처리한 내용은 제거하고, 이후의 내용을 리턴한다.
+    return lineStr[endIndex:]
 
 def extractIncludeDefine(line):
     """입력 줄에서 gcc 실행 경로를 얻어서 gccPath에 저장하고, include와 define 값을 추출해서 해당 dictionary에 추가한다."""
     global gccPath
     lineSliced = ""
 
-    # gcc 빌드인 경우 (gccPath 설정)
-    startIndex = line.find("gcc")
-    if startIndex != -1:
-        lineSliced = line[startIndex+3:]
-        if gccPath == "":
-            gccCmd = line[:startIndex+3]
-            if gccCmd[0] == '/':
-                gccPath = gccCmd
-            else:
-                absGccPath = os.popen("which " + gccCmd).read().strip('\n')
-                gccPath = absGccPath
-
-    # g++ 빌드인 경우
-    startIndex = line.find("g++")
-    if startIndex != -1:
-        lineSliced = line[startIndex+3:]
+    # gcc/g++ 실행 경로를 추출한다. (만약에 "/"로 시작하지 않으면 PATH를 통해서 얻음)
+    linePart = str.split(line)
+    if gccPath == "":
+        cmd = linePart[0]
+        if cmd[0] == '/':
+            gccPath = cmd
+        else:
+            gccPath = os.popen("which " + cmd).read().strip('\n')
 
     # 입력 줄 내용에서 모든 -I 내용은 includePath dictionary에 추가하고, -D 내용은 defines dictionary에 추가한다.
+    lineSliced = ' '.join(linePart[1:])
     while lineSliced != "":
         lineSliced = lineSliced.strip()
         if lineSliced[0:2] == "-I":
@@ -313,17 +320,63 @@ def parseBuildOutput(lines):
     # 각 줄에서 gcc 또는 g++로 빌드하는 줄이면 include, define을 찾아서 처리한다.
     builtFileNum = 0
     for line in lines:
-        pattern = re.compile(r'^.*(gcc|g\+\+)\s+').search(line)
-        if pattern:
+        lineCmd = str.split(line)[0]
+        if lineCmd.endswith("gcc") or lineCmd.endswith("g++"):
             builtFileNum += 1
             extractIncludeDefine(line)
     if builtFileNum == 0:
         print("No files are dry-run build done. At least 1 file need to be built to get include path and defines.")
-    else:
-        print(f"{builtFileNum} files are dry-run build done.")
+
+def getStandardCVersion(gccPath):
+    """
+    입력 GCC가 지원하는 표준 C/C++ 번호를 리턴한다.
+    컴파일시 -std 옵션으로 높은 표준 번호부터 빌드해서 에러가 발생하지 않는 (즉, 지원되는) 표준 번호를 찾는다.
+    """
+    StdCVersion = "c11"
+    StdCppVersion = "c++11"
+
+    # 임시 빌드에 사용할 파일을 생성한다.
+    tempCFile = open("tmp_build_test.c", "w")
+    tempCFile.write("int main(){return 0;}\n")
+    tempCFile.close()
+    tempCppFile = open("tmp_build_test.cpp", "w")
+    tempCppFile.write("int main(){return 0;}\n")
+    tempCppFile.close()
+
+    # C 파일을 컴파일시 -std 옵션을 높은 표준 번호부터 세팅해서 빌드 에러가 발생하지 않는 빌드를 찾아서 해당 표준 번호를 얻는다.
+    stdOptions = ["-std=c17", "-std=c11", "-std=c99", "-std=c89"]
+    command = [gccPath, "", "tmp_build_test.c", "-o", "tmp_build_test"]
+    for option in stdOptions:
+        command[1] = option
+        proc = subprocess.Popen(command, stderr = subprocess.DEVNULL)
+        _, _ = proc.communicate()
+        if proc.returncode == 0:
+            StdCVersion = command[1][5:8]
+            break
+
+    # C++ 파일을 컴파일시 -std 옵션을 높은 표준 번호부터 세팅해서 빌드 에러가 발생하지 않는 빌드를 찾아서 해당 표준 번호를 얻는다.
+    stdOptions = ["-std=c++17", "-std=c++14", "-std=c++11", "-std=c++98"]
+    command = [gccPath, "", "tmp_build_test.cpp", "-o", "tmp_build_test"]
+    for option in stdOptions:
+        command[1] = option
+        proc = subprocess.Popen(command, stderr = subprocess.DEVNULL)
+        _, _ = proc.communicate()
+        if proc.returncode == 0:
+            StdCppVersion = command[1][5:10]
+            break
+
+    # 임시 빌드에 사용한 파일들을 삭제한다.
+    os.remove("tmp_build_test")
+    os.remove("tmp_build_test.c")
+    os.remove("tmp_build_test.cpp")
+
+    return StdCVersion, StdCppVersion
 
 def writeJsonFile(jsonFileName):
     """VS Code 용 c_cpp_properties.json 파일을 위한 JSON 데이터를 생성하여, 입력으로 받은 이름으로 저장한다."""
+    # GCC가 지원하는 표준 C 번호를 얻는다.
+    stdCVer, stdCppVer = getStandardCVersion(gccPath)
+
     # JSON을 생성한다.
     outputJson = dict()
     outputJson["configurations"] = []
@@ -336,8 +389,8 @@ def writeJsonFile(jsonFileName):
     configDict["browse"] = dict()
     configDict["browse"]["path"] = list(sorted(browsePath))
     configDict["compilerPath"] = gccPath
-    configDict["cStandard"]= "c11"
-    configDict["cppStandard"] = "c++11"
+    configDict["cStandard"]= stdCVer
+    configDict["cppStandard"] = stdCppVer
     outputJson["configurations"].append(configDict)
 
     # Dictionary를 JSON 문자열로 변환한다.
@@ -347,7 +400,7 @@ def writeJsonFile(jsonFileName):
     try:
         outFile = open(jsonFileName, "w")
     except:
-        print("Failed to open " + jsonFileName)
+        print("Failed to open " + jsonFileName + " file.")
         sys.exit(1)
     outFile.write(jsonMsg)
     outFile.close()
@@ -381,7 +434,10 @@ if __name__ == '__main__':
     parseBuildOutput(makeOutputLines)
 
     # 파싱한 데이터를 JSON 파일로 저장한다.
+    if os.path.exists(".vscode") == False:
+        os.mkdir(".vscode")
     writeJsonFile(jsonFileName)
+    os.system("ls -lgG " + jsonFileName)
 ```
 
 위와 같은 자동화 툴을 소스 저장소에 올려놓고, 각 모델마다 사용해 보니 너무나 간단히 VS Code를 위한 LSP 환경을 구축할 수 있어 좋았다. 😛

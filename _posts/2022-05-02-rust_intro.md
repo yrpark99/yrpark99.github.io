@@ -227,15 +227,23 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
    $ cross build --target aarch64-unknown-linux-gnu
    ```
 
-## Windows용 빌드 문제
+## Static link(정적 링크) 방법
 참고로 Windows에서 Rust로 빌드한 실행 프로그램을 Microsoft VC(이하 `MSVC`) runtime 라이브러리가 설치되지 않은 Windows 환경에서 실행시키면 `VCRUNTIME140.dll`이 없다고 나오면서 실행이 안 되었다.  
-이는 빌드된 실행 프로그램이 MSVC runtime 라이브러리를 static으로 포함하고 있지 않아서인데, 해당 라이브러리를 static으로 포함시키려면 프로젝트에서 `.cargo/config.toml` 파일을 생성한 후, 아래와 같이 작성하면 된다.
+이는 빌드된 실행 프로그램이 MSVC runtime 라이브러리를 static으로 포함하고 있지 않아서인데, 라이브러리들을 static으로 포함시키려면 프로젝트에서 `.cargo/config.toml` 파일을 생성한 후, 아래와 같이 작성하면 된다.
 ```toml
-[target.'cfg(all(windows, target_env = "msvc"))']
+[target.x86_64-pc-windows-msvc]
 rustflags = ["-C", "target-feature=+crt-static"]
 ```
-이후 다시 빌드해 보면 MSVC 라이브러리들이 static으로 포함되어 정상적으로 실행됨을 확인할 수 있다.  
-> 또는 `%UserProfile%\.cargo\config` 파일에서 global하게 세팅할 수도 있지만, 이건 개인 설정이고 저장소에 반영할 수 없으므로, 필요시 위와 같이 프로젝트별로 설정하는 것이 더 좋겠다.
+이후 다시 빌드해 보면 MSVC 라이브러리들이 static으로 포함되고, MSVC 라이브러리가 설치되지 않은 Windows 시스템에서도 정상적으로 실행됨을 확인할 수 있다.  
+<br>
+Linux 플랫폼에서도 마찬가지로 빌드된 실행 파일을 `ldd`로 확인해 보면 `GLIBC` 라이브러리를 dynamic link로 사용하고 있음을 확인할 수 있고, 다른 버전이 GLIBC 라이브러리가 설치된 시스템에서는 정상적으로 실행되지 않는다.  
+시스템에 설치된 GLIBC 라이브러리 버전과 무관하게 실행되게 하려면, GLIBC 라이브러리 대신에 MUSL 라이브러리를 사용할 수 있는데, 이를 위해서 `.cargo/config.toml` 파일은 수정할 필요가 없고, 아래와 같이 빌드하면 된다.
+```sh
+$ sudo apt install musl-tools
+$ rustup target add x86_64-unknown-linux-musl
+$ cargo build --target=x86_64-unknown-linux-musl
+```
+이후 빌드된 실행 파일을 다시 `ldd`로 확인해보면 **statically link**로 표시되고, 실제로 다른 GLIBC 라이브러리 버전이 설치된 시스템에서도 정상적으로 실행된다.
 
 ## Android Rust
 안드로이드 11부터는 네이티브 OS 구성 요소를 개발하기 위하여 Rust를 사용할 수 있다. 자세한 내용은 [Android Rust](https://source.android.com/docs/setup/build/rust/building-rust-modules/overview) 페이지를 참고한다.
