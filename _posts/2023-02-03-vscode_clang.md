@@ -10,14 +10,18 @@ VS Code 용 c_cpp_properties.json 파일을 자동으로 생성하는 툴을 자
 ## LSP 활성화 방법
 VS Code에서 C/C++ 소스에 대하여 LSP(Language Server Protocol) 기능을 사용하기 위해서는 다음 2가지 방법이 있다.
 - `compile_commands.json` 파일 사용: [C/C++ 용 LSP(Language Server Protocol) 이용하기](https://yrpark99.github.io/c/c_compiledb/) 참조
-- `c_cpp_properties.json` 파일 사용: <font color=blue>"includePath"</font>, <font color=blue>"defines"</font> 등의 값을 수동으로 추가해 주어야 하는 불편함이 있는데, 이 글에서는 이를 자동화하는 자작 툴을 소개한다.
+- `c_cpp_properties.json` 파일 사용: VS Code가 제공하는 프로젝트 별 C/C++ 설정  
+단, 이 방법은 <font color=blue>"includePath"</font>, <font color=blue>"defines"</font>, <font color=blue>"compilerPath"</font> 등의 값을 수동으로 추가해 주어야 하는 불편함이 있는데, 이 글에서는 이를 자동화하는 자작 툴을 소개한다.
 
 ## c_cpp_properties.json 수동 설정
-VS Code에서 `c_cpp_properties.json` 파일을 사용하는 경우에는 빌드 시에 사용되는 <mark style='background-color: #ffdce0'>-I</mark> 내용은 <font color=blue>"includePath"</font>에, <mark style='background-color: #ffdce0'>-D</mark> 내용은 <font color=blue>"defines"</font>에 추가해 주어야 한다.  
-그런데, 여러 모델에서 빌드 시스템이 복잡하고 빌드 옵션이 서로 다른 경우에는, 각 모델마다 수동으로 이 파일을 설정해야 한다. 이 작업이 번거로워서, 자동으로 **c_cpp_properties.json** 파일을 완성해 주는 파이썬 코드를 작성해 보았다. (단, **make** 빌드 시스템을 사용하는 경우임)
+VS Code에서 `c_cpp_properties.json` 파일을 사용하는 경우에는 **make** 빌드 시에 사용되는 <mark style='background-color: #ffdce0'>-I</mark> 내용은 <font color=blue>"includePath"</font>에, <mark style='background-color: #ffdce0'>-D</mark> 내용은 <font color=blue>"defines"</font>에 추가해 주어야 하고, 사용하는 GCC 툴체인 경로도 <font color=blue>"compilerPath"</font>에 올바르게 설정되어 있어야 한다.  
+그런데, 여러 모델에서 빌드 시스템이 복잡하고 빌드 옵션이 서로 다른 경우에는, 각 모델마다 매번 수동으로 이 파일을 설정해야 한다.
+> 추가로 나 같은 경우에는 동일 모델이라도 여러 빌드 configuration이 있고 그에 따라서 C/C++ 컴파일 옵션도 달라지므로, 한 번 수작업으로 설정했더라도 빌드 configuration을 변경하면 **c_cpp_properties.json** 파일도 그에 맞게 다시 수정해야 했다.
+
+이와 같이 **c_cpp_properties.json** 파일을 수동으로 설정하는 작업이 번거롭기도 하고, VS Code 미숙련자도 쉽게 구축할 수 있는 방법이 없을까 생각하다가 🤔, 아예 자동으로 **c_cpp_properties.json** 파일을 완전히 작성해 주는 파이썬 코드를 작성하게 되었다. (단, **make** 빌드 시스템을 사용하는 경우임)
 
 ## c_cpp_properties.json 자동화 툴
-아래와 같이 파이썬 코드를 작성하였고, 사용하는 프로젝트의 저장소에도 올렸다. (코드에 주석을 달았으므로, 여기서 코드 설명은 생략함)
+아래와 같이 파이썬 코드를 작성하였고, 사용하는 프로젝트의 저장소에도 올렸다. (파일 이름은 **vscode_json.py**로 했고, 코드에 충분히 주석을 달았으므로, 여기서는 코드 설명은 생략함)
 ```python
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
@@ -287,5 +291,11 @@ if __name__ == '__main__':
     os.system("ls -lgG " + jsonFileName)
 ```
 
+참고로 위의 코드에서는 type annotation을 추가하였고, 다음과 같이 정적 분석을 한 경우에 문제가 없음을 확인하였다.
+```sh
+$ pip3 install mypy
+$ mypy --strict vscode_json.py
+```
+
 ## 맺음말
-위와 같은 자동화 툴을 소스 저장소에 올려놓고, 각 모델마다 사용해 보니 너무나 간단히 VS Code를 위한 LSP 환경을 구축할 수 있어서 편하고 좋았다. 😛
+위와 같은 자동화 툴을 소스 저장소에 올려놓고, 각 프로젝트마다 사용해 보니 VS Code에서 프로젝트 별로 C/C++ 개발 환경을 아주 편하게 구축할 수 있었다. 😛

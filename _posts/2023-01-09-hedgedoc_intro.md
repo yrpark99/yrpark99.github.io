@@ -25,7 +25,7 @@ toc_label: "이 페이지 목차"
 
 ## 설치
 다음은 self-hosting 하기 위한 방법이다. (라즈베리파이 보드에서도 돌아갈 정도로 적은 리소스를 사용하므로, 나는 기존 서버에서 Docker로 운용하였음)  
-아래와 같이 `docker-compose.yml` 파일을 작성한다. (아래 예에서 **your_host_url** 부분에 self hosting 하는 서버의 URL 주소를 입력하면 됨)
+아래와 같이 `docker-compose.yml` 파일을 작성한다. (아래 예에서 **{your_host_url}** 부분에 self hosting 하는 서버의 URL 주소를 입력하면 됨)
 ```yml
 version: '3'
 services:
@@ -39,11 +39,10 @@ services:
       - database:/var/lib/postgresql/data
     restart: always
   app:
-    # Make sure to use the latest release from https://hedgedoc.org/latest-release
     image: quay.io/hedgedoc/hedgedoc:1.9.6
     environment:
       - CMD_DB_URL=postgres://hedgedoc:password@database:5432/hedgedoc
-      - CMD_DOMAIN=your_host_url
+      - CMD_DOMAIN={your_host_url}
       - CMD_URL_ADDPORT=true
     volumes:
       - uploads:/hedgedoc/public/uploads

@@ -122,6 +122,7 @@ $ docker create [옵션] <이미지명>[:태그명] [명령] [명령 옵션]
 * `--env=[환경변수]`: 환경변수 설정
 * `--link <컨테이너명>:<별칭>`: 다른 컨테이너를 연결 (예: DB)
 * `--name <이름>`:  컨테이너의 이름을 지정 (이름을 지정하지 않으면 docker가 자동으로 이름을 생성하여 지정함)
+* `--network <네트워크 이름>`: 컨테이너를 입력 Docker 네트워크에 연결
 * `--restart <no | on-failure | always>`: 컨테이너 종료시 재시작 정책
 * `--rm`: 동일 이름의 컨테이너가 이미 존재하면 기존 컨테이너를 삭제하고 생성
 * `-i`: 컨테이너의 interactive shell을 얻음
@@ -140,6 +141,7 @@ $ docker run [옵션] <이미지명[:태그명] | 이미지 ID> [명령] [명령
 * `--env=[환경변수]`: 환경변수 설정
 * `--link <컨테이너명>:<별칭>`: 다른 컨테이너를 연결 (예: DB)
 * `--name <이름>`:  컨테이너의 이름을 지정 (이름을 지정하지 않으면 docker가 자동으로 이름을 생성하여 지정함)
+* `--network <네트워크 이름>`: 컨테이너를 입력 Docker 네트워크에 연결
 * `--restart <no | on-failure | always>`: 컨테이너 종료시 재시작 정책
 * `--rm`: 컨테이너 종료시 자동으로 컨테이너를 삭제시킴
 * `-d`: 컨테이너를 백그라운드에서 실행
@@ -260,6 +262,32 @@ $ docker rm [옵션] <컨테이너명 | 컨테이너 ID>
 1. 아직 컨테이너에 연결되지 않은 볼륨 목록은 아래와 같이 얻을 수 있다.
    ```sh
    $ docker volume ls -qf dangling=true
+   ```
+
+## Docker 네트워크
+1. Docker 네트워크 목록 보기
+   ```sh
+   $ docker network ls
+   ```
+1. Docker 네트워크 생성하기
+   ```sh
+   $ docker network create [옵션] <Docker 네트워크명>
+   ```
+1. 컨테이너 네트워크 정보 보기
+   ```sh
+   $ docker network inspect <컨테이너 네트워크명 | 컨테이너 네트워크 ID>
+   ```
+1. Docker 네트워크로부터 컨테이너의 연결 끊기
+   ```sh
+   $ docker network disconnect <Docker 네트워크명 | Docker 네트워크 ID> <컨테이너명 | 컨테이너 ID>
+   ```
+1. Docker 네트워크 삭제하기
+   ```sh
+   $ docker network rm <Docker 네트워크명 | Docker 네트워크 ID>
+   ```
+1. 아무 컨테이너에도 연결되지 않은 Docker 네트워크를 모두 제거하기
+   ```sh
+   $ docker network prune
    ```
 
 ## 컨테이너를 새로운 이미지로 저장

@@ -27,24 +27,24 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * 문서 자동화
 
 ## Rust로 작성된 프로그램들 소개
-아래는 내가 애용하는 Rust로 구현된 open source 프로그램들이다. 앞으로도 좋은 프로그램들이 많이 나오길 기대해 본다.
+아래는 내가 관심있거나 애용하는 Rust로 구현된 open source 프로그램들이다. 앞으로도 좋은 프로그램들이 많이 나오길 기대해 본다.
 * [AppFlowy](https://github.com/AppFlowy-IO/appflowy)  
-   [Notion](https://www.notion.so)을 대체할 수 있는 오픈 소스로 Rust와 Flutter로 구현되었다.
+  [Notion](https://www.notion.so)을 대체할 수 있는 오픈 소스로 Rust와 Flutter로 구현되었다.
 * [bat](https://github.com/sharkdp/bat)  
-   `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.  
-   참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
+  `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.  
+  참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
 
 * [bottom](https://github.com/ClementTsang/bottom)  
-   [btop](https://github.com/aristocratos/btop)과 비슷하게 시스템 리소스 관련 정보를 모니터링하는 툴이다.
+  [btop](https://github.com/aristocratos/btop)과 비슷하게 시스템 리소스 관련 정보를 모니터링하는 툴이다.
 
 * [bore](https://github.com/ekzhang/bore)  
-   [ngrok](https://ngrok.com/), [localtunnel](https://github.com/localtunnel/localtunnel) 툴과 같은 http/https 터널링 툴이다.
+  [ngrok](https://ngrok.com/), [localtunnel](https://github.com/localtunnel/localtunnel) 툴과 같은 http/https 터널링 툴이다.
 
 * [delta](https://github.com/dandavison/delta)  
-   Git diff 등의 명령시에 side-by-side view, syntax-highlighting 등의 기능을 제공한다.
+  Git diff 등의 명령시에 side-by-side view, syntax-highlighting 등의 기능을 제공한다.
 
 * [dua](https://github.com/Byron/dua-cli)  
-   `du` 툴을 대체할 수 있는 Disk Usage Analyzer 툴이다. 크기 순으로 소팅되며 색깔이 표시된다. 만약 실행시 `i` 옵션을 주면 interactive 모드로 동작한다.  비슷한 툴에는 Go로 구현된 [gdu](https://github.com/dundee/gdu) 툴 등이 있는데, `dua`의 속도가 더 빠르다.
+  `du` 툴을 대체할 수 있는 Disk Usage Analyzer 툴이다. 크기 순으로 소팅되며 색깔이 표시된다. 만약 실행시 `i` 옵션을 주면 interactive 모드로 동작한다.  비슷한 툴에는 Go로 구현된 [gdu](https://github.com/dundee/gdu) 툴 등이 있는데, `dua`의 속도가 더 빠르다.
 
 * [exa](https://github.com/ogham/exa)  
   `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래 예와 같이 alias를 세팅하여 사용하면 편리하다.
@@ -56,33 +56,36 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다.
 
 * [fd](https://github.com/sharkdp/fd)  
-   `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다.
+  `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다.
 
 * [GitUI](https://github.com/Extrawurst/gitui)  
-   터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit) 등이 있는데, 대부분의 경우에 이것들보다 속도가 빠른 편이다.
+  터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit) 등이 있는데, 대부분의 경우에 이것들보다 속도가 빠른 편이다.
 
 * [Helix](https://github.com/helix-editor/helix)  
-   [Kakoune](https://kakoune.org/), [Neovim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 단, 시스템에 [How to install the default language servers](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers) 페이지를 참조하여 사전에 해당 language server를 설치해 놓아야 한다.  
-   단점으로는 현재까지는 플러그인을 지원하지 않고 있으나 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
-   나는 Windows 환경에서는 주로 VS Code, Linux 터미널에서는 Vim을 대체하여 Neovim을 사용하고 있는데, Helix는 Neovim보다 훨씬 빠른 속도를 자랑해서 내가 주목하고 있는 에디터 중의 하나이다.
+  [Kakoune](https://kakoune.org/), [Neovim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 단, 시스템에 [How to install the default language servers](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers) 페이지를 참조하여 사전에 해당 language server를 설치해 놓아야 한다.  
+  단점으로는 현재까지는 플러그인을 지원하지 않고 있으나 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
+  나는 Windows 환경에서는 주로 VS Code, Linux 터미널에서는 Vim을 대체하여 Neovim을 사용하고 있는데, Helix는 Neovim보다 훨씬 빠른 속도를 자랑해서 내가 주목하고 있는 에디터 중의 하나이다.
 
 * [Lapce](https://github.com/lapce/lapce)  
-  Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP, 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
-  현재는 아직 개발 초기 단계라서 C/C++, Go, Java, JavaScript, Python, Rust, TypeScript 등의 언어만 지원하고 있고, VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 VS Code에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
+  Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP(Lanaugage Server Protocol), 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
+  아직은 VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 VS Code에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
 
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
-   Rust로 작성된 운영 체제이다.
+  Rust로 작성된 운영 체제이다.
 
 * [Ripgrep](https://github.com/BurntSushi/ripgrep)  
-   `grep`과 `ack` 계열의 장점을 합친 파일 내용 검색 툴로 상당히 빠른 속도를 자랑한다. Git 저장소인 경우에 `.gitignore` 파일에 있는 파일 패턴들은 검색하지 않으므로 더 빠르고 편리하게 사용할 수 있다. (마찬가지로 `.ignore` 파일이나 `.rgignore` 파일에 있는 파일 패턴들도 검색하지 않음)  
-   [Platinum Searcher](https://github.com/monochromegane/the_platinum_searcher)와 함께 내가 주로 사용하는 검색 툴이다.
+  `grep`과 `ack` 계열의 장점을 합친 파일 내용 검색 툴로 상당히 빠른 속도를 자랑한다. Git 저장소인 경우에 `.gitignore` 파일에 있는 파일 패턴들은 검색하지 않으므로 더 빠르고 편리하게 사용할 수 있다. (마찬가지로 `.ignore` 파일이나 `.rgignore` 파일에 있는 파일 패턴들도 검색하지 않음)  
+  [Platinum Searcher](https://github.com/monochromegane/the_platinum_searcher)와 함께 내가 주로 사용하는 검색 툴이다.
 
 * [RustDesk](https://github.com/rustdesk/rustdesk)  
-   [TeamViewer](https://www.teamviewer.com), [AnyDesk](https://anydesk.com/) 등과 같은 원격 데스크톱 툴인데, 한국에도 서버가 있고 현재 무료이다.
+  [TeamViewer](https://www.teamviewer.com), [AnyDesk](https://anydesk.com/) 등과 같은 원격 데스크톱 툴인데, 한국에도 서버가 있고 현재 무료이다.
 
 * [Tauri](https://github.com/tauri-apps/tauri)  
-   [Electron](https://github.com/electron/electron)과 같은 desktop Web application 프레임워크인데, Rust로 작성되어 Electron보다 크기는 작고 속도는 빠르다.  
-   추가로 [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri) 페이지에 들어가 보면 Tauri를 사용한 앱 등을 확인할 수 있다. 예를 들어 [Xplorer](https://xplorer.space/) 앱은 멀티 플랫폼 용 파일 탭과 preview 등의 기능을 지원하는 파일 탐색기인데, 처음에는 Electron을 사용했었다가 이후 빠른 속도를 위하여 Tauri로 변경되었다.
+  [Electron](https://github.com/electron/electron)과 같은 desktop Web application 프레임워크인데, Rust로 작성되어 Electron보다 크기는 작고 속도는 빠르다.  
+  추가로 [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri) 페이지에 들어가 보면 Tauri를 사용한 앱 등을 확인할 수 있다. 예를 들어 [Xplorer](https://xplorer.space/) 앱은 멀티 플랫폼 용 파일 탭과 preview 등의 기능을 지원하는 파일 탐색기인데, 처음에는 Electron을 사용했었다가 이후 빠른 속도를 위하여 Tauri로 변경되었다.
+
+* [uutils coreutils](https://github.com/uutils/coreutils)  
+  GNU coreutils를 Rust로 재구현하는 오픈소스 프로젝트이다. Rust로 작성해서 안정성을 높였고, 크로스 플랫폼을 지원한다.
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)

@@ -62,6 +62,14 @@ C:\>adb devices
   ```sh
   $ pm uninstall -k --user 0 com.microsoft.skydrive
   ```
+- 게임툴즈
+  ```sh
+  $ pm uninstall -k --user 0 com.samsung.android.game.gametools
+  ```
+- 사전
+  ```sh
+  $ pm uninstall -k --user 0 com.sec.android.app.dictionary
+  ```
 - 삼성 클라우드
   ```sh
   $ adb shell pm uninstall -k --user 0 com.samsung.android.scloud
