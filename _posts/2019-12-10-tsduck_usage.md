@@ -139,6 +139,10 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```sh
    $ tsp -I file {입력 TS1 파일} -P merge 'tsp -I file {입력 TS2 파일}' -O file {출력 TS 파일}
    ```
+1. PCR/PTS/DTS 얻기 예
+   ```sh
+   $ tsp -I file {입력 TS 파일} -P pcrextract -p {PID} -o {출력 CSV 파일} > /dev/null
+   ```
 1. 입력 파일을 UDP로 multicast 전송하기 예 (아래 예에서는 multicast IP 주소는 **224.10.11.12**, 포트 번호는 **9999** 사용)
    ```sh
    $ tsp -I file {TS 파일} -P regulate -P zap {service_id} -O ip 224.10.11.12:9999

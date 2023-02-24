@@ -113,6 +113,15 @@ $ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
 $ ninja -t compdb > compile_commands.json
 ```
 
+### Android AOSP인 경우
+안드로이드 AOSP에서는 아래와 같이 환경 변수를 세팅한 후에 빌드하면 C/C++ 파일에 대한 **compile_commands.json** 파일이 현재 경로에 생성된다.
+```shell
+$ export SOONG_GEN_COMPDB=1
+$ export SOONG_GEN_COMPDB_DEBUG=1
+$ export SOONG_LINK_COMPDB_TO=$PWD
+$ m
+```
+
 ## C/C++ cross-toolchain인 경우
 C/C++ 빌드시 시스템 툴체인을 사용하는 경우에는 디폴트 시스템 경로에서 표준 헤더 파일을 찾으므로 문제가 없지만, cross-toolchain을 사용하는 경우에는 표준 헤더 파일을 cross-toolchain 경로에서 찾아야 한다.  
 Cross-toolchain을 사용하는 경우에 표준 헤더 파일을 cross-toolchain 경로에서 찾게 하려면, **Makefile** 파일에서 아래 예와 같이 CFLAGS에 <font color=purple>--sysroot</font> 옵션으로 해당 경로를 지정해 주면 된다. (아래 예에서 `$(CC)`는 cross-toolchain의 C compiler 이름으로 세팅되어 있어야 함)

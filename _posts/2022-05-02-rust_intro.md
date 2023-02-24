@@ -31,7 +31,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [AppFlowy](https://github.com/AppFlowy-IO/appflowy)  
   [Notion](https://www.notion.so)을 대체할 수 있는 오픈 소스로 Rust와 Flutter로 구현되었다.
 * [bat](https://github.com/sharkdp/bat)  
-  `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다.  
+  `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다. 또 tab 간격이 디폴트로 4로 되어 있어서 편한데다가 `--tabs=n` 옵션으로 변경도 가능한다.  
   참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
 
 * [bottom](https://github.com/ClementTsang/bottom)  
@@ -59,7 +59,17 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다.
 
 * [GitUI](https://github.com/Extrawurst/gitui)  
-  터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit) 등이 있는데, 대부분의 경우에 이것들보다 속도가 빠른 편이다.
+  터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit) 등이 있는데, 대부분의 경우에 이것들보다 속도가 빠르고 기능도 편리하여, 나의 경우 CLI 환경에서는 이 툴을 많이 사용하고 있다.  
+  참고로 코드 diff 시에 **tab**은 **space 2**로 표시되고 있는데, 이것을 **space 4**로 변경하려면 (현재 기준에서는 사용자가 설정할 수 있는 기능이 없으므로) 소스 코드를 받아서 src/string_utils.rs 파일의 tabs_to_spaces() 함수에서 아래와 같이 space 2개를 4개로 수정한 후, 재빌드하면 된다.
+  ```rs
+  pub fn tabs_to_spaces(input: String) -> String {
+      if input.contains('\t') {
+          input.replace('\t', "    ")
+      } else {
+          input
+      }
+  }
+  ```
 
 * [Helix](https://github.com/helix-editor/helix)  
   [Kakoune](https://kakoune.org/), [Neovim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 단, 시스템에 [How to install the default language servers](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers) 페이지를 참조하여 사전에 해당 language server를 설치해 놓아야 한다.  
@@ -85,7 +95,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   추가로 [Awesome Tauri](https://github.com/tauri-apps/awesome-tauri) 페이지에 들어가 보면 Tauri를 사용한 앱 등을 확인할 수 있다. 예를 들어 [Xplorer](https://xplorer.space/) 앱은 멀티 플랫폼 용 파일 탭과 preview 등의 기능을 지원하는 파일 탐색기인데, 처음에는 Electron을 사용했었다가 이후 빠른 속도를 위하여 Tauri로 변경되었다.
 
 * [uutils coreutils](https://github.com/uutils/coreutils)  
-  GNU coreutils를 Rust로 재구현하는 오픈소스 프로젝트이다. Rust로 작성해서 안정성을 높였고, 크로스 플랫폼을 지원한다.
+  GNU coreutils를 Rust로 재구현하는 오픈소스 프로젝트이다. Rust로 작성해서 안정성을 높였고, 크로스 플랫폼을 지원한다. (따라서 임베디드 장치에서 기존에 C로 구현되었던 Busybox를 이것으로 대체할 수도 있음)
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)
