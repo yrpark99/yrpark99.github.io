@@ -186,7 +186,8 @@ PES_packet() {
 즉, PES 헤더에서 `PTS_DTS_flags` 값이 **2**이면 PTS가 들어있고, **3**이면 **PTS**와 **DTS**가 들어있다. PTS와 DTS 값은 여러 개의 비트 필드로 나누어져 있으므로 비트 연산을 제대로 해야 올바른 PTS/DTS 값을 얻을 수 있다.
 
 ## PCR/PTS/DTS 분석 툴
-나는 입력 TS 스트림 파일을 분석하여 PCR/PTS/DTS 값을 출력하는 툴을 자작하여 사용하고 있는데, 여기서는 쉽게 사용할 수 있는 오픈 소스 툴을 소개하겠다.
+참고로 나는 자작 TS 스트림 파일 분석 툴에 PCR/PTS/DTS 값을 출력하는 기능도 구현하여 그 값들이 올바르게 얻어지는 것을 확인하였다.  
+또는 다음과 같은 오픈 소스 툴을 사용해도 쉽게 PCR/PTS/DTS 정보를 얻을 수 있다.
 - [DVB Inspector](https://github.com/EricBerendsen/dvbinspector)
 - [TSDuck](https://tsduck.io/)
 
@@ -195,4 +196,4 @@ PES_packet() {
 ```sh
 $ tsp -I file {입력 TS 파일} -P pcrextract -p {PID} -o {출력 CSV 파일} > /dev/null
 ```
-결과로 CSV 파일이 얻어지고, 열어보면 PCR/PTS/DTS 값이 십진수로 들어있다.  
+결과로 CSV 파일이 얻어지고, 열어보면 PCR/PTS/DTS 값이 십진수로 들어있다.
