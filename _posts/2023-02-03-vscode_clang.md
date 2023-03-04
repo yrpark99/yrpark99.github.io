@@ -232,7 +232,7 @@ def writeJsonFile(jsonFileName: str) -> None:
     configDict["browse"] = dict()
     configDict["browse"]["path"] = sorted(browsePath)
     configDict["compilerPath"] = gccPath
-    configDict["cStandard"]= stdCVer
+    configDict["cStandard"] = stdCVer
     configDict["cppStandard"] = stdCppVer
     outputJson["configurations"].append(configDict)
 
