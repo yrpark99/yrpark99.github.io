@@ -33,7 +33,6 @@ import json
 import os
 import subprocess
 import sys
-
 from typing import Any, Dict, List, Set, Tuple
 
 includePath: Set[str] = set()
@@ -48,7 +47,7 @@ def getBuildOutput(command: List[str]) -> List[str]:
     proc = subprocess.Popen(command, stdout = subprocess.PIPE)
     outString, _ = proc.communicate()
     if proc.returncode != 0:
-        print("Fail to build.")
+        print("Failed to build.")
         return [""]
     outputLines = outString.decode('utf-8').splitlines()
     return outputLines
@@ -242,7 +241,7 @@ def writeJsonFile(jsonFileName: str) -> None:
     # JSON 데이터를 입력 이름으로 저장한다.
     try:
         outFile = open(jsonFileName, "w")
-    except:
+    except IOError:
         print("Failed to open " + jsonFileName + " file.")
         sys.exit(1)
     outFile.write(jsonMsg)
@@ -285,7 +284,7 @@ if __name__ == '__main__':
         print(f"Output parsing is done (total {parsedLineNum} lines).")
 
     # 파싱한 데이터를 JSON 파일로 저장한다.
-    if os.path.exists(".vscode") == False:
+    if os.path.exists(".vscode") is False:
         os.mkdir(".vscode")
     writeJsonFile(jsonFileName)
     os.system("ls -lgG " + jsonFileName)
