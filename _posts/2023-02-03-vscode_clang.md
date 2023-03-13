@@ -37,7 +37,6 @@ from typing import Any, Dict, List, Set, Tuple
 
 includePath: Set[str] = set()
 defines: Set[str] = set()
-browsePath: Set[str] = set()
 cStandard: Set[str] = set()
 cppStandard: Set[str] = set()
 gccPath: str = ""
@@ -228,8 +227,6 @@ def writeJsonFile(jsonFileName: str) -> None:
     configDict["name"] = "Linux"
     configDict["includePath"] = sorted(includePath)
     configDict["defines"] = sorted(defines)
-    configDict["browse"] = dict()
-    configDict["browse"]["path"] = sorted(browsePath)
     configDict["compilerPath"] = gccPath
     configDict["cStandard"] = stdCVer
     configDict["cppStandard"] = stdCppVer
