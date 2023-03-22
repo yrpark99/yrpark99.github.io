@@ -75,8 +75,12 @@ $ compiledb < build-log.txt
 ```shell
 $ compiledb -n -f --command-style < build-log.txt
 ```
+> 🚩 **compiledb**의 경우 빌드 출력에 한글이 섞여 있으면 compile_commands.json 파일이 올바르게 생성되지 않을 수 있다. 이 경우에는 아래 예와 같이 언어 설정을 초기화해 주면 (즉, 디폴트인 영어를 사용) 된다.
+> ```shell
+> $ unset LANG
+> ```
 
-예를 들어 Linux Kernel의 경우라면 아래와 같은 방법들로 생성할 수 있다.
+참고로 Linux Kernel의 경우라면 아래와 같은 방법들로 생성할 수 있다.
 1. Kernel v5.10 이전 버전이라면 아래 예와 같이 빌드 로그 출력 파일을 이용할 수 있다.
    ```shell
    $ make -j V=1 --dry-run |& tee build-log.txt

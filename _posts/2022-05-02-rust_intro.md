@@ -16,7 +16,8 @@ Rust는 모질라 리서치에서 개발한 범용 프로그래밍 언어로 201
 * [Rust 홈페이지](https://www.rust-lang.org/): 툴체인 설치, 문서, 툴, [Playground](https://play.rust-lang.org/) 등
 * [GitHub Rust](https://github.com/rust-lang/rust): Rust 개발 소스 저장소
 * [Rust awesome](https://github.com/awesome-rust-com/awesome-rust): Rust를 사용한 엄선된 프로그램들 목록
-* [crates.io](https://crates.io/): Rust 커뮤니티 패키지
+* [crates.io](https://crates.io/): Rust 커뮤니티 패키지(crate)
+* [The Rust Programming Language](https://rinthel.github.io/rust-lang-book-ko/): Rust 책 (한글판)
 
 ## Modern language
 Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원하고 있다.
@@ -60,14 +61,24 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [GitUI](https://github.com/Extrawurst/gitui)  
   터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit) 등이 있는데, 대부분의 경우에 이것들보다 속도가 빠르고 기능도 편리하여, 나의 경우 CLI 환경에서는 이 툴을 많이 사용하고 있다.  
-  참고로 코드 diff 시에 **tab**은 **space 2**로 표시되고 있는데, 이것을 **space 4**로 변경하려면 (현재 기준에서는 사용자가 설정할 수 있는 기능이 없으므로) 소스 코드를 받아서 src/string_utils.rs 파일의 tabs_to_spaces() 함수에서 아래와 같이 space 2개를 4개로 수정한 후, 재빌드하면 된다.
+  참고로 코드 diff 시에 **tab**은 **space 2**로 표시되고 있는데, 이것을 **space 4**로 변경하려면 (현재 기준에서는 사용자가 설정할 수 있는 기능이 없으므로) 소스 코드를 받아서 src/string_utils.rs 파일의 tabs_to_spaces() 함수를 아래와 같이 수정한 후, 재빌드하면 된다.
   ```rs
   pub fn tabs_to_spaces(input: String) -> String {
-      if input.contains('\t') {
-          input.replace('\t', "    ")
-      } else {
-          input
+      let mut output = String::new();
+      let mut space_count = 0;
+
+      for c in input.chars() {
+          if c == '\t' {
+              let num_spaces = 4 - (space_count % 4);
+              output.push_str(&" ".repeat(num_spaces));
+              space_count = 0;
+          } else {
+              output.push(c);
+              space_count += 1;
+          }
       }
+
+      output
   }
   ```
 
@@ -166,7 +177,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
    $ cargo new <디렉터리명>
    $ cd <디렉터리명>
    ```
-1. 패키지 찾기
+1. Crate(패키지) 찾기
    ```shell
    $ cargo search "찾을 이름"
    ```
