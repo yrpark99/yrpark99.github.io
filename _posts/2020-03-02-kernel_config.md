@@ -54,7 +54,7 @@ scripts/kconfig/conf --savedefconfig=defconfig Kconfig
 결과로 scripts/kconfig/conf 실행 파일이 Kernel base 디렉터리에 `defconfig` 파일을 생성한다. 생성된 defconfig 파일을 원본 default config 파일에 overwrite 하거나 별도의 이름으로 (단, XXX_defconfig 형식이라야 함) 변경하여 arch/XXX/configs/ 경로에 저장하여 사용할 수 있다.
 
 ## Makefile 예제
-Kernel 상위 경로에서 아래 예와 같이 Makefile을 작성하여 이용할 수 있겠다.
+Kernel 상위 경로에서 아래 예와 같이 `Makefile` 파일을 작성하여 이용할 수 있겠다. (아래 예에서 디폴트 config 파일은 $(KERNEL_DIR)/arch/mips/configs/my_defconfig 파일임)
 ```makefile
 # Default config 파일로 .config 파일을 생성한 후 빌드
 all:

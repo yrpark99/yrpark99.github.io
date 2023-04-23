@@ -33,10 +33,14 @@ C:\>adb devices
    정상적이라면 "**Success**" 메시지가 출력되고 해당 앱이 삭제된다.
 
 ## 시스템 앱 삭제 예
-다음은 위와 같은 방식으로 내 안드로이드 폰에서 선탑재된 시스템 앱을 삭제한 예이다.
+다음은 위와 같은 방식으로 내 안드로이드 폰에서 선탑재된 시스템 앱을 삭제한 예이다. (참고로 아래 예는 `adb shell` 명령으로 ADB shell에 진입한 이후의 명령 예이다. ADB shell에 진입하지 않고 바로 명령을 실행하려면 각 명령 앞에 `adb shell`을 추가하면 된다.)
 - Briefing
   ```sh
   $ pm uninstall -k --user 0 flipboard.boxer.app
+  ```
+- DMB
+  ```sh
+  $ pm uninstall -k --user 0 com.sec.android.app.dmb
   ```
 - Galaxy Store
   ```sh
@@ -66,13 +70,13 @@ C:\>adb devices
   ```sh
   $ pm uninstall -k --user 0 com.samsung.android.game.gametools
   ```
-- 사전
+- 삼성 사전
   ```sh
   $ pm uninstall -k --user 0 com.sec.android.app.dictionary
   ```
 - 삼성 클라우드
   ```sh
-  $ adb shell pm uninstall -k --user 0 com.samsung.android.scloud
+  $ pm uninstall -k --user 0 com.samsung.android.scloud
   ```
 - 삼성 Pay
   ```sh

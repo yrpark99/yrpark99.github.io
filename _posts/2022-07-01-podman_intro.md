@@ -145,7 +145,7 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
    ARG user
    ARG uid
    ARG gid
-   RUN groupadd -g ${gid} ${user} && useradd -m -u ${uid} -g ${gid} ${user}
+   RUN groupadd -g ${gid} ${user} && useradd -u ${uid} -g ${gid} ${user}
    
    # Run with user privilege
    USER ${user}

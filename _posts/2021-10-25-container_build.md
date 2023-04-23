@@ -40,11 +40,17 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Create container user with host user's information
 ARG user uid gid
-RUN groupadd -g ${gid} ${user} && useradd -m -u ${uid} -g ${gid} ${user}
+RUN groupadd -g ${gid} ${user} && useradd -u ${uid} -g ${gid} ${user}
 
 # Run with user privilege
 USER ${user}
 WORKDIR /home/${user}
+```
+
+참고로 만약 해당 유저에게 sudo 권한을 부여하려면 `Dockerfile`에 아래와 같이 추가하면 된다. (단, 아래에서 **user_name**, **user_passwd** 부분은 본인의 ID/PW로 대체할 것)
+```Dockerfile
+RUN adduser ${user} sudo
+RUN echo 'user_name:user_passwd' | chpasswd
 ```
 
 ## Docker 이미지 생성
