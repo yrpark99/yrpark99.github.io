@@ -44,7 +44,7 @@ $ playwright codegen <url>
 * 웹페이지가 로딩될 때까지 기다리는 것이 간단하게 구현되었다.
 * 소스 코드 Generator 툴인 `codegen`을 이용하여 간단히 기본 코드를 구성할 수 있었다.
 
-## 테스트 예제
+## 사용 예제 1
 회사 정책으로 매일 Redmine에서 나에게 할당된 프로젝트의 이슈에서 작업 시간을 기록해야 하는데, 이 단순 작업을 하기가 귀찮아서 이것을 자동화해 보았다.  
 사용자마다 Redmine ID/PW가 다르고, 할당된 프로젝트 모델이 다르므로, 이를 소스 코드에서 하드 코딩하지 않기 위하여 아래와 같이 JSON 파일을 구성하였다. (파일 이름은 **user_issue.json**으로 함)
 ```json
@@ -234,6 +234,193 @@ if __name__ == '__main__':
     get_user_issue_info()
     set_redmine_work_time()
 ```
+
+## 사용 예제 2
+회사 인증 모델들에서 각 모델별로 인증서가 EOL(End Of Life) 되는 경우를 사전에 체크하여 담당팀으로 알람 메일을 보내는 기능을 구현하였다.  
+먼저 아래와 같이 설정 파일을 작성하였다. (아래에서는 실제 정보들은 의도적으로 비웠음)
+```json
+{
+    "advance_day": 90,
+    "user": {
+        "user_id": "",
+        "user_pw": ""
+    },
+    "mail": {
+        "to": ""
+    },
+    "models": [
+        ""
+    ]
+}
+```
+아래와 같이 코드를 작성하였다. (마찬가지로 실제 정보들은 비웠음)
+```python
+#!/usr/bin/python3
+import json
+import smtplib
+import sys
+
+from datetime import datetime, timedelta
+from playwright.sync_api import sync_playwright
+from email.mime.text import MIMEText
+from typing import List
+
+global NOTIFY_ADVANCE_DAY, no_product_models
+global playwright, browser, context, page
+
+# 설정 파일 (EOL 되기 전에 notify 해 줄 사전 day 값, 유저 정보, 메일 주소, 양산 중단된 모델 정보 포함)
+MODELS_JSON_FILE = "no_production_models.json"
+
+def get_no_production_models_info() -> None:
+    '''JSON 파일로부터 양산 중단된 모델의 정보를 읽는다.'''
+    global NOTIFY_ADVANCE_DAY, USER_ID, USER_PW, mail_to, no_product_models
+
+    # 설정 JSON 파일을 연다.
+    try:
+        json_file = open(MODELS_JSON_FILE, encoding="UTF-8")
+    except FileNotFoundError:
+        print(f"{MODELS_JSON_FILE} file is not found")
+        sys.exit(1)
+
+    # JSON 파일로부터 사전일, 유저 정보, 양산 중단된 모델 정보를 얻는다.
+    json_data = json.load(json_file)
+    try:
+        NOTIFY_ADVANCE_DAY = json_data['advance_day']
+        USER_ID = json_data['user']['user_id']
+        USER_PW = json_data['user']['user_pw']
+        mail_to = json_data['mail']['to']
+        no_product_models = json_data['models']
+    except KeyError:
+        print(f"{MODELS_JSON_FILE} file is wrong")
+        sys.exit(1)
+
+    # JSON 파일을 닫는다.
+    json_file.close()
+
+def get_total_models_info() -> List[str]:
+    '''전체 인증 모델 정보를 얻어서 리턴한다.'''
+    global USER_ID, USER_PW
+    global no_product_models
+    global playwright, browser, context, page
+
+    # 인증 페이지에 로그인한다.
+    page.goto("")
+    page.get_by_label("Username").fill(USER_ID)
+    page.get_by_label("Password").fill(USER_PW)
+    page.get_by_role("button", name="Logon").click()
+
+    # 인증 모델별 인증 만료일 정보 페이지로 이동한다.
+    page.goto("")
+
+    # 테이블 정보를 얻어서 각 줄로 나누어서 문자열 리스트에 저장한다.
+    table_rows = page.locator("body > div > table:nth-child(4)").inner_text().splitlines()
+
+    return table_rows
+
+def get_alarm_models(models_info: list) -> str:
+    '''입력 모델들에서 인증서 만료일을 확인하여 만료되었거나 곧 만료될 모델들의 정보를 얻어서 리턴한다.'''
+    global NOTIFY_ADVANCE_DAY, no_product_models
+    expire_models = ""
+
+    # 오늘 날짜를 얻는다.
+    today = datetime.now()
+
+    # 테이블 모델 시작 줄부터 각 줄을 파싱하면서, 만료일을 확인하여 만료되었거나 곧 만료될 모델들의 정보를 expire_models에 저장한다.
+    for model in models_info[1:]:
+        # 해당 줄 내용을 tab 문자로 나눈 후, 모델 이름, OP 이름, 인증서 만료일 정보를 얻는다. (인증서 만료일이 없는 모델은 무시한다)
+        model_item = model.split("\t")
+        model_name = model_item[2]
+        op_name = model_item[3]
+        expire_date_str = model_item[4]
+        try:
+            expire_date = datetime.strptime(expire_date_str, "%d %b %Y")
+        except ValueError:
+            continue
+
+        # 사전 만료일(사전 알람 메일 시작일)을 구한다.
+        advance_expire_date = expire_date - timedelta(days=NOTIFY_ADVANCE_DAY)
+
+        # 오늘이 아직 사전 만료일을 지나지 않았으면 알람 대상 모델이 아니다.
+        if today <= advance_expire_date:
+            continue
+
+        # 양산 중단된 모델이면 알람 대상에서 제외시킨다.
+        if model_name in no_product_models:
+            continue
+
+        # 알람 대상 모델이면 관련 정보를 저장한다.
+        expire_models += " - Model: " + model_name + ", OP: " + op_name + ", Expire date: " + expire_date.strftime("%Y-%m-%d")
+        if today > expire_date:
+            expire_models += " (EOL 되었음)<br>"
+        else:
+            expire_models += " (%d 일 후에 EOL 됨)<br>" % ((expire_date - today).days + 1)
+
+    return expire_models
+
+def open_web_browser() -> None:
+    '''Playwright로 웹 브라우저를 생성한다.'''
+    global playwright, browser, context, page
+
+    playwright = sync_playwright().start()
+    browser = playwright.chromium.launch(headless=True)
+    context = browser.new_context()
+    page = context.new_page()
+
+def close_web_browser() -> None:
+    '''Playwright로 생성된 웹 브라우저를 종료시킨다.'''
+    global playwright, browser, context
+
+    context.close()
+    browser.close()
+    playwright.stop()
+
+def send_mail(mail_body: str) -> None:
+    '''입력 메일 본문 내용을 바탕으로 인증서 만료 알람 메일을 발송한다.'''
+    global NOTIFY_ADVANCE_DAY, mail_to
+
+    # SMTP 세션을 생성하고 (TLS 사용) 시작시킨다.
+    smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp.starttls()
+
+    # SMTP 로그인을 한다.
+    smtp.login('', '')
+
+    # 메일 HTML 시작/종료 내용을 세팅한다. (폰트 종류, 크기, 색깔 설정)
+    mailBodyHtmlHead = ""
+    mailBodyHtmlTail = ""
+
+    # 메일 시작 및 종료 내용을 세팅한다.
+    sayHello = ""
+    sayGoodbye = ""
+
+    # HTML을 포함하는 메일 본문 내용을 세팅한다.
+    mailBodyMsg = mailBodyHtmlHead + sayHello + mail_body + sayGoodbye + mailBodyHtmlTail
+
+    # 보낼 메시지의 본문과 제목을 설정한다.
+    msg = MIMEText(mailBodyMsg, 'html')
+    msg['Subject'] = ''
+
+    # 메일을 발송한다.
+    smtp.sendmail("", mail_to, msg.as_string())
+
+    # SMTP 세션을 종료한다.
+    smtp.quit()
+
+if __name__ == '__main__':
+    get_no_production_models_info()
+
+    open_web_browser()
+    models_info = get_total_models_info()
+    close_web_browser()
+
+    alarm_models_info = get_alarm_models(models_info)
+    if alarm_models_info == "":
+        print("No models to notify")
+        sys.exit(0)
+
+    send_mail(alarm_models_info)
+```
+Linux 및 Windows에서 정상적으로 동작하는 것을 확인하였다. 매주 한 번 정해진 시각에 실행되도록 하려면 Windows의 경우에는 `작업 스케줄러`에 추가하면 되는데, 나는 편의상 Linux 서버에서 `crontab`을 이용하여 추가하였다.
 
 ## 맺음말
 처음 Playwright를 사용해 봤음에도 `codegen` generator를 이용하여 쉽게 기본 코드를 구성할 수 있었고, [Python 용 문서](https://playwright.dev/python/docs/intro) 페이지를 참조하여 필요에 맞게 수정하는 데 그리 오래 걸리지 않았다.  

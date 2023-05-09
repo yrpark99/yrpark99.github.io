@@ -32,7 +32,7 @@ C:\>pip install opencv-python
 1. 폰 잠금 해제 (아래 코드에서 **unlock** 함수)  
 단, 이미 잠금 해제된 상태라도 문제없어야 한다. 나의 경우 PIN 잠금을 사용하는데, 이 팝업이 떠 있는 상태인지를 판단하기 위하여 화면을 캡쳐해서 OpenCV로 검사했다.
 1. 원하는 앱을 실행 (아래 코드에서 **open_food_app** 함수)  
-앱 정보는 `Application Inspector` 앱 등의 방법을 통해서 얻을 수 있다. 나의 경우에는 com.vlocally.mealc.android/.mvvm.view.IntroActivity 액티비티를 이용하여 실행시킬 수 있었다.
+앱 정보는 `Application Inspector` 앱 등의 방법을 통해서 얻을 수 있다. 나의 경우에는 **com.vlocally.mealc.android/.mvvm.view.IntroActivity** 액티비티를 이용하여 실행시킬 수 있었다.
 1. 해당 앱에서 원하는 동작을 수행 (아래 코드에서 **request_food_ticket** 함수)  
 나의 경우에는 앱에서 해당 항목의 클릭을 통해서 식권을 신청하는 것이다.
 
