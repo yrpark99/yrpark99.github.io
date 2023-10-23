@@ -29,6 +29,8 @@ Windows 7/10/11에서는 OS 자체적으로는 NFS 서버 기능을 지원하지
    $ sudo mount -t nfs -o vers=3 192.168.0.2:/exports /mnt/
    ```
 
+> 🚨 WinNFSd 툴은 개발 중단된지 오래되었고 최신 Windows에서 문제가 좀 있었는데, 최근에 Rust로 구현된 [nfsserve](https://github.com/xetdata/nfsserve) 툴이 공개되었다. 이 툴은 멀티플랫폼을 지원하고, NFSv4는 지원하지 않고 NFSv3만 지원하지만 일반적인 용도에서는 전혀 문제가 없을 것 같다.
+
 ## WSL에서 NFS 서버 설치
 WSL2의 네트워크는 Hyper-V 가상화 기반으로 동작하는데, internal 유형으로 NAT를 사용하기 때문에 172 대역의 IP를 동적으로 할당받아서, Windows에서는 잘 접근이 되지만, 외부에서는 접근이 되지 않는다.  
 WSL에서 NFS 서버를 세팅하고 외부 디바이스에서 NFS로 접속하는 방법을 구글링 해보면서 여러 방법으로 시도해 보다가, 아래 방법으로 성공하여서 정리해 본다.

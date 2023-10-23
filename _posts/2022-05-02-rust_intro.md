@@ -51,7 +51,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래 예와 같이 alias를 세팅하여 사용하면 편리하다.
   ```shell
   alias l='exa'
-  alias ll='exa -lg --group-directories-first --sort=name --time-style=long-iso'
+  alias ll='exa --binary -lg --group-directories-first --sort=name --time-style=long-iso'
   alias llb='exa -lgB --group-directories-first --sort=name --time-style=long-iso'
   ```
   추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다.
@@ -274,3 +274,7 @@ $ cargo build --target=x86_64-unknown-linux-musl
 
 > 구글 Security Blog [Memory Safe Languages in Android 13](https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html) 페이지를 보면, 안드로이드에서의 Rust 코드 비중이 점점 늘어나고 있고 (Android 13의 경우 새로 작성된 Rust 코드의 비중은 C 언어와 비슷), 이 결과로 메모리 취약점은 2019년 223개에서 2022년 85개로 감소되었다고 한다.  
 더구나 현재까지 Rust로 작성된 코드에서 발생한 메모리 취약점은 없었다고 한다. 😲
+
+## Windows Rust
+Microsoft는 최근부터 보안상의 이유로 C/C++를 사용하지 말 것을 권장하고 있고, Windows의 주요 부분들을 Rust로 재구현하고 있다. (아래는 기사에서 발췌)
+> Win32k에서는 취약점이 종종 나오는 편입니다. 공격자들이 이 요소를 자주 노리기도 하고요. 그래서 최근 MS는 Win32k에 해당하는 부분만 Rust로 재구성했습니다.

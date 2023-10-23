@@ -54,6 +54,11 @@ SQLite의 소스 코드는 공개되어 있고, 실질적으로 상용 제품에
   sqlite> .mode column
   sqlite> .headers on
   ```
+  또는 ~/.sqliterc 파일을 아래와 같이 작성해 놓으면 매번 세팅할 필요가 없으므로 편리하다.
+  ```sql
+  .headers on
+  .mode column
+  ```
 - 입력 DB 테이블 내용 출력
   ```sql
   sqlite> .dump <테이블_이름>

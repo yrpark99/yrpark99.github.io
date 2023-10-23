@@ -39,6 +39,11 @@ toc_label: "이 페이지 목차"
 [Obisidian 홈페이지](https://obsidian.md/) 또는 [Obisidian 릴리즈 페이지](https://github.com/obsidianmd/obsidian-releases/releases)에서 다운로드 받아서 설치하면 된다. Electron base로 알고 있는데, 실행 속도는 빠른 편이다.  
 Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store/apps/details?id=md.obsidian) 앱을 찾아서 설치하면 된다.
 
+## Obsidian 플러그인
+Obsidian 커뮤니티 플러그인은 무료로 이용할 수 있다. 상당히 많은 플러그인들이 있는데, 일단 나는 아래 플러그인들을 설치해 보았다.
+- Obsidian Git
+- Advanced Tables
+
 ## 파일 저장 경로
 위에서 언급했듯이 Obsidian은 파일 시스템 base로 디렉터리와 md 파일로 구성된다.  
 Windows의 경우에는 디폴트로 `%USERPROFILE%\Documents\` 디렉터리 밑에 구성되는데, Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 사용자가 원하는 다른 경로의 파일 저장고를 열 수 있다.  

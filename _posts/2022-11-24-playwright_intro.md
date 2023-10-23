@@ -41,6 +41,7 @@ $ playwright codegen <url>
 ## Playwright 장점
 간단히 Playwright를 사용해 보았는데 일단 Selenium 보다 다음 사항들이 더 좋았다.
 * Playwright는 자체적으로 웹브라우저를 설치하여 사용하므로 시스템에 설치된 웹브라우저 종류/버전과 관계없이 정상 동작하였다. (반면에 Selenium은 시스템에 설치된 웹브라우저를 사용하고 이것과 버전까지 일치하는 Selenium 드라이버를 다운로드해서 사용해야 하는 불편함이 있음)
+  > ℹ️ 참고로 Selenium에서 이 불편함을 해소하기 위해서 [webdriver_manager](https://pypi.org/project/webdriver-manager/) 패키지를 이용하면 드라이버 다운로드를 자동화 할 수 있다.
 * 웹페이지가 로딩될 때까지 기다리는 것이 간단하게 구현되었다.
 * 소스 코드 Generator 툴인 `codegen`을 이용하여 간단히 기본 코드를 구성할 수 있었다.
 
@@ -79,7 +80,7 @@ def get_user_issue_info():
     # JSON 파일을 연다.
     try:
         json_file = open(USER_JSON_FILE)
-    except:
+    except FileNotFoundError:
         print('"' + USER_JSON_FILE + '" 파일을 읽을 수 없습니다.')
         sys.exit(1)
 
@@ -89,7 +90,7 @@ def get_user_issue_info():
         USER_ID = json_data['user']['USER_ID']
         USER_PW = json_data['user']['USER_PW']
         TARGET_MODEL = json_data['issue']['TARGET_MODEL']
-    except:
+    except KeyError:
         print('"' + USER_JSON_FILE + '" 파일이 올바르게 구성되어 있지 않습니다.')
         sys.exit(1)
 
@@ -237,7 +238,7 @@ if __name__ == '__main__':
 
 ## 사용 예제 2
 회사 인증 모델들에서 각 모델별로 인증서가 EOL(End Of Life) 되는 경우를 사전에 체크하여 담당팀으로 알람 메일을 보내는 기능을 구현하였다.  
-먼저 아래와 같이 설정 파일을 작성하였다. (아래에서는 실제 정보들은 의도적으로 비웠음)
+먼저 아래와 같이 **config.json** 이름으로 설정 파일을 작성하였다. (아래에서는 실제 정보들은 의도적으로 비웠음)
 ```json
 {
     "advance_day": 90,
@@ -268,11 +269,11 @@ from typing import List
 global NOTIFY_ADVANCE_DAY, no_product_models
 global playwright, browser, context, page
 
-# 설정 파일 (EOL 되기 전에 notify 해 줄 사전 day 값, 유저 정보, 메일 주소, 양산 중단된 모델 정보 포함)
-MODELS_JSON_FILE = "no_production_models.json"
+# 설정 파일
+MODELS_JSON_FILE = "config.json"
 
-def get_no_production_models_info() -> None:
-    '''JSON 파일로부터 양산 중단된 모델의 정보를 읽는다.'''
+def get_configuration() -> None:
+    '''JSON 파일로부터 각종 설정 정보를 얻는다.'''
     global NOTIFY_ADVANCE_DAY, USER_ID, USER_PW, mail_to, no_product_models
 
     # 설정 JSON 파일을 연다.
@@ -407,7 +408,7 @@ def send_mail(mail_body: str) -> None:
     smtp.quit()
 
 if __name__ == '__main__':
-    get_no_production_models_info()
+    get_configuration()
 
     open_web_browser()
     models_info = get_total_models_info()

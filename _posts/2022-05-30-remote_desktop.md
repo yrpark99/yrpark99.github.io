@@ -62,5 +62,8 @@ VNC(Virtual Network Computing)를 이용한 방법으로 [RealVNC](https://www.r
    그러면 아래와 같이 ID/Replay Server 팝업이 뜨는데, 여기에서 `ID Server`와 `Relay Server` 란에 자체 구축한 RustDesk 서버 IP 주소를 입력하면 된다. (타겟, 클라언트 둘 다)  
 ![](/assets/images/rust_server_setting.png)
 1. 위와 같이 나는 [Oracle Cloud](https://cloud.oracle.com/)로 평생 무료 티어를 사용하여 VM instance를 생성하고, 여기에 RustDesk server를 설치하여 테스트해 보았는데, 기대대로 free public 서버보다 이미지 품질이 좋았다.  
-또 안드로이드의 경우 `RustDesk Remote Desktop` 앱이 있어서 설치한 후에 테스트해 보니, 핸드폰에서 PC로 원격 접속도 잘 되었고, PC에서 핸드폰으로도 원격 접속이 잘 되었다.  
+또 안드로이드의 경우 `RustDesk Remote Desktop` 앱이 있어서 (또는 [GitHub RustDesk release](https://github.com/rustdesk/rustdesk/releases)에서 Android 용 APK 파일을 다운받아서) 설치한 후에 테스트해 보니, 핸드폰에서 PC로 원격 접속도 잘 되었고, 반대로 PC에서 핸드폰으로도 원격 접속이 잘 되었다.  
 RustDesk 덕분에 라이선스 제약 없이 내가 자체 구축한 서버를 사용하여 속도와 이미지 품질까지 제법 괜찮은 무료 원격 솔루션을 구축할 수 있게 되었다. 🍺
+
+## UltraViewer
+[UltraViewer](https://www.ultraviewer.net/)는 Windows 플랫폼만 지원하는 단점이 있지만, 무료로 이용할 수 있다.
