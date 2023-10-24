@@ -1,6 +1,6 @@
 ---
 title: "노트 앱 Obsidian 소개"
-category: [Markdown]
+category: 노트
 toc: true
 toc_label: "이 페이지 목차"
 ---

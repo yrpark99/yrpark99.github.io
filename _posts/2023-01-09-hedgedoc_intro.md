@@ -1,6 +1,6 @@
 ---
 title: "마크다운으로 협업하는 HedgeDoc 소개"
-category: Markdown
+category: 노트
 toc: true
 toc_label: "이 페이지 목차"
 ---

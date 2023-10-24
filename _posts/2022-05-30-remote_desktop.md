@@ -66,4 +66,4 @@ VNC(Virtual Network Computing)를 이용한 방법으로 [RealVNC](https://www.r
 RustDesk 덕분에 라이선스 제약 없이 내가 자체 구축한 서버를 사용하여 속도와 이미지 품질까지 제법 괜찮은 무료 원격 솔루션을 구축할 수 있게 되었다. 🍺
 
 ## UltraViewer
-[UltraViewer](https://www.ultraviewer.net/)는 Windows 플랫폼만 지원하는 단점이 있지만, 무료로 이용할 수 있다.
+[UltraViewer](https://www.ultraviewer.net/)는 현재 Windows 플랫폼만 지원하는 단점이 있지만, 아주 간단히 무료로 이용할 수 있고, 속도면에서도 만족스러웠다.

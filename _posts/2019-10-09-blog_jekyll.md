@@ -1,6 +1,6 @@
 ---
 title: "GitHub 블로그 생성"
-category: Markdown
+category: 노트
 toc: true
 toc_label: "이 페이지 목차"
 ---
