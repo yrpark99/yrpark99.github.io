@@ -55,7 +55,7 @@ connection.close()
 그래서 SQLite DB에 commit 시에는 DB 파일 전체 데이터로 `HMAC`(Hash-based Message Authentication Code)을 계산해서 파일의 끝에 붙이고, SQLite DB를 connect 시에는 파일의 맨 끝에 붙어있는 HMAC을 읽어서 올바른 경우에만 진행시키도록 구현해 보았다.  
 <br>
 
-실제 구현에 앞서 먼저 POC로 아래와 같이 파이썬으로 작성해 보았다. (SQLite DB 파일의 끝에 16 바이트 HMAC signature를 붙였고, 이어서 16 바이트 HMAC 값을 붙였음)
+실제 구현에 앞서 먼저 POC로 아래와 같이 파이썬으로 작성해 보았다. (SQLite DB 파일의 끝에 32 바이트 HMAC signature를 붙였고, 이어서 32 바이트 HMAC 값을 붙였음)
 ```python
 #!/usr/bin/python3
 
@@ -73,7 +73,8 @@ def calculate_hmac(key, data):
     return h.digest()
 
 def verify_hmac_in_file(filename, key):
-    hmac_signature = b'\x00\x00\x00\x00\x00\x09\x00\x00\x00\x01\x00\x00\x00\x00\x00\x10'
+    hmac_signature = b'\x00\x00\x00\x00\x00\x09\x00\x00\x00\x01\x00\x00\x00\x00\x00\x10' + \
+                     b'\x00\x00\x00\x00\x03\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00'
     with open(filename, 'rb') as f:
         file_data = f.read()
     stored_signature = file_data[-64:-32]
@@ -125,4 +126,4 @@ if __name__ == '__main__':
 
 ## SQLCipher 소개
 참고로 SQLite의 기밀성과 무결성을 모두 지원하는 [SQLCipher](https://github.com/sqlcipher/sqlcipher) 소스를 찾을 수 있었다.  
-나의 경우는 기존 버전과의 역호환성 때문에 이 패키지를 사용할 수 없었지만, SQLite를 처음 도입하는 경우에는 이 패키지의 사용을 추천한다.
+나의 경우는 기존 버전과의 역호환성 때문에 이 패키지를 사용할 수 없었지만, SQLite를 새로이 도입하는 경우에는 이 패키지의 사용을 추천한다.

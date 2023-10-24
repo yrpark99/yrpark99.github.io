@@ -88,7 +88,7 @@ $PTS(k) = ((system\\_clock\\_frequency \times tp_n(k)) \, DIV \, 300) \, \% \, 2
 Video PTS는 프레임 간의 시간 간격을 기준으로 단조 증가하게 된다. 예를 들어 25 fps인 경우라면 1초에 25 프레임이 재생되는 것이고, 따라서 프레임 재생 시간 및 프레임 간의 간격은 40 ms가 된다. 마찬가지로 초당 30 프레임이면 30 fps로 나타내고, 이때 프레임당 재생 시간 및 간격은 약 33ms가 된다.
 
 ## PCR 얻기
-PCR은 아래 그림에서 보듯이 TS 헤더의 adaptation field 내에 들어 있다.
+PCR은 아래 그림에서 보듯이 TS 헤더의 adaptation field 내에 들어 있다.  
 ![](/assets/images/mpeg2_pcr.png)  
 <br>
 
@@ -120,7 +120,7 @@ PCR = program_clock_reference_base * 300 + program_clock_reference_extension
 ```
 
 ## PTS/DTS 얻기
-PTS/DTS는 아래와 같이 PES 헤더에 옵션으로 들어 있다.
+PTS/DTS는 아래와 같이 PES 헤더에 옵션으로 들어 있다.  
 ![](/assets/images/mpeg2_pts.png)  
 <br>
 
