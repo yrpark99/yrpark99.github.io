@@ -1,6 +1,6 @@
 ---
 title: "파이썬으로 SQLite DB 생성 및 내용 보기"
-category: Python
+category: [Database, Python]
 toc: true
 toc_label: "이 페이지 목차"
 ---
