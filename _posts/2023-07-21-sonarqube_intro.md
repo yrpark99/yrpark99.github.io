@@ -64,15 +64,11 @@ volumes:
 ```
 
 ## 프로젝트 연동
-SonarQube의 설치가 완료되면 <font color=blue>http://서버IP:9000</font> 페이지로 접속할 수 있다. 웹페이지에서 관리자의 초기 ID/PW는 **admin/admin**이다.  
+SonarQube의 설치가 완료되면 <font color=blue>http://localhost:9000</font> 주소로 접속할 수 있다. 웹페이지에서 관리자의 초기 ID/PW는 **admin/admin**이다.  
 관리자로 로그인하여 설정, 사용자 추가, 프로젝트 추가, 마켓 등을 이용할 수 있다.  
 이후 마켓플레이스에서 언어별 플러그인을 설치한다. 참고로 마켓플레이스에 없는 플러그인을 수동으로 설치하려면, 해당 jar 파일을 다운로드하여 sonarqube가 설치된 경로의 extensions/plugins/ 경로에 복사한 후, sonaqube를 restart 하면 된다.  
-<br>
-🚨 그런데 위에서 Community Edition은 C/C++를 포함하고 있지 않다고 하였는데, 커뮤니티에서 해당 플러그인을 오픈소스로 구현한 것을 다운받아서 설치하면, C/C++도 지원되도록 할 수 있다.
-- C 플러그인: [sonar-cxx](https://github.com/SonarOpenCommunity/sonar-cxx)
-- C++ 플러그인: [sonar-cppcheck](https://github.com/SonarQubeCommunity/sonar-cppcheck)
-
-> 주의: C/C++ 플러그인이 각각 .c, .h 확장자를 포함하므로, 1개 플러그인만 설치하거나, 관리자 환경설정에서 C++에서 .c, .h 확장자는 제거한다.
+> 🚨 그런데 위에서 Community Edition은 C/C++ 검사를 포함하고 있지 않다고 하였는데, 커뮤니티에서 오픈소스로 구현한 아래 플러그인을 다운받아서 설치하면, C/C++도 지원되도록 할 수 있다.
+> - C++ 플러그인: [sonar-cxx](https://github.com/SonarOpenCommunity/sonar-cxx)
 
 이후 웹페이지에서 타겟 프로젝트를 생성하고 연동시키면 된다.
 
@@ -82,7 +78,7 @@ GitHub이나 GitLab에서도 연동시킬 수 있는데, 자세한 방법은 [Gi
 
 ## VS Code 용 익스텐션
 [SonarLint for VsCode](https://github.com/SonarSource/sonarlint-vscode) 익스텐션 익스텐션은 SonarQube와 연동하여 C/C++, Go, JavaScript, TypeScript, Python, Java, HTML, PHP 등의 정적 검사를 지원한다.  
-참고로 C/C++ 코드를 검사하려면 compilation database가 (compile_commands.json) 있어야 하고 ([C and CPP Analysis](https://github.com/SonarSource/sonarlint-vscode/wiki/C-and-CPP-Analysis) 참조), 아래 예와 같이 설정을 추가한다.
+참고로 C/C++ 코드를 검사하려면 compilation database 파일(`compile_commands.json`)이 있어야 하고 ([C and CPP Analysis](https://github.com/SonarSource/sonarlint-vscode/wiki/C-and-CPP-Analysis) 참조), 이후 아래 예와 같이 설정을 추가하면 된다.
 ```json
 "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
 ```
