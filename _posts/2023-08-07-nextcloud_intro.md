@@ -6,7 +6,6 @@ toc_label: "이 페이지 목차"
 ---
 
 Cloud 파일 서버 솔루션 NextCloud를 간단히 소개한다.  
-
 <br>
 회사에서 웹브라우저로 액세스할 수 있는 on-premise 파일 서버를 구축하려고 서버 프로그램을 찾아보다가, [NextCloud](https://nextcloud.com/)를 발견하여 설치 및 사용해 보고, 괜찮은 솔루션이라서 서버 설치법에 대하여 간략히 기록을 남긴다. 
 
@@ -34,15 +33,17 @@ NextCloud 홈페이지에서 [Download Server](https://nextcloud.com/install/#in
    ```sh
    $ docker run -d -v db:/var/lib/mysql mariadb
    ```
-   이후 아래 예와 같은 DB 환경 변수를 세팅한 후, NextCloud 컨테이너를 실행하면 된다.
-   - `MYSQL_DATABASE`: Database 이름 (mysql / mariadb)
-   - `MYSQL_USER`: Database 유저 (mysql / mariadb)
-   - `MYSQL_PASSWORD`: Database 암호 (mysql / mariadb)
-   - `MYSQL_HOST`: Database 서버의 호스트명 (mysql / mariadb)
-   - `POSTGRES_DB`: Database 이름 (postgres)
-   - `POSTGRES_USER`: Database 유저 (postgres)
-   - `POSTGRES_PASSWORD`: Database 암호 (postgres)
-   - `POSTGRES_HOST`: Database 서버의 호스트명 (postgres)
+   이후 아래 예와 같이 사용하는 database에 따라 DB 환경 변수를 세팅한 후, NextCloud 컨테이너를 실행하면 된다.
+   - MySQL/MariaDB인 경우
+     - `MYSQL_DATABASE`: Database 이름
+     - `MYSQL_USER`: Database 유저
+     - `MYSQL_PASSWORD`: Database 암호
+     - `MYSQL_HOST`: Database 서버의 호스트명
+   - PostgreSQL인 경우
+     - `POSTGRES_DB`: Database 이름
+     - `POSTGRES_USER`: Database 유저
+     - `POSTGRES_PASSWORD`: Database 암호
+     - `POSTGRES_HOST`: Database 서버의 호스트명
 
 ## Docker compose 이용 예
 1. 별도의 DB 컨테이너를 사용하려면 Docker compose를 이용하는 것이 편하다.  
