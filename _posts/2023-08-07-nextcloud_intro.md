@@ -7,6 +7,7 @@ toc_label: "이 페이지 목차"
 
 Cloud 파일 서버 솔루션 NextCloud를 간단히 소개한다.  
 <br>
+
 회사에서 웹브라우저로 액세스할 수 있는 on-premise 파일 서버를 구축하려고 서버 프로그램을 찾아보다가, [NextCloud](https://nextcloud.com/)를 발견하여 설치 및 사용해 보고, 괜찮은 솔루션이라서 서버 설치법에 대하여 간략히 기록을 남긴다. 
 
 ## NextCloud 소개
