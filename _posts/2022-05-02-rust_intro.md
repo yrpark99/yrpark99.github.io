@@ -29,8 +29,12 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 ## Rust로 작성된 프로그램들 소개
 아래는 내가 관심있거나 애용하는 Rust로 구현된 open source 프로그램들이다. 앞으로도 좋은 프로그램들이 많이 나오길 기대해 본다.
+* [Actix](https://actix.rs/)  
+  Rust를 위한 Web 프레임워크이다. 속도가 아주 빠르다고 한다.
+
 * [AppFlowy](https://github.com/AppFlowy-IO/appflowy)  
   [Notion](https://www.notion.so)을 대체할 수 있는 오픈 소스로 Rust와 Flutter로 구현되었다.
+
 * [bat](https://github.com/sharkdp/bat)  
   `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다. 또 tab 간격이 디폴트로 4로 되어 있어서 편한데다가 `--tabs=n` 옵션으로 변경도 가능한다.  
   참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
