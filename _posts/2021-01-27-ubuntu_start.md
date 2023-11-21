@@ -12,16 +12,16 @@ toc_label: "이 페이지 목차"
 
 아래에 예를 들어서 작성해 본다. (아래 예에서는 사용자 ID를 **ubuntu**, 실행할 프로그램이 **ubuntu** 홈 디렉터리에 **MyServer** 이름으로 있다고 가정)
 
-1. 아래 내용과 같이 `/home/ubuntu/MyServer.sh` 파일을 생성한다.
-   ```bash
+1. 아래 예와 같이 `/home/ubuntu/MyServer.sh` 파일을 생성한다.
+   ```sh
    #!/bin/sh
    cd /home/ubuntu/; ./MyServer
    ```
    이후 아래와 같이 실행 권한을 준다.
-   ```bash
+   ```sh
    $ chmod +x /home/ubuntu/MyServer.sh
    ```
-1. 아래 내용과 같이 `/lib/systemd/system/MyServer.service` 파일을 생성한다.
+1. 아래 예와 같이 `/lib/systemd/system/MyServer.service` 파일을 생성한다.
    ```ini
    [Unit]
    Description=My Server
@@ -30,22 +30,18 @@ toc_label: "이 페이지 목차"
    [Install]
    WantedBy=multi-user.target
    ```
-   이후 아래와 같이 실행 권한을 준다.
-   ```bash
-   $ sudo chmod +x /lib/systemd/system/MyServer.service
-   ```
-1. 아래와 같이 `systemctl`을 configure 및 start 시킨다.
-   ```bash
+1. 아래와 같이 `systemctl`에서 **MyServer.service**를 enable 및 start 시킨다.
+   ```sh
    $ sudo systemctl daemon-reload
    $ sudo systemctl enable MyServer.service
    $ sudo systemctl start MyServer.service
    ```
-   필요하면 아래와 같이 해당 서비스 상태를 확인해 볼 수 있다.
-   ```bash
+1. 필요하면 다음과 같이 해당 서비스 상태를 확인해 볼 수 있다.
+   ```sh
    $ systemctl status MyServer.service
    ```
-   또는 필요시 아래와 같이 전체 서비스 상태를 확인해 볼 수도 있다.
-   ```   
+   또, 다음과 같이 실행하여 전체 서비스 상태를 확인해 볼 수 있다.
+   ```sh
    $ systemctl list-units --type=service
    ```
 

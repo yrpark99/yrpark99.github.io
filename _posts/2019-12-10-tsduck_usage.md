@@ -127,6 +127,10 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```sh
    $ tsp -I file {입력 TS 파일} -P pmt --move-pid {old_pid}/{new_pid} --pcr-pid {new_pid} -O file {출력 TS 파일}
    ```
+1. 특정 PMT의 버전 증가시키기 예
+   ```sh
+   $ tsp -I file <입력 TS 파일> -P pmt --pmt-pid {pid} --increment-version -O file <출력 TS 파일>
+   ```
 1. SDT 생성 예 (Service ID 추가)
    ```sh
    $ tsp -I file {입력 TS 파일} -P sdt --create --ts-id {TSID 값} --original-network-id {ONID 값} --service-id {service_id} --provider {provider name} --name {service name} -O file {출력 TS 파일}
