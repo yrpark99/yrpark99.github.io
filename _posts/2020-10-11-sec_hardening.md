@@ -1,6 +1,6 @@
 ---
 title: "C/C++ 빌드시 security hardening"
-category: [C, Security]
+category: [C/C++, Security]
 toc: true
 toc_label: "이 페이지 목차"
 ---

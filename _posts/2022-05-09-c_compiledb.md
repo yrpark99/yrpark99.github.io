@@ -1,6 +1,6 @@
 ---
 title: "C/C++ 용 LSP(Language Server Protocol) 이용하기"
-category: C
+category: [C/C++]
 toc: true
 toc_label: "이 페이지 목차"
 ---

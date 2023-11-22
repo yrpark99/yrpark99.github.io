@@ -30,6 +30,11 @@ toc_label: "이 페이지 목차"
    [Install]
    WantedBy=multi-user.target
    ```
+   그런데 위와 같이 실행시키면 root 권한으로 실행이 된다.  
+   만약에 특정 유저의 권한으로 실행시키려면 **ExecStart** 항목에서 아래와 같이 `sudo -u`로 유저를 설정하면 된다.
+   ```ini
+   ExecStart=sudo -u {유저} {실행 파일} {아규먼트}
+   ```
 1. 아래와 같이 `systemctl`에서 **MyServer.service**를 enable 및 start 시킨다.
    ```sh
    $ sudo systemctl daemon-reload
