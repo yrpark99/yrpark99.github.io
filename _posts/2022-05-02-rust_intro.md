@@ -101,6 +101,10 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [Ripgrep](https://github.com/BurntSushi/ripgrep)  
   `grep`과 `ack` 계열의 장점을 합친 파일 내용 검색 툴로 상당히 빠른 속도를 자랑한다. Git 저장소인 경우에 `.gitignore` 파일에 있는 파일 패턴들은 검색하지 않으므로 더 빠르고 편리하게 사용할 수 있다. (마찬가지로 `.ignore` 파일이나 `.rgignore` 파일에 있는 파일 패턴들도 검색하지 않음)  
   [Platinum Searcher](https://github.com/monochromegane/the_platinum_searcher)와 함께 내가 주로 사용하는 검색 툴이다.
+  > 참고로 검색	결과는 디폴트로 UTF-8로 출력하는데, 한글 인코딩을 EUC-KR로 하고 싶으면 아래 예와 같이 지정하면 된다.
+  ```sh
+  $ rg --encoding=euc-kr "문자열"
+  ```
 
 * [RustDesk](https://github.com/rustdesk/rustdesk)  
   [TeamViewer](https://www.teamviewer.com), [AnyDesk](https://anydesk.com/) 등과 같은 원격 데스크톱 툴인데, 한국에도 서버가 있고 현재 무료이다.

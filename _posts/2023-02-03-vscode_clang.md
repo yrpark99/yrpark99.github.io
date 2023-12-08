@@ -217,12 +217,7 @@ def writeJsonFile(jsonFileName: str) -> None:
     # 표준 C/C++ 번호를 얻는다.
     stdCVer, stdCppVer = getStandardCVersion(gccPath)
 
-    # JSON을 dictionary 타입으로 구성한다.
-    outputJson: Dict[str, Any] = dict()
-    outputJson["configurations"] = []
-    outputJson["version"] = 4
-
-    # JSON에서 "configurations" 항목을 구성한다.
+    # JSON에서 "configurations" 항목을 dictionary 타입으로 구성한다.
     configDict: Dict[str, Any] = dict()
     configDict["name"] = "Linux"
     configDict["includePath"] = sorted(includePath)
@@ -230,7 +225,11 @@ def writeJsonFile(jsonFileName: str) -> None:
     configDict["compilerPath"] = gccPath
     configDict["cStandard"] = stdCVer
     configDict["cppStandard"] = stdCppVer
-    outputJson["configurations"].append(configDict)
+
+    # JSON을 dictionary 타입으로 구성하고, configurations 정보는 리스트 형식으로 저장한다.
+    outputJson: Dict[str, Any] = dict()
+    outputJson["configurations"] = [configDict]
+    outputJson["version"] = 4
 
     # Dictionary를 JSON 문자열로 변환한다.
     jsonMsg = json.dumps(outputJson, indent=4)

@@ -304,10 +304,11 @@ $ sudo apt install libjsoncpp-dev
 [gRPC 홈페이지](https://grpc.io/)에서 자세한 정보를 얻을 수 있다.
 
 ### 특징
-- Protocol Buffer를 기본으로 한 serializer에 HTTP2를 붙여서 만든 RPC(Remote Procedure Call) framework 임
-- C/C++, Java, Ruby, Node.js, Python, Golang 등 지원
-- 바이너리 프로토콜을 사용하여 하나의 connection으로 RPC 호출을 처리하므로, JSON/HTTP REST에 비해 빠름
-- 패키지가 방대하고 다른 라이브러리에 의존성이 많다는 단점이 있음
+- 데이터 직렬화를 위해 protocol buffer를 사용한다. 이는 구조화된 데이터를 효율적으로 직렬화하고 파싱하기 위한 바이너리 형식이다. 프로토콜 버퍼를 사용함으로써 데이터의 크기를 최소화하고 효율적인 네트워크 통신을 가능케 한다.
+- 바이너리 프로토콜을 사용하여 하나의 connection으로 RPC 호출을 처리하므로, JSON/HTTP REST에 비해 통신 크기가 작고 속도가 빠르다.
+- Protocol buffer를 기본으로 한 serializer에 HTTP2를 붙여서 만든 RPC(Remote Procedure Call) 프레임워크이다.
+- C/C++, Java, Ruby, Node.js, Python, Golang 등의 언어를 지원한다.
+- 패키지가 방대하고 다른 라이브러리에 의존성이 많다는 단점이 있다.
 
 ### gRPC 빌드하기
 먼저 아래 예와 같이 사전에 필요한 패키지를 설치한다.
