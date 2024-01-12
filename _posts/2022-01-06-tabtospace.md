@@ -17,7 +17,7 @@ toc_label: "이 페이지 목차"
    ```shell
    $ sed -i 's/\t/    /g' <file_name>
    ```
-   현재 디렉터리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
+   현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
    ```shell
    $ find -name "*.c*" -exec sed -i 's/\t/    /g' {} \;
    $ find -name "*.h" -exec sed -i 's/\t/    /g' {} \;
@@ -28,7 +28,7 @@ toc_label: "이 페이지 목차"
    ```shell
    $ expand -t 4 <file_name> | sponge <file_name>
    ```
-   현재 디렉터리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
+   현재 디렉토리 이하의 모든 c, cpp, h 파일들을 한꺼번에 변환하려면 아래 예와 같이 할 수 있다.
    ```shell
    $ find -name "*.c*" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;
    $ find -name "*.h" -exec bash -c 'expand -t 4 "$0" | sponge "$0"' {} \;
@@ -65,8 +65,8 @@ trim_trailing_whitespace = false
 insert_final_newline = false
 ```
 
-## VS Code 설정
-또한 소스 코드 에디터는 주로 VS Code를 사용하므로, 프로젝트의 `.vscode/settings.json` 파일은 아래와 같이 업데이트하였다.
+## VSCode 설정
+또한 소스 코드 에디터는 주로 VSCode를 사용하므로, 프로젝트의 `.vscode/settings.json` 파일은 아래와 같이 업데이트하였다.
 ```jsx
 {
     "files.encoding": "utf8",

@@ -89,11 +89,11 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [Helix](https://github.com/helix-editor/helix)  
   [Kakoune](https://kakoune.org/), [Neovim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 단, 시스템에 [How to install the default language servers](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers) 페이지를 참조하여 사전에 해당 language server를 설치해 놓아야 한다.  
   단점으로는 현재까지는 플러그인을 지원하지 않고 있으나 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
-  나는 Windows 환경에서는 주로 VS Code, Linux 터미널에서는 Vim을 대체하여 Neovim을 사용하고 있는데, Helix는 Neovim보다 훨씬 빠른 속도를 자랑해서 내가 주목하고 있는 에디터 중의 하나이다.
+  나는 Windows 환경에서는 주로 VSCode, Linux 터미널에서는 Vim을 대체하여 Neovim을 사용하고 있는데, Helix는 Neovim보다 훨씬 빠른 속도를 자랑해서 내가 주목하고 있는 에디터 중의 하나이다.
 
 * [Lapce](https://github.com/lapce/lapce)  
   Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP(Lanaugage Server Protocol), 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
-  아직은 VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 VS Code에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
+  아직은 VSCode에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 VSCode에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
 
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
   Rust로 작성된 운영 체제이다.
@@ -143,7 +143,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
    ```shell
    $ sudo snap install rustup --classic
    ```
-   실행 파일들은 `~/.cargo/bin/` 디렉터리에 설치되는데, 해당 경로가 PATH에 추가되도록 자동으로 ~/.bashrc 파일에서 아래 내용이 추가된다.
+   실행 파일들은 `~/.cargo/bin/` 디렉토리에 설치되는데, 해당 경로가 PATH에 추가되도록 자동으로 ~/.bashrc 파일에서 아래 내용이 추가된다.
    ```shell
    . "$HOME/.cargo/env"
    ```
@@ -169,7 +169,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [Rustup](https://github.com/rust-lang/rustup): Rust 툴체인 매니저
 
 ## 프로젝트 소스 setup
-1. 아래와 같이 실행하면 자동으로 `git init` 명령과 **src/main.rs**, **.gitignore**, **Cargo.toml** 파일을 생성해 준다. (프로젝트명은 디폴트로 현재 디렉터리 이름으로 세팅됨)
+1. 아래와 같이 실행하면 자동으로 `git init` 명령과 **src/main.rs**, **.gitignore**, **Cargo.toml** 파일을 생성해 준다. (프로젝트명은 디폴트로 현재 디렉토리 이름으로 세팅됨)
    ```shell
    $ cargo init
    ```
@@ -177,13 +177,13 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
    ```shell
    $ cargo build
    ```
-   결과로 `target/debug/` 디렉터리에 빌드 파일이 생성된다.
+   결과로 `target/debug/` 디렉토리에 빌드 파일이 생성된다.
 
 ## Cargo 사용 예
 1. 새 프로젝트 생성
    ```shell
-   $ cargo new <디렉터리명>
-   $ cd <디렉터리명>
+   $ cargo new <디렉토리명>
+   $ cd <디렉토리명>
    ```
 1. Crate(패키지) 찾기
    ```shell
@@ -206,7 +206,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
    ```shell
    $ cargo build
    ```
-   릴리즈용 이미지 빌드시에는 아래와 같이 `--release` 아규먼트를 추가하면 **target/release/** 디렉터리에 최적화된 빌드파일이 생성된다.
+   릴리즈용 이미지 빌드시에는 아래와 같이 `--release` 아규먼트를 추가하면 **target/release/** 디렉토리에 최적화된 빌드파일이 생성된다.
    ```shell
    $ cargo build --release
    ```
@@ -219,7 +219,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
    ```
    $ cargo clean
    ```
-   결과로 **target** 디렉터리가 삭제된다.
+   결과로 **target** 디렉토리가 삭제된다.
 1. 빌드된 파일을 바로 실행하기
    ```shell
    $ cargo run
@@ -254,7 +254,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
    $ cargo install -f cross
    ```
    참고로 이 cross 툴체인은 미리 만들어진 <font color=purple>Dockerfile</font>을 사용하는데, 전체 Dockerfile 목록은 [이 페이지](https://github.com/cross-rs/cross/tree/main/docker) 에서 확인할 수 있다.
-1. 이후 해당 디렉터리에서 아래 예와 같이 빌드할 수 있다. (아래 예는 ARM64로 cross 빌드하는 예제)
+1. 이후 해당 디렉토리에서 아래 예와 같이 빌드할 수 있다. (아래 예는 ARM64로 cross 빌드하는 예제)
    ```shell
    $ cross build --target aarch64-unknown-linux-gnu
    ```

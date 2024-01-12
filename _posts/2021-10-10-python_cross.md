@@ -84,7 +84,7 @@ $ sudo apt install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
    (ARM64의 경우에는 `qemu-aarch64` 명령으로 시뮬레이션 할 수 있고, 머신 결과로는 `aarch64`가 나옴)
 
 ## PIP 설치를 위한 crossenv
-위에서 언급한 바와 같이 타겟 시스템에서 pip로 패키지를 설치하는 방법 이외에, 호스트에서 [crossenv](https://github.com/benfogle/crossenv) 패키지를 이용하여 호스트에서 cross 환경의 패키지를 설치할 수도 있다. (단, 이 경우에도 빌드된 cross 타겟은 필요하다. 위에서 이미 Python을 cross 빌드하여 ~/python/ 디렉터리에 결과물이 있으므로 이것을 그대로 사용하면 됨)
+위에서 언급한 바와 같이 타겟 시스템에서 pip로 패키지를 설치하는 방법 이외에, 호스트에서 [crossenv](https://github.com/benfogle/crossenv) 패키지를 이용하여 호스트에서 cross 환경의 패키지를 설치할 수도 있다. (단, 이 경우에도 빌드된 cross 타겟은 필요하다. 위에서 이미 Python을 cross 빌드하여 ~/python/ 디렉토리에 결과물이 있으므로 이것을 그대로 사용하면 됨)
 1. 먼저 아래와 같이 필요한 패키지를 설치한다.
    ```shell
    $ sudo apt install python3-venv
@@ -103,7 +103,7 @@ $ sudo apt install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
    (cross) $ pip list
    (cross) $ deactivate
    ```
-1. 위에서 pip list로 확인해 보면 numpy가 정상적으로 설치되었음을 확인할 수 있다. 패키지가 설치된 경로는 ~/cross_venv/cross/lib/python3.8/site-packages/ 디렉터리이므로, 이를 아래와 같이 cross 빌드된 디렉터리로 복사한다.
+1. 위에서 pip list로 확인해 보면 numpy가 정상적으로 설치되었음을 확인할 수 있다. 패키지가 설치된 경로는 ~/cross_venv/cross/lib/python3.8/site-packages/ 디렉토리이므로, 이를 아래와 같이 cross 빌드된 디렉토리로 복사한다.
    ```shell
    $ cp -rf ~/cross_venv/cross/lib/python3.8/site-packages/numpy* ~/python/lib/python3.8/site-packages/
    ```

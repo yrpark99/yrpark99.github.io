@@ -74,8 +74,8 @@ $ cat /etc/exports
    ```sh
    $ gcc -o root_shell root_shell.c
    ```
-   빌드된 실행 파일을 NFS 디렉터리로 복사한다.
-1. Target 디바이스에서 NFS 디렉터리를 마운트 한 후, 마운트 된 디렉터리로 이동한다.  
+   빌드된 실행 파일을 NFS 디렉토리로 복사한다.
+1. Target 디바이스에서 NFS 디렉토리를 마운트 한 후, 마운트 된 디렉토리로 이동한다.  
    Target 디바이스는 나에게 root 권한이 있다. 또, NFS 서버의 <mark style='background-color: #ffdce0'>no_root_squash</mark> 설정 덕분에, 아래와 같이 root_shell 프로그램의 사용자를 root로 변경하고, **suid**(set-user-identifier) 모드를 설정할 수 있다.
    ```sh
    $ sudo chown root:root root_shell
@@ -96,13 +96,13 @@ $ cat /etc/exports
 ## 올바른 NFS 서버 설정
 따라서 여러 명이서 함께 사용하는 NFS 서버인 경우에는 `/etc/exports` 파일에서 명시적으로 <mark style='background-color: #dcffe4'>root_squash</mark> 설정을 해야 한다.  
 <br>
-참고로 이렇게 설정을 하면 NFS 클라이언트에서 root 권한으로 write가 안되므로, NFS 디렉터리에 root 권한으로 core dump 파일이 생성이 되지 않는다.  
-이 경우에 NFS 디렉터리에 core dump 파일이 생성되게 하려면 다음 방법 중의 하나를 사용할 수 있겠다.
+참고로 이렇게 설정을 하면 NFS 클라이언트에서 root 권한으로 write가 안되므로, NFS 디렉토리에 root 권한으로 core dump 파일이 생성이 되지 않는다.  
+이 경우에 NFS 디렉토리에 core dump 파일이 생성되게 하려면 다음 방법 중의 하나를 사용할 수 있겠다.
 1. Target 디바이스에서 아래 예와 같이 core dump 파일이 외부 USB 저장 장치에 생성되도록 core path를 설정한다.
    ```sh
    $ sudo echo "/mnt/usb/core" > /proc/sys/kernel/core_pattern
    ```
-1. NFS 서버의 마운트 디렉터리에서 아래와 같이 root 권한의 core 파일을 생성해 놓는다. (단, 관리자만 가능)
+1. NFS 서버의 마운트 디렉토리에서 아래와 같이 root 권한의 core 파일을 생성해 놓는다. (단, 관리자만 가능)
    ```sh
    $ sudo touch core
    $ sudo chmod 666 core

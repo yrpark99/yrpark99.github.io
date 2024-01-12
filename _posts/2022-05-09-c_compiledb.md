@@ -25,7 +25,7 @@ LSP(Language Server Protocol)를 지원하는 편집기인 경우에는 위의 �
 <br>
 상세 내용은 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 페이지에서 찾아볼 수 있다.  
 <br>
-실제로 Visual Studio를 비롯하여 VS Code, Neovim, Sublime Text, Helix, Lapse 등이 LSP를 지원하고 있다. 이 중에서 유료인 Visual Studio를 제외한 나머지 편집기들에서 아래 방법을 사용하여 모두 정상적으로 LSP가 동작함을 확인하였고, 아래에서 간단히 정리하였다.
+실제로 Visual Studio를 비롯하여 VSCode, Neovim, Sublime Text, Helix, Lapse 등이 LSP를 지원하고 있다. 이 중에서 유료인 Visual Studio를 제외한 나머지 편집기들에서 아래 방법을 사용하여 모두 정상적으로 LSP가 동작함을 확인하였고, 아래에서 간단히 정리하였다.
 
 ## C/C++ 용 language server
 C/C++를 위한 LSP를 사용하기 위해서는 시스템에 C/C++를 위한 language server가 설치되어 있어야 하는데, 여기에는 대표적으로 `clangd`, `ccls` 등이 있다. 이 글에서는 가장 많이 사용되는 **clangd** 설치를 예로 든다.  
@@ -45,11 +45,11 @@ $ sudo cp -arf clangd_12.0.1/* /usr/
 $ clangd --version
 ```
 
-> ✅ VS Code와 같은 편집기는 자체적으로 language server를 설치하므로, 이런 경우에는 위와 같이 시스템에 별도로 language server를 설치할 필요가 없고, 간단히 해당 플러그인([C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))을 설치하기만 하면 된다.
+> ✅ VSCode와 같은 편집기는 자체적으로 language server를 설치하므로, 이런 경우에는 위와 같이 시스템에 별도로 language server를 설치할 필요가 없고, 간단히 해당 플러그인([C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))을 설치하기만 하면 된다.
 
 그런데 매크로를 지원하지 않는 언어에서는 간단하게 소스 navigation 등이 잘 되지만 C/C++는 매크로를 지원하고, 이로 인해 Makefile에 의한 define이나 include 경로가 복잡해 지는데 😵, 이로 인해 정상적인 코드 navigation이 안 된다.  
 <br>
-💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VS Code처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=purple>(compile_commands.json)</font> 파일을 사용하면 된다.
+💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VSCode처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=purple>(compile_commands.json)</font> 파일을 사용하면 된다.
 
 ## Compilation database 파일 생성 방법
 Compilation DB 파일의 생성 방법은 빌드 시스템에 따라서 다른데, 아래에 많이 사용되는 빌드 시스템의 경우를 예시하였다.
@@ -58,7 +58,7 @@ Compilation DB 파일의 생성 방법은 빌드 시스템에 따라서 다른�
 ```shell
 $ pip3 install compiledb
 ```
-이제 프로젝트 디렉터리에서 아래 예와 같이 실행하면 compile_commands.json 파일이 생성된다.
+이제 프로젝트 디렉토리에서 아래 예와 같이 실행하면 compile_commands.json 파일이 생성된다.
 ```shell
 $ compiledb -n -f --command-style make -j
 ```
@@ -92,15 +92,15 @@ $ compiledb -n -f --command-style < build-log.txt
    $ scripts/clang-tools/gen_compile_commands.py
    ```
 
-> 또는 Linux Kernel인 경우에는 VS Code를 위하여 Linux Kernel 프로젝트를 셋업 해주는 [vscode-linux-kernel
+> 또는 Linux Kernel인 경우에는 VSCode를 위하여 Linux Kernel 프로젝트를 셋업 해주는 [vscode-linux-kernel
 ](https://github.com/amezin/vscode-linux-kernel)와 같은 툴을 사용하면 편리하다. 아래와 같이 실행하면 된다.
 > 1. Linux Kernel을 빌드 한다. (결과로 ***.cmd** 파일이 생성되어 있어야 함)
-> 1. Linux 소스 base 경로에서 아래와 같이 `.vscode` 디렉터리로 clone 받은 후, **generate_compdb.py**를 실행하면 **compile_commands.json** 파일이 생성된다.
+> 1. Linux 소스 base 경로에서 아래와 같이 `.vscode` 디렉토리로 clone 받은 후, **generate_compdb.py**를 실행하면 **compile_commands.json** 파일이 생성된다.
 >    ```shell
 >    $ git clone https://github.com/amezin/vscode-linux-kernel.git .vscode
 >    $ python .vscode/generate_compdb.py
 >    ```
-> 1. 이제 VS Code로 열어서 소스 브라우징을 해보면, 정상적으로 LSP가 동작함을 확인할 수 있다.
+> 1. 이제 VSCode로 열어서 소스 브라우징을 해보면, 정상적으로 LSP가 동작함을 확인할 수 있다.
 
 ### Clang 빌드 시스템인 경우
 빌드시에 -MJ 옵션을 주면 된다.
@@ -188,7 +188,7 @@ LSP를 사용하기 위해서 Sublime Text도 Vim 류의 편집기와 마찬가�
 그래서 LSP 설정 파일에 위와 같이 `"semantic_highlighting": true` 항목을 수동으로 추가하였고, 결과로 inactive 된 코드들이 정상적으로 흐리게 표시되었다. 👍
 
 ## Lapce에서 LSP 사용하기
-[Lapce](https://lapce.dev/)는 멀티 플랫폼을 지원하는 편집기로 Rust로 구현된 오픈 소스이다 (소스는 [lapce](https://github.com/lapce/lapce)에서 받을 수 있음). VS Code와 유사한 UI 구성에 빠른 속도가 강점이다.  
+[Lapce](https://lapce.dev/)는 멀티 플랫폼을 지원하는 편집기로 Rust로 구현된 오픈 소스이다 (소스는 [lapce](https://github.com/lapce/lapce)에서 받을 수 있음). VSCode와 유사한 UI 구성에 빠른 속도가 강점이다.  
 C/C++ LSP를 사용하기 위해서는 `clangd`를 설치한 후, 설정에서 Plugin Settings -> C/C++ (clangd) -> Path to clangd 항목에서 clangd가 설치된 전체 경로를 세팅하면 된다. 또는 **~/.config/lapce-stable/settings.toml** 파일에서 아래 예와 같이 세팅해도 된다.
 ```toml
 [lapce-cpp-clangd]
@@ -196,8 +196,8 @@ C/C++ LSP를 사용하기 위해서는 `clangd`를 설치한 후, 설정에서 P
 ```
 이후부터는 해당 프로젝트에서 `compile_commands.json` 파일을 생성하면 LSP를 사용할 수 있다.
 
-## VS Code에서 LSP 사용하기
-[VS Code](https://code.visualstudio.com/)는 원하는 언어를 지원하는 익스텐션을 설치하면 해당 language server가 자동으로 설치되므로 아주 편리하다. C/C++의 경우에는 [C/C++ 익스텍션](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)을 설치하면 된다.  
+## VSCode에서 LSP 사용하기
+[VSCode](https://code.visualstudio.com/)는 원하는 언어를 지원하는 익스텐션을 설치하면 해당 language server가 자동으로 설치되므로 아주 편리하다. C/C++의 경우에는 [C/C++ 익스텍션](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)을 설치하면 된다.  
 이후 관련 세팅은 해당 프로젝트의 `.vscode/c_cpp_properties.json` 파일에서 설정하면 되는데, 자동으로 아래와 같은 형태로 만들어진다.
 ```json
 {
@@ -217,9 +217,9 @@ C/C++ LSP를 사용하기 위해서는 `clangd`를 설치한 후, 설정에서 P
     "version": 4
 }
 ```
-**Makefile**에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로 지정되는 include path와 <mark style='background-color: #ffdce0'>-D</mark>로 지정되는 define 내용을 위 파일에서 `"includePath"`, `"defines"`에 추가하면 된다. 이 방법은 아주 편리하긴 하지만, VS Code의 경우 define 매크로에 의해 코드가 inactive 인 경우에는 백그라운드가 흐리게 표시되므로 (물론 이것도 설정 변경이 가능하지만 이 상태가 코딩시 훨씬 편리함), define 정보가 누락된 경우에는 active/inactive 영역이 잘못 표시될 수 있으므로 주의가 필요하다.  
+**Makefile**에서 사용하는 <mark style='background-color: #ffdce0'>-I</mark>로 지정되는 include path와 <mark style='background-color: #ffdce0'>-D</mark>로 지정되는 define 내용을 위 파일에서 `"includePath"`, `"defines"`에 추가하면 된다. 이 방법은 아주 편리하긴 하지만, VSCode의 경우 define 매크로에 의해 코드가 inactive 인 경우에는 백그라운드가 흐리게 표시되므로 (물론 이것도 설정 변경이 가능하지만 이 상태가 코딩시 훨씬 편리함), define 정보가 누락된 경우에는 active/inactive 영역이 잘못 표시될 수 있으므로 주의가 필요하다.  
 <br>
-또, VS Code는 이 방법 외에도 compile DB (**compile_commands.json**) 파일도 지원하는데, 만약에 프로젝트 디렉터리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.  
+또, VSCode는 이 방법 외에도 compile DB (**compile_commands.json**) 파일도 지원하는데, 만약에 프로젝트 디렉토리에서 **compile_commands.json** 파일이 발견되면, 아래 팝업을 띄우면서 이 파일을 사용할 것인지 묻는다.  
 ![](/assets/images/vscode_compiledb.png)  
 위에서 **Yes** 버튼을 누르면 `.vscode/c_cpp_properties.json` 파일에 자동으로 아래 내용이 추가된다. (물론 위의 팝업을 이용하는 대신에 그냥 JSON 파일에 수동으로 아래와 같이 추가해도 됨)
 ```json
@@ -228,4 +228,4 @@ C/C++ LSP를 사용하기 위해서는 `clangd`를 설치한 후, 설정에서 P
 만약에 cross-toolchain을 사용하는 경우에는 컴파일러가 gcc가 아니므로, **c_cpp_properties.json** 파일에서 `"compilerPath"` 내용을 사용되는 cross 컴파일러의 경로로 수정한다. 그러면 `"intelliSenseMode"` 내용은 자동으로 올바르게 세팅된다.
 > 참고로 소스 코드가 원격 서버에 있는 경우에는 [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), WSL에 있는 경우에는 [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) 익스텐션을 이용하여 해당 서버에 접속하면 된다.
 
-위에서도 언급했듯이 VS Code에서는 inactive 코드가 쉽게 분간이 되고, 사용법이 쉽고 편리하면서도 막강한 기능과 수많은 익스텐션으로 수년 전부터 내가 가장 선호하는 편집기이다. 물론 이것도 LSP를 제대로 활용해야 한결 편리한 프로그래밍이 환경이 될 것이기에 시간을 들여서 기록을 남긴다.
+위에서도 언급했듯이 VSCode에서는 inactive 코드가 쉽게 분간이 되고, 사용법이 쉽고 편리하면서도 막강한 기능과 수많은 익스텐션으로 수년 전부터 내가 가장 선호하는 편집기이다. 물론 이것도 LSP를 제대로 활용해야 한결 편리한 프로그래밍이 환경이 될 것이기에 시간을 들여서 기록을 남긴다.

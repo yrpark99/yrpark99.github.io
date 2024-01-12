@@ -17,12 +17,12 @@ Rust를 지원하는 이유는 Rust로 구현시 기존 C/C++로 구현했을 �
 ## AOSP 소스 받기
 [안드로이드 Codenames, Tags, and Build Numbers](https://source.android.com/source/build-numbers.html#source-code-tags-and-builds) 페이지에서 안드로이드 전체 태그 목록을 확인하여 사용할 태그를 선택한다. 이 글에서는 Android 12 중에서 최신 태그인 `android-12.1.0_r27`을 선택하였다.
 
-1. 작업용 디렉터리를 만든 후에 이 디렉터리로 이동한다.
+1. 작업용 디렉토리를 만든 후에 이 디렉토리로 이동한다.
 1. 아래와 같이 `repo init` 명령을 실행한다.
    ```sh
    $ repo init -u https://android.googlesource.com/platform/manifest -b android-12.1.0_r27
    ```
-   결과로 현재 디렉터리 밑에 **.repo** 디렉터리가 생성된다.  
+   결과로 현재 디렉토리 밑에 **.repo** 디렉토리가 생성된다.  
 1. 이제 아래와 같이 `repo sync` 명령을 실행하면 안드로이드 소스를 다운로드 받는다. (시간이 오래 걸림)
    ```sh
    $ repo sync
@@ -43,7 +43,7 @@ Rust를 지원하는 이유는 Rust로 구현시 기존 C/C++로 구현했을 �
    ```
 
 ## Rust 모듈 위치
-현재 Rust 모듈은 `build/soong/rust/config/allowed_list.go` 파일에서 **<font color=purple>RustAllowedPaths</font>** 이름으로 정의된 특정 디렉터리에 위치해야만 한다. 이 글에서는 이 중에서 **external/rust** 경로를 사용하기로 한다.
+현재 Rust 모듈은 `build/soong/rust/config/allowed_list.go` 파일에서 **<font color=purple>RustAllowedPaths</font>** 이름으로 정의된 특정 디렉토리에 위치해야만 한다. 이 글에서는 이 중에서 **external/rust** 경로를 사용하기로 한다.
 
 ## Rust 바이너리 예제
 1. 빌드를 위해 **external/rust/hello_rust/Android.bp** 파일을 아래와 같이 작성한다.

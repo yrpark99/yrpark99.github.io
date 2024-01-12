@@ -46,11 +46,11 @@ Obsidian 커뮤니티 플러그인은 무료로 이용할 수 있다. 상당히 
 - Advanced Tables
 
 ## 파일 저장 경로
-위에서 언급했듯이 Obsidian은 파일 시스템 base로 디렉터리와 md 파일로 구성된다.  
-Windows의 경우에는 디폴트로 `%USERPROFILE%\Documents\` 디렉터리 밑에 구성되는데, Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 사용자가 원하는 다른 경로의 파일 저장고를 열 수 있다.  
-Obisidian에서 디렉터리와 노트를 생성하면 로컬 디렉터리에도 해당 디렉터리와 md 파일이 생성되고, 반대로 로컬 디렉터리에 디렉터리와 md 파일을 복사하면 Obisidian에도 반영되어 나타난다.
+위에서 언급했듯이 Obsidian은 파일 시스템 base로 디렉토리와 md 파일로 구성된다.  
+Windows의 경우에는 디폴트로 `%USERPROFILE%\Documents\` 디렉토리 밑에 구성되는데, Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 사용자가 원하는 다른 경로의 파일 저장고를 열 수 있다.  
+Obisidian에서 디렉토리와 노트를 생성하면 로컬 디렉토리에도 해당 디렉토리와 md 파일이 생성되고, 반대로 로컬 디렉토리에 디렉토리와 md 파일을 복사하면 Obisidian에도 반영되어 나타난다.
 
-> Obsidian은 파일 저장고를 workspace 개념으로 처리하며, 각각의 파일 저장고마다 설정을 따로 저장하는데, 이 위치는 파일 저장고의 최상위 디렉터리에서 **.obsidian** 디렉터리이다.  
+> Obsidian은 파일 저장고를 workspace 개념으로 처리하며, 각각의 파일 저장고마다 설정을 따로 저장하는데, 이 위치는 파일 저장고의 최상위 디렉토리에서 **.obsidian** 디렉토리이다.  
 > 참고로 열린 Obsidian을 모두 닫은 후 다시 실행시키면, 자동으로 마지막 파일 저장고를 다시 로딩한다.
 
 ## 클라우드에 저장하기
@@ -63,8 +63,8 @@ Google drive와 같이 desktop client 프로그램을 제공해서 클라이드 
 예를 들어, Google drive를 이용하려는 경우에는 [Google Drive desktop client](https://www.google.com/intl/en_in/drive/download/) 페이지에서 <mark style='background-color: #1a73e8'><font color=white>&nbsp;Download Drive for desktop&nbsp;</font></mark> 버튼을 눌러서 설치 파일을 다운로드한 후에 클라이언트 프로그램을 설치하면, Windows 탐색기에서 `Google Drive` 드라이브가 보인다. (디폴트로 **G** 드라이브에 연결되고 Windows 재시작시에도 자동으로 연결됨)
 
 <br>
-이후 Google 드라이브 밑에 Obsidian을 위한 디렉터리를 생성하고 (예: **Obsidian Notes**), 이 밑에 Obsidian 디렉터리와 md 파일들을 구성한다.
-이제 Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 저장소 관련 팝업이 뜨는데, 여기에서 **저장소로 폴더 열기**의 **열기** 버튼을 눌러서 Google Drive의 Obisidian 디렉터리를 세팅하면 된다.
+이후 Google 드라이브 밑에 Obsidian을 위한 디렉토리를 생성하고 (예: **Obsidian Notes**), 이 밑에 Obsidian 디렉토리와 md 파일들을 구성한다.
+이제 Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 저장소 관련 팝업이 뜨는데, 여기에서 **저장소로 폴더 열기**의 **열기** 버튼을 눌러서 Google Drive의 Obisidian 디렉토리를 세팅하면 된다.
 
 > 다만 이 방법은 다수의 컴퓨터끼리는 정상 동작하나, Android에서는 Google drive가 마운트 되지 않아서 Android Obsidian 앱에서는 이용할 수 없었다. (물론 Android에서도 로컬 저장소 경로는 잘 됨)
 
