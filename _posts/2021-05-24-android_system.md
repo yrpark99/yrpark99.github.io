@@ -66,6 +66,10 @@ C:\>adb devices
   ```sh
   $ pm uninstall -k --user 0 com.microsoft.skydrive
   ```
+- T world
+  ```sh
+  $ pm uninstall -k --user 0 Com.sktelecom.minit
+  ```
 - 게임툴즈
   ```sh
   $ pm uninstall -k --user 0 com.samsung.android.game.gametools

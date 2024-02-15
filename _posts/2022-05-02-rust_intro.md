@@ -88,8 +88,8 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [Helix](https://github.com/helix-editor/helix)  
   [Kakoune](https://kakoune.org/), [Neovim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 단, 시스템에 [How to install the default language servers](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers) 페이지를 참조하여 사전에 해당 language server를 설치해 놓아야 한다.  
-  단점으로는 현재까지는 플러그인을 지원하지 않고 있으나 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
-  나는 Windows 환경에서는 주로 VSCode, Linux 터미널에서는 Vim을 대체하여 Neovim을 사용하고 있는데, Helix는 Neovim보다 훨씬 빠른 속도를 자랑해서 내가 주목하고 있는 에디터 중의 하나이다.
+  단점으로는 현재까지는 플러그인을 지원하지 않고 있다는 것인데, 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
+  이에 비해 Neovim은 플러그인을 지원하므로 아직은 Helix가 Neovim을 대체할 수는 없지만, Neovim보다 속도가 빠르다는 장점이 있다.
 
 * [Lapce](https://github.com/lapce/lapce)  
   Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP(Lanaugage Server Protocol), 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
@@ -107,7 +107,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   ```
 
 * [RustDesk](https://github.com/rustdesk/rustdesk)  
-  [TeamViewer](https://www.teamviewer.com), [AnyDesk](https://anydesk.com/) 등과 같은 원격 데스크톱 툴인데, 한국에도 서버가 있고 현재 무료이다.
+  [TeamViewer](https://www.teamviewer.com), [AnyDesk](https://anydesk.com/) 등과 같은 원격 데스크톱 툴인데, 한국에도 서버가 있고 현재 무료이다. (나는 Oracle 평생 무료 서버에 설치해서 이용 중임)
 
 * [Tauri](https://github.com/tauri-apps/tauri)  
   [Electron](https://github.com/electron/electron)과 같은 desktop Web application 프레임워크인데, Rust로 작성되어 Electron보다 크기는 작고 속도는 빠르다.  
@@ -115,6 +115,11 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [uutils coreutils](https://github.com/uutils/coreutils)  
   GNU coreutils를 Rust로 재구현하는 오픈소스 프로젝트이다. Rust로 작성해서 안정성을 높였고, 크로스 플랫폼을 지원한다. (따라서 임베디드 장치에서 기존에 C로 구현되었던 Busybox를 이것으로 대체할 수도 있음)
+
+* [Zed](https://zed.dev/)  
+  VSCode와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다.  
+  Rust로 구현되어 메모리 사용량이 적고, 속도가 상당히 빠르고(랜더링에 GPU도 이용함), LSP(Language Server Protocol)가 내장되어 있어서 현재 C/C++, Go, JavaScript, Python, Rust, TypeScript 등의 언어를 기본 지원하고 있다. 또, 협업 기능과, AI assistant 지원 기능도 내장하고 있다.  
+  다만 현재는 플러그인은 지원하지 않고 있는데, 크로스 플랫폼 지원과 플러그인을 지원하게 되면, VSCode의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보고 있다.
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)

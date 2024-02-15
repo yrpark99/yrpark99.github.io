@@ -48,16 +48,16 @@ AOSP에서 HIDL 소개 및 예제 코드를 작성/빌드/테스트하여 성공
 (`-b` 옵션으로 태그를 지정할 수 있음, 전체 태그 목록은 [안드로이드 Codenames, Tags, and Build Numbers](https://source.android.com/source/build-numbers.html#source-code-tags-and-builds) 페이지에서 확인할 수 있음)
    - Android 11 버전의 태그 예
      ```shell
-     $ repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r33
+     $ repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r33 --partial-clone
      ```
    - Android 12 버전의 태그 예
      ```shell
-     $ repo init -u https://android.googlesource.com/platform/manifest -b android-security-12.0.0_r38
+     $ repo init -u https://android.googlesource.com/platform/manifest -b android-security-12.0.0_r38 --partial-clone
      ```
    - 결과로 현재 디렉토리 밑에 **.repo** 디렉토리가 생성된다.
 1. 이제 아래와 같이 `repo sync` 명령을 실행하면 안드로이드 소스를 다운로드 받는다. (시간이 오래 걸림)
    ```shell
-   $ repo sync
+   $ repo sync -j8 -c
    ```
    참고로 repo sync 명령으로 다운로드 받은 디렉토리에서 repo 시 사용한 태그 정보는 아래와 같이 얻을 수 있다. (내가 임시로 찾은 방법이고, 다른 정식 방법이 있을 듯함)
    ```shell
