@@ -116,6 +116,9 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [uutils coreutils](https://github.com/uutils/coreutils)  
   GNU coreutils를 Rust로 재구현하는 오픈소스 프로젝트이다. Rust로 작성해서 안정성을 높였고, 크로스 플랫폼을 지원한다. (따라서 임베디드 장치에서 기존에 C로 구현되었던 Busybox를 이것으로 대체할 수도 있음)
 
+* [Warp](https://github.com/warpdotdev/Warp)  
+  [Rio terminal](https://github.com/raphamorim/rio), [WezTerm](https://wezfurlong.org/wezterm/) 등과 같이 Rust로 구현되었고 크로스 플램폼을 지원하는 터미널 프로그램인데, Warp는 특히 AI 보조 기능을 지원한다.
+
 * [Zed](https://zed.dev/)  
   VSCode와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다.  
   Rust로 구현되어 메모리 사용량이 적고, 속도가 상당히 빠르고(랜더링에 GPU도 이용함), LSP(Language Server Protocol)가 내장되어 있어서 현재 C/C++, Go, JavaScript, Python, Rust, TypeScript 등의 언어를 기본 지원하고 있다. 또, 협업 기능과, AI assistant 지원 기능도 내장하고 있다.  

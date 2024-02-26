@@ -46,6 +46,10 @@ C:\>adb devices
   ```sh
   $ pm uninstall -k --user 0 com.sec.android.app.samsungapps
   ```
+- Google meet
+  ```sh
+  $ pm uninstall -k --user 0 com.google.android.apps.tachyon
+  ```
 - Google Play 무비
   ```sh
   $ pm uninstall -k --user 0 com.google.android.videos
