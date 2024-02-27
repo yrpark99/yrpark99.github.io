@@ -242,6 +242,7 @@ $ emulator -shell
        proprietary: true,
        relative_install_path: "hw",
        init_rc: ["my.hardware.echo@1.0-service.rc"],
+       vintf_fragments: ["manifest_my.hardware.echo@1.0-service.xml"],
        srcs: ["service.cpp"],
 
        shared_libs: [
@@ -258,9 +259,25 @@ $ emulator -shell
    ```
    참고로 위에서 `init_rc` 항목으로 설정한 파일은 빌드시 vendor/etc/init/ 디렉토리 밑에 복사된다. (Android.mk 파일에서는 `LOCAL_INIT_RC` 항목에 해당함)  
    빌드 후에, 아래와 같이 확인할 수 있다.
-   ```shell
+   ```sh
    $ ls $OUT/vendor/etc/init/my.hardware.echo@1.0-service.rc
    ```
+   또, 위에서 `vintf_fragments` 항목은 (Android.mk 파일에서는 `LOCAL_VINTF_FRAGMENTS` 항목에 해당), 해당 서비스의 manifest를 나타낸다. (여기에서 VINTF는 Vendor Interface를 나타냄)
+1. vendor/my/echo/1.0/default/manifest_my.hardware.echo@1.0-service.xml 파일을 아래와 같이 작성한다.
+   ```xml
+   <manifest version="1.0" type="device">
+       <hal format="hidl">
+           <name>my.hardware.echo</name>
+           <transport>hwbinder</transport>
+           <version>1.0</version>
+           <interface>
+               <name>IEcho</name>
+               <instance>default</instance>
+           </interface>
+       </hal>
+   </manifest>
+   ```
+   > 위와 같이 manifest 파일에 추가하지 않으면 디폴트로 Android SELinux에 의해, service가 실행되고 registerAsService() 호출시에 "HidlServiceManagement: Service my.hardware.echo@1.0::IEcho/default must be in VINTF manifest in order to register/get"과 같은 에러 메시지가 출력되면서 서비스가 등록되지 않게 된다.
 1. vendor/my/Android.bp 파일을 아래와 같이 작성한다.
    ```yaml
    hidl_package_root {
@@ -271,21 +288,7 @@ $ emulator -shell
        "echo/1.0",
    ]
    ```
-1. 타겟 디바이스의 manifest.xml 파일에서 (여기서는 안드로이드 에뮬레이터를 사용하므로 **device/generic/goldfish/manifest.xml** 파일이 됨) 아래 내용을 추가한다.  
-   ```xml
-   <hal format="hidl">
-       <name>my.hardware.echo</name>
-       <transport>hwbinder</transport>
-       <version>1.0</version>
-       <interface>
-           <name>IEcho</name>
-           <instance>default</instance>
-       </interface>
-   </hal>
-   ```
-   > 이 작업을 하지 않으면 디폴트로 Android SELinux에 의해, service 실행되고 registerAsService() 호출시 "HidlServiceManagement: Service my.hardware.echo@1.0::IEcho/default must be in VINTF manifest in order to register/get"과 같은 에러 메시지가 출력되면서 서비스가 등록되지 않게 된다.
-
-   또 안드로이드는 디폴트로 SEPolicy가 적용되므로, SELinux에 해당 서비스 실행을 위하여 <font color=blue>TE</font>(Type Enforcement) 파일에 (여기서는 에뮬레이터를 사용하므로 **device/generic/goldfish/sepolicy/common/init.te** 파일) 아래 내용을 추가하여 필요한 권한을 허용해 준다.
+1. 또 안드로이드는 디폴트로 SEPolicy가 적용되므로, SELinux에 해당 서비스 실행을 위하여 <font color=blue>TE</font>(Type Enforcement) 파일에 (여기서는 에뮬레이터를 사용하므로 **device/generic/goldfish/sepolicy/common/init.te** 파일) 아래 내용을 추가하여 필요한 권한을 허용해 준다.
    ```yaml
    allow init vendor_file:file { execute };
    allow init su:process { transition };
@@ -295,6 +298,10 @@ $ emulator -shell
    avc: denied { execute } for comm="init" name="my.hardware.echo@1.0-service" dev="dm-3" ino=121 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=0
    ```
    만약에 서비스가 SELinux 권한 문제로 실행이 되지 않으면 `dmesg` 명령으로 **avc: denied** 메시지를 찾아서, [SELinux](https://source.android.com/docs/security/features/selinux?hl=ko) 페이지를 참조하여 TE 파일에서 추가로 필요한 권한을 허용해 주어야 한다.
+   > 참고로 편의상 에뮬레이터에서 SEPolicy를 permissive 모드로 세팅하면 SELinux에 허용 규칙을 추가하지 않아도 되므로 편리하게 테스트할 수 있는데, 이를 위해서는 에뮬레이터 실행시 아래와 같이 `-selinux permissive` 아규먼트를 추가하면 된다.
+   > ```sh
+   > $ emulator -selinux permissive
+   > ```
 1. 서비스 테스트를 위해 vendor/my/echo/1.0/test/echoTest.cpp 파일을 아래와 같이 작성한다. (입력된 아규먼트를 그대로 출력하는 테스트 코드)
    ```cpp
    #include <my/hardware/echo/1.0/IEcho.h>
@@ -378,7 +385,13 @@ $ emulator -shell
    $ ls $OUT/vendor/lib64/hw/*echo*
    my.hardware.echo@1.0-impl.so
    ```
-1. 빌드가 끝났으므로, 이제 테스트를 위해 안드로이드 에뮬레이터를 실행한다.
+1. 추가로 전체 빌드에 포함시켜서 `m` 빌드시 자동으로 빌드되게 하려면, device/generic/goldfish/vendor.mk 파일에 아래 내용을 추가하면 된다.
+   ```makefile
+   PRODUCT_PACKAGES += \
+       my.hardware.echo@1.0-impl \
+       my.hardware.echo@1.0-service \
+   ```
+1. 빌드가 성공적으로 끝났으면, 이제 테스트를 위해 안드로이드 에뮬레이터를 실행한다.
    ```shell
    $ emulator
    ```
@@ -399,8 +412,6 @@ $ emulator -shell
    X     ? my.hardware.echo@1.0::I*/* (/vendor/lib64/hw/)                 N/A        N/A    400
    $ ls /vendor/lib/hw/ | grep echo
    my.hardware.echo@1.0-impl.so
-   $ ls /vendor/bin/hw/my.hardware.echo@1.0-service
-   /vendor/bin/hw/my.hardware.echo@1.0-service
    $ ps -A | grep echo
    root           400     1 10906332  5156 binder_wait_for_work 0 S my.hardware.echo@1.0-service
    ```

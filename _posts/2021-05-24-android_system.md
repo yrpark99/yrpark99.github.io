@@ -18,6 +18,13 @@ toc_label: "이 페이지 목차"
 C:\>adb devices
 ```
 
+## 설치된 전체 패키지 리스트 출력
+아래와 같이 실행하면 설치된 모든 패키지 리스트가 출력된다.
+```sh
+$ adb shell pm list packages
+```
+여기에서 얻은 <패키지 이름>을 아래에서 설명할 앱 삭제시 이용할 수 있다.
+
 ## 안드로이드 시스템 앱 삭제
 먼저 안드로이드 기기에 설치된 <font color=blue>시스템 앱</font>의 삭제는, 일반적인 앱과는 다르게 폰에서 직접 삭제가 되지 않지만, ADB와 삭제할 앱의 패키지 이름을 알면 쉽게 삭제할 수 있다.  
 앱의 패키지 이름은 만약 사용하는 기기에서 해당 기능을 제공하지 않으면, PlayStore에서 [설치된 앱 분석기(Application Inspector)](https://apkcombo.com/ko/app-inspector/com.ubqsoft.sec01/) 앱 등을 설치하여 이용하면 된다.
@@ -46,7 +53,11 @@ C:\>adb devices
   ```sh
   $ pm uninstall -k --user 0 com.sec.android.app.samsungapps
   ```
-- Google meet
+- Google Assistant
+  ```sh
+  $ pm uninstall -k --user 0 com.android.hotwordenrollment.okgoogle
+  ```
+- Google Meet
   ```sh
   $ pm uninstall -k --user 0 com.google.android.apps.tachyon
   ```

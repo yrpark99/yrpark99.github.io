@@ -16,9 +16,9 @@ Linux에서 C/C++로 코딩 후 빌드시 security hardening 관련을 기술한
 > Linux `ASLR(Address Space Layout Randomization)`에 의해서 프로그램이 매번 실행될 때마다 stack, heap, library의 position은 바뀌지만, main executable 영역은 매번 같은 메모리 주소에 로드된다. 여기에 PIE를 추가로 적용하게 되면 stack, heap, library 뿐만 아니라, main executable의 base address까지 매번 바뀌게 된다. (실행 중인 프로그램의 메모리 맵은 /proc/pid/maps 파일로 확인 가능)  
 <br>
 참고로 Linux에서 ASLR의 현재 상태는 아래와 같이 확인할 수 있다.
->```shell
->$ cat /proc/sys/kernel/randomize_va_space
->```
+> ```shell
+> $ cat /proc/sys/kernel/randomize_va_space
+> ```
 >각 값의 의미는 아래와 같다.
 >- randomize_va_space=0: ASLR disable
 >- randomize_va_space=1: stack, shared 메모리 영역 등 random

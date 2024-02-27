@@ -60,11 +60,11 @@ GitHub Copilot을 로컬 서버로 운용할 수 있게 해 주는 FauxPilot을 
    $ ./launch.sh
    ```
    결과로 **fauxpilot-copilot_prox** 이름의 Docker 이미지가 빌드되고, 자동으로 Docker 컨테이너가 실행된다. (단, 콘솔로 출력되는 메시지 내용에서 error가 없어야 함)
-   >참고로 만약에 포트 값을 변경하고 싶으면 docker-compose.yaml 파일에서 아래 부분의 `ports` 값을 변경하면 된다.
-   >```yaml
-   >ports:
+   > 참고로 만약에 포트 값을 변경하고 싶으면 docker-compose.yaml 파일에서 아래 부분의 `ports` 값을 변경하면 된다.
+   > ```yaml
+   > ports:
    >   - "5000:5000"
-   >```
+   > ```
 1. [http://localhost:5000](http://localhost:5000) 주소로 접속해 보면 REST API 테스트를 할 수 있는 swagger 화면이 나온다.  
    아래와 같이 파이썬 코드로도 테스트 해 볼 수 있다. ("**def hello**"를 입력했을 때 Copilot이 제안해 주는 코드 테스트)
    ```python
