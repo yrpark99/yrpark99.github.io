@@ -20,8 +20,8 @@ toc_label: "이 페이지 목차"
 1. VPN을 이용하여 회사 내부망에 접속 가능한 상태로 만든다
 1. 원격 PC에서 `원격 데스크톱 연결`을 실행한 후, 컴퓨터 이름에 타겟 PC의 IP 주소를 입력하면 된다.
 
-> 최근에 COVID-19로 인하여 많은 회사에서 재택 근무를 위하여 VPN 접속 환경을 제공하는데, 만약 이 환경이 제공되지 않으면 수동으로 [OpenVPN](https://openvpn.net/) 등을 이용하여 구축하여야 함)  
-그런데 이 Windows 원격 데스크톱 방법은 아주 간단하고 잘 되긴 하지만, 테스트를 해 보니 비디오 해상도에 따라 PC에 연결된 모니터의 전원을 꺼놓은 상태에서는 app들의 position이 변경되는 (사소한?) 문제가 있었다.
+> 최근에 COVID-19로 인하여 많은 회사에서 재택 근무를 위하여 VPN 접속 환경을 제공하는데, 이런 경우라면 아래와 같은 별도의 원격 제어 프로그램을 설치하지 않고도, Windows Remote Desktop을 이용하여 간편하게 원격 제어를 할 수 있다.  
+만약에 회사에서 VPN 환경이 제공되지 않고 대신에 공인 IP를 할당받을 수 있는 환경이라면, 수동으로 [OpenVPN](https://openvpn.net/) 등의 VPN 프로그램으로 VPN을 구축하면 (서버/클라이언트) 마찬가지로 Windows Remote Desktop을 이용할 수 있다.
 
 ## VNC 이용
 VNC(Virtual Network Computing)를 이용한 방법으로 [RealVNC](https://www.realvnc.com/)(단, server는 유료임), [TightVNC](https://www.tightvnc.com/), [UltraVNC](https://uvnc.com/) 등을 사용할 수 있다. 마찬가지로 회사 내부망의 PC에 원격 접속하려는 경우에는 VPN으로 회사 내부망에 접속할 수 있는 환경이라야 한다.
