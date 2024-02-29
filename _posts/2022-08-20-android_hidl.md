@@ -45,7 +45,7 @@ AOSP에서 HIDL 소개 및 예제 코드를 작성/빌드/테스트하여 성공
    ```
 1. 작업용 디렉토리를 만든 후에 이 디렉토리로 이동한다.
 1. 아래와 같이 `repo init` 명령을 실행한다.  
-(`-b` 옵션으로 태그를 지정할 수 있음, 전체 태그 목록은 [안드로이드 Codenames, Tags, and Build Numbers](https://source.android.com/source/build-numbers.html#source-code-tags-and-builds) 페이지에서 확인할 수 있음)
+(`-b` 옵션으로 태그를 지정할 수 있음, 전체 태그 목록은 [안드로이드 Codenames, Tags, and Build Numbers](https://source.android.com/docs/setup/reference/build-numbers?hl=ko) 페이지에서 확인할 수 있음)
    - Android 11 버전의 태그 예
      ```shell
      $ repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r33 --partial-clone
@@ -55,13 +55,17 @@ AOSP에서 HIDL 소개 및 예제 코드를 작성/빌드/테스트하여 성공
      $ repo init -u https://android.googlesource.com/platform/manifest -b android-security-12.0.0_r38 --partial-clone
      ```
    - 결과로 현재 디렉토리 밑에 **.repo** 디렉토리가 생성된다.
-1. 이제 아래와 같이 `repo sync` 명령을 실행하면 안드로이드 소스를 다운로드 받는다. (시간이 오래 걸림)
+1. 이제 아래와 같이 `repo sync` 명령을 실행하면 안드로이드 소스를 다운로드 받는다. (여기서는 다운로드 시간을 단축하기 위하여 parallel job을 사용함)
    ```shell
-   $ repo sync -j8 -c
+   $ repo sync -j16 -c
    ```
-   참고로 repo sync 명령으로 다운로드 받은 디렉토리에서 repo 시 사용한 태그 정보는 아래와 같이 얻을 수 있다. (내가 임시로 찾은 방법이고, 다른 정식 방법이 있을 듯함)
+   참고로 repo sync 명령으로 다운로드 받은 디렉토리에서 repo 시 사용한 태그 정보는 아래와 같이 얻을 수 있다. (아래는 내가 임시로 찾은 방법들이고, 다른 정식 방법이 있을 듯함)
    ```shell
    $ ls .repo/manifests.git/refs/remotes/m/
+   ```
+   또는 **repo info** 명령을 이용하여 아래 예와 같을 수 있다.
+   ```shell
+   $ echo $(basename "$(repo info art | grep "Manifest branch")")
    ```
 
 ## AOSP 빌드
