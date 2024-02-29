@@ -173,6 +173,7 @@ MPD(Media Presentation Description) 파일의 PSSH(Protection System Specific He
 - Linux 환경에서 AOSP의 에뮬레이터 이용 (AOSP 빌드한 이미지 사용)
 
 > ✅ 안드로이드 디바이스와 pre-built 된 시스템 이미지는 디폴트로 ClearKey DRM을 지원하고 있다. 따라서 이 경우에는 별도의 ClearKey DRM 빌드 작업이 필요하지 않다.  
+> 참고로 디바이스가 지원하는 DRM 정보는 [DRM Info](https://apkcombo.com/ko/drm-info/com.androidfung.drminfo/) 앱 등으로 얻을 수 있는데, 이 앱은 아주 자세한 정보를 출력해 주므로 확인을 권장한다. ℹ️  
 > 단, AOSP에는 ClearKey DRM 소스가 포함되어 있지만 전체 빌드에는 포함되어 있지 않으므로, 이 경우에는 약간이 작업이 필요해진다.
 
 테스트로 에뮬레이터로 pre-built 된 AVD(Android Virtual Device) 이미지를 실행한 후에 ADB(Android Debug Bridge)를 연결하여 확인해 보면, 아래와 clearkey 서비스를 확인할 수 있다.
