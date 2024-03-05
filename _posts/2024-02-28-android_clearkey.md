@@ -209,9 +209,9 @@ X     ? android.hidl.base@1.0::IBase/clearkey                                   
    android:usesCleartextTraffic="true"
    ```
 1. ADB로 연결된 실제 디바이스나 AVD에 ExoPlayer를 설치시키려면, 안드로이드 스튜디오에서 실행 버튼을 누르면 ExoPlayer 앱이 자동으로 설치되고 실행된다.  
-또는 안드로이드 스튜디오 메뉴 `Build -> Build Bundle(s) / APK(s) -> Build APK(s)` 항목을 실행하면 APK 파일이 생성되고 (예: demo-noDecoderExtensions-release.apk), ADB로 아래 예와 같이 설치시킬 수 있다.
+또는 안드로이드 스튜디오 메뉴 `Build -> Build Bundle(s) / APK(s) -> Build APK(s)` 항목을 실행하면 APK 파일이 생성되고 (예: ExoPlayer.apk), ADB로 아래 예와 같이 설치시킬 수 있다.
    ```sh
-   $ adb install demo-noDecoderExtensions-release.apk
+   $ adb install ExoPlayer.apk
    ```
 
 ## AOSP 사용하여 테스트하기
@@ -297,7 +297,11 @@ cc_binary {
    DM,FC Y android.hardware.drm@1.4::IDrmFactory/clearkey                              0/2        377    198
    X     Y android.hidl.base@1.0::IBase/clearkey                                       0/2        377    198
    ```
-1. 아래와 같이 ExoPlayer를 설치한 후, ExoPlayer에서 테스트해보면 정상적으로 play 된다.
+1. <span><font color=blue>ExoPlayer</font></span>로 테스트하려면, ExoPlayer 소스를 AOSP의 packages/apps/ 디렉토리 밑에 clone 받고 빌드를 구성한 후 빌드시키면 ExoPlayer APK를 얻을 수 있다. 또는 위에서 Windows 환경에서 빌드한 ExoPlayer APK를 복사해도 된다.  
+아래 예와 같이 ExoPlayer를 설치한 후, ExoPlayer에서 생성한 ClearKey 테스트 스트림을 테스트해 보면 정상적으로 play 된다.
    ```sh
-   $ adb install demo-noDecoderExtensions-release.apk
+   $ adb install ExoPlayer.apk
    ```
+
+## 맺음말
+안드로이드 디바이스에서 ClearKey DRM 서비스를 빌드하고 (소스 분석도 함), 테스트 MPEG-DASH 스트림을 제작하여 스트리밍 시킨 후에, ExoPlayer로 테스트까지 성공한 후에, 이 글에서 간단히 정리해 보았다.
