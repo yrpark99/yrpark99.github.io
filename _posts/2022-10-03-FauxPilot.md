@@ -79,8 +79,8 @@ GitHub Copilot을 로컬 서버로 운용할 수 있게 해 주는 FauxPilot을 
    $ pip3 install openai
    ```
 
-## VSCode에서 사용하기
-FauxPilot 페이지에서는 VSCode에서 로컬 Copilot을 사용하도록 설정(settings.json) 파일에서 아래와 같이 추가하면 된다고 나와 있다.
+## VS Code에서 사용하기
+FauxPilot 페이지에서는 VS Code에서 로컬 Copilot을 사용하도록 설정(settings.json) 파일에서 아래와 같이 추가하면 된다고 나와 있다.
 ```json
 "github.copilot.advanced": {
     "debug.overrideEngine": "codegen",

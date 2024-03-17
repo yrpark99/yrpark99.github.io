@@ -51,7 +51,7 @@ toc_label: "이 페이지 목차"
   ```sh
   $ shfmt -w -sr -fn <shell_script_파일이름>
   ```
-- VSCode 용 [shell-format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format) 익스텐션을 이용하면 편리하다.
+- VS Code 용 [shell-format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format) 익스텐션을 이용하면 편리하다.
 - 스타일 가이드 참조: [Shell Style Guide (by Google)](https://google.github.io/styleguide/shellguide.html)
 
 ## Shebang

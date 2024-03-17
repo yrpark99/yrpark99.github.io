@@ -23,7 +23,7 @@ SQLite의 소스 코드는 공개되어 있고, 실질적으로 상용 제품에
 * [DB Browser for SQLite](https://sqlitebrowser.org/): 오픈 소스 ([GitHub 소스](https://github.com/sqlitebrowser/sqlitebrowser))
 * [sqlite-gui](https://github.com/little-brother/sqlite-gui): Windows 전용, 작고 간단하고 가벼움
 * [SQLite Viewer Web App](https://sqliteviewer.app/): Web 툴
-* [SQLite Viewer](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer): VSCode 용 익스텐션
+* [SQLite Viewer](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer): VS Code 용 익스텐션
 
 ## Linux SQLite CLI 툴
 1. 가장 많이 사용되는 sqlite3 패키지는 우분투에서 다음과 같이 설치할 수 있다.

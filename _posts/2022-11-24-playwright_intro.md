@@ -15,7 +15,7 @@ Playwright는 마이크로소프트가 2020년 경에 공개한 오픈 소스로
 * 홈페이지: [https://playwright.dev/](https://playwright.dev/)
 * 문서: [TypeScript 용 문서](https://playwright.dev/docs/intro), [Python 용 문서](https://playwright.dev/python/docs/intro)
 * Playwright 소스: [TypeScript 용 Playwright](https://github.com/microsoft/playwright), [Python 용 Playwright for Python](https://github.com/microsoft/playwright-python)
-* VSCode 용 익스텐션: [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
+* VS Code 용 익스텐션: [Playwright Test for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
 * 특징
   - 멀티플랫폼 지원
   - TypeScript, Python, Java, .NET 등의 언어 지원

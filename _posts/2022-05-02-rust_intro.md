@@ -94,7 +94,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [Lapce](https://github.com/lapce/lapce)  
   Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP(Lanaugage Server Protocol), 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
-  아직은 VSCode에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 추후 VSCode에 대항할 만한 코드 에디터로 내가 주목하고 있는 에디터이다.
+  아직은 VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 추후 VS Code에 대항할 만한 코드 에디터 중의 하나가 될 수 있겠다.
 
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
   Rust로 작성된 운영 체제이다.
@@ -124,9 +124,9 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   [Rio terminal](https://github.com/raphamorim/rio), [WezTerm](https://wezfurlong.org/wezterm/) 등과 같이 Rust로 구현되었고 크로스 플램폼을 지원하는 터미널 프로그램인데, Warp는 특히 AI 보조 기능을 지원한다.
 
 * [Zed](https://zed.dev/)  
-  VSCode와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다. 원래는 오픈소스가 아니었는데 2024년 1월에 오픈소스로 전향되었다.   
+  VS Code와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다. 원래는 오픈소스가 아니었는데 2024년 1월에 오픈소스로 전향되었다.   
   Rust로 구현되어 메모리 사용량이 적고, 속도가 상당히 빠르고(랜더링에 GPU도 이용함), LSP(Language Server Protocol)가 내장되어 있어서 현재 C/C++, Go, JavaScript, Python, Rust, TypeScript 등의 언어를 기본으로 지원하고 있다. 또, 협업 기능과, AI assistant 지원 기능도 내장하고 있다.  
-  다만 현재는 플러그인은 지원하지 않고 있는데, 앞으로 크로스 플랫폼 지원과 플러그인을 지원하게 되면, VSCode와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VSCode의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보고 있다.
+  다만 현재는 플러그인은 지원하지 않고 있는데, 앞으로 크로스 플랫폼 지원과 플러그인을 지원하게 되면, VS Code와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VS Code의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보고 있다.
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)

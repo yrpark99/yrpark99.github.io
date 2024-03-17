@@ -13,7 +13,7 @@ SonarQube는 오픈 소스로 무료 에디션을 비롯하여 여러 에디션�
 <br>
 SonarQube는 C, C++, C#, CSS, Go, HTML, Java, JavaScript, Kotlin, Objective-C, PHP, Python, Ruby, Scala, Swift, TypeScript, XML 등의 언어를 지원하는데, 다만 C, C++, Objective-C, Swift 등의 몇 가지는 커뮤니티 에디션에서는 포함되어 있지 않다.  
 <br>
-또한 SonarQube는 많은 편집기(Android Studio, Eclipse, IntelliJ IDEA, Visual Studio, VSCode 등)에서 **SonarLint** 플러그인을 통해서 사용할 수도 있어서 편리한 개발 환경을 제공한다.
+또한 SonarQube는 많은 편집기(Android Studio, Eclipse, IntelliJ IDEA, Visual Studio, VS Code 등)에서 **SonarLint** 플러그인을 통해서 사용할 수도 있어서 편리한 개발 환경을 제공한다.
 
 ## SonarQube 설치
 SonarQube 관련 문서는 [SonarQube Documentation](https://docs.sonarsource.com/sonarqube/latest/) 페이지에서 볼 수 있고, SonarQube 설치는 이 중에서 [Try out SonarQube](https://docs.sonarsource.com/sonarqube/latest/try-out-sonarqube/) 내용을 따라하면 된다. 본 글에서는 무료인 Community Edition을 예로 든다.  
@@ -76,7 +76,7 @@ SonarQube의 설치가 완료되면 <font color=blue>http://localhost:9000</font
 Jenkins에서 SonarQube와 연동시키려면 Jenkins에서 **SonarQube Scanner** 플러그인을 설치하면 된다.  
 GitHub이나 GitLab에서도 연동시킬 수 있는데, 자세한 방법은 [GitHub integration](https://docs.sonarsource.com/sonarqube/latest/devops-platform-integration/github-integration/), [GitLab integration](https://docs.sonarsource.com/sonarqube/latest/devops-platform-integration/gitlab-integration/) 내용을 참조한다.
 
-## VSCode 용 익스텐션
+## VS Code 용 익스텐션
 [SonarLint for VsCode](https://github.com/SonarSource/sonarlint-vscode) 익스텐션 익스텐션은 SonarQube와 연동하여 C/C++, Go, JavaScript, TypeScript, Python, Java, HTML, PHP 등의 정적 검사를 지원한다.  
 참고로 C/C++ 코드를 검사하려면 compilation database 파일(`compile_commands.json`)이 있어야 하고 ([C and CPP Analysis](https://github.com/SonarSource/sonarlint-vscode/wiki/C-and-CPP-Analysis) 참조), 이후 아래 예와 같이 설정을 추가하면 된다.
 ```json
@@ -87,4 +87,4 @@ GitHub이나 GitLab에서도 연동시킬 수 있는데, 자세한 방법은 [Gi
 <br>
 또, SonarLint에서 체크되는 케이스들은 모두 개별적으로 deactivate/activate 설정이 가능한데, 예를 들어 아래와 같이 **Quick Fix** 팝업을 띄워서 해당 rule을 보거나 deactivate/activate 시킬 수 있다.  
 ![](/assets/images/sonarqube_popup.png)  
-결과로 VSCode의 설정 파일에 **sonarlint.rules** 항목으로 각 case의 레벨값이 기록된다.
+결과로 VS Code의 설정 파일에 **sonarlint.rules** 항목으로 각 case의 레벨값이 기록된다.
