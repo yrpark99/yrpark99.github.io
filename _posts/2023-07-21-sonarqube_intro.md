@@ -77,7 +77,7 @@ Jenkins에서 SonarQube와 연동시키려면 Jenkins에서 **SonarQube Scanner*
 GitHub이나 GitLab에서도 연동시킬 수 있는데, 자세한 방법은 [GitHub integration](https://docs.sonarsource.com/sonarqube/latest/devops-platform-integration/github-integration/), [GitLab integration](https://docs.sonarsource.com/sonarqube/latest/devops-platform-integration/gitlab-integration/) 내용을 참조한다.
 
 ## VS Code 용 익스텐션
-[SonarLint for VsCode](https://github.com/SonarSource/sonarlint-vscode) 익스텐션 익스텐션은 SonarQube와 연동하여 C/C++, Go, JavaScript, TypeScript, Python, Java, HTML, PHP 등의 정적 검사를 지원한다.  
+[SonarLint for Visual Studio Code](https://github.com/SonarSource/sonarlint-vscode) 익스텐션 익스텐션은 SonarQube와 연동하여 C/C++, Go, JavaScript, TypeScript, Python, Java, HTML, PHP 등의 정적 검사를 지원한다.  
 참고로 C/C++ 코드를 검사하려면 compilation database 파일(`compile_commands.json`)이 있어야 하고 ([C and CPP Analysis](https://github.com/SonarSource/sonarlint-vscode/wiki/C-and-CPP-Analysis) 참조), 이후 아래 예와 같이 설정을 추가하면 된다.
 ```json
 "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
