@@ -26,8 +26,8 @@ C:\>adb devices
 1. 모바일폰을 잠금 해제한다. (아래 코드에서 **unlock** 함수)  
 단, 이미 잠금 해제된 상태라도 문제없어야 한다. 나의 캐시워크 팝업이 먼저 뜨고, 이후 얼굴이나 PIN 잠금 화면이 뜬다. 이런 팝업이 떠 있는 상태이면 각 상태에 맞게 unlock 시켜야 한다.
 1. 실행하려는 앱의 패키지 이름 등의 정보를 알아야 하는데, `Application Inspector` 앱을 통해서 간단히 얻을 수 있다.
-1. 원하는 앱을 실행시킨다. (아래 예제에서는 ADB shell로 **<span style="color:blue">am start</span> com.vlocally.mealc.android/.mvvm.view.IntroActivity** 명령 부분)
-1. 원하는 앱이 이미 실행 중인 상태이면 상태가 꼬일 수 있으므로 종료시킨다. (아래 예제에서는 ADB shell로 **<span style="color:blue">am force-stop</span> com.vlocally.mealc.android** 명령 부분)
+1. 원하는 앱을 실행시킨다. (아래 예제에서는 ADB shell로 "**<span style="color:blue">am start</span> com.vlocally.mealc.android/.mvvm.view.IntroActivity**" 명령 부분)
+1. 원하는 앱이 이미 실행 중인 상태이면 상태가 꼬일 수 있으므로 종료시킨다. (아래 예제에서는 ADB shell로 "**<span style="color:blue">am force-stop</span> com.vlocally.mealc.android**" 명령 부분)
 1. 해당 앱에서 원하는 동작을 ADB shell 명령으로 수행시킨다.
 나의 경우에는 앱에서 해당 항목의 클릭을 통해서 식권을 신청하는 것이다.
 
@@ -65,25 +65,20 @@ def unlock():
     time.sleep(1)
 
     # 이미 식권대장 앱이 실행 중이면 종료시킨다.
-    cur_focus_status = adb_cmd("adb -d shell dumpsys window | grep mCurrentFocus")
-    if "com.vlocally.mealc.android" in cur_focus_status:
-        adb_cmd("adb -d shell am force-stop com.vlocally.mealc.android")
+    adb_cmd("adb -d shell am force-stop com.vlocally.mealc.android")
 
     # Lock 상태이면 unlock 시킨다.
     cur_focus_status = adb_cmd("adb -d shell dumpsys window | grep mCurrentFocus")
     if "Bouncer" in cur_focus_status:
         print("PIN code 입력")
-        adb_cmd("adb -d shell input text 123456") # PIN code
+        adb_cmd("adb -d shell input text 202200") # Enter my PIN code
     elif "com.sec.android.app" in cur_focus_status:
         print("Ready 상태")
     else:
-        print("지문으로 lock을 풀어주세요")
-        time.sleep(10)
+        scroll(100, 800, 700, 800)
+    time.sleep(1)
 
 def open_food_app():
-    # 이미 식권대장 앱이 실행 중이면 종료시킨다.
-    adb_cmd("adb -d shell am force-stop com.vlocally.mealc.android")
-
     # Home으로 이동
     adb_cmd("adb -d shell input keyevent KEYCODE_HOME")
 
@@ -107,7 +102,7 @@ def request_food_ticket():
     time.sleep(1)
 
     print("식대 신청 클릭")
-    click(500, 1750)
+    click(500, 2020)
 
 if __name__ == '__main__':
     wakeup()

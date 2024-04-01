@@ -83,6 +83,10 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```sh
    $ tstables --pid <PID 값> --raw-dump {TS 파일}
    ```
+   참고로 ECM 데이터를 볼 때와 같이 중복된 것은 출력되지 않게 하려면 아래와 같이 `--no-duplicate` 옵션을 추가하면 된다.
+   ```sh
+   $ tstables --pid <ECM_PID_값> --raw-dump --no-duplicate <TS 파일>
+   ```
    특정 PID와 table ID가 매칭되는 TS 패킷 덤프 (table ID 부터 출력)
    ```sh
    $ tstables --pid <PID 값> --tid <TID 값> --raw-dump {TS 파일}

@@ -136,7 +136,7 @@ CFLAGS += --sysroot=$(abspath $(shell $(CC) -print-sysroot))
 ## Vim 류에서 LSP 사용하기
 Vim, Neovim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기로 특히 쉬운 설치와 빠른 속도가 강점이다.
 이들은 시스템에 해당 언어의 툴체인과 language server를 설치해야 하는데, 위에서도 언급했듯이 C/C++의 경우에는 language server로 `clangd`를 설치하면 된다.  
-그러면 `compile_commands.json` 파일의 내용에 따라서 코드 navigation도 잘 되고, 자동 완성, 구문 에러 검사, refactoring 등의 기능도 잘 동작한다.
+그러면 `compile_commands.json` 파일의 내용에 따라서 코드 navigation도 잘 되고, 자동 완성, 구문 에러 검사, refactoring 등의 기능도 잘 동작한다. (그런데 <font color=violet>inactive</font> 된 코드들이 흐리게 표시되는 기능은 Neovim에서는 잘 동작하지만 Vim이나 Helix에서는 동작하지 않았다)
 1. [Vim](https://github.com/vim/vim)  
    [CoC](https://github.com/neoclide/coc.nvim) 플러그인을 설치한다.  
    아래와 같이 LSP 목록을 확인할 수 있다.
@@ -158,11 +158,18 @@ Vim, Neovim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기
    > 참고로 나는 CLI 환경에서는 주로 Neovim을 사용하는데, Neovim 사용 시에는 [LazyVim](https://www.lazyvim.org/) 또는 [LunarVim](https://www.lunarvim.org/)을 사용하여 환경을 구축하고 있다. 이것들을 이용하면 다른 개발 서버에서 CLI 환경을 이용하는 경우에도 아주 쉽게 Neovim으로 IDE와 유사한 환경을 구축을 할 수 있다.
 1. [Helix](https://github.com/helix-editor/helix)  
    Helix는 자체적으로 LSP를 지원하므로, 시스템에 해당 언어의 language server만 설치되면 된다. 예를 들어 C/C++인 경우에는 시스템에 `clangd`를 설치하면 된다.  
-   이 편집기는 Rust로 구현되어 Vim이나 Neovim보다 훨씬 빠른 속도를 자랑하고, 웬만한 기능들이 모두 편집기에 내장되어 있으므로, 추후에 플러그인도 지원하게 된다면 Vim/Neovim 사용자는 Helix도 사용해 볼 만하다.
+   이 편집기는 Rust로 구현되어 Vim이나 Neovim보다 빠른 속도를 자랑하고, 웬만한 기능들이 모두 편집기에 내장되어 있으므로, 추후에 플러그인도 지원하게 된다면 Vim/Neovim 사용자는 Helix도 시도해 볼 만하다.
 
 참고로 만약에 "Too many errors emitted, stopping now"와 같은 LSP 에러가 발생하면서 LSP가 정상 동작하지 않는 경우에는, 아래 예와 같이 CFLAGS 옵션에 `-ferror-limit=0` 내용을 추가해 주면 LSP가 stop 되지 않게 할 수 있다.
 ```shell
 $ compiledb -n -f --command-style make CFLAGS="-ferror-limit=0"
+```
+<br>
+
+🛠️ 추가로 clangd에서 디폴트 설정을 변경하고 싶으면, [clangd Configuration](https://clangd.llvm.org/config.html) 페이지를 참조하여 유저 홈 디렉토리나(전체 적용), 해당 프로젝트의 base 경로에 `.clangd` 파일을 작성하면 된다. 예를 들어 아래 설정은 "**Included header XXX is not used directly**" warning을 disable 시킨다.
+```yml
+Diagnostics:
+  Suppress: unused-includes
 ```
 
 ## Sublime Text에서 LSP 사용하기
