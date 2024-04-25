@@ -12,13 +12,21 @@ toc_label: "이 페이지 목차"
 Playwright는 마이크로소프트가 2020년 경에 공개한 오픈 소스로 점점 많이 사용되는 것 같다. 나는 이번에 연습 삼아 간단히 사용해 보았는데, Selenium 보다 좋은 것 같아서 소개해 본다.
 
 ## Playwright 소개
-* 홈페이지: [https://playwright.dev/](https://playwright.dev/)
-* 문서: [TypeScript 용 문서](https://playwright.dev/docs/intro), [Python 용 문서](https://playwright.dev/python/docs/intro)
-* Playwright 소스: [TypeScript 용 Playwright](https://github.com/microsoft/playwright), [Python 용 Playwright for Python](https://github.com/microsoft/playwright-python)
-* VS Code 용 익스텐션: [Playwright Test for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
+* [홈페이지](https://playwright.dev/)
 * 특징
+  - Web 테스트 및 자동화 프레임워크
   - 멀티플랫폼 지원
+  - Chromium, WebKit, Firefox 지원
   - TypeScript, Python, Java, .NET 등의 언어 지원
+* 문서
+  - [Java 용 문서](https://playwright.dev/java/docs/intro)
+  - [Node.js 용 문서](https://playwright.dev/docs/intro)
+  - [Python 용 문서](https://playwright.dev/python/docs/intro)
+* Playwright 지원 언어
+  - Go 용: [Playwright for Go](https://github.com/playwright-community/playwright-go)
+  - Python 용: [Playwright for Python](https://github.com/microsoft/playwright-python)
+  - TypeScript 용: [Playwright](https://github.com/microsoft/playwright)
+* VS Code 용 익스텐션: [Playwright Test for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
 
 ## Playwright 설치
 아래에서는 Linux에서 Python인 경우의 예로, 다른 플랫폼에서 다른 언어를 사용하는 경우는 적절히 알맞게 맞추자.  
