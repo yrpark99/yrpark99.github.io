@@ -105,7 +105,12 @@ for add_work_log in add_work_logs:
         print("마지막 작업 기록 설명:", last_work_log.comment)
 
     # 작업 추가할 내용을 미리 출력하고, 사용자의 확인을 받는다.
-    print(" \n추가할 작업 기록 시간:", add_work_log_time);
+    now = time.localtime()
+    month_str = "%02d" % now.tm_mon
+    day_str = "%02d" % now.tm_mday
+    today_str = "[" + str(now.tm_year) + "년 " + month_str + "월 " + day_str + "일]"
+    print("\n" + today_str)
+    print("추가할 작업 기록 시간:", add_work_log_time)
     print("추가할 작업 기록 설명:", add_work_log_comment)
     answer = input("=> 이 작업 기록을 추가하시겠습니까? (y/n) ")
     if answer != 'y':
