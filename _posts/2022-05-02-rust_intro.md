@@ -89,15 +89,15 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [Helix](https://github.com/helix-editor/helix)  
   [Kakoune](https://kakoune.org/), [Neovim](https://neovim.io/) 등과 유사한 소스 코드 에디터이다. Rust로 작성되어 상당히 빠르며, mult-cursor, LSP(Lanaugage Server Protocol), tree-sitter 등을 기본으로 지원한다. 단, 시스템에 [How to install the default language servers](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers) 페이지를 참조하여 사전에 해당 language server를 설치해 놓아야 한다.  
-  단점으로는 현재까지는 플러그인을 지원하지 않고 있다는 것인데, 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다.  
-  이에 비해 Neovim은 플러그인을 지원하므로 아직은 Helix가 Neovim을 대체할 수는 없지만, Neovim보다 속도가 빠르다는 장점이 있다.
+  단점으로는 현재까지는 플러그인을 지원하지 않고 있다는 것인데, 조만간 WASM을 이용하여 플러그인을 지원할 것으로 보인다. 이에 비해 Neovim은 플러그인을 지원하므로 아직은 Helix가 Neovim을 대체할 수는 없지만, Neovim보다 속도가 빠르다는 장점이 있다.  
+  그런데 유감스럽게도 NeoVim은 꾸준히 업데이트가 되는 데에 반해, Helix는 업데이트가 잘 안되어서 이제는 관심에서 멀어졌다.
 
 * [Lapce](https://github.com/lapce/lapce)  
   Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP(Lanaugage Server Protocol), 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
   아직은 VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 추후 VS Code에 대항할 만한 코드 에디터 중의 하나가 될 수 있겠다.
 
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
-  Rust로 작성된 운영 체제이다.
+  Rust로 작성된 운영 체제 중의 하나이다.
 
 * [Ripgrep](https://github.com/BurntSushi/ripgrep)  
   `grep`과 `ack` 계열의 장점을 합친 파일 내용 검색 툴로 상당히 빠른 속도를 자랑한다. Git 저장소인 경우에 `.gitignore` 파일에 있는 파일 패턴들은 검색하지 않으므로 더 빠르고 편리하게 사용할 수 있다. (마찬가지로 `.ignore` 파일이나 `.rgignore` 파일에 있는 파일 패턴들도 검색하지 않음)  
@@ -125,8 +125,10 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [Zed](https://zed.dev/)  
   VS Code와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다. 원래는 오픈소스가 아니었는데 2024년 1월에 오픈소스로 전향되었다.   
+  > 2024년 7월부터 Linux도 지원하기 시작하였다.
+
   Rust로 구현되어 메모리 사용량이 적고, 속도가 상당히 빠르고(랜더링에 GPU도 이용함), LSP(Language Server Protocol)가 내장되어 있어서 현재 C/C++, Go, JavaScript, Python, Rust, TypeScript 등의 언어를 기본으로 지원하고 있다. 또, 협업 기능과, AI assistant 지원 기능도 내장하고 있다.  
-  다만 현재는 플러그인은 지원하지 않고 있는데, 앞으로 크로스 플랫폼 지원과 플러그인을 지원하게 되면, VS Code와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VS Code의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보고 있다.
+  아직은 익스텐션이 많지는 않지만, Windows 운영체제까지 지원하고 더 많은 익스텐션이 나오게 되면, VS Code와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VS Code의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보면서 가끔씩 Linux 환경에서 사용해 보고 있다.
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)

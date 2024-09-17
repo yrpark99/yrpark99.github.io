@@ -91,6 +91,11 @@ for add_work_log in add_work_logs:
     print("이슈 제목:", jira_issue.fields.summary)
     print("담당자:", jira_issue.fields.assignee)
 
+    # 추가할 작업 기록 시간이 0이면 추가하지 않는다.
+    if add_work_log_time == "0h":
+        print("\n작업 기록 시간이 0이므로 추가하지 않음")
+        continue
+
     # 해당 Jira 이슈의 전체 작업 기록 정보를 얻는다.
     total_work_logs = jira_auth.worklogs(issue=issue_id)
 
@@ -134,11 +139,13 @@ for add_work_log in add_work_logs:
     "jira_user_access_token": "Jira_유저_액세스_토큰",
     "add_work_logs": [
         {
+            "model": "MODEL_NAME1",
             "issue_id": "TEST-1",
             "work_log_time": "5h",
             "work_log_comment": "테스트 1"
         },
         {
+            "model": "MODEL_NAME2",
             "issue_id": "TEST-2",
             "work_log_time": "3h",
             "work_log_comment": "테스트 2"
