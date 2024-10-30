@@ -52,13 +52,14 @@ toc_label: "이 페이지 목차"
    ```ini
    gamemode [모드]
    ```
-1. 외부에서도 내 서버에 접속할 수 있게 하려면 마인크래프트가 사용하는 포트가 방화벽에서 허용되어야 한다. 포트 번호는 서버 프로그램의 `server.properties` 파일에서 **server-port** 값을 보면 되는데, 모든 마인크래프트 서버 프로그램들은 아래와 같이 디폴트로 <font color=green>25565</font> 포트를 사용하는 것 같다.
+1. 외부에서도 내 서버에 접속할 수 있게 하려면 마인크래프트가 사용하는 포트가 방화벽에서 허용되어야 한다. 포트 번호는 서버 프로그램의 `server.properties` 파일에서 **server-port** 값을 보면 되는데, 모든 마인크래프트 서버 프로그램들은 아래와 같이 디폴트로 <font color=green>25565</font> 포트를 사용하고 있다.
    ```ini
    server-port=25565
    ```
    방화벽에서 이 포트를 허용하려면, Windows인 경우에는 Windows Defender 방화벽 프로그램(`wf.msc`)에서 왼쪽의 "인바운드 규칙" 탭을 누른 후, 우측의 인바운드 규칙에서 "새 규칙"을 눌러서 TCP 포트로 <font color=green>25565</font> 포트를 추가하면 된다.  
+   또한 만약에 공유기에서 디폴트로 해당 포트를 막고 있는 상태라면, 공유기 웹 관리 페이지에서 해당 포트에 대한 포트 포워딩을 추가하면 된다.  
    이후, 아래와 같은 방법을 사용하여 정상적으로 포트가 open 되었는지 확인할 수 있다.
-   - [tcping](https://www.elifulkerson.com/projects/tcping.php) 툴 이용 예
+   - [tcping](https://www.elifulkerson.com/projects/tcping.php) 툴 이용 예 (포트 번호가 25565 인 경우의 예)
      ```shell
      C:\>tcping <내IP주소> 25565
      ```

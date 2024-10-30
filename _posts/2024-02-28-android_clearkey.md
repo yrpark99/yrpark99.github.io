@@ -31,6 +31,7 @@ ClearKey DRM을 지원하는 player(이 글에서는 **ExoPlayer**를 사용)를
 ```python
 #!/usr/bin/env python3
 
+import json
 import base64
 from flask import Flask, request, jsonify
 
