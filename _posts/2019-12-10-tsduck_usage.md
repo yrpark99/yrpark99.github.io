@@ -151,9 +151,9 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```sh
    $ tsp -I file {입력 TS 파일} -P pcrextract -p {PID} -o {출력 CSV 파일} > /dev/null
    ```
-1. 입력 파일을 UDP로 multicast 전송하기 예 (아래 예에서는 multicast IP 주소는 **239.0.0.11**, 포트 번호는 **9999** 사용)
+1. 입력 파일을 UDP로 multicast 전송하기 예 (아래 예에서는 multicast IP 주소는 **239.0.0.11**, 포트 번호는 **9999** 사용, TTL은 **10** 지정)
    ```sh
-   $ tsp -I file {TS 파일} --infinite -P regulate -P zap {service_id} -O ip 239.0.0.11:9999
+   $ tsp -I file {입력 TS 파일} --infinite -P regulate -P zap {service_id} -O ip 239.0.0.11:9999 --ttl 10
    ```
    > 참고로 위에서 사용한 옵션의 의미는 다음과 같다.
    > * **--infinite**: 파일 무한 반복
@@ -166,6 +166,14 @@ MPEG-2 TS(Transport Stream)을 다루는 tool 중에서 TSDuck 소개와 기본�
    ```sh
    $ ffplay udp://239.0.0.11:9999
    ```
+   <br>
+
+   참고로 RTP로 전송하려면 아래 예와 같이 **--rtp** 아규먼트를 추가하면 된다.
+   ```sh
+   $ tsp -I file {입력 TS 파일} --infinite -P regulate -O ip 239.0.0.11:9999 --rtp --ttl 10
+   ```
+   이것을 VLC media player에서 재생하려면 메뉴에서 `미디어` -> `네트워크 스트림 열기` -> `네트워크` 탭에서 네트워크 주소에 `"rtp://239.0.0.11:9999"`와 같이 입력한 후에 재생 버튼을 누르면 된다.  
+   
 1. UDP multicast 수신하여 VLC media player로 play 하기 예 (아래 예에서는 **192.168.0.2** local 인터페이스를 listen, multicast IP 주소는 **239.0.0.11**, 포트 번호는 **9999** 사용)
    ```sh
    $ tsp -I ip -l 192.168.0.2 239.0.0.11:9999 -O play
