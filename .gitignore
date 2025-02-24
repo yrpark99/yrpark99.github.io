@@ -35,6 +35,8 @@ Gemfile.lock
 node_modules
 npm-debug.log*
 vendor/bundle
-.vscode
+asciinema-player.js:Zone.Identifier
+.nvim/
+.vscode/
 .history/
 .lh/
