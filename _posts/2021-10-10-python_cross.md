@@ -126,8 +126,9 @@ $ sudo rm /lib/ld.so.1 /lib/libc.so.6 /lib/libdl.so.2 /lib/libm.so.6 /lib/libpth
 <head>
   <link rel="stylesheet" type="text/css" href="/assets/css/asciinema-player.css"/>
 </head>
-<asciinema-player src="/assets/cast/python_cross_build.cast" cols="134" rows="25" font-size="medium" poster="data:text/plain,\e[15;1H\e[1;33mPython cross-build 테스트 예"></asciinema-player>
+<div id="python_cross_build"></div>
 <script src="/assets/js/asciinema-player.js"></script>
+<script>AsciinemaPlayer.create('/assets/cast/python_cross_build.cast', document.getElementById('python_cross_build'), {cols: 134, rows: 25, poster: 'npt:3:55', fit: false, terminalFontSize: "medium", terminalFontFamily: "D2 Coding"});</script>
 
 ## 타겟 시스템에 설치
 파이썬 빌드 및 QEMU 시뮬레이션 테스트가 끝났으면, prefix 옵션으로 지정한 경로의 파일들을 타겟 보드의 /usr/local/python3.8/ 폴더에 넣으면 된다. 물론 사용되는 cross 툴체인 경로에 있는 so 파일들도 rootfs의 /lib/ 경로에 복사해 넣어야 할 것이다.
