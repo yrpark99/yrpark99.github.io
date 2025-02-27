@@ -38,7 +38,8 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [bat](https://github.com/sharkdp/bat)  
   `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다. 또 tab 간격이 디폴트로 4로 되어 있어서 편한데다가 `--tabs=n` 옵션으로 변경도 가능한다.  
-  참고로 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
+  나는 대부분의 경우에 cat 대신에 이 bat 툴을 사용하고 있다.  
+  참고로 설정 파일을 이용하면 좀 더 편리하고, 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
 
 * [bottom](https://github.com/ClementTsang/bottom)  
   [btop](https://github.com/aristocratos/btop)과 비슷하게 시스템 리소스 관련 정보를 모니터링하는 툴이다.
@@ -52,20 +53,20 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [dua](https://github.com/Byron/dua-cli)  
   `du` 툴을 대체할 수 있는 Disk Usage Analyzer 툴이다. 크기 순으로 소팅되며 색깔이 표시된다. 만약 실행시 `i` 옵션을 주면 interactive 모드로 동작한다.  비슷한 툴에는 Go로 구현된 [gdu](https://github.com/dundee/gdu) 툴 등이 있는데, `dua`의 속도가 더 빠르다.
 
-* [exa](https://github.com/ogham/exa)  
-  `ls`를 대체할 수 있는 툴로, 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래 예와 같이 alias를 세팅하여 사용하면 편리하다.
+* [eza](https://github.com/eza-community/eza)  
+  `ls`를 대체할 수 있는 툴로, [exa](https://github.com/ogham/exa)에서 (exa는 2021년 4월 이후로 유지관리되지 않음) fork 되었다. 색깔이나 파일 아이콘 출력 등의 기능을 제공한다. 참고로 `~/.bashrc` 파일에 아래 예와 같이 alias를 세팅하여 사용하면 편리하다.
   ```shell
   alias l='exa'
   alias ll='exa --binary -lg --group-directories-first --sort=name --time-style=long-iso'
   alias llb='exa -lgB --group-directories-first --sort=name --time-style=long-iso'
   ```
-  추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다.
+  추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다. (나는 Windows 터미널에서 D2Coding Nerd 폰트를 사용하고 있어서 항상 아이콘도 출력되게 해 놓았다)
 
 * [fd](https://github.com/sharkdp/fd)  
-  `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다.
+  `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다. 나는 이 fd 툴이 find 툴 보다 속도가 확연이 빠르고 기능도 많아서 대부분의 파일 검색시 주로 이 툴을 사용하고 있다.
 
 * [GitUI](https://github.com/Extrawurst/gitui)  
-  터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [tig](https://github.com/jonas/tig), [lazygit](https://github.com/jesseduffield/lazygit) 등이 있는데, 대부분의 경우에 이것들보다 속도가 빠르고 기능도 편리하여, 나의 경우 CLI 환경에서는 이 툴을 많이 사용하고 있다.  
+  터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [lazygit](https://github.com/jesseduffield/lazygit) 등이 있다. 나의 경우 CLI 환경에서는 lazygit과 함께 가끔 사용하고 있다.  
   참고로 코드 diff 시에 **tab**은 **space 2**로 표시되고 있는데, 이것을 **space 4**로 변경하려면 (현재 기준에서는 사용자가 설정할 수 있는 기능이 없으므로) 소스 코드를 받아서 src/string_utils.rs 파일의 tabs_to_spaces() 함수를 아래와 같이 수정한 후, 재빌드하면 된다.
   ```rs
   pub fn tabs_to_spaces(input: String) -> String {
@@ -94,14 +95,14 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 
 * [Lapce](https://github.com/lapce/lapce)  
   Rust로 작성된 멀티 플랫폼을 지원하는 범용 코드 에디터이다. 자체적으로 LSP(Lanaugage Server Protocol), 원격 개발 지원, 터미널 등의 기능을 내장하고 있고, 플러그인도 지원하고 있다. (WASI 포맷 사용)  
-  아직은 VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 추후 VS Code에 대항할 만한 코드 에디터 중의 하나가 될 수 있겠다.
+  아직은 VS Code에 비해 기능도 적고, 플러그인도 턱없이 부족하긴 하지만, 실행 속도가 빠르고 오픈 소스로써 추후 VS Code에 대항할 만한 코드 에디터 중의 하나가 될 수도 있겠다.
 
 * [Redox](https://gitlab.redox-os.org/redox-os/redox)  
   Rust로 작성된 운영 체제 중의 하나이다.
 
 * [Ripgrep](https://github.com/BurntSushi/ripgrep)  
   `grep`과 `ack` 계열의 장점을 합친 파일 내용 검색 툴로 상당히 빠른 속도를 자랑한다. Git 저장소인 경우에 `.gitignore` 파일에 있는 파일 패턴들은 검색하지 않으므로 더 빠르고 편리하게 사용할 수 있다. (마찬가지로 `.ignore` 파일이나 `.rgignore` 파일에 있는 파일 패턴들도 검색하지 않음)  
-  [Platinum Searcher](https://github.com/monochromegane/the_platinum_searcher)와 함께 내가 주로 사용하는 검색 툴이다.
+  이 툴을 사용하기 전까지는 주로 [Platinum Searcher](https://github.com/monochromegane/the_platinum_searcher)를 사용했었는데, 이제는 대부분의 경우 이 툴을 주력으로 사용하고 있다.
   > 참고로 검색	결과는 디폴트로 UTF-8로 출력하는데, 한글 인코딩을 EUC-KR로 하고 싶으면 아래 예와 같이 지정하면 된다.
   ```sh
   $ rg --encoding=euc-kr "문자열"
@@ -123,12 +124,23 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [Warp](https://github.com/warpdotdev/Warp)  
   [Rio terminal](https://github.com/raphamorim/rio), [WezTerm](https://wezfurlong.org/wezterm/) 등과 같이 Rust로 구현되었고 크로스 플램폼을 지원하는 터미널 프로그램인데, Warp는 특히 AI 보조 기능을 지원한다.
 
+* [Yazi](https://github.com/sxyazi/yazi)  
+  터미널 환경에서 사용할 수 있는 파일 탐색기이다. 속도가 빠르고, 파일 미리 보기 등의 기능을 지원한다(그래픽 파일이나 PDF 파일 등도 지원함). [Windows Terminal](https://github.com/microsoft/terminal)로 Linux 서버에 접속한 환경에서도 잘 되어서 개인적으로 애용하고 있다.
+
 * [Zed](https://zed.dev/)  
   VS Code와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다. 원래는 오픈소스가 아니었는데 2024년 1월에 오픈소스로 전향되었다.   
-  > 2024년 7월부터 Linux도 지원하기 시작하였다.
+  > 2024년 7월부터 Linux도 지원하기 시작하였다.  
+  > Windows 배포판은 아직 정식으로 지원되지는 않지만, night 빌드되는 [zed-windows-builds](https://github.com/deevus/zed-windows-builds/releases) 페이지에서 다운받을 수 있다.
 
   Rust로 구현되어 메모리 사용량이 적고, 속도가 상당히 빠르고(랜더링에 GPU도 이용함), LSP(Language Server Protocol)가 내장되어 있어서 현재 C/C++, Go, JavaScript, Python, Rust, TypeScript 등의 언어를 기본으로 지원하고 있다. 또, 협업 기능과, AI assistant 지원 기능도 내장하고 있다.  
-  아직은 익스텐션이 많지는 않지만, Windows 운영체제까지 지원하고 더 많은 익스텐션이 나오게 되면, VS Code와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VS Code의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보면서 가끔씩 Linux 환경에서 사용해 보고 있다.
+  아직은 VS Code에 비하여 익스텐션이 많지는 않지만, 추후 정식으로 Windows 운영체제까지 지원하고 더 많은 익스텐션이 나오게 되면, VS Code와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VS Code의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보면서 가끔씩 사용해 보고 있다.
+
+* [zoxide](https://github.com/ajeetdsouza/zoxide)  
+  **cd** 명령을 대체할 수 있는 스마트 디렉토리 이동 툴이다. Bash를 사용하는 경우라면 **~/.bashrc** 파일에 아래 내용을 추가하면 된다.
+  ```sh
+  eval "$(zoxide init bash)"
+  ```
+  이제 cd 대신에 z 명령을 이용할 수 있다. 기존 history를 기억하여 일부 단어만 포함해도 되고, 아무 디렉토리에서나 바로 이동되는 편리함으로 애용하고 있다.
 
 ## Rust 툴체인 설치
 1. 아래와 같이 rustc 패키지를 설치한다. (단, 이 방법은 APT 패키지를 사용하는 것이므로, 보통 최신 버전을 따라가지는 못함)

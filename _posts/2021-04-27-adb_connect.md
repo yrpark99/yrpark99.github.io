@@ -8,7 +8,7 @@ toc_label: "이 페이지 목차"
 안드로이드 디바이스 개발시 Ethernet으로 ADB 연결하는 방법에 대하여 정리해 본다.
 
 ## 개발 Network 환경
-현재 내 Android 개발 환경은 사내망에 아래와 같이 연결되어 있다.
+현재 내 Android 개발 환경은 사내망에 아래와 같이 연결되어 있다.  
 ![](/assets/images/android_ethernet_diagram.svg)
 
 > 개발 서버는 팀원들이 공용으로 사용하는 서버로, 동시에 여러 명의 사용자가 각자의 안드로이드 디바이스에 연결할 수 있다.

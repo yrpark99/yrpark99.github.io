@@ -155,7 +155,7 @@ Vim, Neovim, Helix 등의 Vim 류의 편집기들은 터미널 base의 편집기
    ```
    추가로 [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) 플러그인을 설치하면 신택스 하이라이트가 좀 더 개선되어 표시된다.
    <br>
-   > 참고로 나는 CLI 환경에서는 주로 Neovim을 사용하는데, Neovim 사용 시에는 [LazyVim](https://www.lazyvim.org/) 또는 [LunarVim](https://www.lunarvim.org/)을 사용하여 환경을 구축하고 있다. 이것들을 이용하면 다른 개발 서버에서 CLI 환경을 이용하는 경우에도 아주 쉽게 Neovim으로 IDE와 유사한 환경을 구축을 할 수 있다.
+   > 참고로 나는 CLI 환경에서는 주로 Neovim을 사용하는데, Neovim 사용 시에는 [LazyVim](https://www.lazyvim.org/)을 사용하여 환경을 구축하고 있다. 이것들을 이용하면 다른 개발 서버에서 CLI 환경을 이용하는 경우에도 아주 쉽게 Neovim으로 IDE와 유사한 환경을 구축을 할 수 있다.
 1. [Helix](https://github.com/helix-editor/helix)  
    Helix는 자체적으로 LSP를 지원하므로, 시스템에 해당 언어의 language server만 설치되면 된다. 예를 들어 C/C++인 경우에는 시스템에 `clangd`를 설치하면 된다.  
    이 편집기는 Rust로 구현되어 Vim이나 Neovim보다 빠른 속도를 자랑하고, 웬만한 기능들이 모두 편집기에 내장되어 있으므로, 추후에 플러그인도 지원하게 된다면 Vim/Neovim 사용자는 Helix도 시도해 볼 만하다.

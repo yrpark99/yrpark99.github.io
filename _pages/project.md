@@ -5,10 +5,11 @@ layout: single
 author_profile: true
 ---
 
+- [Android 서비스 AIDL 이용 예제](https://github.com/yrpark99/MyServiceAidlExample)
 - [CRC32 (normal, MPEG2) 계산](https://github.com/yrpark99/crc32)
 - [Doxygen에서 PlantUML MindMap 지원](https://github.com/yrpark99/doxygen)
 - [Go-WebView2에서 기존 윈도우에도 WebView를 띄울 수 있도록 구현](https://github.com/yrpark99/go-webview2)
-- [LunarVim (내 Neovim 환경)](https://github.com/yrpark99/LunarVim)
+- [LazyVim 내 설정](https://github.com/yrpark99/nvim.git)
 - [PGP Decrypt Web Server 구현](https://github.com/yrpark99/PgpDecryptServer)
 - [Platinum에서 EUC-KR 인코딩 지원](https://github.com/yrpark99/the_platinum_searcher)
 - [S/W CSA decrypt](https://github.com/yrpark99/CsaDecrypt)

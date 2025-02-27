@@ -1,6 +1,6 @@
 ---
 title: "VS Code 용 자작 hex ascii converter 익스텐션"
-category: VS Code
+category: Editor
 toc: false
 toc_label: "이 페이지 목차"
 ---

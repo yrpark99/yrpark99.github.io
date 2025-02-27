@@ -1,6 +1,6 @@
 ---
 title: "VS Code의 C/C++를 위한 c_cpp_properties.json 생성 자동화"
-category: [C/C++, VS Code]
+category: [C/C++, Editor]
 toc: true
 toc_label: "이 페이지 목차"
 ---
