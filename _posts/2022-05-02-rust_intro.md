@@ -65,7 +65,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [fd](https://github.com/sharkdp/fd)  
   `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다. 나는 이 fd 툴이 find 툴 보다 속도가 확연이 빠르고 기능도 많아서 대부분의 파일 검색시 주로 이 툴을 사용하고 있다.
 
-* [GitUI](https://github.com/Extrawurst/gitui)  
+* [GitUI](https://github.com/gitui-org/gitui)  
   터미널용 Git 클라이언트 툴이다. 비슷한 툴로는 [lazygit](https://github.com/jesseduffield/lazygit) 등이 있다. 나의 경우 CLI 환경에서는 lazygit과 함께 가끔 사용하고 있다.  
   참고로 코드 diff 시에 **tab**은 **space 2**로 표시되고 있는데, 이것을 **space 4**로 변경하려면 (현재 기준에서는 사용자가 설정할 수 있는 기능이 없으므로) 소스 코드를 받아서 src/string_utils.rs 파일의 tabs_to_spaces() 함수를 아래와 같이 수정한 후, 재빌드하면 된다.
   ```rs

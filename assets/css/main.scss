@@ -6,5 +6,6 @@
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
-@import url('http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding');
+@font-face {
+	font-family: 'D2Coding'; src:url(font/D2Coding.ttf);
+}

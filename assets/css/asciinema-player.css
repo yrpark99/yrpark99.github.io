@@ -1,4 +1,6 @@
-@import url('http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
+@font-face {
+	font-family: 'D2Coding'; src:url(font/D2Coding.ttf);
+}
 div.ap-wrapper {
   outline: none;
   height: 100%;
