@@ -20,6 +20,12 @@ figure.highlight {
   }
 }
 
+/* Line height 1 in zsh code block */
+.language-zsh code,
+.language-zsh pre.highlight {
+  line-height: 1 !important;
+}
+
 .highlight table {
   margin-bottom: 0;
   font-size: 1em;

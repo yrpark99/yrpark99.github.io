@@ -6,6 +6,7 @@
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+@import url('http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 @font-face {
-	font-family: 'D2Coding'; src:url(font/D2Coding.ttf);
+  font-family: 'D2CodingLigature Nerd Font'; src:url(D2CodingLigatureNerdFont-Regular.ttf);
 }

@@ -1,5 +1,5 @@
 @font-face {
-	font-family: 'D2Coding'; src:url(font/D2Coding.ttf);
+  font-family: 'D2CodingLigature Nerd Font'; src:url(D2CodingLigatureNerdFont-Regular.ttf);
 }
 div.ap-wrapper {
   outline: none;
@@ -201,7 +201,7 @@ pre.ap-terminal {
   border-color: var(--term-color-background);
   outline: none;
   line-height: var(--term-line-height);
-  font-family: D2Coding, 'D2 coding', Consolas, Menlo, 'Bitstream Vera Sans Mono', monospace, 'Powerline Symbols';
+  font-family: 'D2CodingLigature Nerd Font', D2Coding, 'D2 coding', Consolas, Menlo, 'Bitstream Vera Sans Mono', monospace, 'Powerline Symbols';
   font-variant-ligatures: none;
 }
 pre.ap-terminal .ap-line {

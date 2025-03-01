@@ -60,7 +60,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   alias ll='exa --binary -lg --group-directories-first --sort=name --time-style=long-iso'
   alias llb='exa -lgB --group-directories-first --sort=name --time-style=long-iso'
   ```
-  추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다. (나는 Windows 터미널에서 D2Coding Nerd 폰트를 사용하고 있어서 항상 아이콘도 출력되게 해 놓았다)
+  추가로 파일 아이콘도 출력하게 하려면 [Nerd Fonts](https://www.nerdfonts.com/)를 설치한 후에, `--icons` 옵션을 추가로 주면 된다. (나는 Windows 터미널에서 [D2Coding Nerd 폰트](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/D2Coding)를 사용하고 있어서 항상 아이콘도 출력되게 해 놓았다)
 
 * [fd](https://github.com/sharkdp/fd)  
   `find`와 유사한 파일 검색 툴로, `.gitignore` 파일에 명시된 패턴은 찾지 않는다(찾게 하려면 `-I` 옵션을 추가하면 됨). 또 hidden 파일도 찾지 않는데, 찾게 하려면 `-H` 옵션을 추가하면 된다. 나는 이 fd 툴이 find 툴 보다 속도가 확연이 빠르고 기능도 많아서 대부분의 파일 검색시 주로 이 툴을 사용하고 있다.
