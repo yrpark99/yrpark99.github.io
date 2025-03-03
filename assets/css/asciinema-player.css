@@ -5,7 +5,7 @@ div.ap-wrapper {
   outline: none;
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: left;
 }
 div.ap-wrapper .title-bar {
   display: none;
@@ -522,7 +522,7 @@ div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter {
   top: 15px;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 6px;
 }
 div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-empty {
   background-color: color-mix(in oklab, var(--term-color-foreground) 20%, var(--term-color-background));
@@ -531,7 +531,7 @@ div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-full {
   width: 100%;
   transform-origin: left center;
   background-color: var(--term-color-foreground);
-  border-radius: 3px;
+  border-radius: 6px;
 }
 div.ap-control-bar.ap-seekable .ap-progressbar .ap-bar {
   cursor: pointer;
