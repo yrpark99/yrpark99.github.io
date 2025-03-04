@@ -137,18 +137,45 @@ Busybox는 shell과 각종 기본적인 Linux tool들을 포함하고 있어서 
    ```sh
    $ qemu-system-x86_64 -cdrom arch/x86/boot/image.iso
    ```
-   결과로 정상적으로 부팅되고, shell 프롬프트도 얻어지고, 아래와 같이 Busybox가 지원하는 명령도 정상적으로 동작한다.
+   결과로 아래와 같이 정상적으로 부팅되고, shell 프롬프트도 얻어지고, Busybox가 지원하는 명령도 정상적으로 동작한다.
+   ```
+   [    1.982193] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+   [    2.034179] modprobe (48) used greatest stack depth: 14048 bytes left
+   [    2.039607] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+   [    2.039933] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+   [    2.040677] platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+   [    2.040808] cfg80211: failed to load regulatory.db
+   [    2.041272] ALSA device list:
+   [    2.041379]   No soundcards found.
+   [    2.070430] Freeing unused kernel image (initmem) memory: 2828K
+   [    2.070970] Write protecting the kernel read-only data: 26624k
+   [    2.071749] Freeing unused kernel image (text/rodata gap) memory: 544K
+   [    2.072252] Freeing unused kernel image (rodata/data gap) memory: 1080K
+   [    2.156239] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+   [    2.156577] tsc: Refined TSC clocksource calibration: 4491.470 MHz
+   [    2.156754] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x40bdee30b8a, max_idle_ns: 440795347857 ns
+   [    2.156861] clocksource: Switched to clocksource tsc
+   [    2.157652] Run /init as init process
+   /bin/sh: can't access tty; job control turned off
+   [    2.362668] input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8042/serio1/input/input3
+   ~ # id
+   uid=0 gid=0
+   ~ # cat /proc/cmdline
+   BOOT_IMAGE=linux initrd=/initramfs.cpio
+   ```
+1. [VirtualBox](https://www.virtualbox.org/)를 사용해서도 **image.iso** 이미지로 가상 머신을 생성할 수 있다. 단, 운영체제 종류는 **Linux**, Subytype은 **Other Linux**로 한다.  
+   가상 머신을 생성하고 실행하면 아래와 같이 부팅되고, 명령의 실행 결과도 QEMU로 테스트했던 것과 일치함을 확인할 수 있다.
    ```
    [    1.902518] netconsole: network logging started
    [    1.904535] cfg80211: loading compiled-in X.509 certificates for regulatory database
    [    1.908997] modprobe (51) used greatest stack depth: 14112 bytes left
    [    1.913013] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
-   [    1.915234] Loaded X.509 cert 'wens: b1c038651aabdcf94bd0ac7ff06c7248db18c600'
+   [    1.915234] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
    [    1.918051] platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
    [    1.921193] ALSA device list:
    [    1.922543] cfg80211: failed to load regulatory.db
    [    1.924312]   No soundcards found.
-   [    1.926113] Freeing unused kernel image (initmem) memory: 2028K
+   [    1.926113] Freeing unused kernel image (initmem) memory: 2828K
    [    1.928244] Write protecting the kernel read-only data: 26624k
    [    1.930616] Freeing unused kernel image (text/rodata gap) memory: 544K
    [    1.933136] Freeing unused kernel image (rodata/data gap) memory: 1080K
@@ -156,12 +183,8 @@ Busybox는 shell과 각종 기본적인 Linux tool들을 포함하고 있어서 
    [    1.986684] Run /init as init process
    [    1.991595] mount (54) used greatest stack depth: 14096 bytes left
    /bin/sh: can't access tty; job control turned off
-   # id
+   ~ # id
    uid=0 gid=0
-   # cat /proc/cmdline
+   ~ # cat /proc/cmdline
    BOOT_IMAGE=linux initrd=/initramfs.cpio
-   #
    ```
-1. VirtualBox에서도 **image.iso** 이미지로 가상 머신을 생성할 수 있다. 단, 운영체제 종류는 **Linux**, Subytype은 **Other Linux**로 한다.  
-   가상 머신을 생성하고 실행하면 아래와 같이 부팅되고, 명령의 실행 결과도 QEMU로 테스트했던 것과 일치함을 확인할 수 있다.  
-   ![](/assets/images/VirtualBox_MyDistro.png)
