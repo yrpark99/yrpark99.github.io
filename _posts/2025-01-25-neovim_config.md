@@ -24,29 +24,18 @@ toc_label: "이 페이지 목차"
 ## 사전 체크
 [LazyVim](https://github.com/LazyVim/LazyVim)은 [lazy.nvim](https://github.com/folke/lazy.nvim) 플러그인 매니저를 이용하여 Neovim을 IDE 환경으로 쉽게 구축할 수 있게 해준다.  
 LazyVim은 Nerd 폰트를 사용하므로 시스템에 사용하려는 폰트의 Nerd 버전을 설치하고, 아래 예와 같이 확인시 정상적으로 아이콘이 표시되는지 확인한다.
-(참고로 나는 터미널은 주로 [[Windows Terminal]](https://github.com/microsoft/terminal)을 사용하고, 폰트는 주로 [[D2Coding Nerd Font]](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/D2Coding)를 사용하고 있다)
-```sh
-$ eza --icons
- init.lua   lazy-lock.json   lazyvim.json   LICENSE   lua  󰂺 README.md   stylua.toml
-```
-
-터미널 색깔도 true color로 잘 나오는지 아래 예와 같이 확인해 본다.
-```sh
-$ sudo apt install lolcat
-$ lolcat --help
-```
-
-아래 데모와 같이 true color가 표시되면 터미널 환경이 정상적으로 된 것이다.
+(참고로 나는 터미널은 주로 [[Windows Terminal]](https://github.com/microsoft/terminal)을 사용하고, 폰트는 주로 [[D2Coding Nerd Font]](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/D2Coding)를 사용하고 있다)  
+아래 데모와 같이 아이콘과 true color가 제대로 표시되면 터미널 환경이 정상적으로 된 것이다.  
 <head>
   <link rel="stylesheet" type="text/css" href="/assets/css/asciinema-player.css"/>
 </head>
-<div id="terminal_color"></div>
+<div id="terminal_test"></div>
 <script src="/assets/js/asciinema-player.js"></script>
-<script>AsciinemaPlayer.create('/assets/cast/terminal_color.cast', document.getElementById('terminal_color'), {cols: 80, rows: 29, poster: 'npt:0:5', fit: false, terminalFontSize: "16px", terminalLineHeight: 1});</script>
+<script>AsciinemaPlayer.create('/assets/cast/terminal_test.cast', document.getElementById('terminal_test'), {cols: 92, rows: 31, poster: 'npt:0:7', fit: false, terminalFontSize: "16px", terminalLineHeight: 1.1});</script>
 
 <br>
 
-또, LazyVim은 fd, fzf, ripgrep 등의 툴을 적극적으로 사용하므로, 아래와 같이 필요한 패키지를 설치한다.
+그런데, LazyVim은 fd, fzf, ripgrep 등의 툴을 적극적으로 사용하므로, 아래와 같은 패키지들도 설치하는 것이 좋다.
 ```sh
 $ sudo apt install build-essential fd-find fzf ripgrep
 ```
@@ -70,7 +59,7 @@ $ git clone https://github.com/yrpark99/nvim.git ~/.config/nvim
 이후 Neovim을 실행하면 자동으로 플러그인들이 설치되고, 이후에 본인의 용도에 따라서 언어별로 필요한 TreeSitter나 LSP를 설치하면 된다.  
 편의상 이 글에서 lua 파일의 경로는 **~/.config/nvim/** 경로를 기준으로 설명하겠다.
 
-플러그인들이 모두 설치되고 나면, 이제 Neovim이 아래 데모 예와 같이 동작한다.
+플러그인들이 모두 설치되고 나면, 이제 Neovim이 아래 데모 예와 같이 동작한다.  
 <head>
   <link rel="stylesheet" type="text/css" href="/assets/css/asciinema-player.css"/>
 </head>
@@ -558,4 +547,5 @@ return {
 VS Code에서는 필요한 대부분의 기능이 이미 내장되어 있거나 쉽게 할 수 있고 완성도 또한 아주 좋은데 반해, Neovim은 그렇지가 못하고 대부분을 플러그인에 의존하고 있는데다가, 플러그인을 찾고 설정하기가 어려울 뿐만 아니라 완성도 또한 좋지는 못하다.  
 그럼에도 불구하고 터미널 환경에서 Neovim을 사용하는 경우에 최대한 VS Code와 유사하게 사용하기 위하여 환경을 구성해 보았다.  
 다만 환경을 구성하면서 직접 Neovim 플러그인도 작성해 보았는데 **lua**라는 스크립트 언어를 이용하므로, VS Code의 익스텐션에 비하면 패키징을 안 해도 되고, 마켓 플레이스에 올리지 않아도 되어서, 편리하게 작성 및 업데이트할 수 있었다.  
-터미널 환경에서 Vim이나 Neovim을 사용하는 개발자들에게 환경 설정에 도움이 될 것 같아서 시간을 내어 정리해 보았다.
+다만 VS Code는 익스텐션을 찾기도 편하고 설치 및 설정이 편리한 데 비하여, Neovim의 경우에는 플러그인 자체는 많지만 찾기가 어려웠고, 설치 및 설정이 까다로웠다.  
+터미널 환경에서 Neovim을 사용하는 개발자들이 환경 설정을 할 때에 도움이 될 것 같아서 시간을 내어 정리해 보았다.

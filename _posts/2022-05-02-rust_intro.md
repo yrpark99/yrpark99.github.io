@@ -37,9 +37,15 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   [Notion](https://www.notion.so)을 대체할 수 있는 오픈 소스로 Rust와 Flutter로 구현되었다.
 
 * [bat](https://github.com/sharkdp/bat)  
-  `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다. 또 tab 간격이 디폴트로 4로 되어 있어서 편한데다가 `--tabs=n` 옵션으로 변경도 가능한다.  
-  나는 대부분의 경우에 cat 대신에 이 bat 툴을 사용하고 있다.  
-  참고로 설정 파일을 이용하면 좀 더 편리하고, 이 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
+  `cat`을 대체할 수 있는 툴로, 파일의 내용을 신택스 하이라이팅해서 보여주고, 내용을 up/down 하거나 찾기 기능 등도 제공한다. 또 tab 간격이 디폴트로 4로 되어 있어서 편한데다가 `--tabs=n` 옵션으로 변경도 가능한다. 또는 아래와 같이 실행하면 **~/.config/bat/config**  파일이 생성되는데, 이 파일에 옵션 사항을 설정해 놓으면 편리하다.
+  ```sh
+  $ bat --generate-config-file
+   ```
+  나는 대부분의 경우에 cat 대신에 이 bat 툴을 사용하고 있다. 예를 들어 **~/.bashrc** 파일에 아래 내용을 추가해 놓으면 `man` 페이지도 신택스 하이라이팅되어서 표시된다.
+  ```sh
+  export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+  ```
+  또한 `bat`를 이용한 [bat-extras](https://github.com/eth-p/bat-extras) 툴들도 있다.
 
 * [bottom](https://github.com/ClementTsang/bottom)  
   [btop](https://github.com/aristocratos/btop)과 비슷하게 시스템 리소스 관련 정보를 모니터링하는 툴이다.
@@ -130,7 +136,7 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
 * [Zed](https://zed.dev/)  
   VS Code와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다. 원래는 오픈소스가 아니었는데 2024년 1월에 오픈소스로 전향되었다.   
   > 2024년 7월부터 Linux도 지원하기 시작하였다.  
-  > Windows 배포판은 아직 정식으로 지원되지는 않지만, night 빌드되는 [zed-windows-builds](https://github.com/deevus/zed-windows-builds/releases) 페이지에서 다운받을 수 있다.
+  > Windows 배포판은 아직 정식으로 지원되지는 않지만, 매일밤마다 자동으로 빌드되는 [zed-windows-builds](https://github.com/deevus/zed-windows-builds/releases) 페이지에서 다운받을 수 있다.
 
   Rust로 구현되어 메모리 사용량이 적고, 속도가 상당히 빠르고(랜더링에 GPU도 이용함), LSP(Language Server Protocol)가 내장되어 있어서 현재 C/C++, Go, JavaScript, Python, Rust, TypeScript 등의 언어를 기본으로 지원하고 있다. 또, 협업 기능과, AI assistant 지원 기능도 내장하고 있다.  
   아직은 VS Code에 비하여 익스텐션이 많지는 않지만, 추후 정식으로 Windows 운영체제까지 지원하고 더 많은 익스텐션이 나오게 되면, VS Code와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VS Code의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보면서 가끔씩 사용해 보고 있다.
