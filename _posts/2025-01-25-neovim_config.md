@@ -516,16 +516,15 @@ end, { desc = "Copy current file relative path" })
 ## LSP 관련
 Neovim은 LSP(Lanaugage Server Protocol)를 지원하는데, LazyVim은 LSP 플러그인을 관리해주는 [mason.nvim](https://github.com/williamboman/mason.nvim) 플러그인을 사용하므로, 사용자는 mason을 통해 사용하려는 LSP server 프로그램을 쉽게 설치할 수 있다.  
 사용법은 `MasonInstall` **{설치하려는_LSP_server}** 명령을 실행하면 되는데 (또는 `LspInstall` 명령으로 설치할 수도 있음), LSP server는 예를 들어 아래와 같은 것들이 있다. (특정 언어에 LSP server 프로그램이 여러 개 있으면 그 중에 원하는 것을 선택하면 됨)
-- Bash: bash-language-server
-- C/C++: clangd
-- CSS: css-lsp
-- Go: gopls
-- Java: jdtls
-- JavaScript: typescript-language-server
-- JSON: json-lsp
-- Python: python-lsp-server
-- Rust: rust-analyzer
-- TypeScript: typescript-language-server
+- `Bash`: bash-language-server
+- `C/C++`: clangd
+- `CSS`: css-lsp
+- `Go`: gopls
+- `Java`: jdtls
+- `JavaScript` / `TypeScript`: typescript-language-server
+- `JSON`: json-lsp
+- `Python`: pyright
+- `Rust`: rust-analyzer
 
 LSP server 프로그램 설치시 사전에 설치가 필요한 패키지가 있는 경우가 많으므로 실패하는 경우에는 에러 로그를 확인하여 조치한 후에 다시 설치하면 된다.  
 그런데 당연하겠지만 해당 언어의 SDK도 설치되어 있어야 LSP가 정상 동작한다. 예를 들어 Java 소스라면 JDK가 설치되어 있어야 한다.  
@@ -542,6 +541,21 @@ return {
   },
 }
 ```
+
+## Tree-sitter
+LSP를 설치하면 어느 정도는 해당 소스가 신택스 하이라이팅되긴 하지만 조금 부족해 보인다. 이 경우에는 [Tree-sitter](https://tree-sitter.github.io/tree-sitter/)를 이용하면 해당 언어의 신택스 하이라이팅을 향상시킬 수 있다.  
+Neovim에서 Tree-sitter 언어 설치는 `:TSInstall` 후에 아래 예와 같이 타겟 언어를 지정하면 된다.
+- `C`: c
+- `CPP`: cpp
+- `Go`: go
+- `Java`: java
+- `JavaScript`: javascript
+- `Make`: make
+- `Python`: python
+- `Rust`: rust
+- `TypeScript`: typescript
+
+참고로 Tree-sitter 언어별 설치 여부는 `:TSInstallInfo` 명령으로 확인할 수 있다.
 
 ## 맺음말
 VS Code에서는 필요한 대부분의 기능이 이미 내장되어 있거나 쉽게 할 수 있고 완성도 또한 아주 좋은데 반해, Neovim은 그렇지가 못하고 대부분을 플러그인에 의존하고 있는데다가, 플러그인을 찾고 설정하기가 어려울 뿐만 아니라 완성도 또한 좋지는 못하다.  

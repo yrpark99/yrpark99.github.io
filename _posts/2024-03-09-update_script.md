@@ -15,6 +15,8 @@ Linux 환경에서 유용하게 사용 중인 tool 들의 업데이트를 자동
 
 아래는 주로 내가 애용하는 tool 들의 업데이트 스크립트 예제들이고, 마찬가지로 방법으로 다른 tool 들도 업데이트 스크립트를 작성하여 이용할 수 있다.
 
+> ℹ️ 참고로 아래 스크립트들은 해당 툴이 설치가 되지 않은 상태이면 해당 툴을 최신 버전으로 설치한다.
+
 ## [bat](https://github.com/sharkdp/bat)
 ```sh
 #!/bin/sh
@@ -211,5 +213,24 @@ unzip -q yazi-x86_64-unknown-linux-musl.zip
 sudo install yazi-x86_64-unknown-linux-musl/yazi /usr/local/bin/
 sudo install yazi-x86_64-unknown-linux-musl/ya /usr/local/bin/
 rm -rf yazi-x86_64-unknown-linux-musl.zip yazi-x86_64-unknown-linux-musl/
+echo "Install latest ${APP} is done"
+```
+
+## [zoxide](https://github.com/ajeetdsouza/zoxide)
+```sh
+#!/bin/sh
+APP="zoxide"
+INSTALLED_VERSION=$(zoxide --version | awk '{print $2}' | cut -d'-' -f1)
+LATEST_VERSION=$(curl -s "https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+echo "${APP} installed version: ${INSTALLED_VERSION}"
+echo "${APP} latest version: v${LATEST_VERSION}"
+if [ "${INSTALLED_VERSION}" = "${LATEST_VERSION}" ]; then
+    echo "You already have latest version ${APP}"
+    exit
+fi
+wget -q "https://github.com/ajeetdsouza/zoxide/releases/download/v${LATEST_VERSION}/zoxide-${LATEST_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+tar xfz zoxide-"${LATEST_VERSION}"-x86_64-unknown-linux-musl.tar.gz zoxide
+sudo install zoxide /usr/bin/
+rm -rf zoxide-"${LATEST_VERSION}"-x86_64-unknown-linux-musl.tar.gz zoxide
 echo "Install latest ${APP} is done"
 ```
