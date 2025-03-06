@@ -523,6 +523,7 @@ Neovim은 LSP(Lanaugage Server Protocol)를 지원하는데, LazyVim은 LSP 플�
 - `Java`: jdtls
 - `JavaScript` / `TypeScript`: typescript-language-server
 - `JSON`: json-lsp
+- `Kotlin`: kotlin-language-server
 - `Python`: pyright
 - `Rust`: rust-analyzer
 
@@ -550,6 +551,7 @@ Neovim에서 Tree-sitter 언어 설치는 `:TSInstall` 후에 아래 예와 같�
 - `Go`: go
 - `Java`: java
 - `JavaScript`: javascript
+- `Kotlin`: kotlin
 - `Make`: make
 - `Python`: python
 - `Rust`: rust

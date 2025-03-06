@@ -66,7 +66,7 @@ VNC(Virtual Network Computing)를 이용한 방법으로 [RealVNC](https://www.r
 RustDesk 덕분에 라이선스 제약 없이 내가 자체 구축한 서버를 사용하여 속도와 이미지 품질까지 제법 괜찮은 무료 원격 솔루션을 구축할 수 있게 되었다. 🍺
 
 ## TopDesk
-[TopDesk](https://topdesk.co.kr/)는 드물게 국산 프로그램으로 개인 뿐만 아니라 비즈니스 용도로도 무료이다. 현재는 Windows 플랫폼만 지원하고 있으며 향후에는 크로스 플랫폼도 지원될 것 같다.
+[TopDesk](https://topdesk.co.kr/)는 드물게 국산 프로그램으로 개인 뿐만 아니라 비즈니스 용도로도 무료이다. 현재는 Windows 플랫폼만 지원하고 있으며 향후에는 크로스 플랫폼도 지원할 계획인 것 같다.
 
 ## UltraViewer
 [UltraViewer](https://www.ultraviewer.net/)는 현재 Windows 플랫폼만 지원하는 단점이 있지만, 아주 간단히 무료로 이용할 수 있고, 속도 면에서도 만족스러워서 애용하고 있다.
