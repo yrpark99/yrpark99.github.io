@@ -77,13 +77,16 @@ vim.opt.termguicolors = true
 ```
 
 ## 칼라 설정
-칼라 테마로 VS Code 테마를 사용하고, 현재 줄 번호 색깔을 주황색으로 설정하도록 **init.lua** 파일에서 아래와 같이 설정하였다.
+칼라 테마로 VS Code 테마를 사용하고, 현재 줄 번호 색깔과 플로팅 팝업 배경색을 **init.lua** 파일에서 아래와 같이 설정하였다.
 ```lua
 -- Set color scheme
 vim.cmd("colorscheme vscode")
 
 -- Set cursor line number foreground color
 vim.cmd("highlight CursorLineNr guifg=#ff8c00")
+
+-- Set float popup background color
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#2c2c2c" })
 ```
 
 ## RGB 색깔 표시
