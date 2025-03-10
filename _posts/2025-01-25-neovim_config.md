@@ -530,7 +530,12 @@ Neovim은 LSP(Lanaugage Server Protocol)를 지원하는데, LazyVim은 LSP 플�
 - `Python`: pyright
 - `Rust`: rust-analyzer
 
-LSP server 프로그램 설치시 사전에 설치가 필요한 패키지가 있는 경우가 많으므로 실패하는 경우에는 에러 로그를 확인하여 조치한 후에 다시 설치하면 된다.  
+LSP server 프로그램 설치시 사전에 설치가 필요한 패키지가 있는 경우가 많으므로 실패하는 경우에는 에러 로그를 확인하여 조치하면 된다.  
+> 예를 들어 pyright 서버 프로그램은 [Node.js](https://nodejs.org/ko)를 이용하므로 아래 예와 같이 최신 LTS 버전을 설치해야 한다.
+> ```sh
+> $ curl -sL install-node.now.sh/lts | sudo bash
+> ```
+
 그런데 당연하겠지만 해당 언어의 SDK도 설치되어 있어야 LSP가 정상 동작한다. 예를 들어 Java 소스라면 JDK가 설치되어 있어야 한다.  
 또, C/C++ 소스인 경우에는 **clangd** 툴이 사용하는 **compile_commands.json** 파일이 있어야 한다.  
 만약에 LSP가 정상 동작하지 않는다면 `LspInfo` 명령으로 상태를 확인하고, `LspLog` 명령으로 LSP 서버 로그를 확인하면서 에러 내용을 대처하면 된다.  
