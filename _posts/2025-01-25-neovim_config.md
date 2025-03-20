@@ -522,6 +522,7 @@ Neovim은 LSP(Lanaugage Server Protocol)를 지원하는데, LazyVim은 LSP 플�
 - `Bash`: bash-language-server
 - `C/C++`: clangd
 - `CSS`: css-lsp
+- `Dockerfile`: dockerfile-language-server
 - `Go`: gopls
 - `Java`: jdtls
 - `JavaScript` / `TypeScript`: typescript-language-server
