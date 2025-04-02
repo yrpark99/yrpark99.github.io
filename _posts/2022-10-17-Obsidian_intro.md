@@ -1,5 +1,5 @@
 ---
-title: "노트 앱 Obsidian 소개"
+title: "노트 앱 Obsidian(옵시디언) 소개"
 category: 노트
 toc: true
 toc_label: "이 페이지 목차"
@@ -41,9 +41,16 @@ toc_label: "이 페이지 목차"
 Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store/apps/details?id=md.obsidian) 앱을 찾아서 설치하면 된다.
 
 ## Obsidian 플러그인
-Obsidian 커뮤니티 플러그인은 무료로 이용할 수 있다. 상당히 많은 플러그인들이 있는데, 일단 나는 아래 플러그인들을 설치해 보았다.
-- Obsidian Git
+Obsidian 커뮤니티 플러그인은 무료로 이용할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
 - Advanced Tables
+- Editing toolbar
+- Emoji shortcode
+- Obsidian Git
+- Open vault in VS Code
+- PlatnUML
+- Plugin update tracker
+- Recent file
+- Settings search
 
 ## 파일 저장 경로
 위에서 언급했듯이 Obsidian은 파일 시스템 base로 디렉토리와 md 파일로 구성된다.  
@@ -57,7 +64,7 @@ Obisidian에서 디렉토리와 노트를 생성하면 로컬 디렉토리에도
 여러 디바이스의 Obisidian에서 동일 저장소를 sync를 맞추어서 사용하려면 Obsidian 파일들을 클라우드에 저장한 후 sync 매커니즘을 이용하면 한다.  
 가장 간단하고 쉬운 방법은 [Obsidian Sync](https://help.obsidian.md/Obsidian+Sync/Introduction+to+Obsidian+Sync)를 사용하는 것인데, 이를 위해서는 유료로 Obsidian 계정을 만들어야 한다.  
 
-그래서 무료로 이용할 수 있는 방법을 찾아 보았고, 일단 아래와 같은 2가지 방법을 찾았다.
+그래서 무료로 이용할 수 있는 방법을 찾아 보았고, 일단 아래와 같은 방법들을 찾았다.
 ### 네트워크 드라이브를 이용한 방법  
 Google drive와 같이 desktop client 프로그램을 제공해서 클라이드 저장소를 로컬 드라이브처럼 탐색기 경로로 접근할 수 있으면 된다.  
 예를 들어, Google drive를 이용하려는 경우에는 [Google Drive desktop client](https://www.google.com/intl/en_in/drive/download/) 페이지에서 <mark style='background-color: #1a73e8'><font color=white>&nbsp;Download Drive for desktop&nbsp;</font></mark> 버튼을 눌러서 설치 파일을 다운로드한 후에 클라이언트 프로그램을 설치하면, Windows 탐색기에서 `Google Drive` 드라이브가 보인다. (디폴트로 **G** 드라이브에 연결되고 Windows 재시작시에도 자동으로 연결됨)
@@ -68,7 +75,10 @@ Google drive와 같이 desktop client 프로그램을 제공해서 클라이드 
 
 > 다만 이 방법은 다수의 컴퓨터끼리는 정상 동작하나, Android에서는 Google drive가 마운트 되지 않아서 Android Obsidian 앱에서는 이용할 수 없었다. (물론 Android에서도 로컬 저장소 경로는 잘 됨)
 
-Obisidian 노트가 클라우드에 있으므로, 변경 사항은 다른 디바이스에서도 자동으로 반영된다. 또, 원하면 노트 자체를 Git과 같은 SCM을 사용하여 운용할 수도 있다.
+Obisidian 노트가 클라우드에 있으므로, 변경 사항은 다른 디바이스에서도 자동으로 반영된다. 또, 원하면 노트 자체를 Git과 같은 SCM을 사용하여 운용할 수도 있다.  
+<br>
+
+OneDrive를 이용하는 경우에는 모바일에서 [OneDrive](https://play.google.com/store/apps/details?id=com.microsoft.skydrive&hl=ko) 앱을 설치하고, 동기화를 위해서는 [OneSync](https://play.google.com/store/apps/details?id=com.ttxapps.onesyncv2&hl=ko&pli=1) 앱을 이용하여 sync를 맞출 수 있다.
 
 ### Git 저장소를 이용한 방법
 이 방법은 노트의 수정 이력을 Git으로 관리할 수 있고 여러 디바이스와 Android 디바이스에서도 사용할 수 있어서, 현재 내가 사용하고 있는 방법이다.  
@@ -82,4 +92,8 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
 일단 잠깐 확인해 보니, 버전 1.0.0으로의 점프는 사실상 낚시인 것 같다. 기존 버전에 비해서 사실상 크게 바뀐 것은 없었다. 😓  
 아무래도 Git으로 Markdown을 관리하면서 노트를 작성하는 것이 여러 면에서 좋은데, 이를 위한 무료 솔루션으로 Obisidian도 괜찮을 것 같다.
 
-> 2025년 2월부터 회사에서도 무료로 사용할 수 있도록 라이선스 정책이 변경되었다. 🆗
+> 2025년 2월부터 회사에서도 무료로 사용할 수 있도록 라이선스 정책이 변경되었다. 👍
+
+> 2025년부터 AI 업계에서 MCP((Model Context Protocol)가 인기가 높은데, Obsidian 용으로는 아래 MCP 서버 프로그램들을 찾았다. 이제 AI에게 내 Obsidian 노트를 이용하게 할 수 있다. 🙌
+> - [MCP server for Obsidian](https://github.com/MarkusPfundstein/mcp-obsidian)
+> - [Obsidian Model Context Protocol](https://github.com/smithery-ai/mcp-obsidian)

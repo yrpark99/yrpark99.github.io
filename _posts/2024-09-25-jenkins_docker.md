@@ -162,8 +162,8 @@ Jenkins가 SVN checkout 한 소스를 Docker 컨테이너에서 그대로 사용
 ```sh
 -w /var/lib/jenkins/workspace/{아이템명} -v /var/lib/jenkins/workspace/{아이템명}:/var/lib/jenkins/workspace/{아이템명}:rw,z
 ```
-즉, 호스트에서 체크아웃 한 소스 **/var/lib/jenkins/workspace/{아이템명}/** 디렉토리를 Docker 컨테이너의 **/var/lib/jenkins/workspace/{아이템명}/** 디렉토리로 마운트하고, 해당 디렉토리를 working 디렉토리로 지정한다.  
-<br>
+즉, 호스트에서 체크아웃 한 소스 **/var/lib/jenkins/workspace/{아이템명}/** 디렉토리를 Docker 컨테이너의 **/var/lib/jenkins/workspace/{아이템명}/** 디렉토리로 마운트하고, 해당 디렉토리를 working 디렉토리로 지정한다.
 
+## Jenkins에서 아이템 빌드
 이제 Jenkins에서 해당 아이템을 빌드시키면 소스를 받은 후에, Docker 컨테이너가 생성되고, Docker 컨테이너 안에서 빌드가 수행됨을 확인할 수 있다. 또 빌드가 종료되면 자동으로 생성되었던 Docker 컨테이너는 삭제됨을 확인할 수 있다.  
 언급하였듯이 `reuseNode` 설정을 이용하여 Docker 컨테이너에서는 호스트의 jenkins 사용자로 checkout 받은 소스 디렉토리를 사용하므로, 빌드시에는 Docker 컨테이너가 생성되고 삭제되는 아주 짧은 시간의 오버헤드만 있고, 원하는대로 Docker 컨테이너에서 정상적으로 빌드가 되었다.
