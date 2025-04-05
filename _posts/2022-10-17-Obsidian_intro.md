@@ -1,5 +1,5 @@
 ---
-title: "노트 앱 Obsidian(옵시디언) 소개"
+title: "노트 앱 옵시디언 소개"
 category: 노트
 toc: true
 toc_label: "이 페이지 목차"
@@ -41,7 +41,7 @@ toc_label: "이 페이지 목차"
 Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store/apps/details?id=md.obsidian) 앱을 찾아서 설치하면 된다.
 
 ## Obsidian 플러그인
-Obsidian 커뮤니티 플러그인은 무료로 이용할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
+[Obsidian 커뮤니티 플러그인](https://obsidian.md/plugins) 페이지에서 무료로 설치할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
 - Advanced Tables
 - Editing toolbar
 - Emoji shortcode
@@ -50,7 +50,9 @@ Obsidian 커뮤니티 플러그인은 무료로 이용할 수 있다. 아래 플
 - PlatnUML
 - Plugin update tracker
 - Recent file
+- Recent Notes
 - Settings search
+- Style Settings
 
 ## 파일 저장 경로
 위에서 언급했듯이 Obsidian은 파일 시스템 base로 디렉토리와 md 파일로 구성된다.  
