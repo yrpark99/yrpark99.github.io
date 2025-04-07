@@ -7,7 +7,8 @@ toc_label: "이 페이지 목차"
 
 개인 지식 관리를 위한 노트 앱 중의 하나인 Obsidian(옵시디언)을 소개한다.  
 
-며칠 전에 노트 앱 Obisidian이 기존 0.15.9 버전에서 갑자기 1.0.0 버전으로 업그레이드 되어서, 간단히 사용해 보고 정리 및 소개글을 쓴다.
+며칠 전에 노트 앱 Obisidian이 기존 0.15.9 버전에서 갑자기 1.0.0 버전으로 업그레이드 되어서, 간단히 사용해 보고 정리 및 소개글을 쓴다.  
+> 참고: Obsidian의 장점이자 단점은 노트가 Markdown 문법을 사용한다는 것이다. 따라서 Markdown에 익숙하지 않은 사용자에게는 옵시디언은 적합하지 않다.
 
 ## 노트의 중요성
 아래 글들은 내가 좋아하는 노트의 중요성에 대한 글들이다.
@@ -38,25 +39,28 @@ toc_label: "이 페이지 목차"
 
 ## 설치
 [Obisidian 홈페이지](https://obsidian.md/) 또는 [Obisidian 릴리즈 페이지](https://github.com/obsidianmd/obsidian-releases/releases)에서 다운로드 받아서 설치하면 된다. Electron base로 알고 있는데, 실행 속도는 빠른 편이다.  
-Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store/apps/details?id=md.obsidian) 앱을 찾아서 설치하면 된다.
+Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store/apps/details?id=md.obsidian) 앱을 찾아서 설치하면 된다.  
+<br>
+
+도움말은 [Obsidian Help](https://help.obsidian.md/) 페이지를 참고한다.
 
 ## Obsidian 플러그인
 [Obsidian 커뮤니티 플러그인](https://obsidian.md/plugins) 페이지에서 무료로 설치할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
 - Advanced Tables
 - Editing toolbar
-- Emoji shortcode
+- Emoji shortcodes
 - Obsidian Git
 - Open vault in VS Code
-- PlatnUML
+- PlantUML
 - Plugin update tracker
-- Recent file
+- Recent files
 - Recent Notes
 - Settings search
 - Style Settings
 
 ## 파일 저장 경로
 위에서 언급했듯이 Obsidian은 파일 시스템 base로 디렉토리와 md 파일로 구성된다.  
-Windows의 경우에는 디폴트로 `%USERPROFILE%\Documents\` 디렉토리 밑에 구성되는데, Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 사용자가 원하는 다른 경로의 파일 저장고를 열 수 있다.  
+Windows의 경우에는 디폴트로 `%UserProfile%\Documents\` 디렉토리 밑에 구성되는데, Obisidian에서 좌측 하단의 `다른 저장고 열기` 버튼을 클릭하면 사용자가 원하는 다른 경로의 파일 저장고를 열 수 있다.  
 Obisidian에서 디렉토리와 노트를 생성하면 로컬 디렉토리에도 해당 디렉토리와 md 파일이 생성되고, 반대로 로컬 디렉토리에 디렉토리와 md 파일을 복사하면 Obisidian에도 반영되어 나타난다.
 
 > Obsidian은 파일 저장고를 workspace 개념으로 처리하며, 각각의 파일 저장고마다 설정을 따로 저장하는데, 이 위치는 파일 저장고의 최상위 디렉토리에서 **.obsidian** 디렉토리이다.  
@@ -67,6 +71,7 @@ Obisidian에서 디렉토리와 노트를 생성하면 로컬 디렉토리에도
 가장 간단하고 쉬운 방법은 [Obsidian Sync](https://help.obsidian.md/Obsidian+Sync/Introduction+to+Obsidian+Sync)를 사용하는 것인데, 이를 위해서는 유료로 Obsidian 계정을 만들어야 한다.  
 
 그래서 무료로 이용할 수 있는 방법을 찾아 보았고, 일단 아래와 같은 방법들을 찾았다.
+
 ### 네트워크 드라이브를 이용한 방법  
 Google drive와 같이 desktop client 프로그램을 제공해서 클라이드 저장소를 로컬 드라이브처럼 탐색기 경로로 접근할 수 있으면 된다.  
 예를 들어, Google drive를 이용하려는 경우에는 [Google Drive desktop client](https://www.google.com/intl/en_in/drive/download/) 페이지에서 <mark style='background-color: #1a73e8'><font color=white>&nbsp;Download Drive for desktop&nbsp;</font></mark> 버튼을 눌러서 설치 파일을 다운로드한 후에 클라이언트 프로그램을 설치하면, Windows 탐색기에서 `Google Drive` 드라이브가 보인다. (디폴트로 **G** 드라이브에 연결되고 Windows 재시작시에도 자동으로 연결됨)
@@ -80,15 +85,26 @@ Google drive와 같이 desktop client 프로그램을 제공해서 클라이드 
 Obisidian 노트가 클라우드에 있으므로, 변경 사항은 다른 디바이스에서도 자동으로 반영된다. 또, 원하면 노트 자체를 Git과 같은 SCM을 사용하여 운용할 수도 있다.  
 <br>
 
-OneDrive를 이용하는 경우에는 모바일에서 [OneDrive](https://play.google.com/store/apps/details?id=com.microsoft.skydrive&hl=ko) 앱을 설치하고, 동기화를 위해서는 [OneSync](https://play.google.com/store/apps/details?id=com.ttxapps.onesyncv2&hl=ko&pli=1) 앱을 이용하여 sync를 맞출 수 있다.
+**OneDrive**를 이용하는 경우에는 Windows와 Android 기기에서 각각 아래 앱을 설치한다.
+- Windows: [OneDrive](https://www.microsoft.com/ko-kr/microsoft-365/onedrive/download)
+- Android: [OneDrive](https://play.google.com/store/apps/details?id=com.microsoft.skydrive&hl=ko)
+
+그런데 Windows에서는 클라우드 파일을 쉽게 로컬 저장소에서도 접근할 수 있고 동기화도 자동으로 되지만, Android에서는 클라우드 파일을 로컬 저장소로 접근하는 것과 동기화가 쉽지 않다.  
+사용할 수 있는 방법은 [OneSync](https://play.google.com/store/apps/details?id=com.ttxapps.onesyncv2&hl=ko&pli=1)와 같은 앱을 이용하는 것인데, 이 앱은 클라우드 파일을 로컬 저장소에 저장하고 동기화를 하는 기능을 제공한다. 앱을 설치한 후에, 아래 예와 같이 설정하면 OneDrive 클라우드의 **Obisidian** 디렉토리를 내부 저장소의 **Obsidian** 경로로 다운받아서 접근할 수 있게 된다.  
+<img src="/assets/images/OneSync_setting.png" style="zoom:40%;">  
+<br>
+
+이제 **Obsidian** 앱에서는 다운로드 된 내부 저장소의 **Obsidian** 디렉토리를 선택하면 된다.  
+이후 OneSync 앱에서 `동기화` 버튼을 누를 때마다 내부 저장소와 클라우드 저장소의 동기화가 이루어진다.  
+Android 기기에서 Obsidian을 사용하기 전에 OneSync로 수동으로 동기화시켜야 하는 약간의 번거로움은 있지만, 무료로 여러 기기에서 Obsidian을 사용할 수 있는 현실적인 방법인 것 같다.
 
 ### Git 저장소를 이용한 방법
-이 방법은 노트의 수정 이력을 Git으로 관리할 수 있고 여러 디바이스와 Android 디바이스에서도 사용할 수 있어서, 현재 내가 사용하고 있는 방법이다.  
-방법은 본인의 GitHub에 Obisidian 노트를 위한 저장소를 생성한 후 (나의 경우 추후 노트에 개인 정보도 포함될 수 있을 것 같아서 `private`으로 생성했음), 사용할 여러 디바이스에서 이 Git 저장소를 clone 하고, Obisidian에서 `다른 저장고 열기` 버튼을 눌러서 이 경로를 선택하면 된다.  
+이 방법은 노트의 수정 이력을 Git으로 관리할 수 있고 여러 디바이스와 Android 디바이스에서도 사용할 수 있다.  
+본인의 GitHub와 같은 클라우드 저장소에 Obisidian 노트를 위한 저장소를 생성한 후 (개인 정보도 포함되는 경우에는 `private`으로 생성 필요), 사용할 여러 디바이스에서 이 Git 저장소를 clone 하고, Obisidian에서 `다른 저장고 열기` 버튼을 눌러서 이 경로를 선택하면 된다.  
 Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com.manichord.mgit&hl=en_US&gl=US)과 같은 Git 관련 앱을 이용하여 Android 로컬 디바이스에 Git 저장소를 clone 할 수 있고, [Obsidian](https://play.google.com/store/apps/details?id=md.obsidian) 앱에서 clone 한 경로를 저장고로 선택하면 된다.
 
 <br>
-이후 하나의 디바이스에서 변경을 하고 Git push 하면, 다른 디바이스에서는 Git pull을 하면 sync가 맞게 된다.
+이후 하나의 디바이스에서 노트를 수정하고 Git push 한 후에, 다른 디바이스에서는 Git pull을 하면 sync가 맞게 된다. (이 방법은 노트별로 히스토리가 관리된다는 이점은 있지만, Git push/pull을 해야 하는 번거로움이 있다)
 
 ## 맺음말
 일단 잠깐 확인해 보니, 버전 1.0.0으로의 점프는 사실상 낚시인 것 같다. 기존 버전에 비해서 사실상 크게 바뀐 것은 없었다. 😓  

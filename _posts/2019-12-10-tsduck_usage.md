@@ -1,6 +1,6 @@
 ---
 title: "TSDuck 소개 및 기본적인 사용법"
-category: MPEG
+category: [MPEG]
 toc: true
 toc_label: "이 페이지 목차"
 ---

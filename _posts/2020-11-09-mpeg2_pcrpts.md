@@ -20,7 +20,7 @@ MPEG-2 시스템에서 A/V 동기화를 위한 PCR, DTS, PTS 등을 간단히 �
 
 ## MPEG-2 시스템 다중화 및 동기화
 MPEG-2 시스템은 아래 그림과 같이 다중화 및 역다중화되고, STC/PCR/DTS/PTS를 사용하여 encoder와 decoder에서 A/V의 동기를 맞춘다.  
-![](/assets/images/mpeg2_encoder_decoder.svg)
+<img src="/assets/images/mpeg2_encoder_decoder.svg" style="zoom:110%;">
 
 > 참고로 위에서는 편의상 하나의 프로그램인 경우로 표시하였지만, 실제로 TS에는 여러 개의 프로그램이 포함될 수 있다.
 
