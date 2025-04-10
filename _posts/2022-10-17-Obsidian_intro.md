@@ -47,8 +47,10 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 ## Obsidian 플러그인
 [Obsidian 커뮤니티 플러그인](https://obsidian.md/plugins) 페이지에서 무료로 설치할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
 - Advanced Tables
+- Automatic List Styles
 - Editing toolbar
 - Emoji shortcodes
+- Local REST API
 - Obsidian Git
 - Open vault in VS Code
 - PlantUML
@@ -105,24 +107,45 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
 <br>
 이후 하나의 디바이스에서 노트를 수정하고 Git push 한 후에, 다른 디바이스에서는 Git pull을 하면 sync가 맞게 된다. (이 방법은 노트별로 히스토리가 관리된다는 이점은 있지만, Git push/pull을 해야 하는 번거로움이 있다)
 
+## MCP 서버
+2025년부터 AI 업계에서 MCP((Model Context Protocol)의 인기가 높은데, 다음과 같은 Obsidian MCP 서버를 사용하면 AI에게 내 Obsidian 노트를 이용하게 할 수 있다.
+- [MCP server for Obsidian](https://github.com/MarkusPfundstein/mcp-obsidian)  
+  먼저 "Local REST API" 커뮤니티 플러그인을 설치한 후에, Obsidian 메뉴 -> "Local REST API"에서 API key를 얻는다. 이후 MCP 서버 설정 파일에 아래 예와 같이 추가한다. (본인의 Local REST API key로 수정 필요)
+  ```json
+  {
+    "mcpServers": {
+      "mcp-obsidian": {
+        "command": "uvx",
+        "args": [
+          "mcp-obsidian"
+        ],
+        "env": {
+          "OBSIDIAN_API_KEY": "내_API_key"
+        }
+      }
+    }
+  }
+  ```
+  단, 이 MCP 서버가 정상적으로 동작하려면 Obsidian이 실행 상태에 있어야 한다.
+- [Obsidian Model Context Protocol](https://github.com/smithery-ai/mcp-obsidian)  
+  MCP 서버 설정 파일에 아래 예와 같이 추가한다. (본인의 Obsidian 경로에 맞게 수정 필요)
+  ```json
+  {
+    "mcpServers": {
+      "mcp-obsidian": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "mcp-obsidian",
+          "내 Obsidian 경로"
+        ]
+      }
+    }
+  }
+  ```
+
 ## 맺음말
 일단 잠깐 확인해 보니, 버전 1.0.0으로의 점프는 사실상 낚시인 것 같다. 기존 버전에 비해서 사실상 크게 바뀐 것은 없었다. 😓  
 S/W 개발자들은 Markdown으로 노트를 작성하는 것이 더 편리한 경우가 많은데, 이를 위한 무료 솔루션으로 Obisidian도 괜찮을 것 같다.
 
 > 2025년 2월부터 회사에서도 무료로 사용할 수 있도록 라이선스 정책이 변경되었다. 👍
-
-> 2025년부터 AI 업계에서 MCP((Model Context Protocol)의 인기가 높은데, Obsidian 용으로 [Obsidian Model Context Protocol](https://github.com/smithery-ai/mcp-obsidian) MCP 서버를 사용할 수 있다. 예를 들어 MCP 서버 설정 파일에 아래 예와 같이 추가하면, AI에게 내 Obsidian 노트를 이용하게 할 수 있다.
-> ```json
-> {
->   "mcpServers": {
->     "mcp-obsidian": {
->       "command": "npx",
->       "args": [
->         "-y",
->         "mcp-obsidian",
->         "D:\\OneDrive\\Obsidian"
->       ]
->     }
->   }
-> }
-> ```

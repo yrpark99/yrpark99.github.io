@@ -53,6 +53,7 @@ interface IMyRemoteService {
     int getRandomNumber();
     boolean registerCallback(IMyRemoteServiceCallback callback);
     boolean unregisterCallback(IMyRemoteServiceCallback callback);
+}
 ```
 
 또, **apps/MyServiceServer/app/src/main/aidl/com/my/myserviceserver/IMyRemoteServiceCallback.aidl** 파일을 아래와 같이 작성하였다.

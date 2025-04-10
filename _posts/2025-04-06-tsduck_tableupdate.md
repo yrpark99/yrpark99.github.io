@@ -101,7 +101,7 @@ TSDuck 툴에서 제공하는 입력 TS 파일의 DVB SI 테이블(PMT/SDT/BAT/E
    $ tsp -I file {입력 TS 파일} -P inject --pid 0x11 --replace {XML 파일} -O file {출력 TS 파일}
    ```
 
-## EIT에 EPG 추가 예
+## EIT 수정
 1. 입력 TS 파일의 EIT 정보를 XML 파일로 추출한다.
    ```sh
    $ tsp -I file {입력 TS 파일} -P tables --pid 0x12 --xml {XML 파일} -O drop
