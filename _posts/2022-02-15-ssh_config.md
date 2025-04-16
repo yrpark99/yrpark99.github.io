@@ -18,21 +18,21 @@ toc_label: "이 페이지 목차"
    ```
 
 ## SSH 접속
-1. 클라이언트에서 아래와 같이 원하는 유저로 로그인 할 수 있다. (아래 예는 user ID는 **user_id**, 서버 주소는 **host_addr**로 간주하였음)
+1. 클라이언트에서 아래와 같이 원하는 유저로 로그인 할 수 있다. (아래에서 **{user_id}**, **{host_addr}** 부분은 해당 SSH 서버 상황에 맞게 바꾸어야 함)
    ```shell
-   $ ssh user_id@host_addr
+   $ ssh {user_id}@{host_addr}
    ```
    또는 user ID를 아래와 같이 `-l` 옵션으로 지정해도 된다.
    ```shell
-   $ ssh host_addr -l user_id
+   $ ssh {host_addr} -l {user_id}
    ```
    > 물론 만약 현재 클라이언트의 user ID와 동일한 ID로 SSH 서버에 접속하는 경우에는 아래와 같이 user ID 정보를 생략해도 된다.
    ```shell
-   $ ssh host_addr
+   $ ssh {host_addr}
    ```
 1. 참고로 단순히 특정 명령만 실행하길 원하는 경우에는 간단히 아래와 같이 할 수 있다.
    ```shell
-   $ ssh user_id@host_addr "명령어"
+   $ ssh {user_id}@{host_addr} "명령어"
    ```
 
 ## 암호 입력의 번거움
@@ -49,9 +49,9 @@ toc_label: "이 페이지 목차"
    ```shell
    $ ssh-keygen -C "원하는내용"
    ```
-1. 생성된 공개키를 <font color=blue>ssh-copy-id</font> 명령을 이용하여 접속할 서버로 전송한다. (아래 예는 user ID는 **user_id**, 서버 주소는 **host_addr**로 간주하였음)
+1. 생성된 공개키를 <font color=blue>ssh-copy-id</font> 명령을 이용하여 접속할 서버로 전송한다. (아래에서 **{user_id}**, **{host_addr}** 부분은 해당 SSH 서버 상황에 맞게 바꾸어야 함)
    ```shell
-   $ ssh-copy-id user_id@host_addr
+   $ ssh-copy-id {user_id}@{host_addr}
    ```
    마찬가지로 만약 현재 클라이언트의 user ID와 SSH 서버의 ID가 동일한 경우에는 user ID 정보를 생략해도 된다.  
    결과로 SSH 서버의 `~/.ssh/authorized_keys` 파일에 클라이언트의 공개키가 추가된다.
@@ -89,35 +89,35 @@ toc_label: "이 페이지 목차"
    ```shell
    C:\>ssh-keygen -t rsa
    ```
-   디폴트로 `%USERPROFILE%\.ssh\` 경로에 key가 저장되는데 이 경로를 그대로 사용하고, 암호는 입력하지 않는 것이 편리하다.  
+   디폴트로 `%UserProfile%\.ssh\` 경로에 key가 저장되는데 이 경로를 그대로 사용하고, 암호는 입력하지 않는 것이 편리하다.  
    결과로 key 저장 경로에 `id_rsa`(개인키), `id_rsa.pub`(공개키) 2개 파일이 생성된다.
-1. 아래 예와 같이 실행하면 생성한 공개키 내용이 SSH 서버의 **~/.ssh/authorized_keys** 파일에 추가된다. (아래에서 **user_id@host_addr** 부분은 해당 SSH 서버 상황에 맞게 바꾸어야 함)
+1. 아래 예와 같이 실행하면 생성한 공개키 내용이 SSH 서버의 **~/.ssh/authorized_keys** 파일에 추가된다. (아래에서 **{user_id}**, **{host_addr}** 부분은 해당 SSH 서버 상황에 맞게 바꾸어야 함)
    ```shell
-   C:\>type %USERPROFILE%\.ssh\id_rsa.pub | ssh user_id@host_addr "cat >> .ssh/authorized_keys"
+   C:\>type %UserProfile%\.ssh\id_rsa.pub | ssh {user_id}@{host_addr} "cat >> .ssh/authorized_keys"
    ```
-   또는 수동으로 **%USERPROFILE%\.ssh\id_rsa.pub** 파일의 내용을 SSH 서버의 **~/.ssh/authorized_keys** 파일에 추가해도 된다.
+   또는 수동으로 **%UserProfile%\.ssh\id_rsa.pub** 파일의 내용을 SSH 서버의 **~/.ssh/authorized_keys** 파일에 추가해도 된다.
 1. 이후부터는 아래와 같이 SSH 서버에 접속해 보면 암호 입력없이 로그인이 된다. (`scp` 명령도 마찬가지)
    ```shell
-   C:\>ssh host_addr
-   C:\>ssh user_id@host_addr
-   C:\>ssh host_addr -l user_id
+   C:\>ssh {host_addr}
+   C:\>ssh {user_id}@{host_addr}
+   C:\>ssh {host_addr} -l {user_id}
    ```
 
 ## SSH 서버마다 다른 SSH key 지정하기
 1. 만약에 특정 서버에 특정 SSH 키를 사용하여 접속하려면 아래 예와 같이 `-i` 옵션으로 key 경로를 명시하면 된다.
    ```shell
-   $ ssh -i key_경로 user_id@host_addr
+   $ ssh -i key_경로 {user_id}@{host_addr}
    ```
 1. 또는 `~/.ssh/config` 파일에 아래 예와 같이 세팅하면 된다. (아래 예에서는 `~/.ssh/` 디렉토리 밑에 호스트별로 디렉토리를 나누어서 키를 저장했음)
    ```scala
    Host third_party_server
        HostName third_party_ssh_addr
-       User user_id
+       User {user_id}
        IdentityFile ~/.ssh/third_party/id_rsa
 
    Host project_server
        HostName project_ssh_server_addr
-       User user_id
+       User {user_id}
        IdentityFile ~/.ssh/project_server/id_rsa
    ```
    위와 같이 세팅한 후에는 위에서 세팅한 **Host** 이름으로 SSH 접속을 하면 지정된 user ID와 키를 사용하게 접속하게 된다. 위에서 지정되지 않은 나머지 서버들은 디폴트 SSH 키를 이용하여 접속한다.  
@@ -157,7 +157,7 @@ toc_label: "이 페이지 목차"
    ```
    또, 아래 예와 같이 SSH 접속을 해 봐도 역시 정상적으로 동작한다.
    ```shell
-   $ ssh local.company.com -l user_id
+   $ ssh local.company.com -l {user_id}
    ```
 
 ## Old SSH 버전의 서버 접속 이슈

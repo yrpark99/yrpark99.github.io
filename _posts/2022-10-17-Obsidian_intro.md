@@ -50,6 +50,8 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 - Automatic List Styles
 - Editing toolbar
 - Emoji shortcodes
+- Excalidraw
+- Image Converter
 - Local REST API
 - Obsidian Git
 - Open vault in VS Code
