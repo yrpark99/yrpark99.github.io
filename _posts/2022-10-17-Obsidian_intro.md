@@ -48,6 +48,7 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 [Obsidian 커뮤니티 플러그인](https://obsidian.md/plugins) 페이지에서 무료로 설치할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
 - Advanced Tables
 - Automatic List Styles
+- Diagrams.net
 - Editing toolbar
 - Emoji shortcodes
 - Excalidraw
@@ -57,7 +58,6 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 - Open vault in VS Code
 - PlantUML
 - Plugin update tracker
-- Recent files
 - Recent Notes
 - Settings search
 - Style Settings
