@@ -138,7 +138,7 @@ $ emulator -shell
    ```
 1. vendor/my/echo/1.0/IEcho.hal 파일을 아래 내용과 같이 생성한다.
    ```cpp
-   package my.hardware.echo@1.0;
+   package vendor.my.echo@1.0;
 
    interface IEcho {
        echo(string word) generates (string echo_word);
@@ -147,8 +147,8 @@ $ emulator -shell
 1. 아래와 같이 `hidl-gen`을 실행한다.
    ```shell
    $ LOC=vendor/my/echo/1.0/default
-   $ PACKAGE=my.hardware.echo@1.0
-   $ hidl-gen -o $LOC -L c++-impl -r my.hardware:vendor/my/ -r android.hidl:system/libhidl/transport $PACKAGE
+   $ PACKAGE=vendor.my.echo@1.0
+   $ hidl-gen -o $LOC -L c++-impl -r vendor.my.echo:vendor/my/echo/ -r android.hidl:system/libhidl/transport $PACKAGE
    ```
    결과로 다음 파일들이 생성된다.
    - vendor/my/echo/1.0/default/Echo.h
@@ -157,11 +157,11 @@ $ emulator -shell
    ```cpp
    #pragma once
 
-   #include <my/hardware/echo/1.0/IEcho.h>
+   #include <vendor/my/echo/1.0/IEcho.h>
    #include <hidl/MQDescriptor.h>
    #include <hidl/Status.h>
 
-   namespace my::hardware::echo::V1_0::implementation {
+   namespace vendor::my::echo::implementation {
 
    using ::android::hardware::hidl_array;
    using ::android::hardware::hidl_memory;
@@ -171,25 +171,25 @@ $ emulator -shell
    using ::android::hardware::Void;
    using ::android::sp;
 
-   struct Echo : public IEcho {
-       // Methods from ::my::hardware::echo::V1_0::IEcho follow.
+   struct Echo : public V1_0::IEcho {
+       // Methods from ::vendor::my::echo::V1_0::IEcho follow.
        Return<void> echo(const hidl_string& word, echo_cb _hidl_cb) override;
 
        // Methods from ::android::hidl::base::V1_0::IBase follow.
    };
 
    // FIXME: most likely delete, this is only for passthrough implementations
-   extern "C" IEcho* HIDL_FETCH_IEcho(const char* name);
+   extern "C" V1_0::IEcho* HIDL_FETCH_IEcho(const char* name);
 
-   }  // namespace my::hardware::echo::V1_0::implementation
+   }  // namespace vendor::my::echo::implementation
    ```
 1. vendor/my/echo/1.0/default/Echo.cpp 파일을 아래와 같이 수정한다.
    ```cpp
    #include "Echo.h"
 
-   namespace my::hardware::echo::V1_0::implementation {
+   namespace vendor::my::echo::implementation {
 
-   // Methods from ::my::hardware::echo::V1_0::IEcho follow.
+   // Methods from ::vendor::my::echo::V1_0::IEcho follow.
    Return<void> Echo::echo(const hidl_string& word, echo_cb _hidl_cb) {
        // Reply back what you get
        _hidl_cb(word);
@@ -199,26 +199,26 @@ $ emulator -shell
 
    // Methods from ::android::hidl::base::V1_0::IBase follow.
 
-   IEcho* HIDL_FETCH_IEcho(const char* /* name */) {
+   V1_0::IEcho* HIDL_FETCH_IEcho(const char* /* name */) {
        return new Echo();
    }
 
-   }  // namespace my::hardware::echo::V1_0::implementation
+   }  // namespace vendor::my::echo::implementation
    ```
 1. 아래와 같이 실행한다.
    ```shell
-   $ hidl-gen -o $LOC -L androidbp-impl -r my.hardware:vendor/my/ -r android.hidl:system/libhidl/transport $PACKAGE
+   $ hidl-gen -o $LOC -L androidbp-impl -r vendor.my.echo:vendor/my/echo/ -r android.hidl:system/libhidl/transport $PACKAGE
    ```
    결과로 vendor/my/echo/1.0/default/Android.bp 파일이 생성된다.
 1. 아래와 같이 실행한다.
    ```shell
    $ source system/tools/hidl/update-makefiles-helper.sh
-   $ do_makefiles_update my.hardware:vendor/my/ "android.hidl:system/libhidl/transport"
+   $ do_makefiles_update vendor.my.echo:vendor/my/echo/ "android.hidl:system/libhidl/transport"
    ```
    결과로 vendor/my/echo/1.0/Android.bp 파일이 생성된다.
-1. vendor/my/echo/1.0/default/my.hardware.echo@1.0-service.rc 파일을 아래와 같이 작성한다. (즉, /vendor/bin/hw/my.hardware.echo@1.0-service 파일을 HAL 서비스로 실행시킴)
+1. vendor/my/echo/1.0/default/vendor.my.echo@1.0-service.rc 파일을 아래와 같이 작성한다. (즉, /vendor/bin/hw/vendor.my.echo@1.0-service 파일을 HAL 서비스로 실행시킴)
    ```yaml
-   service echo_hal_service /vendor/bin/hw/my.hardware.echo@1.0-service
+   service echo_hal_service /vendor/bin/hw/vendor.my.echo@1.0-service
        class hal
        user root
        group root
@@ -226,11 +226,11 @@ $ emulator -shell
    ```
 1. vendor/my/echo/1.0/default/service.cpp 파일을 아래와 같이 작성한다.
    ```cpp
-   #define LOG_TAG "my.hardware.echo@1.0-service"
-   #include <my/hardware/echo/1.0/IEcho.h>
+   #define LOG_TAG "vendor.my.echo@1.0-service"
+   #include <vendor/my/echo/1.0/IEcho.h>
    #include <hidl/LegacySupport.h>
 
-   using my::hardware::echo::V1_0::IEcho;
+   using vendor::my::echo::V1_0::IEcho;
    using android::hardware::defaultPassthroughServiceImplementation;
 
    int main() {
@@ -241,16 +241,16 @@ $ emulator -shell
 1. vendor/my/echo/1.0/default/Android.bp 파일에 아래 내용을 추가한다. (서비스 실행 파일 빌드)
    ```yaml
    cc_binary {
-       name: "my.hardware.echo@1.0-service",
+       name: "vendor.my.echo@1.0-service",
        defaults: ["hidl_defaults"],
        proprietary: true,
        relative_install_path: "hw",
-       init_rc: ["my.hardware.echo@1.0-service.rc"],
-       vintf_fragments: ["manifest_my.hardware.echo@1.0-service.xml"],
+       init_rc: ["vendor.my.echo@1.0-service.rc"],
+       vintf_fragments: ["manifest_vendor.my.echo@1.0-service.xml"],
        srcs: ["service.cpp"],
 
        shared_libs: [
-           "my.hardware.echo@1.0",
+           "vendor.my.echo@1.0",
            "libhidlbase",
            "libhidltransport",
            "liblog",
@@ -264,14 +264,14 @@ $ emulator -shell
    참고로 위에서 `init_rc` 항목으로 설정한 파일은 빌드시 vendor/etc/init/ 디렉토리 밑에 복사된다. (Android.mk 파일에서는 `LOCAL_INIT_RC` 항목에 해당함)  
    빌드 후에, 아래와 같이 확인할 수 있다.
    ```sh
-   $ ls $OUT/vendor/etc/init/my.hardware.echo@1.0-service.rc
+   $ ls $OUT/vendor/etc/init/vendor.my.echo@1.0-service.rc
    ```
    또, 위에서 `vintf_fragments` 항목은 (Android.mk 파일에서는 `LOCAL_VINTF_FRAGMENTS` 항목에 해당), 해당 서비스의 manifest를 나타낸다. (여기에서 VINTF는 Vendor Interface를 나타냄)
-1. vendor/my/echo/1.0/default/manifest_my.hardware.echo@1.0-service.xml 파일을 아래와 같이 작성한다.
+1. vendor/my/echo/1.0/default/manifest_vendor.my.echo@1.0-service.xml 파일을 아래와 같이 작성한다.
    ```xml
    <manifest version="1.0" type="device">
        <hal format="hidl">
-           <name>my.hardware.echo</name>
+           <name>vendor.my.echo</name>
            <transport>hwbinder</transport>
            <version>1.0</version>
            <interface>
@@ -281,12 +281,12 @@ $ emulator -shell
        </hal>
    </manifest>
    ```
-   > 위와 같이 manifest 파일에 추가하지 않으면 디폴트로 Android SELinux에 의해, service가 실행되고 registerAsService() 호출시에 "HidlServiceManagement: Service my.hardware.echo@1.0::IEcho/default must be in VINTF manifest in order to register/get"과 같은 에러 메시지가 출력되면서 서비스가 등록되지 않게 된다.
+   > 위와 같이 manifest 파일에 추가하지 않으면 디폴트로 Android SELinux에 의해, service가 실행되고 registerAsService() 호출시에 "HidlServiceManagement: Service vendor.my.echo@1.0::IEcho/default must be in VINTF manifest in order to register/get"과 같은 에러 메시지가 출력되면서 서비스가 등록되지 않게 된다.
 1. vendor/my/Android.bp 파일을 아래와 같이 작성한다.
    ```yaml
    hidl_package_root {
-       name: "my.hardware",
-       path: "vendor/my",
+       name: "vendor.my.echo",
+       path: "vendor/my/echo",
    }
    optional_subdirs = [
        "echo/1.0",
@@ -299,7 +299,7 @@ $ emulator -shell
    ```
    만약에 SELinux에 허용을 추가해 주지 않으면 서비스 실행시 아래와 같은 <font color=red>denied</font> 에러가 발생하면서 해당 서비스가 실행되지 않는다.
    ```
-   avc: denied { execute } for comm="init" name="my.hardware.echo@1.0-service" dev="dm-3" ino=121 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=0
+   avc: denied { execute } for comm="init" name="vendor.my.echo@1.0-service" dev="dm-3" ino=121 scontext=u:r:init:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=0
    ```
    만약에 서비스가 SELinux 권한 문제로 실행이 되지 않으면 `dmesg` 명령으로 **avc: denied** 메시지를 찾아서, [SELinux](https://source.android.com/docs/security/features/selinux?hl=ko) 페이지를 참조하여 TE 파일에서 추가로 필요한 권한을 허용해 주어야 한다.
    > 참고로 편의상 에뮬레이터에서 SEPolicy를 permissive 모드로 세팅하면 SELinux에 허용 규칙을 추가하지 않아도 되므로 편리하게 테스트할 수 있는데, 이를 위해서는 에뮬레이터 실행시 아래와 같이 `-selinux permissive` 아규먼트를 추가하면 된다.
@@ -308,7 +308,7 @@ $ emulator -shell
    > ```
 1. 서비스 테스트를 위해 vendor/my/echo/1.0/test/echoTest.cpp 파일을 아래와 같이 작성한다. (입력된 아규먼트를 그대로 출력하는 테스트 코드)
    ```cpp
-   #include <my/hardware/echo/1.0/IEcho.h>
+   #include <vendor/my/echo/1.0/IEcho.h>
    #include <hidl/Status.h>
    #include <hidl/LegacySupport.h>
    #include <utils/misc.h>
@@ -317,7 +317,7 @@ $ emulator -shell
    #include <cstdlib>
    #include <string>
 
-   using my::hardware::echo::V1_0::IEcho;
+   using vendor::my::echo::V1_0::IEcho;
    using android::hardware::hidl_string;
    using ::android::sp;
 
@@ -352,7 +352,7 @@ $ emulator -shell
    }
    ```
 
-   또, vendor/my/echo/1.0/test/Android.bp 파일을 아래와 같이 작성한다. (즉, 테스트 프로그램인 /vendor/bin/hw/echo_client를 빌드하기 위하여 echoTest.cpp를 사용함)
+   또, vendor/my/echo/1.0/test/Android.bp 파일을 아래와 같이 작성한다. (즉, 테스트 프로그램인 /vendor/bin/hw/echo_client를 빌드하기 위하여 echoTest.cpp를 사용하고, 동적 라이브러리로 `"vendor.my.echo@1.0"` 등을 사용함)
    ```yaml
    cc_binary {
        relative_install_path: "hw",
@@ -367,7 +367,7 @@ $ emulator -shell
            "libhidlbase",
            "libhidltransport",
            "libutils",
-           "my.hardware.echo@1.0",
+           "vendor.my.echo@1.0",
        ],
    }
    ```
@@ -376,24 +376,37 @@ $ emulator -shell
    $ mmm vendor/my/
    $ m
    ```
-   결과로 아래와 같이 테스트 실행 파일이 빌드된다.
+   > 높은 Android 버전(예: Android 14)에서 빌드하는 경우
+   > "The following HALs in device manifest are not declared in FCM <= level 8:"와 같은 에러가 발생하는데, 이때는 hardware/interfaces/compatibility_matrices/compatibility_matrix.8.xml 파일에서 아래 내용을 추가하면 된다.
+   > ```xml
+   > <hal format="hidl" optional="true">
+   >     <name>vendor.my.echo</name>
+   >     <version>1.0</version>
+   >     <interface>
+   >         <name>IEcho</name>
+   >         <instance>default</instance>
+   >     </interface>
+   > </hal>
+   > ```
+
+   빌드가 성공하면 결과로 아래와 같이 테스트 실행 파일이 빌드된다.
    ```shell
    $ ls $OUT/vendor/bin/hw/echo_client
    ```
    또, 아래와 같이 라이브러리가 빌드되었음을 확인할 수 있다.
    ```shell
    $ ls $OUT/vendor/lib64/*echo*
-   my.hardware.echo@1.0-adapter-helper.so
-   my.hardware.echo@1.0.so
+   vendor.my.echo@1.0-adapter-helper.so
+   vendor.my.echo@1.0.so
 
    $ ls $OUT/vendor/lib64/hw/*echo*
-   my.hardware.echo@1.0-impl.so
+   vendor.my.echo@1.0-impl.so
    ```
 1. 추가로 전체 빌드에 포함시켜서 `m` 빌드시 자동으로 빌드되게 하려면, device/generic/goldfish/vendor.mk 파일에 아래 내용을 추가하면 된다.
    ```makefile
    PRODUCT_PACKAGES += \
-       my.hardware.echo@1.0-impl \
-       my.hardware.echo@1.0-service \
+       vendor.my.echo@1.0-impl \
+       vendor.my.echo@1.0-service \
    ```
 1. 빌드가 성공적으로 끝났으면, 이제 테스트를 위해 안드로이드 에뮬레이터를 실행한다.
    ```shell
@@ -410,14 +423,14 @@ $ emulator -shell
 1. 이후 ADB shell에서 아래와 같이 해당 서비스가 실행 중인지 확인할 수 있다.
    ```shell
    $ lshal | grep echo
-   DM    N my.hardware.echo@1.0::IEcho/default                            0/1        400    173
-   X     ? my.hardware.echo@1.0::IEcho/default                            N/A        400    400
-   X     ? my.hardware.echo@1.0::I*/* (/vendor/lib/hw/)                   N/A        N/A
-   X     ? my.hardware.echo@1.0::I*/* (/vendor/lib64/hw/)                 N/A        N/A    400
+   DM    N vendor.my.echo@1.0::IEcho/default                            0/1        400    173
+   X     ? vendor.my.echo@1.0::IEcho/default                            N/A        400    400
+   X     ? vendor.my.echo@1.0::I*/* (/vendor/lib/hw/)                   N/A        N/A
+   X     ? vendor.my.echo@1.0::I*/* (/vendor/lib64/hw/)                 N/A        N/A    400
    $ ls /vendor/lib/hw/ | grep echo
-   my.hardware.echo@1.0-impl.so
+   vendor.my.echo@1.0-impl.so
    $ ps -A | grep echo
-   root           400     1 10906332  5156 binder_wait_for_work 0 S my.hardware.echo@1.0-service
+   root           400     1 10906332  5156 binder_wait_for_work 0 S vendor.my.echo@1.0-service
    ```
    이제 echo_client 테스트 프로그램으로 아래 예와 같이 테스트를 해 보면, 기대대로 정상 동작함을 확인할 수 있다.
    ```shell

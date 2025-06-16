@@ -46,21 +46,24 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 
 ## Obsidian 플러그인
 [Obsidian 커뮤니티 플러그인](https://obsidian.md/plugins) 페이지에서 무료로 설치할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
-- Advanced Tables
-- Automatic List Styles
-- Diagrams.net
-- Editing toolbar
-- Emoji shortcodes
-- Excalidraw
-- Image Converter
-- Local REST API
-- Obsidian Git
-- Open vault in VS Code
-- PlantUML
-- Plugin update tracker
-- Recent Notes
-- Settings search
-- Style Settings
+- Advanced Tables: 표 조작
+- Automatic List Styles: ordered list 스타일 변경
+- Diagrams.net: Draw.io 삽입
+- Editing toolbar: 마크다운 에디팅 툴바
+- Emoji Toolbar: 이모지
+- Excalidraw: [Excalidraw](https://excalidraw.com/) 지원
+- Excel to Markdown Table: 엑셀 표를 마크다운 표로 변환
+- Git: Git 연동
+- Github Copilot: Github Copilot AI 지원
+- Image Converter: 이미지 포변 변경, 크기 조정, align 등 지원
+- Importer: OneNote, Notion 등의 문서를 Obsidion으로 import
+- Local REST API: REST API 지원
+- Open vault in VS Code: VS Code로 열기 지원
+- PlantUML: PlantUML 렌더링 지원
+- Plugin update tracker: 설치된 플러그인의 업데이트 알림
+- Recent Notes: 최근 노트 목록
+- Settings search: 설정 메뉴에서 검색 지원
+- Smart Composer: 다양한 AI 지원
 
 ## 파일 저장 경로
 위에서 언급했듯이 Obsidian은 파일 시스템 base로 디렉토리와 md 파일로 구성된다.  

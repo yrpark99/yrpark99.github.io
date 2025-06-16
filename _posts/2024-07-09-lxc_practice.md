@@ -59,6 +59,61 @@ Linux namespace는 주요 시스템 공간을 격리하여 할당할 수 있게 
    ```
    즉, PID 격리된 환경에서 전체 프로세스를 확인해 보면 bash 프로세스가 PID 1로 할당되어 있음을 볼 수 있고, 호스트 환경에서의 ps 결과와 전혀 다름을 확인할 수 있다.
 
+## Go로 초간단 컨테이너 만들기
+1. 사용하는 호스트의 rootfs 이미지를 다운받아서 ~/rootfs/ 경로에 푼다. (예: [ubuntu-base-18.04.5-base-amd64.tar.gz](http://cdimage.ubuntu.com/cdimage/ubuntu-base/releases//18.04/release/ubuntu-base-18.04.5-base-amd64.tar.gz))
+1. 아래와 같이 main.go 파일을 작성한다. (chroot와 procfs mount를 함)
+   ```go
+   package main
+
+   import (
+       "fmt"
+       "os"
+       "os/exec"
+       "syscall"
+   )
+
+   func main() {
+       switch os.Args[1] {
+       case "run":
+           run()
+       case "child":
+           child()
+       default:
+           panic("Wrong " + os.Args[1])
+       }
+   }
+
+   func run() {
+       cmd := exec.Command("/proc/self/exe", append([]string{"child"}, os.Args[2:]...)...)
+       cmd.Stdin = os.Stdin
+       cmd.Stdout = os.Stdout
+       cmd.Stderr = os.Stderr
+       cmd.SysProcAttr = &syscall.SysProcAttr{
+           Cloneflags: syscall.CLONE_NEWUTS | syscall.CLONE_NEWPID,
+       }
+       cmd.Run()
+   }
+
+   func child() {
+       fmt.Printf("running %v as PID=%d\n", os.Args[2:], os.Getpid())
+       cmd := exec.Command(os.Args[2], os.Args[3:]...)
+       cmd.Stdin = os.Stdin
+       cmd.Stdout = os.Stdout
+       cmd.Stderr = os.Stderr
+       syscall.Chroot("/home/yrpark99/rootfs")
+       os.Chdir("/")
+       syscall.Mount("proc", "proc", "proc", 0, "")
+       cmd.Run()
+   }
+   ```
+1. 아래와 같이 실행할 수 있다.
+   ```sh
+   $ sudo go run main.go run /bin/bash
+   ```
+
+   > 위 소스에서 `syscall.CLONE_NEWUTS` 속성을 주었으므로 컨테이너에서 host name을 변경해도, 컨테이너를 빠져 나오면 다시 원래대로 복구됨을 확인할 수 있다.  
+   위와 같이 rootfs로 chroot 하면 컨테이너 자체의 proc을 가지게 된다. 또 위와 같이 procfs를 마운트해야 ps 명령 등이 동작하게 된다.
+
 ## 우분투에서 LXC 실습
 1. 우분투에서는 아래와 같이 LXC 패키지를 설치할 수 있다.
    ```sh
