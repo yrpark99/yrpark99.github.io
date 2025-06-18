@@ -96,6 +96,11 @@ for add_work_log in add_work_logs:
         print("\n작업 기록 시간이 0이므로 추가하지 않음")
         continue
 
+    # 추가할 작업 기록 설명이 비어있으면 추가하지 않는다.
+    if add_work_log_comment == "":
+        print("\n작업 기록 설명이 비어있으므로 추가하지 않음")
+        continue
+
     # 해당 Jira 이슈의 전체 작업 기록 정보를 얻는다.
     total_work_logs = jira_auth.worklogs(issue=issue_id)
 
