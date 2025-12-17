@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
 - 랜덤 버튼 클릭시마다 서비스가 제공하는 랜덤 넘버를 얻어서 화면에 표시한다.
 
 ## 실행 및 결과
-MyServiceClient 앱을 실행시키거나 콘솔로 아래와 같이 실행시켠 된다. (사전에 MyServiceServer 앱을 실행시키지 않아도 됨)
+MyServiceClient 앱을 실행시키거나 콘솔로 아래와 같이 실행시키면 된다. (사전에 MyServiceServer 앱을 실행시키지 않아도 됨)
 ```sh
 $ am start -n com.my.myserviceclient/.MainActivity
 ```

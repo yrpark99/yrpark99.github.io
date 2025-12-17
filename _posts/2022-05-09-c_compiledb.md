@@ -130,7 +130,7 @@ $ m
 C/C++ 빌드시 시스템 툴체인을 사용하는 경우에는 디폴트 시스템 경로에서 표준 헤더 파일을 찾으므로 문제가 없지만, cross-toolchain을 사용하는 경우에는 표준 헤더 파일을 cross-toolchain 경로에서 찾아야 한다.  
 Cross-toolchain을 사용하는 경우에 표준 헤더 파일을 cross-toolchain 경로에서 찾게 하려면, **Makefile** 파일에서 아래 예와 같이 CFLAGS에 <font color=purple>--sysroot</font> 옵션으로 해당 경로를 지정해 주면 된다. (아래 예에서 `$(CC)`는 cross-toolchain의 C compiler 이름으로 세팅되어 있어야 함)
 ```make
-CFLAGS += --sysroot=$(abspath $(shell $(CC) -print-sysroot))
+CFLAGS += --sysroot=$(realpath $(shell $(CC) -print-sysroot))
 ```
 
 ## Vim 류에서 LSP 사용하기
