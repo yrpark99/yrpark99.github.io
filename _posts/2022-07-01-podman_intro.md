@@ -173,7 +173,18 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
 
 >위에서 보듯이 Podman CLI 명령은 Docker와 상당히 유사하다. (위의 예에서 유일한 차이점은 사용자 home 디렉토리를 볼륨으로 마운트시에 디폴트로 root 권한으로 설정된다는 것이었는데, 이것은 위의 예에서 보듯이 `--userns=keep-id --user=$(id -ur):$(id -gr)` 옵션을 추가로 주어서 해결할 수 있었다)
 
+## podman-compose
+초기 버전의 Podman에서는 docker-compose 툴에 대응하는 툴이 없었는데, Podman v3.2.0에서 Docker Compose 기능에 대한 지원을 도입하였고, Podman v4.1.0에서는 Docker Compose v2.2 이상의 사용을 포함하도록 Docker Compose 기능 지원이 확장되었다.  
+아래와 같이 Ubuntu 패키지로 설치할 수 있다.
+```sh
+$ sudo apt install podman-compose
+```
+또는 아래와 같이 파이썬 패키지로 설치할 수도 있다.
+```sh
+$ sudo pip3 install podman-compose
+```
+
 ## 사용 후기
 Docker는 root나 docker 권한이 있어야지만 실행할 수 있어서 불편한 점이 많았다. 예를 들어 특정 사용자들에게 docker 그룹 권한을 주면 다른 사람이 만든 이미지나 컨테이너도 멈추거나 삭제할 수 있게 되는 불편함이 있었다.  
 이에 반해 Podman은 사용자 권한으로도 모든 것을 할 수 있고, 각 사용자 별로 분리가 되므로 (다른 사람의 컨테이너를 조작 못함) 사용성이 아주 좋았다.  
-아직 Podman은 Docker에 비해 기능이나 툴, 안정성 등이 부족한 점이 있긴 하지만 이런 점들도 점점 나아지고 있어서 점차 Docker를 대체할 수 있을 것 같다.
+아직 Podman은 Docker에 비해 기능이나 툴, 안정성 등이 부족하긴 하지만 점점 나아지고 있어서, 실제로 root 권한이 필요하지 않은 컨테이너의 용도라면 Docker를 대체할 수 있을 것 같다.

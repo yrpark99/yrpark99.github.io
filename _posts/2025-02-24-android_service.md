@@ -1,5 +1,5 @@
 ---
-title: "Android 서비스 AIDL 예제"
+title: "Android 서비스(Java) AIDL 예제"
 category: [Android]
 toc: true
 toc_label: "이 페이지 목차"
@@ -8,7 +8,8 @@ toc_label: "이 페이지 목차"
 Android에서 AIDL을 사용하여 예제 서비스를 구현해 보았다.  
 <br>
 
-GitHub에서 관련 예제를 몇 개 찾을 수 있었지만, 모두 안드로이드 스튜디오에서 빌드하면 잘 되었으나, AOSP 환경에서 빌드하면 실패하였다. 그래서 직접 안드로이드 스튜디오와 AOSP에서 모두 빌드가 잘 되도록 구성해 보았고 기록을 남긴다.
+GitHub에서 관련 예제를 몇 개 찾을 수 있었지만, 모두 안드로이드 스튜디오에서 빌드하면 잘 되었으나, AOSP 환경에서 빌드하면 실패하였다. 그래서 직접 안드로이드 스튜디오와 AOSP에서 모두 빌드가 잘 되도록 구성해 보았고 관련 기록을 남긴다.  
+참고로 service는 Java나 C++ 등으로 작성할 수 있는데, 여기서는 Java를 사용하여 구현하였다.
 
 ## Android service
 Android service는 Activity, Broadcast, Contents Provider와 함께 안드로이드 4대 컴포넌트 중 하나로 자세한 사항은 
@@ -37,8 +38,8 @@ Service 구현은 다음 3가지 방법 중의 하나로 구현할 수 있다.
 ![](/assets/images/Android_service_lifecycle.drawio.svg)  
 
 ## 내 Android 서비스 예제
-AIDL을 이용하여 Android bounded 서비스의 server와 client 앱을 아래와 같이 구현하였다.  
-서비스가 제공하는 함수는 랜덤 넘버를 얻는 함수와, 콜백 함수를 등록/해제하는 함수이다.  
+AIDL을 이용하여 Android bounded 서비스의 server와 client 앱을 Java로 아래와 같이 구현하였다.  
+본 서비스가 제공하는 함수는 랜덤 넘버를 얻는 함수와, 콜백 함수를 등록/해제하는 함수이다.  
 참고로 전체 소스는 [https://github.com/yrpark99/MyServiceAidlExample.git](https://github.com/yrpark99/MyServiceAidlExample.git) 페이지에서 확인할 수 있다.
 
 ### 서비스 server 단 (MyServiceServer)

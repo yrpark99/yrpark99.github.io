@@ -552,6 +552,40 @@ return {
 }
 ```
 
+추가로 해당 언어에 대하여 자동으로 LSP 서버가 설치되게 하려면 **lua/plugins/mason_lspconfig.lua** 파일에서 아래 예와 같이 지정하면 된다.
+```lua
+return {
+  "mason-org/mason-lspconfig.nvim",
+  opts = {
+    ensure_installed = {
+      "bashls",
+      "clangd",
+      "dockerls",
+      "gopls",
+      "jdtls",
+      "lua_ls",
+      "pyright",
+      "rust_analyzer",
+      "ts_ls"
+    }
+  }
+}
+```
+
+## 마우스 hover
+마우스 hover 시 LSP 팝업을 자동으로 띄워려면 **lua/plugins/mouse_hover.lua** 파일을 아래와 같이 작성한다.
+```lua
+return {
+  "soulis-1256/eagle.nvim",
+  opts = {
+  }
+}
+```
+이후 init.lua에서 아래을 추가하면 된다.
+```lua
+vim.o.mousemoveevent = true
+```
+
 ## Tree-sitter
 LSP를 설치하면 어느 정도는 해당 소스가 신택스 하이라이팅되긴 하지만 조금 부족해 보인다. 이 경우에는 [Tree-sitter](https://tree-sitter.github.io/tree-sitter/)를 이용하면 해당 언어의 신택스 하이라이팅을 향상시킬 수 있다.  
 Neovim에서 Tree-sitter 언어 설치는 `:TSInstall` 후에 아래 예와 같이 타겟 언어를 지정하면 된다.
@@ -566,7 +600,91 @@ Neovim에서 Tree-sitter 언어 설치는 `:TSInstall` 후에 아래 예와 같�
 - `Rust`: rust
 - `TypeScript`: typescript
 
-참고로 Tree-sitter 언어별 설치 여부는 `:TSInstallInfo` 명령으로 확인할 수 있다.
+Tree-sitter 언어별 설치 여부는 `:TSInstallInfo` 명령으로 확인할 수 있다.  
+<br>
+
+추가로 해당 언어에 대하여 자동으로 Tree-sitter가 설치되게 하려면 **lua/plugins/treesitter.lua** 파일에서 아래 예와 같이 지정하면 된다.
+```lua
+return {
+  "nvim-treesitter/nvim-treesitter",
+  opts = {
+    ensure_installed = {
+      "blueprint",
+      "c",
+      "cpp",
+      "cmake",
+      "css",
+      "go",
+      "java",
+      "javadoc",
+      "javascript",
+      "kotlin",
+      "lua",
+      "make",
+      "python",
+      "rust",
+      "typescript",
+      "zig"
+    },
+    auto_install = true,
+  },
+}
+```
+
+## Neovim GUI client
+Neovim은 기본적으로 TUI(Terminal User Interface) app로 터미널의 환경에 영향을 받는 단점이 있고, GUI를 선호하는 사람도 있을 것이다. 찾아보니 Neovim을 지원하는 여러가지 GUI client 들이 있었지만, 나에게는 [Neovide](https://neovide.dev/) 툴이 가장 괜찮았다.  
+원격(remote) 서버에서 Neovim을 headless 모드로 동작시키고, 클라이언트 PC에서 Neovide로 client로 접속하는 방식이다.  
+설치는 [Neovide](https://neovide.dev/) 홈페이지에서 설치 파일을 다운받아서 설치한다. (macOS/Windows/Linux를 모두 지원, 나는 Windows 용을 설치)
+- Neovide 설정 파일: Windows의 경우 `%AppData%\neovide\config.toml`
+- Neovide 폰트 설정 예 (D2Cording Nerd Font, 크기 설정, ligature 끄기)
+  ```toml
+  [font]
+  normal = ["D2CodingLigature Nerd Font"]
+  size = 13.0
+
+  [font.features]
+  "D2CodingLigature Nerd Font" = [ "-calt" ]
+  ```
+- 줄 간격 설정: Neovim 설정 파일에서 아래 예와 같이 설정한다. (0=normal, 음수는 줄 간격을 줄임)
+  ```lua
+  vim.o.linespace = -2
+  ```
+- 애니메이션 끄기: Neovim 설정 파일에서 아래 내용을 추가하면 된다.
+  ```lua
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_position_animation_length = 0
+  ```
+- Neovide Window 종료시 Neovim quit/detach 모드 설정: Neovim 설정 파일에서 아래 내용을 추가하면 된다. (`'always_detach'`는 항상 detach, `'always_quit'`는 항상 quit, `'prompt'`는 detach/quit를 선택할 수 있도록 물어봄)
+  ```lua
+  vim.g.neovide_detach_on_quit = 'always_quit'
+  ```
+- 원격 Linux 서버에서 Neovim 실행: 원격 서버의 프로젝트 경로에서 아래 예와 같이 Neovim을 실행시킨다. (아래 예에서는 포트 번호로 6666을 사용)
+  ```sh
+  $ nvim --headless --listen 0.0.0.0:6666 . &
+  ```
+  참고로 `~/.bashrc` 파일에 아래와 같이 alias를 설정하면 **nvimheadless** 명령만 실행하면 되므로 편리하다.
+  ```sh
+  alias nvimheadless='nvim --headless --listen 0.0.0.0:6666 . &'
+  ```
+  이후 클라이언트 PC에서 아래 예와 같이 Neovide를 실행시키면 서버의 Neovim에 attach 되고 해당 디렉토리가 열린다. (아래 예에서는 포트 번호로 6666을 사용)
+  ```sh
+  C:\>neovide --server={서버주소}:6666
+  ```
+  > 편의상 Windows에서 바로가기를 생성하고 대상에 `"C:\Program Files\Neovide\neovide.exe" --server=cas.kaonmedia.com:6666` 예와 같이 설정하면, 콘솔에서 실행시킬 필요없이 바로가기 아이콘을 클릭하면 실행된다.  
+  > 여러 개의 프로젝트를 열려면 서버에서 Neovim을 서로 다른 포트 번호를 사용하여 headless 모드로 동작시키고, 클라이언트 PC에서 Neovide를 각각의 해당 포트 번호를 사용하여 연결시키면 된다.
+- WSL 환경에서도 마찬가지로 방식으로 실행시킬 수 있다.
+  WSL 배포판 Linux 서버의 원하는 경로에서 아래 예와 같이 실행시킨다.
+  ```sh
+  $ nvim --headless --listen 0.0.0.0:6666 . &
+  ```
+  이후 Windows에서 아래 예와 같이 Neovide를 실행시키면 WSL의 Neovim에 attach 되고 해당 디렉토리가 열린다.
+  ```sh
+  C:\>neovide --server=127.0.0.1:6666
+  ```
+  또는 단순히 아래와 같이 실행시키면 Neovim에 attach가 되는데, 이후 원하는 세션으로 변경해도 된다.
+  ```sh
+  C:\>neovide --wsl
+  ```
 
 ## 맺음말
 VS Code에서는 필요한 대부분의 기능이 이미 내장되어 있거나 쉽게 할 수 있고 완성도 또한 아주 좋은데 반해, Neovim은 그렇지가 못하고 대부분을 플러그인에 의존하고 있는데다가, 플러그인을 찾고 설정하기가 어려울 뿐만 아니라 완성도 또한 좋지는 못하다.  
