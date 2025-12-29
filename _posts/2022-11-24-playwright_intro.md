@@ -1,6 +1,6 @@
 ---
 title: "Web 자동화 툴 Playwright 소개"
-category: Web
+category: [업무자동화]
 toc: true
 toc_label: "이 페이지 목차"
 ---

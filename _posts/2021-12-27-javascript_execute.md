@@ -1,6 +1,6 @@
 ---
 title: "Web 자동화 툴에서 팝업 처리하기"
-category: [Web]
+category: [업무자동화]
 toc: true
 toc_label: "이 페이지 목차"
 ---

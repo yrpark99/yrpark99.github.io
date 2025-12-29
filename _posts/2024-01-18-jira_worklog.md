@@ -1,6 +1,6 @@
 ---
 title: "Jira 작업 시간 기록 자동화"
-category: [Python]
+category: [업무자동화]
 toc: true
 toc_label: "이 페이지 목차"
 ---

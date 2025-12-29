@@ -1,6 +1,6 @@
 ---
 title: "파이썬으로 안드로이드 앱 제어 예"
-category: [Android, Python]
+category: [업무자동화]
 toc: true
 toc_label: "이 페이지 목차"
 ---

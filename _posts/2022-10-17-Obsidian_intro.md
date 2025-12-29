@@ -27,15 +27,18 @@ toc_label: "이 페이지 목차"
 > 또 [Silver Bullet](https://silverbullet.md/)라는 마크다운 기반의 개인 지식 관리 시스템도 있다. 이건 GitHub IO처럼 호스팅 방식인데, 자체적으로 호스팅하고 싶은 경우에는 이용할 수 있겠다. 일단 웹호스팅을 하면 대부분의 웹브라우저에서 해당 URL로 접속하기만 하면 내용을 볼 수 있다. 오픈 소스이므로 [Silver Bullet 소스 저장소](https://github.com/silverbulletmd/silverbullet)에서 소스를 확인할 수도 있다.
 
 ## Obisidian
-[Obisidian](https://obsidian.md/)은 흑요석이란 뜻으로 마인크래프트에도 나오는 광물 중의 하나이다. (로고가 흑요석을 형상화한 모양임)  
-"**A second brain**"을 표방하는 노트 앱으로, 아래와 같은 특징을 갖고 있다.
+[Obisidian](https://obsidian.md/)은 흑요석이란 뜻으로 마인크래프트에도 나오는 광물 중의 하나로, 로고도 아래와 같이 흑요석을 형상화한 모양이다.  
+<img src="/assets/images/Obsidian_logo.png" style="zoom:15%;">  
+<br>
+
+Obisidian은 "**A second brain**"을 표방하는 노트 앱으로, 아래와 같은 특징을 갖고 있다.
   - 멀티 플랫폼 지원
   - Markdown 기반 노트 작성
-  - 멀티 탭 지원
-  - PDF export 지원
   - 파일 시스템 base
   - 로컬 및 클라우드 운용 가능
   - 플러그인 지원
+  - 멀티 탭 지원
+  - PDF export 지원
 
 ## 설치
 [Obisidian 홈페이지](https://obsidian.md/) 또는 [Obisidian 릴리즈 페이지](https://github.com/obsidianmd/obsidian-releases/releases)에서 다운로드 받아서 설치하면 된다. Electron base로 알고 있는데, 실행 속도는 빠른 편이다.  
@@ -112,6 +115,67 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
 <br>
 이후 하나의 디바이스에서 노트를 수정하고 Git push 한 후에, 다른 디바이스에서는 Git pull을 하면 sync가 맞게 된다. (이 방법은 노트별로 히스토리가 관리된다는 이점은 있지만, Git push/pull을 해야 하는 번거로움이 있다)
 
+## Custom 테마 설정
+기본 설정에 있지 않은 설정을 변경하고 싶으면 `Obsidian\.obsidian\snippets\custom.css` 파일을 작성하면 된다.  
+참고로 아래는 내가 작성한 예제이다.
+```css
+/* Code blocks */
+.markdown-rendered pre {
+    font-family: 'D2Coding', 'Cascadia Mono', 'Consolas', 'Noto Sans Mono';
+    font-size: 17px !important;
+    background-color: #f4f4f4;
+    line-height: 1em;
+    margin: 0.1em 0.1em;
+    padding: 0.2em 0.3em 0.1em 0.3em;
+    color: var(--text-normal);
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+/* Inline code block */
+.markdown-rendered :not(pre) > code {
+    font-family: 'D2Coding', 'Cascadia Mono', 'Consolas', 'Noto Sans Mono';
+    font-size: 15px !important;
+    background-color: #f2f2f2;
+    margin: 0em 0.2em;
+    padding: 0.1em 0.1em;
+    color: var(--text-normal);
+}
+
+/* Tables */
+.markdown-rendered thead tr {
+    background-color: var(--background-secondary);
+}
+
+/* Paragraph margin */
+p {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+/* Callout padding */
+div.callout {
+    padding-left: 12px;
+}
+
+/* Ordered list, Unordered list top/bottom margin */
+ol, ul {
+    margin-top: 0em !important;
+    margin-bottom: 0em !important;
+}
+
+/* Ordered list left margin */
+ol ol {
+    margin-left: -0.8em !important;
+}
+
+/* Unordered list left margin */
+ul ul {
+    margin-left: -0.8em !important;
+}
+```
+
 ## MCP 서버
 2025년부터 AI 업계에서 MCP((Model Context Protocol)의 인기가 높은데, 다음과 같은 Obsidian MCP 서버를 사용하면 AI에게 내 Obsidian 노트를 이용하게 할 수 있다.
 - [MCP server for Obsidian](https://github.com/MarkusPfundstein/mcp-obsidian)  
@@ -150,7 +214,8 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
   ```
 
 ## 맺음말
-일단 잠깐 확인해 보니, 버전 1.0.0으로의 점프는 사실상 낚시인 것 같다. 기존 버전에 비해서 사실상 크게 바뀐 것은 없었다. 😓  
-S/W 개발자들은 Markdown으로 노트를 작성하는 것이 더 편리한 경우가 많은데, 이를 위한 무료 솔루션으로 Obisidian도 괜찮을 것 같다.
+S/W 개발자들은 Markdown으로 노트를 작성하는 것이 더 편리한 경우가 많은데, 이를 위한 무료 솔루션으로 Obisidian도 괜찮을 것 같다.  
+다만, Markdown에서는 표 기능이 취약한데, 나는 복잡한 표가 필요한 경우에는 HTML의 `<table>`을 이용하여 직접 표를 원하는대로 작성한다.
 
+> 실제로 나는 기존 OneNote의 모든 노트들을 Obsidian으로 이전하여 잘 사용 중이고, 다시 OneNote로 되돌아가고 싶은 마음은 없다.  
 > 2025년 2월부터 회사에서도 무료로 사용할 수 있도록 라이선스 정책이 변경되었다. 👍
