@@ -171,6 +171,11 @@ $ compiledb -n -f --command-style make CFLAGS="-ferror-limit=0"
 Diagnostics:
   Suppress: unused-includes
 ```
+또, 예를 들어 모든 LSP warning을 안 뜨게 하려면 아래와 같이 설정하면 된다.
+```yml
+Diagnostics:
+  Suppress: "*"
+```
 
 ## Sublime Text에서 LSP 사용하기
 [Sublime Text](https://www.sublimetext.com/)는 멀티 플랫폼을 지원하는 편집기로 빠른 속도, 다양한 설정, 예쁜 테마, 다양한 플러그인 패키지 등이 장점이다.
