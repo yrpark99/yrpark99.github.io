@@ -71,9 +71,10 @@ $ git clone https://github.com/yrpark99/nvim.git ~/.config/nvim
 UTF-8과 EUC-KR 인코딩을 자동으로 디텍트하고, 상대적인 줄 번호를 사용하지 않고 (즉, 절대 줄 번호로 표시), 터미널 full 색상을 사용하도록 **init.lua** 파일에서 아래와 같이 설정하였다.
 ```lua
 -- Set Vim options
-vim.opt.fileencodings = "utf-8, euc-kr"
-vim.opt.relativenumber = false
-vim.opt.termguicolors = true
+vim.o.fileencodings = "utf-8, euc-kr"
+vim.o.mousemoveevent = true
+vim.o.relativenumber = false
+vim.o.termguicolors = true
 ```
 
 ## 칼라 설정
@@ -244,7 +245,7 @@ vim.api.nvim_set_hl(0, "VisualNonText", {
 ## 클립보드 관련
 자유로운 클립보드 사용을 위하여 (Linux <-> Windows 간 포함) **lua/config/options.lua** 파일에서 아래와 같이 설정하였다.
 ```lua
-vim.opt.clipboard = "unnamedplus"
+vim.o.clipboard = "unnamedplus"
 ```
 Windows Terminal로 WSL Linux 배포판에 접속하는 경우에는 아래와 같이 **xsel**이나 **xclip** 툴을 설치하면 된다.
 ```sh
@@ -256,10 +257,11 @@ $ sudo apt install xsel
 Neovim은 v0.9부터 빌트인으로 [EditorConfig](https://editorconfig.org/)를 지원하므로 이것을 사용하면 좋은데, 해당 프로젝트에서 이것을 사용하지 않는 경우에는 소스의 tab/space를 자동으로 디텍트 하는 것이 좋다.  
 나는 일단 **lua/config/options.lua** 파일에서 아래와 같이 디폴트 tab, space 설정을 하였다. (S/W tab 즉, space를 디폴트로 함)
 ```lua
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
+vim.o.list = false
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
 ```
 그런데 VS Code에서는 소스에서 H/W tab을 사용하는지 S/W tab(즉 space)을 사용하는지, space인 경우에는 간격이 얼마인지가 자동으로 디텍트되어서 표시되지만, Neovim에서는 이를 지원하지 않고 있다. 이 기능을 구현하기 위하여 아래와 같이 **lua/plugins/indent_automatic.lua** 파일에서 [indent-o-matic](https://github.com/Darazaki/indent-o-matic) 플러그인을 사용하였다.
 ```lua
