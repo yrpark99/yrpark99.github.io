@@ -89,7 +89,7 @@ if err != nil {
 }
 ```
 
-이후 검색된 Jira 티켓들의 Comments를 검색하여, "Request ID" 문자열 정보가 입력 passRequestID 값과 일치하는 이슈를 찾아서, 찾은 이슈(티켓)에 코멘트를 추가하고 담당자를 리포터로 변경하도록 구현하였다. (아래에서 releaseComment는 추가할 코멘트 문자열임)
+이후 검색된 Jira 티켓들의 Comments를 검색하여, "Request ID" 문자열 정보가 입력 passRequestID 값과 일치하는 이슈를 찾아서, 찾은 이슈(티켓)에 코멘트를 추가하고 담당자를 리포터로 변경하도록 구현하였다. (아래에서 releaseComment는 추가할 코멘트 문자열, releasePath는 key 릴리즈 경로 문자열임)
 ```go
 for _, issue := range issues {
     issueComments, _, err := jiraClient.Issue.Get(issue.Key, &jira.GetQueryOptions{
@@ -121,7 +121,7 @@ for _, issue := range issues {
         }
 
         comment := &jira.Comment{
-            Body: releaseComment + "\n" + pkReleaseDir,
+            Body: releaseComment + "\n" + releasePath,
         }
         _, _, err = jiraClient.Issue.AddComment(issue.Key, comment)
         if err != nil {
@@ -168,4 +168,4 @@ func extractRequestID(comment string) string {
 ```
 
 ## 효과
-위와 같이 기존 자동화 툴을 Jira 이슈까지 업데이트하도록 구현하여, key 입수/조작/릴리즈의 전 과정이 Go로 빌드한 실행 파일만 실행시키면 완료되도록 하여, 잡업무들은 간단히 끝낼 수 있었다.
+위와 같이 기존 자동화 툴을 Jira 이슈까지 업데이트하도록 구현하여, 단순히 실행 파일만 실행시키면 key 입수/조작/릴리즈의 전 과정이 자동으로 처리되도록 하였다. 역시 단순 반복 작업은 자동화 툴을 구현하여 사용하는 것이 스트레스도 없고 시간도 뺏기지 않아서 좋다.
