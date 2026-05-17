@@ -1,6 +1,6 @@
 ---
 title: "VirtualBox 명령어 팁"
-category: Environment
+category: [Environment]
 toc: true
 toc_label: "이 페이지 목차"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "NFS 서버 no_root_squash 세팅 취약점"
-category: Security
+category: [Security]
 toc: true
 toc_label: "이 페이지 목차"
 ---

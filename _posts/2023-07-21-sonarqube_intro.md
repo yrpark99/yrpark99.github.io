@@ -1,6 +1,6 @@
 ---
 title: "SonarQube 소개"
-category: Environment
+category: [Environment]
 toc: true
 toc_label: "이 페이지 목차"
 ---

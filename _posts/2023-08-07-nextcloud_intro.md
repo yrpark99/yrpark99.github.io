@@ -1,6 +1,6 @@
 ---
 title: "NextCloud로 cloud 파일 서버 구축하기"
-category: 노트
+category: [노트]
 toc: true
 toc_label: "이 페이지 목차"
 ---

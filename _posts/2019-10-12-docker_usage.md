@@ -1,6 +1,6 @@
 ---
 title: "Docker 기본 사용법"
-category: Docker
+category: [Docker]
 toc: true
 toc_label: "이 페이지 목차"
 ---

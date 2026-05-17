@@ -1,6 +1,6 @@
 ---
 title: "Docker 네트워크 IP 대역 변경하기"
-category: Docker
+category: [Docker]
 toc: true
 toc_label: "이 페이지 목차"
 ---

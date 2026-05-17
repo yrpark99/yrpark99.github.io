@@ -1,6 +1,6 @@
 ---
 title: "Bash 팁 정리"
-category: Linux
+category: [Linux]
 toc: true
 toc_label: "이 페이지 목차"
 ---

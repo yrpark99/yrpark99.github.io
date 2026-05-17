@@ -1,6 +1,6 @@
 ---
 title: "SSH 설치/접속/설정 정리"
-category: Environment
+category: [Environment]
 toc: true
 toc_label: "이 페이지 목차"
 ---
@@ -170,9 +170,17 @@ Host xxx.yyy.zzz
     PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 
+## SSH 서버 끊기는 이슈
+Windows11에서 SSH 서버에 SSH로 연결했는데, 사용 중에 SSH 콘솔에 "client_loop: send disconnect: Connection reset" 로그가 출력되면서 SSH 연결이 끊기는 경우가 있으면, `%UserProfile%\.ssh\config` 파일에 아래 내용을 추가해 본다.
+```scala
+Host *
+    ServerAliveInterval 120
+    TCPKeepAlive no
+```
+
 ## scp 사용
 `scp`는 Secure Copy Protocol의 약어로 SSH 기반이므로 SSH 환경만 구축해 놓으면 파일 복사를 아주 쉽게 해주는 툴이다. 나는 주로 Linux 시스템 간의 파일 전송, Linux 서버에서 VM 클라이언트와 호스트 간의 파일 전송, Windows와 Linux 간의 파일 전송시에 사용하는데, 물론 samba 등을 사용할 수 있지만 scp가 samba보다 빠르고 시스템 자원도 적게 사용하므로 애용하고 있다.  
-대부분의 경우에 디렉토리인 경우에는 `-rp`, 파일인 경우에는 `-p` 옵션이 주로 사용되는데, 여기에서 **-r** 옵션은 하위의 디렉토리 및 파일까지 recursive 복사, **-p** 옵션은 속성(원본 파일의 변경 시간, 접근 시간, 퍼미션 등) 보존을 의미한다.  
+대부분의 경우에 디렉토리인 경우에는 `-rp`, 파일인 경우에는 `-p` 옵션이 주로 사용되는데, 여기에서 `-r` 옵션은 하위의 디렉토리 및 파일까지 recursive 복사, `-p` 옵션은 속성(원본 파일의 변경 시간, 접근 시간, 퍼미션 등) 보존을 의미한다.  
 Windows에서도 OpenSSH에 scp 툴이 포함되어 있으므로 별도의 설치없이 편리하게 이용할 수 있다.
 
 <br>

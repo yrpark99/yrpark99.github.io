@@ -1,6 +1,6 @@
 ---
 title: "노트 앱 옵시디언 소개"
-category: 노트
+category: [노트]
 toc: true
 toc_label: "이 페이지 목차"
 ---

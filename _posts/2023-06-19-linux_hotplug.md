@@ -1,6 +1,6 @@
 ---
 title: "Linux에서 USB, Ethernet hot plug 처리"
-category: Linux
+category: [Linux]
 toc: true
 toc_label: "이 페이지 목차"
 ---

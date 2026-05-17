@@ -1,6 +1,6 @@
 ---
 title: "회사 생활 관련 조언"
-category: 명언
+category: [명언]
 toc: true
 toc_label: "이 페이지 목차"
 ---

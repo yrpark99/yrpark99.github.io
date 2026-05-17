@@ -1,6 +1,6 @@
 ---
 title: "안드로이드에서 ClearKey DRM 테스트"
-category: Android
+category: [Android]
 toc: true
 toc_label: "이 페이지 목차"
 ---

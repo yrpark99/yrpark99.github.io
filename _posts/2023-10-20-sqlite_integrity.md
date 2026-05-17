@@ -1,6 +1,6 @@
 ---
 title: "SQLite DB 무결성 검사하기"
-category: Database
+category: [Database]
 toc: true
 toc_label: "이 페이지 목차"
 ---

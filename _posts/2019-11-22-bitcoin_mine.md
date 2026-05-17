@@ -1,6 +1,6 @@
 ---
 title: "비트코인 채굴 반감기"
-category: Crypto
+category: [Crypto]
 toc: true
 toc_label: "이 페이지 목차"
 ---

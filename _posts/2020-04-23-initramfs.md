@@ -1,6 +1,6 @@
 ---
 title: "Linux initramfs"
-category: Kernel
+category: [Kernel]
 toc: true
 toc_label: "이 페이지 목차"
 ---

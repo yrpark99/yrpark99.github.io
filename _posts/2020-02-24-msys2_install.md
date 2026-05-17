@@ -1,6 +1,6 @@
 ---
 title: "MSYS2 설치"
-category: Windows
+category: [Windows]
 toc: true
 toc_label: "이 페이지 목차"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Linux capability"
-category: Security
+category: [Security]
 toc: true
 toc_label: "이 페이지 목차"
 ---

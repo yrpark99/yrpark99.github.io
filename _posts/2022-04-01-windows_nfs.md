@@ -1,6 +1,6 @@
 ---
 title: "Windows에서 NFS 서버 설치"
-category: WSL
+category: [WSL]
 toc: true
 toc_label: "이 페이지 목차"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "정적/동적 라이브러리 원하는 것으로 링크하기"
-category: Make
+category: [Make]
 toc: true
 toc_label: "이 페이지 목차"
 ---

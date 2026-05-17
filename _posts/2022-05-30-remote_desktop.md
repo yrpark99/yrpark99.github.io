@@ -1,6 +1,6 @@
 ---
 title: "원격 데스크톱 접속 방법 정리"
-category: Environment
+category: [Environment]
 toc: true
 toc_label: "이 페이지 목차"
 ---
@@ -65,8 +65,12 @@ VNC(Virtual Network Computing)를 이용한 방법으로 [RealVNC](https://www.r
 또 안드로이드의 경우 `RustDesk Remote Desktop` 앱이 있어서 (또는 [GitHub RustDesk release](https://github.com/rustdesk/rustdesk/releases)에서 Android 용 APK 파일을 다운받아서) 설치한 후에 테스트해 보니, 핸드폰에서 PC로 원격 접속도 잘 되었고, 반대로 PC에서 핸드폰으로도 원격 접속이 잘 되었다.  
 RustDesk 덕분에 라이선스 제약 없이 내가 자체 구축한 서버를 사용하여 속도와 이미지 품질까지 제법 괜찮은 무료 원격 솔루션을 구축할 수 있게 되었다. 🍺
 
+## HopToDesk
+[HopToDesk](https://www.hoptodesk.com/ko)는 국산 프로그램인데 사실상 오픈소스인 [RustDesk](https://rustdesk.com/)를 fork하여 개발하는 것 같다.  
+장점으로는 public 서버의 속도가 RustDesk 보다 빨라서, RustDesk를 대체하여 쓸만한 선택지로 보인다.
+
 ## TopDesk
-[TopDesk](https://topdesk.co.kr/)는 드물게 국산 프로그램으로 개인 뿐만 아니라 비즈니스 용도로도 무료이다. 현재는 Windows 플랫폼만 지원하고 있으며 향후에는 크로스 플랫폼도 지원할 계획인 것 같다.
+[TopDesk](https://topdesk.co.kr/)는 국산 프로그램으로 개인 뿐만 아니라 비즈니스 용도로도 무료이다. 현재는 Windows 플랫폼만 지원하고 있으며 향후에는 크로스 플랫폼도 지원할 계획인 것 같다.
 
 ## UltraViewer
 [UltraViewer](https://www.ultraviewer.net/)는 현재 Windows 플랫폼만 지원하는 단점이 있지만, 아주 간단히 무료로 이용할 수 있고, 속도 면에서도 만족스러워서 애용하고 있다.

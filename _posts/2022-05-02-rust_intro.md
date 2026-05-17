@@ -1,6 +1,6 @@
 ---
 title: "Rust 언어 소개"
-category: Rust
+category: [Rust]
 toc: true
 toc_label: "이 페이지 목차"
 ---

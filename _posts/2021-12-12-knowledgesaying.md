@@ -1,6 +1,6 @@
 ---
 title: "지식에 대한 명언"
-category: 명언
+category: [명언]
 toc: false
 toc_label: "이 페이지 목차"
 ---

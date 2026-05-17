@@ -1,6 +1,6 @@
 ---
 title: "소스 코드의 tab을 space로 변환하기"
-category: Environment
+category: [Environment]
 toc: true
 toc_label: "이 페이지 목차"
 ---

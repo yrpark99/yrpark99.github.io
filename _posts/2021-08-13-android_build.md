@@ -1,6 +1,6 @@
 ---
 title: "Android parallel job 빌드 관련"
-category: Android
+category: [Android]
 toc: true
 toc_label: "이 페이지 목차"
 ---

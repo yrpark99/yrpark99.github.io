@@ -1,6 +1,6 @@
 ---
 title: "Launch4j JRE 관련"
-category: Java
+category: [Java]
 toc: true
 toc_label: "이 페이지 목차"
 ---
