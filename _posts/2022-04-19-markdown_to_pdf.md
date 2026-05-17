@@ -1,6 +1,6 @@
 ---
 title: "Markdown 파일을 PDF로 변환하기"
-[category: [Markdown]
+category: [Markdown]
 toc: true
 toc_label: "이 페이지 목차"
 ---
