@@ -40,13 +40,13 @@ make -j 옵션으로 빌드시 각 하위 디렉토리들도 동시에 multi-job
 ```makefile
 SUBDIRS = $(wildcard */)
 all:
-    @for dir in $(SUBDIRS); do \
-        $(MAKE) -C $$dir || exit 1; \
-    done
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir || exit 1; \
+	done
 clean:
-    @for dir in $(SUBDIRS); do \
-        $(MAKE) -C $$dir clean || exit 1; \
-    done
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir clean || exit 1; \
+	done
 ```
 그런데, 이 방법은 make `-j` 옵션으로 실행시 각각의 하위 디렉토리 내에서는 parallel 빌드가 되지만, 디렉토리들이 동시에는 parallel 빌드가 되지 않는 문제점이 있다. (실제로 **htop** 명령으로 CPU 사용률을 확인해 보거나, zsh에서 **time** 명령으로 CPU 사용률 및 빌드 시간을 확인해 볼 수 있다)
 
@@ -59,7 +59,7 @@ SUBDIRS = $(wildcard */)
 all: $(SUBDIRS)
 clean: $(SUBDIRS)
 $(SUBDIRS):
-    @$(MAKE) $(MAKECMDGOALS) -C $@
+	@$(MAKE) $(MAKECMDGOALS) -C $@
 ```
 참고로 이 방식에서는 에러가 발생하면 자동으로 빌드가 중지되므로 `|| exit 1` 추가는 필요하지 않다.  
 이렇게 구성한 후에, 다시 **htop** 명령과, zsh에서 **time** 명령으로 CPU 사용률 및 빌드 시간을 확인해 보니, 정상적으로 하위 디렉토리들도 parallel 빌드가 됨을 확인하였다. 빌드 시간이 확연이 줄어들어 만족스럽다.  🍺

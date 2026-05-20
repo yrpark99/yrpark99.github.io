@@ -33,15 +33,15 @@ SRC_FILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.java))
 CLASS_DIRS = $(addprefix -C $(OUT_DIR) ,$(SUB_DIRS))
 
 all:
-    @test -d $(OUT_DIR) || mkdir $(OUT_DIR)
-    @javac -d $(OUT_DIR) -sourcepath src $(SRC_FILES)
-    @jar -cmf Manifest.mf $(TARGET) $(CLASS_DIRS)
-    @echo "Build is done. Output file is $(TARGET)"
+	@test -d $(OUT_DIR) || mkdir $(OUT_DIR)
+	@javac -d $(OUT_DIR) -sourcepath src $(SRC_FILES)
+	@jar -cmf Manifest.mf $(TARGET) $(CLASS_DIRS)
+	@echo "Build is done. Output file is $(TARGET)"
 
 clean:
-    @rm -rf $(OUT_DIR) $(TARGET)
-    @$(RM) $(TARGET)
-    @echo "Clean is done"
+	@rm -rf $(OUT_DIR) $(TARGET)
+	@$(RM) $(TARGET)
+	@echo "Clean is done"
 ```
 
 ## Manifest.mf 파일 예

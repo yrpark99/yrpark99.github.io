@@ -157,6 +157,10 @@ pre {
   font-variant-ligatures: none;
 }
 
+pre, code {
+    tab-size: 4;
+}
+
 kbd {
   background-color: #eee;
   border-radius: 3px;

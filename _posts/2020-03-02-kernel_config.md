@@ -21,7 +21,7 @@ $ make ARCH=mips XXX_defconfig
 결과로 scripts/kconfig/Makefile 파일의 아래 내용이 실행된다.
 ```makefile
 %_defconfig: $(obj)/conf
-    $(Q)$< --defconfig=arch/$(SRCARCH)/configs/$@ $(Kconfig)
+	$(Q)$< --defconfig=arch/$(SRCARCH)/configs/$@ $(Kconfig)
 ```
 즉, 아래와 같이 실행된다.
 ```bash
@@ -45,7 +45,7 @@ $ make ARCH=mips savedefconfig
 결과로 scripts/kconfig/Makefile 파일의 아래 내용이 실행된다.
 ```makefile
 savedefconfig: $(obj)/conf
-    $< --$@=defconfig $(Kconfig)
+	$< --$@=defconfig $(Kconfig)
 ```
 즉, 아래와 같이 실행된다.
 ```bash
@@ -58,11 +58,11 @@ Kernel 상위 경로에서 아래 예와 같이 `Makefile` 파일을 작성하�
 ```makefile
 # Default config 파일로 .config 파일을 생성한 후 빌드
 all:
-    $(MAKE) -C $(KERNEL_DIR) arch=mips my_defconfig
-    $(MAKE) -C $(KERNEL_DIR)
+	$(MAKE) -C $(KERNEL_DIR) arch=mips my_defconfig
+	$(MAKE) -C $(KERNEL_DIR)
 
 # 현재 .config 파일로 default config 파일 업데이트
 update_config:
-    $(MAKE) -C $(KERNEL_DIR) arch=mips savedefconfig
-    $(CP) $(KERNEL_DIR)/defconfig $(KERNEL_DIR)/arch/mips/configs/my_defconfig
+	$(MAKE) -C $(KERNEL_DIR) arch=mips savedefconfig
+	$(CP) $(KERNEL_DIR)/defconfig $(KERNEL_DIR)/arch/mips/configs/my_defconfig
 ```
