@@ -91,16 +91,16 @@ if err != nil {
 
 이후 검색된 Jira 티켓들의 Comments를 검색하여, "Request ID" 문자열 정보가 입력 passRequestID 값과 일치하는 이슈를 찾아서, 찾은 이슈(티켓)에 코멘트를 추가하고 담당자를 리포터로 변경하도록 구현하였다. (아래에서 releaseComment는 추가할 코멘트 문자열, releasePath는 key 릴리즈 경로 문자열임)
 ```go
+ticketFound := false
 for _, issue := range issues {
     issueComments, _, err := jiraClient.Issue.Get(issue.Key, &jira.GetQueryOptions{
         Expand: "comments",
     })
     if err != nil {
-        fmt.Println("Failed to get issue comments." )
+        fmt.Println("Failed to get issue comments.")
         continue
     }
 
-    ticketFound := false
     for _, comment := range issueComments.Fields.Comments.Comments {
         requestID := extractRequestID(comment.Body)
         if requestID != passRequestID {
@@ -110,43 +110,48 @@ for _, issue := range issues {
         ticketFound = true
         break
     }
+    if !ticketFound {
+        continue
+    }
 
-    if ticketFound {
-        fmt.Println("Found Jira ticket: " + issue.Key + " " + issue.Fields.Summary )
-        for _, comment := range issueComments.Fields.Comments.Comments {
-            if strings.Contains(comment.Body, releaseComment) {
-                fmt.Println("Release comment is already exist.")
-                return
-            }
+    fmt.Println("Found Jira ticket: " + issue.Key + " " + issue.Fields.Summary)
+    for _, comment := range issueComments.Fields.Comments.Comments {
+        if strings.Contains(comment.Body, releaseComment) {
+            fmt.Println("Release comment is already exist.")
+            return
         }
+    }
 
-        comment := &jira.Comment{
-            Body: releaseComment + "\n" + releasePath,
-        }
-        _, _, err = jiraClient.Issue.AddComment(issue.Key, comment)
-        if err != nil {
-            fmt.Println("Failed to add release comment.")
-            return
-        }
-        fmt.Println("Added release comment.")
-
-        reporter := issue.Fields.Reporter
-        if reporter == nil {
-            fmt.Println("Failed to get reporter")
-            return
-        }
-        if issue.Fields.Assignee.Name == reporter.Name {
-            fmt.Println("Assignee is already same as reporter.")
-            return
-        }
-        _, err = jiraClient.Issue.UpdateAssignee(issue.Key, issue.Fields.Reporter)
-        if err != nil {
-            fmt.Println("Failed to update assignee.")
-            return
-        }
-        fmt.Println("Updated assignee to " + issue.Fields.Reporter.Name)
+    comment := &jira.Comment{
+        Body: releaseComment + "\n" + releasePath,
+    }
+    _, _, err = jiraClient.Issue.AddComment(issue.Key, comment)
+    if err != nil {
+        fmt.Println("Failed to add release comment.")
         return
     }
+    fmt.Println("Added release comment.")
+
+    reporter := issue.Fields.Reporter
+    if reporter == nil {
+        fmt.Println("Failed to get reporter")
+        return
+    }
+    if issue.Fields.Assignee.Name == reporter.Name {
+        fmt.Println("Assignee is already same as reporter.")
+        return
+    }
+    _, err = jiraClient.Issue.UpdateAssignee(issue.Key, issue.Fields.Reporter)
+    if err != nil {
+        fmt.Println("Failed to update assignee.")
+        return
+    }
+    fmt.Println("Updated assignee to " + issue.Fields.Reporter.Name)
+    return
+}
+
+if !ticketFound {
+    fmt.Println("No Jira ticket found")
 }
 ```
 
