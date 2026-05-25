@@ -217,7 +217,7 @@ RPC client 프로그램으로 Client.cpp 파일을 아래와 같이 작성한다
 
 #include "JsonRpc.h"
 
-int ConnectJsonRpcServer(void) {
+int ConnectRpcServer(void) {
     struct sockaddr_in addr;
     int sock_fd;
 
@@ -287,9 +287,9 @@ bool JsonRpc_multiply(int fd, int arg1, int arg2, int &result) {
 
 int main(void) {
     int result;
-    int fd = ConnectJsonRpcServer();
+    int fd = ConnectRpcServer();
     if (fd == -1) {
-        printf("Failed to connect JSON-RPC server\n");
+        printf("Failed to connect RPC server\n");
         return 1;
     }
 
@@ -400,9 +400,9 @@ Client.cpp 파일에서도 마찬가지로 `<arpa/inet.h>` 헤더는 제거하�
 ```cpp
 #include <sys/un.h>
 ```
-또, ConnectJsonRpcServer() 함수는 아래와 같이 변경한다.
+또, ConnectRpcServer() 함수는 아래와 같이 변경한다.
 ```cpp
-int ConnectJsonRpcServer(void) {
+int ConnectRpcServer(void) {
     struct sockaddr_un addr;
     int sock_fd;
 
@@ -434,5 +434,5 @@ $ file /tmp/ipc.sock
 ```
 
 ## 맺음말
-위와 같이 기본 형태만 구현하여, 두 프로세스 간의 함수 호출을 구현해 보았다.  
-물론 추가로 서버에서의 RPC 함수 호출과 클라이언트에서의 함수 부분을 구조화할 수 있겠으나, 여기서는 의도적으로 가장 간단한 형태로 구현하였고, 추후 참조용으로 남긴다.
+위와 같이 기본 형태만 구현하여, 두 프로세스 간의 함수 호출을 구현해 보았다. 여기서는 간소화하기 위하여 2개의 프로세스를 1개는 server, 다른 1개는 client 역할을 하도록 나누었는데, 물론 필요에 따라서 각각의 프로세스가 server와 client 역할을 동시에 하도록 구현할 수도 있다.  
+또한 서버에서의 RPC 함수 호출과 클라이언트에서의 함수 부분을 구조화할 수도 있겠으나, 여기서는 의도적으로 가장 간단한 형태로 구현하여, 추후 참조용으로 남긴다.
