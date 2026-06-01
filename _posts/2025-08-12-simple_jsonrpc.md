@@ -15,6 +15,22 @@ RPC(Remote Procedure Call)는 두 프로세스 간의 함수 호출을 뜻하는
 
 여기서는 **<font color=blue>AF_INET</font>** 소켓을 이용하여 JSON RPC를 구현하였다. AF_INET 소켓은 포트를 이용하므로, 시스템이 사용 중이지 않은 포트를 사용해야 한다. 만약에 **<font color=blue>AF_UNIX</font>** 소켓을 사용하려는 경우에는 포트 대신에 소켓 파일을 사용해야 하는데, 이 방법은 AF_INET 소켓을 이용하는 예제 이후에, 필요한 변경 사항만 간략히 언급하겠다.
 
+## JSON 라이브러리
+C++ 코드에서 JSON을 사용하기 위하여 [JsonCpp](https://github.com/open-source-parsers/jsoncpp) 라이브러리를 이용할 것이므로, 아래와 같이 소스를 받아서 빌드한 후에, 시스템에 설치한다.
+```sh
+$ git clone https://github.com/open-source-parsers/jsoncpp.git
+$ cmake -B build
+$ cd build/
+$ make
+$ sudo make install
+```
+
+이후 정상적으로 잘 설치되었는지 아래와 같이 확인해 볼 수 있다.
+```sh
+$ pkg-config --cflags --libs jsoncpp
+-I/usr/local/include -L/usr/local/lib -ljsoncpp
+```
+
 ## Makefile 파일
 아래와 같이 Makefile 파일을 작성한다. 즉, `make` 명령을 실행하면 예제 RPC client, server 프로그램이 빌드된다.
 ```makefile
@@ -107,7 +123,8 @@ bool SendJsonRpc(int fd, const Json::Value &root) {
 
 ## RPC server
 RPC server 프로그램으로 Server.cpp 파일을 아래와 같이 작성한다.  
-이 server 프로그램은 AF_INET 소켓을 생성한 후에 소켓으로 들어온 입력 JSON 데이터를 파싱하여 해당 메쏘드를 처리하고, 그 처리 결과를 JSON 데이터로 만들어서 다시 client로 보낸다. 아래에서는 메쏘드 예로 "add"와 "multiply"를 구현하였다.
+이 server 프로그램은 AF_INET 소켓을 생성한 후에 소켓으로 들어온 입력 JSON 데이터를 파싱하여 해당 메쏘드를 처리하고, 그 처리 결과를 JSON 데이터로 만들어서 다시 client로 보낸다.  
+아래에서는 메쏘드 예로 "add", "multiply", "hello"를 구현하였다. (여기서 "hello" 메쏘드는 의도적으로 response가 없도록 구현하였다)
 ```cpp
 #include <arpa/inet.h>
 #include <stdio.h>
@@ -122,7 +139,7 @@ static Json::Value ProcessMethod(const Json::Value &req) {
 
     if (!req.isMember("method") || !req["method"].isString()) {
         resp["ok"] = false;
-        resp["error"] = "missing_method";
+        resp["error"] = "no_method";
         return resp;
     }
     const std::string method = req["method"].asString();
@@ -135,15 +152,16 @@ static Json::Value ProcessMethod(const Json::Value &req) {
         resp["result"] = arg1 + arg2;
         resp["ok"] = true;
         return resp;
-    }
-
-    if (method == "multiply") {
+    } else if (method == "multiply") {
         int arg1 = params.get("arg1", 0).asInt();
         int arg2 = params.get("arg2", 0).asInt();
         printf("server: method=%s, arg1=%d, arg2=%d\n", method.c_str(), arg1, arg2);
         resp["result"] = arg1 * arg2;
         resp["ok"] = true;
         return resp;
+    } else if (method == "hello") {
+        std::string msg = params.asString();
+        printf("server: method=%s, msg=%s\n", method.c_str(), msg.c_str());
     }
 
     resp["ok"] = false;
@@ -208,7 +226,7 @@ int main() {
 
 ## RPC client
 RPC client 프로그램으로 Client.cpp 파일을 아래와 같이 작성한다.  
-이 client 프로그램은 AF_INET 소켓을 사용하여 RPC server에 연결한 후에, "add"와 "multiply" 메쏘드를 파라미터와 함께 JSON RPC로 보내고, server로부터 응답을 받아서 결과를 출력한다.
+이 client 프로그램은 AF_INET 소켓을 사용하여 RPC server에 연결한 후에, "add"와 "multiply" 메쏘드를 파라미터와 함께 JSON RPC로 보내고, server로부터 응답을 받아서 결과를 출력한다. 또, 리턴값이 필요없는 void 함수를 "hello" 메쏘드로 테스트한다.
 ```cpp
 #include <arpa/inet.h>
 #include <stdio.h>
@@ -239,13 +257,11 @@ int ConnectRpcServer(void) {
     return sock_fd;
 }
 
-bool CallJsonRpc(int fd, Json::Value req, Json::Value &resp) {
+bool JsonRpcCall(int fd, Json::Value req, Json::Value &resp) {
     if (!req.isMember("method") || !req["method"].isString()) {
-        resp["error"] = "missing_method";
+        resp["error"] = "no_method";
         return false;
     }
-    const std::string strMethod = req["method"].asString();
-
     if (!SendJsonRpc(fd, req)) {
         printf("%s(): Failed to send json frame\n", __func__);
         return false;
@@ -257,13 +273,25 @@ bool CallJsonRpc(int fd, Json::Value req, Json::Value &resp) {
     return resp.isMember("ok") && resp["ok"].asBool();
 }
 
+bool JsonRpcNotify(int fd, Json::Value req) {
+    if (!req.isMember("method") || !req["method"].isString()) {
+        resp["error"] = "no_method";
+        return false;
+    }
+    if (!SendJsonRpc(fd, req)) {
+        printf("%s(): Failed to send json frame\n", __func__);
+        return false;
+    }
+    return true;
+}
+
 bool JsonRpc_add(int fd, int arg1, int arg2, int &result) {
     Json::Value req, resp;
 
     req["method"] = "add";
     req["params"]["arg1"] = arg1;
     req["params"]["arg2"] = arg2;
-    if (CallJsonRpc(fd, req, resp) == false) {
+    if (JsonRpcCall(fd, req, resp) == false) {
         printf("%s(): Failed, error=%s\n", __func__, resp["error"].asString().c_str());
         return false;
     }
@@ -277,11 +305,23 @@ bool JsonRpc_multiply(int fd, int arg1, int arg2, int &result) {
     req["method"] = "multiply";
     req["params"]["arg1"] = arg1;
     req["params"]["arg2"] = arg2;
-    if (CallJsonRpc(fd, req, resp) == false) {
+    if (JsonRpcCall(fd, req, resp) == false) {
         printf("%s(): Failed, error=%s\n", __func__, resp["error"].asString().c_str());
         return false;
     }
     result = resp["result"].asInt();
+    return true;
+}
+
+bool JsonRpc_hello(int fd, std::string msg) {
+    Json::Value req;
+
+    req["method"] = "hello";
+    req["params"] = msg;
+    if (JsonRpcNotify(fd, req) == false) {
+        printf("%s(): Failed\n", __func__);
+        return false;
+    }
     return true;
 }
 
@@ -305,6 +345,12 @@ int main(void) {
         printf("Failed to call JSON-RPC multiply\n");
     }
 
+    if (JsonRpc_hello(fd, "Notify test")) {
+        printf("client: hello()\n");
+    } else {
+        printf("Failed to call JSON-RPC hello\n");
+    }
+
     close(fd);
     return 0;
 }
@@ -317,11 +363,13 @@ int main(void) {
   ```sh
   server: method=add, arg1=2, arg2=3
   server: method=multiply, arg1=4, arg2=5
+  server: method=hello, msg=Notify test
   ```
 - client 로그
   ```sh
   client: add(2, 3) = 5
   client: multiply(4, 5) = 20
+  client: hello()
   ```
 
 ## AF_UNIX 소켓 사용하기
