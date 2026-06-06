@@ -109,6 +109,22 @@ Docker는 docker daemon에 모든 권한이 집중되다 보니 아무나 docker
   ```shell
   $ podman container restore -i <파일.tar.gz>
   ```
+- SSH 로그아웃하면 Podman 컨테이너가 종료되는 경우에는, 아래와 같이 해당 사용자에게 linger(상주)를 허용하면, SSH 로그아웃하더라도 Podman 컨테이너가 계속 실행된다.
+  ```sh
+  $ sudo loginctl enable-linger {USER}
+  ```
+  아래와 같이 올바르게 적용되었는지를 확인할 수 있다.
+  ```sh
+  $ loginctl show-user {USER} | grep Linger
+  ```
+  참고로 아래와 같이 확인시 각 User ID 별로 파일이 생성된다.
+  ```sh
+  $ ls /var/lib/systemd/linger/
+  ```
+  다시 linger(상주)를 해제하려면 아래와 같이 실행한다.
+  ```sh
+  $ sudo loginctl disable-linger {USER}
+  ```
 
 ## Podman으로 빌드 환경 구성 예
 1. 아래와 같이 `Dockerfile`을 작성하였다. (Docker 이미지 생성시에 사용한 내용과 동일함)
