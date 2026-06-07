@@ -39,7 +39,7 @@ $ sudo apt install cryptsetup-bin
 - **cryptsetup**: Kernel의 dm-crypt를 setup
   - dm-crypt 암호화 방식은 AES-256 이상을 사용해야 하고 XTS나 CBS 모드 사용이 권장된다.
   - IV 생성 전략은 XTS 모드에서는 plain64가 권장되고, CBC 모드에서는 ESSIV가 권장된다.
-  - 암호화 알고리즘에는 "aes-xts-plain64", "aes-cbc-essiv:sha256" 등이 있다.(`--cipher` 옵션으로 설정할 수 있고, 이 옵션이 없으면 디폴트가 선택됨)
+  - 암호화 알고리즘에는 "aes-xts-plain64", "aes-xts-essiv:sha256" 등이 있다.(`--cipher` 옵션으로 설정할 수 있고, 이 옵션이 없으면 디폴트가 선택됨)
   - AES 암호화는 sector 단위로 수행하고, sector의 크기는 항상 512 바이트이다.
 - **veritysetup**: Kernel의 dm-verity를 setup
   - 입력 이미지에 대한 hash를 merkle tree로 구성하거나, 구성된 hash가 올바른지 verify 한다.
@@ -207,7 +207,7 @@ $ sudo apt install cryptsetup-bin
 위에서는 이미지를 loop device에 연결하여 마운트하여 dm-crypt 이미지를 생성하였는데 이렇게 하려면 root 권한이 필요하다. 따라서 단순히 임베디드 장치에서 사용하는 rootfs squashfs 이미지에 대하여 dm-crypt 이미지를 생성하는 용도라면 이 방법은 매우 불편하므로,  일반 사용자 권한으로 dm-crypt 이미지를 생성하는 프로그램을 작성해 보았다.  
 <br>
 
-1. dm-crypt에서 사용하는 암호화 방식을 흉내내어 입력 파일에 대한 dm-crypt 이미지 생성을 담당하는 dmcrypt.py 코드를 작성하였다. (단, 아래 코드는 암호화 알고리즘으로 "aes-xts-plain64"인 경우이고, 만약에 "aes-cbc-essiv:sha256"인 경우에는 IV 관련하여 약간의 수정이 필요함)
+1. dm-crypt에서 사용하는 암호화 방식을 흉내내어 입력 파일에 대한 dm-crypt 이미지 생성을 담당하는 dmcrypt.py 코드를 작성하였다. (단, 아래 코드는 암호화 알고리즘으로 "aes-xts-plain64"인 경우이고, 만약에 다른 암호화 알고리즘을 사용하는 경우에는 거기에 맞게 수정이 필요함)
    ```python
    #!/usr/bin/env python3
 
@@ -295,6 +295,61 @@ $ HASH_OFFSET=$((DATA_BLOCKS * BLOCK_SIZE))
 이제 이 통합된 이미지에 대한 verify는 아래 예와 같이 data_device와 hash_device에 동일하게 통합된 이미지 파일을 주고, `--hash-offset=${HASH_OFFSET}` 아규먼트로 hash 옵셋값을 설정하여 수행할 수 있다.
 ```sh
 $ veritysetup verify --hash-offset="${HASH_OFFSET}" "${DMCRYPTED_HASH_FILE}" "${DMCRYPTED_HASH_FILE}" "${ROOT_HASH}"
+```
+
+## aes-xts-essiv:sha256 모드
+참고로 `cryptsetup open` 명령시 `"--cipher aes-xts-essiv:sha256"` 아규먼트를 주는 경우에는 위의 dmcrypt.py 코드를 아래와 같이 변경하면 된다.
+```python
+#!/usr/bin/env python3
+
+import struct
+import sys
+import hashlib
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.backends import default_backend
+
+SECTOR_SIZE = 512
+
+def make_essiv_iv(essiv_key, sector_number: int) -> bytes:
+    sector_bytes = struct.pack("<Q", sector_number) + b"\x00" * 8
+    cipher = Cipher(algorithms.AES(essiv_key), modes.ECB(), backend=default_backend())
+    encryptor = cipher.encryptor()
+    iv = encryptor.update(sector_bytes) + encryptor.finalize()
+    return iv
+
+def dmcrypt_cbs_essiv_sha256(in_file: str, out_file: str, key_file: str) -> None:
+    key = open(key_file, "rb").read()
+    if len(key) != 64:
+        raise RuntimeError("Key must be 64 bytes")
+    print("Key:", key.hex())
+
+    essiv_key = hashlib.sha256(key).digest()
+
+    with open(in_file, "rb") as fin, open(out_file, "wb") as fout:
+        sector_number = 0
+        while True:
+            sector = fin.read(SECTOR_SIZE)
+            if not sector:
+                break
+            iv = make_essiv_iv(essiv_key, sector_number)
+            cipher = Cipher(algorithms.AES(key), modes.XTS(iv), backend=default_backend())
+            encryptor = cipher.encryptor()
+            encrypted = encryptor.update(sector) + encryptor.finalize()
+            fout.write(encrypted)
+            sector_number += 1
+
+def main() -> None:
+    if len(sys.argv) < 4:
+        print("Argument: <input_file> <output_file> <key_file>")
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    key_file = sys.argv[3]
+    dmcrypt_cbs_essiv_sha256(input_file, output_file, key_file)
+
+if __name__ == "__main__":
+    main()
 ```
 
 ## dm-crypt squashfs on top of UBI
