@@ -134,9 +134,10 @@ Rust는 신생 언어답게 아래와 같은 modern language 기능들을 지원
   터미널 환경에서 사용할 수 있는 파일 탐색기이다. 속도가 빠르고, 파일 미리 보기 등의 기능을 지원한다(그래픽 파일이나 PDF 파일 등도 지원함). [Windows Terminal](https://github.com/microsoft/terminal)로 Linux 서버에 접속한 환경에서도 잘 되어서 개인적으로 애용하고 있다.
 
 * [Zed](https://zed.dev/)  
-  VS Code와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다. 원래는 오픈소스가 아니었는데 2024년 1월에 오픈소스로 전향되었다.   
+  VS Code와 같은 GUI 편집기로, 현재는 beta 상태이고 macOS만 지원하지만, 추후 Windows와 Linux 플랫폼도 지원 계획이 있다. 원래는 오픈소스가 아니었는데 2024년 1월에 오픈소스로 전향되었다.  
   > 2024년 7월부터 Linux도 지원하기 시작하였다.  
-  > 0.208.4 버전부터 정식으로 Windows 설치 버전도 제공하기 시작하였다.
+  > 0.208.4 버전부터 정식으로 Windows 설치 버전도 제공하기 시작하였다.  
+  > 2026년 4월에 정식 1.0.0 버전이 릴리즈 되었다.
 
   Rust로 구현되어 메모리 사용량이 적고, 속도가 상당히 빠르고(랜더링에 GPU도 이용함), LSP(Language Server Protocol)가 내장되어 있어서 현재 C/C++, Go, JavaScript, Python, Rust, TypeScript 등의 언어를 기본으로 지원하고 있다. 또, 협업 기능과, AI assistant 지원 기능도 내장하고 있다.  
   아직은 VS Code에 비하여 익스텐션이 많지는 않지만, 추후 정식으로 Windows 운영체제까지 지원하고 더 많은 익스텐션이 나오게 되면, VS Code와 비슷한 기능에 적은 메모리 사용량과 빠른 실행 속도를 무기로, VS Code의 강력한 경쟁자가 될 수 있을 것 같아서 관심을 가지고 지켜보면서 가끔씩 사용해 보고 있다.

@@ -61,7 +61,7 @@ sh-4.4# exit
 또한 원하면 간단히 프로그램을 짜서 root shell을 획득할 수도 있다.  
 <br>
 
-이런 Docker의 보안 문제점 때문에 경쟁사에서 [Podman](https://podman.io/)을 출시했었는데, Docker에서도 20.10 버전부터 정식으로 rootless 모드를 지원한다.
+이런 Docker의 보안 문제점 때문에 경쟁사에서 [Podman](https://podman.io/)이 출시되었는데, Docker에서도 20.10 버전부터 정식으로 rootless 모드를 지원한다.
 
 ## Docker rootless mode
 Docker rootless mode에 대해서는 dockerdocs의 [Rootless mode](https://docs.docker.com/engine/security/rootless/) 페이지를 참고한다.  
@@ -71,12 +71,6 @@ Docker rootless mode는 일반 사용자 권한으로 Docker 데몬과 컨테이
 Docker rootless mode를 설치하기 위한 사전 조건으로 **newuidmap**, **newgidmap** 툴이 필요하므로, 만약 아직 설치되지 않은 상태이며 아래와 같이 설치한다.
 ```sh
 $ sudo apt install uidmap
-```
-
-참고로 만약에 더이상 rootful 모드를 사용하지 않으려면 아래와 같이 disable 시킬 수 있다. (옵션 사항)
-```sh
-$ sudo systemctl disable --now docker.service docker.socket
-$ sudo rm /var/run/docker.sock
 ```
 <br>
 
@@ -192,3 +186,6 @@ mkdir: cannot create directory '/home/iamroot': Permission denied
   $ docker context show
   rootless
   ```
+
+## 맺음말
+Docker rootless 모드라는 선택지가 추가됨에 따라, 이제 용도와 선호도에 따라서 Podman과 Docker rootless를 선택할 수 있게 되었다. 👍
