@@ -125,7 +125,7 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
     font-size: 17px !important;
     background-color: #f4f4f4;
     line-height: 1em;
-    margin: 0.1em 0.1em;
+    margin: 0.1em 0.1em !important;
     padding: 0.2em 0.3em 0.1em 0.3em;
     color: var(--text-normal);
     border: 1px solid #ddd;
@@ -173,6 +173,47 @@ ol ol {
 /* Unordered list left margin */
 ul ul {
     margin-left: -0.8em !important;
+}
+
+/* Ordered list color */
+/* Level 1 */
+.markdown-rendered ol > li::marker {
+    color: #0078C5 !important;
+}
+
+/* Unordered list shape/color */
+/* Level 1 */
+.markdown-rendered ul > li > .list-bullet::after {
+    width: 5px !important;
+    height: 5px !important;
+    background: #0078C5;
+}
+/* Level 2 */
+.markdown-rendered ul ul > li > .list-bullet::after {
+    width: 4px !important;
+    height: 4px !important;
+    background: transparent !important;
+    border: 1px solid #0078C5 !important;
+}
+/* Level 3 */
+.markdown-rendered ul ul ul > li > .list-bullet::after {
+    border-radius: 0 !important;
+    width: 4px !important;
+    height: 4px !important;
+    background: #0078C5 !important;
+}
+/* Level 4 */
+.markdown-rendered ul ul ul ul > li > .list-bullet::after {
+    border-radius: 0 !important;
+    width: 4px !important;
+    height: 4px !important;
+    background: transparent !important;
+}
+
+/* File Explorer folder name */
+.nav-folder-title-content {
+    font-weight: bold;
+    color: darkblue;
 }
 ```
 

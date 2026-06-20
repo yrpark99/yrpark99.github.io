@@ -35,6 +35,11 @@ LazyVim은 Nerd 폰트를 사용하므로 시스템에 사용하려는 폰트의
 
 <br>
 
+또, Neovim에서 indent guide 라인이 너무 밝은 색으로 표시되는 것을 방지하기 위하여 Windows Terminal에서 해당 프로필 설정에서 `"추가 설정 → 모양 → 구분할 수 없는 텍스트의 밝기 자동 조정"` 항목을 "**사용 안 함**"으로 설정하였다. 또는 수동으로 설정 파일(settings.json)에서 아래와 같이 설정해도 된다.
+```json
+"adjustIndistinguishableColors": "never",
+```
+
 그런데, LazyVim은 fd, fzf, ripgrep 등의 툴을 적극적으로 사용하므로, 아래와 같은 패키지들도 설치하는 것이 좋다.
 ```sh
 $ sudo apt install build-essential fd-find fzf ripgrep
