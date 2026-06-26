@@ -117,7 +117,7 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
 
 ## Custom 테마 설정
 기본 설정에 있지 않은 설정을 변경하고 싶으면 `Obsidian\.obsidian\snippets\custom.css` 파일을 작성하면 된다.  
-참고로 아래는 내가 작성한 예제이다.
+참고로 아래는 기본 테마를 사용한 상태에서 내 입맞에 맞추어 작성한 예제이다.
 ```css
 /* Code blocks */
 .markdown-rendered pre {
@@ -147,16 +147,29 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
 .markdown-rendered thead tr {
     background-color: var(--background-secondary);
 }
+.markdown-rendered table {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
 
 /* Paragraph margin */
 p {
-    margin-top: 0.3em !important;
-    margin-bottom: 0.3em !important;
+    margin-top: 0em !important;
+    margin-bottom: 0em !important;
 }
 
-/* Callout padding */
+/* Callout */
+.markdown-rendered .callout {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
 div.callout {
-    padding-left: 12px;
+    padding-left: 8px;
+}
+
+/* Image padding */
+.internal-embed.image-embed img {
+    padding: 4px 0 0 4px;
 }
 
 /* Ordered list, Unordered list top/bottom margin */
