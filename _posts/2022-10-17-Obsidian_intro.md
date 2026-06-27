@@ -32,13 +32,15 @@ toc_label: "이 페이지 목차"
 <br>
 
 Obisidian은 "**A second brain**"을 표방하는 노트 앱으로, 아래와 같은 특징을 갖고 있다.
-  - 멀티 플랫폼 지원
-  - Markdown 기반 노트 작성
-  - 파일 시스템 base
-  - 로컬 및 클라우드 운용 가능
-  - 플러그인 지원
-  - 멀티 탭 지원
+  - Markdown 기반 노트 (로컬 파일 시스템 base)
+  - Mermaid UML 기본 지원
   - PDF export 지원
+  - 로컬 및 클라우드 운용 가능
+  - 멀티 탭 지원
+  - 멀티 플랫폼 지원
+  - 플러그인 지원
+
+특히 Obsidian의 노트를 포함하여 캔버스, Excalidraw, Mermaid UML, PlantUML 등의 모든 파일들이 로컬에서 텍스트 파일이기 때문에, AI를 이용한 작업들이 굉장히 잘 되는 장점이 있다.
 
 ## 설치
 [Obisidian 홈페이지](https://obsidian.md/) 또는 [Obisidian 릴리즈 페이지](https://github.com/obsidianmd/obsidian-releases/releases)에서 다운로드 받아서 설치하면 된다. Electron base로 알고 있는데, 실행 속도는 빠른 편이다.  
@@ -48,9 +50,11 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 도움말은 [Obsidian Help](https://help.obsidian.md/) 페이지를 참고한다.
 
 ## Obsidian 플러그인
-[Obsidian 커뮤니티 플러그인](https://obsidian.md/plugins) 페이지에서 무료로 설치할 수 있다. 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
+Obisidian 자체에도 코어 플러그인들이 있지만, 추가로 [Obsidian 커뮤니티 플러그인](https://obsidian.md/plugins)을 설치하여 사용할 수 있다. 커뮤니티 플러그인에는 아래 플러그인들을 포함하여 상당히 많은 플러그인들이 있다.
 - Advanced Tables: 표 조작
 - Automatic List Styles: ordered list 스타일 변경
+- Claude Sidebar: Claude Code 지원
+- Claudian: Claude, Claude Code, Codex, OpenCode 등 AI agent 지원
 - Diagrams.net: Draw.io 삽입
 - Editing toolbar: 마크다운 에디팅 툴바
 - Emoji Toolbar: 이모지
@@ -66,6 +70,7 @@ Android 앱은 **Play 스토어**에서 [Obsidian](https://play.google.com/store
 - Plugin update tracker: 설치된 플러그인의 업데이트 알림
 - Recent Notes: 최근 노트 목록
 - Settings search: 설정 메뉴에서 검색 지원
+- Share Note: Obsidian 노트를 웹으로 공유할 수 있게 해 줌
 - Smart Composer: 다양한 AI 지원
 
 ## 파일 저장 경로
@@ -269,7 +274,7 @@ ul ul {
 
 ## 맺음말
 S/W 개발자들은 Markdown으로 노트를 작성하는 것이 더 편리한 경우가 많은데, 이를 위한 무료 솔루션으로 Obisidian도 괜찮을 것 같다.  
-다만, Markdown에서는 표 기능이 취약한데, 나는 복잡한 표가 필요한 경우에는 HTML의 `<table>`을 이용하여 직접 표를 원하는대로 작성한다.
+다만, Markdown에서는 표 기능이 취약한데 (특히 vertical center align이 안됨), 그래서 나는 Markdown의 테이블 기능 이상이 필요한 경우에는 HTML의 `<table>`을 이용하여 직접 표를 원하는 대로 작성한다.
 
 > 실제로 나는 기존 OneNote의 모든 노트들을 Obsidian으로 이전하여 잘 사용 중이고, 다시 OneNote로 되돌아가고 싶은 마음은 없다.  
-> 2025년 2월부터 회사에서도 무료로 사용할 수 있도록 라이선스 정책이 변경되었다. 👍
+> Obsidian은 2025년 2월부터 회사에서도 무료로 사용할 수 있도록 라이선스 정책이 변경되었다. 👍

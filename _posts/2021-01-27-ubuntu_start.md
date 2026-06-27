@@ -35,7 +35,7 @@ toc_label: "이 페이지 목차"
    ```ini
    ExecStart=/home/ubuntu/tmp/server.sh
    User=ubuntu
-   WorkingDirectory=/home/ubuntu/tmp/
+   WorkingDirectory=/home/ubuntu/
    ```
 1. 아래와 같이 `systemctl`에서 **MyServer.service**를 enable 및 start 시킨다.
    ```sh
