@@ -16,4 +16,5 @@ author_profile: true
 - [tsduck에서 PMT에 scrambling_descriptor 추가, NIT의 original_network_id 변경 지원](https://github.com/yrpark99/tsduck)
 - [VS Code HIDL-syntax 익스텐션](https://github.com/yrpark99/hidl-syntax)
 - [VS Code hex-ascii-converter 익스텐션](https://github.com/yrpark99/hex-ascii-converter)
+- [VS Code TTL LSP 익스텐션](https://github.com/yrpark99/teraterm-ttl-lsp)
 - [YouTube Android Player Demo 빌드 구성](https://github.com/yrpark99/YouTubeAndroidPlayerDemo)
