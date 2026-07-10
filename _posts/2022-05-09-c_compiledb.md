@@ -48,8 +48,7 @@ $ clangd --version
 > ✅ VS Code와 같은 편집기는 자체적으로 language server를 설치하므로, 이런 경우에는 위와 같이 시스템에 별도로 language server를 설치할 필요가 없고, 간단히 해당 플러그인([C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))을 설치하기만 하면 된다.
 
 그런데 매크로를 지원하지 않는 언어에서는 간단하게 소스 navigation 등이 잘 되지만 C/C++는 매크로를 지원하고, 이로 인해 Makefile에 의한 define이나 include 경로가 복잡해 지는데 😵, 이로 인해 정상적인 코드 navigation이 안 된다.  
-<br>
-💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VS Code처럼 편집기에서 지원하는 세팅에 추가해 주거나, <font color=blue>compilation database</font> <font color=purple>(compile_commands.json)</font> 파일을 사용하면 된다.
+💡 해결책은 이런 define이나 include 설정들을 language server에 알려 주는 것인데, 이를 위해서는 VS Code처럼 편집기에서 지원하는 세팅에 (<font color=purple>c_cpp_properties.json</font> 파일) 추가해 주거나, <font color=blue>compilation database</font> <font color=purple>(compile_commands.json 파일)</font>를 이용하면 된다.
 
 ## Compilation database 파일 생성 방법
 Compilation DB 파일의 생성 방법은 빌드 시스템에 따라서 다른데, 아래에 많이 사용되는 빌드 시스템의 경우를 예시하였다.
@@ -81,19 +80,23 @@ $ compiledb -n -f --command-style < build-log.txt
 > ```
 
 참고로 Linux Kernel의 경우라면 아래와 같은 방법들로 생성할 수 있다.
-1. Kernel v5.10 이전 버전이라면 아래 예와 같이 빌드 로그 출력 파일을 이용할 수 있다.
-   ```shell
-   $ make -j V=1 --dry-run |& tee build-log.txt
-   $ compiledb < build-log.txt
-   ```
-1. Kernel v5.10 이후 버전이라면 bear나 compiledb와 같은 외부 패키지 없이도, 새롭게 추가된 `scripts/clang-tools/gen_compile_commands.py` 스크립트를 이용하여 아래와 같이 생성할 수 있다.
-   ```shell
-   $ make -j
-   $ scripts/clang-tools/gen_compile_commands.py
-   ```
+- Kernel v5.10 이전 버전이라면 아래 예와 같이 빌드 로그 출력 파일을 이용할 수 있다.
+  ```shell
+  $ make -j V=1 --dry-run |& tee build-log.txt
+  $ compiledb < build-log.txt
+  ```
+- Kernel v5.10 이후 버전이라면 bear나 compiledb와 같은 외부 패키지 없이도, 새롭게 추가된 `scripts/clang-tools/gen_compile_commands.py` 스크립트를 이용하여 아래와 같이 생성할 수 있다.
+  ```shell
+  $ make -j
+  $ scripts/clang-tools/gen_compile_commands.py
+  ```
+  또는 compile_commands.json 빌드 타겟을 지원하는 Kernel 버전인 경우에는 아래와 같이 할 수 있다.
+  ```shell
+  $ make compile_commands.json
+  ```
 
-> 또는 Linux Kernel인 경우에는 VS Code를 위하여 Linux Kernel 프로젝트를 셋업 해주는 [vscode-linux-kernel
-](https://github.com/amezin/vscode-linux-kernel)와 같은 툴을 사용하면 편리하다. 아래와 같이 실행하면 된다.
+> 참고로 Linux Kernel인 경우에는 VS Code를 위하여 Linux Kernel 프로젝트를 셋업 해주는 [vscode-linux-kernel](https://github.com/amezin/vscode-linux-kernel) 툴을 사용하면 편리하다.  
+> 아래와 같이 실행하면 된다.
 > 1. Linux Kernel을 빌드 한다. (결과로 ***.cmd** 파일이 생성되어 있어야 함)
 > 1. Linux 소스 base 경로에서 아래와 같이 `.vscode` 디렉토리로 clone 받은 후, **generate_compdb.py**를 실행하면 **compile_commands.json** 파일이 생성된다.
 >    ```shell
@@ -103,7 +106,7 @@ $ compiledb -n -f --command-style < build-log.txt
 > 1. 이제 VS Code로 열어서 소스 브라우징을 해보면, 정상적으로 LSP가 동작함을 확인할 수 있다.
 
 ### Clang 빌드 시스템인 경우
-빌드시에 -MJ 옵션을 주면 된다.
+빌드시에 `-MJ` 옵션을 주면 된다.
 
 ### CMake 빌드 시스템인 경우
 빌드시에 아래와 같이 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` 옵션을 추가하면 된다.
