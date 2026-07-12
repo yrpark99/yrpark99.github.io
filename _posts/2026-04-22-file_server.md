@@ -62,9 +62,26 @@ $ goshs
 $ nohup goshs --read-only --no-delete --no-clipboard --dir {디렉토리} 1>/dev/null 2>&1 &
 ```
 
-또는 host 서버 부팅시 자동으로 Web 파일 서버를 기동시키려면 [서버 시작시 프로그램 자동 시작 설정하기](https://yrpark99.github.io/server/ubuntu_start/) 페이지를 참고하여 설정하면 된다. (나는 우분투 서버에서 부팅시 자동으로 goshs를 실행시키기 위하여 이 방법 사용했음)
+또는 host 서버 부팅시 자동으로 Web 파일 서버를 기동시키려면 [서버 시작시 프로그램 자동 시작 설정하기](https://yrpark99.github.io/server/ubuntu_start/) 페이지를 참고하여 설정하면 된다. (나는 우분투 서버에서 부팅시 자동으로 goshs를 실행시키기 위하여 이 방법 사용했음)  
+<br>
 
-> 그런데 한글 이름의 디렉토리/파일에 대한 엑세스가 제대로 되지 않는 버그가 있었다. Claude Code에게 수정해 달라고 요청했더니, 바로 올바르게 수정해 주었다. 또, `COLLAB` 탭을 숨길 수 있는 옵션이 제공되지 않아서, 이것도 Claude Code에게 요청하였더니 바로 수정해 주었고, 결과로 빌드된 goshs를 사용해서 운용 중이다.
+그런데 사실상 `COLLAB` 탭은 필요하지 않은데 현재 소스에서는 이 탭을 숨길 수 있는 옵션을 제공하지 않았다. Claude Code에게 이 탭을 숨기는 방법을 요청하였더니, httpserver/static/templates/index.html 파일에서 아래와 같이 `style="display: none"` 줄을 추가하는 방법을 알려줬다. ✳️
+```html
+<button
+    class="snav"
+    id="nav-collab"
+    style="display: none"
+    onclick="switchPanel('collab', this)"
+    title="Collaborator"
+>
+```
+이후 아래와 같이 빌드하여서 (static, strip 빌드) 실행해 보니, 기대대로 `COLLAB` 탭이 보이지 않았다.
+```sh
+$ CGO_ENABLED=0 go build -ldflags -s
+```
+<br>
+
+> 💡 그런데 테스트를 해 보니 웹 페이지에서 한글 이름의 디렉토리/파일에 대한 엑세스가 제대로 되지 않는 버그가 있었다. Claude Code에게 수정해 달라고 요청했더니, 바로 올바르게 수정해 주었다. 결과로 빌드된 goshs를 사용해서 실제로 팀 파일 서버를 운용 중이다.
 
 ## 맺음말
 goshs Web 파일 서버는 완전 간단하게 내 파일들을 Web으로 접근할 수 있게 해준다. 특히 빠른 속도와 간단한 설정, 깔끔한 Web UI가 맘에 들어서 팀 서버에도 적용해 보았는데, 간단한 (하지만 기능은 막강함) Web 파일 서버로 추천할 수 있을 것 같다.

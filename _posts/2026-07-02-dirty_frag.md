@@ -181,7 +181,7 @@ $ echo $UID
 추가로 이 PoC는 백도어 수단으로 /etc/passwd 파일에서 해당 유저에 대하여 UID 값을 영구적으로 `0`(즉, root)으로 변경한다. (따라서 백도어를 제거하려면, 이 파일에서 다시 원래 유저 ID 값으로 되돌려야 함)  
 <br>
 
-Ubuntu 18.04는 시스템 업데이트를 최신으로 해도 이 보안 취약점이 해결이 되지 않는데, Ubuntu의 공식 보안 공지에 따르면 Ubuntu 18.04 Generic 커널은 **4.15.0-251.263** 버전부터 이 취약점이 수정되었다고 한다. 그런데 Ubuntu 18.04는 이미 Standard Support가 종료되었고, 따라서 4.15.0-251 커널은 일반 apt upgrade로는 제공되지 않고, Ubuntu Pro(ESM) 가입 시스템에서만 보안 업데이트를 받을 수 있다.  
+Ubuntu 18.04는 시스템 업데이트를 최신으로 해도 이 보안 취약점이 해결이 되지 않는데, Ubuntu의 공식 보안 공지에 따르면 Ubuntu 18.04 Generic 커널은 **4.15.0-251** 버전부터 이 취약점이 수정되었다고 한다. 그런데 Ubuntu 18.04는 이미 Standard Support가 종료되었고, 따라서 4.15.0-251 커널은 일반 apt upgrade로는 제공되지 않고, Ubuntu Pro(ESM) 가입 시스템에서만 보안 업데이트를 받을 수 있다.  
 따라서 아래와 같은 선택지가 있겠다.
 - Ubuntu 20.04 또는 22.04 이상으로 업그레이드
 - Ubuntu 18.04에서 Ubuntu Pro를 활성화하여 4.15.0-251 이상으로 Kernel 업데이트
@@ -210,7 +210,7 @@ $ sudo reboot
 
 이후 아래와 같이 확인해 본다.
 ```sh
-lsmod | egrep 'esp4|esp6|rxrpc'
+$ lsmod | egrep 'esp4|esp6|rxrpc'
 ```
 결과로 아무것도 출력되지 않으면 성공이다.  
 <br>
