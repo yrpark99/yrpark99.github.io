@@ -409,7 +409,6 @@ int JsonRpcServer() {
         close(server_fd);
         return -1;
     }
-    chmod(SOCKET_PATH, 0660);
 
     if (listen(server_fd, 1) < 0) {
         printf("%s(): Failed to listen\n", __func__);
