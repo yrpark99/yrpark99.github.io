@@ -142,7 +142,7 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
 .markdown-rendered :not(pre) > code {
     font-family: 'D2Coding', 'Cascadia Mono', 'Consolas', 'Noto Sans Mono';
     font-size: 15px !important;
-    background-color: #f2f2f2;
+    background-color: #eef3fa;
     margin: 0em 0.2em;
     padding: 0.1em 0.1em;
     color: var(--text-normal);

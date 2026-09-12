@@ -114,6 +114,43 @@ if __name__ == '__main__':
 
 > 추가로 만약에 여러 개의 안드로이드 device가 연결된 경우에는 (예로 실제 핸드폰이 USB로 연결되었고, 안드로이드 에뮬레이터도 있는 상태) adb 명령시 타겟이 설정되지 않았으므로 실패하게 된다. 위 예제에서는 이런 경우까지 대비하기 위하여 adb 명령시에 `-d` 옵션을 추가하여 연결된 USB device를 대상으로 하였고, 결과로 항상 ADB가 정상적으로 동작하였다.
 
+## 부드러운 자동 스크롤
+다른 자동화시에 아래/위로 1분 동안 부드러운 스크롤이 필요하여 아래 예와 같이 구현하였다.
+```python
+import subprocess
+
+SCROLL_X = 500
+SCROLL_TOP_Y = 600
+SCROLL_BOTTOM_Y = 1300
+SCROLL_SPEED = 0.4
+
+def adb_shell(shell_cmd):
+    command = f'adb -d shell {shell_cmd}'
+    proc = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+    (out, _) = proc.communicate()
+    return out.decode('utf-8')
+
+def calc_duration_ms(start_x, start_y, end_x, end_y):
+    distance = abs(end_y - start_y) + abs(end_x - start_x)
+    return max(1, int(distance / SCROLL_SPEED))
+
+def scroll_for(start_x, start_y, end_x, end_y, seconds):
+    duration_ms = calc_duration_ms(start_x, start_y, end_x, end_y)
+    swipe = f"input swipe {start_x} {start_y} {end_x} {end_y} {duration_ms}"
+    loop = f'"end=$(($(date +%s) + {seconds})); while [ $(date +%s) -lt $end ]; do {swipe}; done"'
+    adb_shell(loop)
+
+def scroll_down(seconds):
+    scroll_for(SCROLL_X, SCROLL_BOTTOM_Y, SCROLL_X, SCROLL_TOP_Y, seconds)
+
+def scroll_up(seconds):
+    scroll_for(SCROLL_X, SCROLL_TOP_Y, SCROLL_X, SCROLL_BOTTOM_Y, seconds)
+
+if __name__ == '__main__':
+    scroll_down(60)
+    scroll_up(60)
+```
+
 ## Windows 스케줄러 생성
 식권 신청 앱은 특정 시간대에만 식권 신청이 가능한데, 위 예제 코드에서는 현재 시간을 검사하지는 않았다.  
 대신에 Windows에서 스케줄러를 (`taskschd.msc` 실행) 만들어서 근무 요일(월 ~ 금)의 특정 시간대에만 위 코드를 실행하도록 하였다. 또는 Windows 콘솔을 관리자 권한으로 연 후, 아래 예와 같이 실행하면 Windows 작업 스케줄러에 추가된다. (아래 예는 매일 오후 5시 55분에 수행)
