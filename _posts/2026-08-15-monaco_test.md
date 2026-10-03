@@ -243,11 +243,11 @@ function defineThemes() {
 
 ## 테스트 예제
 - C/C++ 예  
-![](/assets/images/monaco_test1.png)
+  ![](/assets/images/monaco_test1.png)
 - CSS 예  
-![](/assets/images/monaco_test2.png)
+  ![](/assets/images/monaco_test2.png)
 - JSON 예  
-![](/assets/images/monaco_test3.png)
+  ![](/assets/images/monaco_test3.png)
 
 ## 맺음말
 VS Code가 사용하는 훌륭한 에디터를 이렇게 쉽게 빠르고 사용할 수 있었다. Web 브라우저는 물론이고 Web App에도 사용할 수 있어서, 강력한 에디터 기능이 필요한 경우에는 Monaco 에디터를 고려해 보는 것도 좋을 것 같다. 😊

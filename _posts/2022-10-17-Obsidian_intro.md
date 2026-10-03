@@ -160,6 +160,17 @@ blockquote p {
     color: #444444 !important;
     margin: 0 !important;
 }
+blockquote p code {
+    background-color: #fafafa !important;
+}
+
+/* Callout */
+.callout-title-inner code {
+    background-color: #fafafa !important;
+}
+.callout code {
+    background-color: #fafafa !important;
+}
 
 /* Tables */
 .markdown-rendered thead tr {
