@@ -148,6 +148,19 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
     color: var(--text-normal);
 }
 
+/* Block quote */
+blockquote {
+    color: #444444 !important;
+    border-left: .5em solid #539fd1 !important;
+    padding: 0.5em 0.5em !important;
+    background-color: #f0f3f5 !important;
+    margin-left: 0 !important;
+}
+blockquote p {
+    color: #444444 !important;
+    margin: 0 !important;
+}
+
 /* Tables */
 .markdown-rendered thead tr {
     background-color: var(--background-secondary);
