@@ -130,7 +130,7 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
     font-size: 17px !important;
     background-color: #f4f4f4;
     line-height: 1em;
-    margin: 0.1em 0.1em !important;
+    margin: 0.2em 0.1em !important;
     padding: 0.2em 0.3em 0.1em 0.3em;
     color: var(--text-normal);
     border: 1px solid #ddd;
@@ -152,7 +152,8 @@ Android의 경우에도 [MGit](https://play.google.com/store/apps/details?id=com
 blockquote {
     color: #444444 !important;
     border-left: .5em solid #539fd1 !important;
-    padding: 0.5em 0.5em !important;
+    margin: 0.2em !important;
+    padding: 0.3em 0.3em !important;
     background-color: #f0f3f5 !important;
     margin-left: 0 !important;
 }
@@ -220,7 +221,7 @@ ul ul {
 /* Ordered list color */
 /* Level 1 */
 .markdown-rendered ol > li::marker {
-    color: #0078C5 !important;
+    color: #0078c5 !important;
 }
 
 /* Unordered list shape/color */
@@ -228,21 +229,21 @@ ul ul {
 .markdown-rendered ul > li > .list-bullet::after {
     width: 5px !important;
     height: 5px !important;
-    background: #0078C5;
+    background: #0078c5;
 }
 /* Level 2 */
 .markdown-rendered ul ul > li > .list-bullet::after {
     width: 4px !important;
     height: 4px !important;
     background: transparent !important;
-    border: 1px solid #0078C5 !important;
+    border: 1px solid #0078c5 !important;
 }
 /* Level 3 */
 .markdown-rendered ul ul ul > li > .list-bullet::after {
     border-radius: 0 !important;
     width: 4px !important;
     height: 4px !important;
-    background: #0078C5 !important;
+    background: #0078c5 !important;
 }
 /* Level 4 */
 .markdown-rendered ul ul ul ul > li > .list-bullet::after {
@@ -250,6 +251,15 @@ ul ul {
     width: 4px !important;
     height: 4px !important;
     background: transparent !important;
+}
+/* Level 5 */
+.markdown-rendered ul ul ul ul ul > li > .list-bullet::after {
+    border-radius: 0 !important;
+    width: 5px !important;
+    height: 5px !important;
+    background: #707070 !important;
+    border: 1px solid #707070 !important;
+    box-sizing: border-box !important;
 }
 
 /* File Explorer folder name */

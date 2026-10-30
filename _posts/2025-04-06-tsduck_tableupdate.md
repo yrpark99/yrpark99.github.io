@@ -24,11 +24,19 @@ TSDuck 툴에서 제공하는 입력 TS 파일의 DVB SI 테이블(PMT/SDT/BAT/E
      <scrambling_mode=3>
    </scrambling_descriptor>
    ```
-   또는 아래와 같이 generic_descriptor를 이용할 수도 있다.
+   위 수정 대신에 아래와 같이 generic_descriptor를 이용할 수도 있다.
    ```xml
    <generic_descriptor tag="0x65">
      03
    </generic_descriptor>
+   ```
+   또는 아래와 같이 PMT 정보를 XML로 추출한다.
+   ```sh
+   $ tsp -I file {입력 TS 파일} -P tables --pid 0x80D --tid 0x02 --xml {XML file} -O drop
+   ```
+   이후 추출된 PMT XML 파일에서 아래 예와 같이 scrambling_descriptor를 추가해도 된다.
+   ```xml
+   <Scrambling_descriptor scrambling_mode="0x03"/>
    ```
 1. 입력 TS 파일에 새로운 PMT를 적용하여 출력 TS 파일을 생성한다.
    ```sh
